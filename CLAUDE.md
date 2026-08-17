@@ -159,7 +159,10 @@ Project                        IdeaNote               Resource              Cate
 **사용자 데이터는 기기에만 저장한다.** 서버에는 프로젝트·노트·자료·사용자 계정 어느 것도 저장하지 않고,
 클라우드 동기화도 없다.
 
-- **데이터 손실 안내를 앱 내에 명시한다**(빈 화면·설정):
+- **첫 실행 1회 프라이버시 웰컴 시트**(2026-08-17 사용자 결정 — 한 장, 버튼 하나 "Start", 다시 안 뜸): 제목 "Your ideas stay on your device." +
+  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK와 사용자가 보낸 문의뿐**) + 손실 안내 + 처리방침 링크.
+  같은 내용을 설정 → About "Privacy at a glance"에서 다시 볼 수 있다(`components/privacy-overview.tsx`). 온보딩 여러 장·매 실행 팝업 🚫.
+- **데이터 손실 안내를 앱 내에 명시한다**(빈 화면·웰컴 시트·설정):
   > *Your ideas are stored locally on your device and are not uploaded to our servers.*
   > *If you delete the app or change devices, your data may be lost.*
 - **백업은 MVP에서 제외**(2026-08-17 확정 — 출시 후 P1 재검토). 하게 되면 서버 업로드가 아니라 **사용자 기기에서 파일을 직접 관리**하는
@@ -398,4 +401,5 @@ idea_repository/
   카드 목록(Recently Updated) · 길게 눌러 삭제 · 카테고리 관리(설정) · 태그 입력 · 배너 자리 플레이스홀더.
 - **Phase 2 완료**(2026-08-17): 상세(빈 항목 "Add …" → 편집) · 편집(공용 폼 전 필드, 슬라이더·날짜 피커) · 노트 인라인 CRUD · 자료 CRUD(브라우저) · 설정 → About(처리방침·약관 링크·사업자 정보) · STORE_LISTING.md.
 - **Phase 3 완료**(2026-08-17): 검색(9필드)·상태 칩·필터 시트·정렬 6종·상태 유지. 법무 문서 초안(`docs/legal/`)·STORE_LISTING 작성(미게시).
-- 다음 단계: 첫 실행 프라이버시 웰컴 시트(2026-08-17 사용자 논의, 제안안 대기) → Phase 4(i18n 완성 점검) → Phase 5(common_server 연동). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- 첫 실행 프라이버시 웰컴 시트 ✅(2026-08-17). 법무 문서 게시는 아래 LEGAL_SYSTEM 참조.
+- 다음 단계: Phase 4(i18n 완성 점검) → Phase 5(common_server 연동). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

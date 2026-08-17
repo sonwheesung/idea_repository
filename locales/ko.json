@@ -121,7 +121,6 @@
   "about": {
     "version": "버전 {{version}}",
     "tagline": "내 아이디어. 내 기기. 내가 만든다.",
-    "dataTitle": "데이터 저장 안내",
     "privacy": "개인정보처리방침",
     "terms": "이용약관",
     "contact": "문의하기",
@@ -178,5 +177,16 @@
     "progress": "진행률순",
     "targetEndDate": "마감일순",
     "priority": "우선순위순"
+  },
+  "welcome": {
+    "title": "아이디어는 이 기기에만 저장됩니다.",
+    "lead": "Idea Repository는 프로젝트·노트·자료를 이 기기 안에만 저장합니다. 저희 서버로 업로드되지 않으며, 저희는 내용을 볼 수 없습니다.",
+    "point": {
+      "noAccount": "계정도 로그인도 없습니다. 가입할 것이 없습니다.",
+      "noCloud": "클라우드 동기화가 없습니다. 아이디어는 저희 서버로 가지 않습니다.",
+      "whatLeaves": "기기를 떠나는 것: 광고 SDK(Google AdMob)와 사용자가 직접 보내는 문의뿐입니다. 그 외에는 없습니다."
+    },
+    "readPolicy": "개인정보처리방침 보기",
+    "start": "시작하기"
   }
 }

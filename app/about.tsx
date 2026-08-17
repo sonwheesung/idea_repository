@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Card } from '@/components/card';
+import { PrivacyOverview } from '@/components/privacy-overview';
 import { Screen } from '@/components/screen';
 import { BUSINESS, LINKS } from '@/lib/links';
 import { useTheme } from '@/theme/use-theme';
@@ -41,10 +42,9 @@ export default function AboutScreen() {
       </View>
 
       {/* 로컬 저장 안내 (CLAUDE.md §6 — 정직한 표현 규칙) */}
+      {/* Privacy at a glance — 첫 실행 웰컴 시트와 같은 내용을 여기서 다시 본다 (2026-08-17) */}
       <Card style={styles.card}>
-        <Text style={[styles.sectionTitle, { color: theme.text }]}>{t('about.dataTitle')}</Text>
-        <Text style={[styles.bodyText, { color: theme.textMuted }]}>{t('data.notice.local')}</Text>
-        <Text style={[styles.bodyText, { color: theme.textMuted }]}>{t('data.notice.loss')}</Text>
+        <PrivacyOverview />
       </Card>
 
       {/* 링크 */}
@@ -121,7 +121,6 @@ const styles = StyleSheet.create({
   tagline: { fontSize: 14, marginTop: 6, textAlign: 'center' },
   card: { gap: 8 },
   sectionTitle: { fontSize: 15, fontWeight: '600', marginBottom: 2 },
-  bodyText: { fontSize: 14, lineHeight: 20 },
   linkCard: { padding: 0, gap: 0 },
   linkRow: {
     flexDirection: 'row',

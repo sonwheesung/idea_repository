@@ -121,7 +121,6 @@
   "about": {
     "version": "Version {{version}}",
     "tagline": "Your ideas. Your device. Yours to build.",
-    "dataTitle": "Where your data lives",
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "contact": "Contact",
@@ -178,5 +177,16 @@
     "progress": "Progress",
     "targetEndDate": "Target End Date",
     "priority": "Priority"
+  },
+  "welcome": {
+    "title": "Your ideas stay on your device.",
+    "lead": "Idea Repository stores your projects, notes and resources locally on this device. They are not uploaded to our servers — we cannot read them.",
+    "point": {
+      "noAccount": "No account, no sign-in. Nothing to register.",
+      "noCloud": "No cloud sync. Your ideas never go to our servers.",
+      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob) and any support inquiry you choose to send. Nothing else."
+    },
+    "readPolicy": "Read the privacy policy",
+    "start": "Start"
   }
 }
