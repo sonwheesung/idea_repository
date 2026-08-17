@@ -42,7 +42,7 @@ export default function IdeaRepositoryTerms() {
         </a>
         을 따릅니다. (English version below.)
       </p>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17 (3차)</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17 (4차)</p>
 
       <section style={card}>
         <h2 style={h2}>제1조 목적 · 제2조 정의</h2>
@@ -137,6 +137,10 @@ export default function IdeaRepositoryTerms() {
             청약철회·환불을 요청할 수 있습니다.
           </li>
           <li>환불이 이루어지면 광고 제거 적용이 해제되어 광고가 다시 표시될 수 있습니다.</li>
+          <li>
+            적용 범위: 동일 스토어 계정으로 로그인한 기기의 앱(iOS 가족 공유가 허용되는 경우 포함). 광고 없는 버전의 이용 권한이며 영구 업데이트·서버 기능의 영구 제공을
+            보장하지 않습니다(제13조). Google Play에서 Google이 판매자가 아닌 지역에서는 회사가 판매자이며, Play 환불 정책에 따른 환불을 Google이 회사를 대신해 처리합니다.
+          </li>
           <li>미성년자가 법정대리인의 동의 없이 결제한 경우, 본인 또는 법정대리인은 스토어 절차 또는 문의하기로 취소를 신청할 수 있습니다.</li>
         </ul>
       </section>
@@ -191,7 +195,7 @@ export default function IdeaRepositoryTerms() {
           <b>스토어 약관.</b> 앱은 Google Play 및 (출시 시) Apple App Store를 통해 배포되며 다운로드·결제에는 각 스토어의 약관이 함께 적용됩니다.
           스토어는 이 약관의 당사자가 아니며 앱의 유지보수·지원 의무를 지지 않습니다. iOS의 경우 이 약관은 이용자와 회사 사이의 것으로 Apple은
           앱에 대한 보증·제조물 책임·지식재산권 침해·법령 준수 의무를 지지 않으며, Apple 및 그 자회사는 이 약관의 제3수익자로서 약관을 집행할 수
-          있습니다.
+          있습니다. 이용자는 미국 정부의 금수 대상 국가에 거주하지 않고 미국 정부의 거래 금지·제한 대상자 명단에 없음을 확인합니다.
         </p>
       </section>
 
@@ -213,7 +217,7 @@ export default function IdeaRepositoryTerms() {
         </ul>
       </section>
 
-      <p style={{ ...muted, marginTop: 24, fontSize: 13 }}>부칙 — 이 약관은 2026-08-17부터 시행합니다. 개정 이력: 2026-08-17 최초 제정 · 2차(글로벌 점검: 최소 연령·ODR 종료 반영·스토어 약관 조항) · 3차(광고 제거 기준 가격 ₩1,500 → ₩3,300, 판매 개시 전 정정).</p>
+      <p style={{ ...muted, marginTop: 24, fontSize: 13 }}>부칙 — 이 약관은 2026-08-17부터 시행합니다. 개정 이력: 2026-08-17 최초 제정 · 2차(글로벌 점검: 최소 연령·ODR 종료 반영·스토어 약관 조항) · 3차(광고 제거 기준 가격 ₩1,500 → ₩3,300, 판매 개시 전 정정) · 4차(유사 앱 벤치마크: 구매 적용 범위, Play 판매자 지위·환불 위임, 미국 금수 확인).</p>
 
       <hr style={divider} />
 
@@ -266,6 +270,11 @@ export default function IdeaRepositoryTerms() {
           </li>
           <li>Payment is processed by Google Play or the Apple App Store; we do not receive your payment details. Ads are removed <b>immediately</b> after the store confirms the purchase.</li>
           <li>Restore: Settings → Remove Ads → <b>Restore Purchases</b> (same store account; no login with us).</li>
+          <li>
+            Scope: applies to the App on devices signed in to the same store account (incl. iOS Family Sharing where the store enables it). It is a licence to the
+            ad-free version, not a promise of perpetual updates or of server-side features beyond section 8. On Google Play, where Google is not the merchant of
+            record we are the seller of record and have authorised Google to refund on our behalf under the Play refund policy.
+          </li>
           <li>
             Refunds and withdrawal: because the content is delivered immediately, your statutory right to withdraw may be limited once ads have been removed, to
             the extent permitted by law. Refunds follow the <b>refund policy of Google Play or the Apple App Store</b>. Non-waivable consumer rights (e.g. if the

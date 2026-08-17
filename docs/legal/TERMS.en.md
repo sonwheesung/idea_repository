@@ -1,6 +1,6 @@
 # Idea Repository — Terms of Use
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 3 — price ₩3,300)
+Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 4 — peer benchmark)
 
 > Publication target: `https://vivace-games.com/idearepository/terms` (KO main + EN section, mirroring the sister-app
 > terms page). Source text for the page `docs/legal/pages/idearepository/terms/page.tsx`. Korean version (with the
@@ -54,9 +54,14 @@ feature — and it is not a subscription; there are no recurring charges.
   receive your payment details. Ads are removed **immediately** after the store confirms the purchase.
 - Restore: after reinstalling or changing devices, use **Settings → Remove Ads → Restore Purchases**. Restoration relies
   on the store's purchase history for the same store account; no login with us is needed or possible.
+- Scope: the purchase applies to the App on devices signed in to the same store account (including iOS Family Sharing
+  where the store enables it). It is a licence to use the ad-free version, not a promise of perpetual updates or of
+  server-side features (notices, inquiries) beyond section 8.
 - Refunds and withdrawal: because the content is delivered immediately, your statutory right to withdraw may be
   limited once ads have been removed, to the extent permitted by law. Refunds are handled under the **refund policy
-  of Google Play or the Apple App Store**; please request them through the store. Where consumer law grants you
+  of Google Play or the Apple App Store**; please request them through the store. On Google Play, in regions where
+  Google is not the merchant of record we are the seller of record and have authorised Google to issue refunds on our
+  behalf under the Play refund policy. Where consumer law grants you
   non-waivable rights (for example, if the purchase does not work), those rights are unaffected, and you may also
   contact us at support@vivace-games.com. If a purchase is refunded, ads may return.
 - Minors: if you are a minor under the law of your country, make purchases only with the consent of a parent or

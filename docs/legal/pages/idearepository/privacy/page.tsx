@@ -43,7 +43,7 @@ export default function IdeaRepositoryPrivacy() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — Privacy Policy</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 2)</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 3)</p>
       <p style={muted}>
         Idea Repository is a personal idea and project organizer. It is built around one principle:{' '}
         <b>your ideas are stored locally on your device and are not uploaded to our servers.</b> Idea Repository has
@@ -87,8 +87,23 @@ export default function IdeaRepositoryPrivacy() {
           where you can also decline personalized ads. See{' '}
           <a href="https://policies.google.com/privacy" style={link}>
             Google&apos;s Privacy Policy
+          </a>{' '}
+          and{' '}
+          <a href="https://policies.google.com/technologies/partner-sites" style={link}>
+            how Google uses information from apps that use its services
           </a>
-          . Purchasing &quot;Remove Ads&quot; stops ad serving entirely.
+          . Purchasing &quot;Remove Ads&quot; (where available) stops ad serving entirely.
+        </p>
+        <p style={muted}>
+          <b>How to control ads (anywhere).</b> Android: Settings → Google → Ads → <i>Delete advertising ID</i> or <i>Opt out
+          of Ads Personalization</i>. iOS: Settings → Privacy &amp; Security → Tracking, and Apple Advertising → Personalized
+          Ads. EEA / UK / Switzerland: the in-app consent form, later Settings → Privacy options.
+        </p>
+        <p style={muted}>
+          <b>What we do not use.</b> No analytics, crash-reporting or attribution SDK (no Firebase, no Google Analytics), no
+          social login, no push notifications. Beyond the AdMob SDK and the two requests in 3.b / 3.c the App makes no
+          network requests. Android permissions: Internet, advertising ID (AD_ID) and the store billing library — no camera,
+          contacts, location, microphone, storage or notification permissions.
         </p>
         <p style={bullet}>• Purpose: ad serving, ad measurement, fraud prevention.</p>
         <p style={bullet}>
@@ -190,8 +205,14 @@ export default function IdeaRepositoryPrivacy() {
         </table>
         <p style={muted}>
           Where data is transferred outside your jurisdiction, we rely on the recipient&apos;s standard contractual
-          clauses or equivalent safeguards. Google&apos;s, Apple&apos;s and RevenueCat&apos;s own privacy policies apply
-          to their processing.
+          clauses or equivalent safeguards. Their own privacy policies apply to their processing:{' '}
+          <a href="https://policies.google.com/privacy" style={link}>Google</a> ·{' '}
+          <a href="https://www.apple.com/legal/privacy/" style={link}>Apple</a> ·{' '}
+          <a href="https://www.revenuecat.com/privacy" style={link}>RevenueCat</a> ·{' '}
+          <a href="https://vercel.com/legal/privacy-policy" style={link}>Vercel</a> ·{' '}
+          <a href="https://supabase.com/privacy" style={link}>Supabase</a> ·{' '}
+          <a href="https://discord.com/privacy" style={link}>Discord</a>. Our Google Play Data Safety form and (on iOS) App
+          Store privacy label mirror this policy.
         </p>
       </section>
 
@@ -251,7 +272,9 @@ export default function IdeaRepositoryPrivacy() {
           All transmissions described above use encrypted connections (HTTPS). Inquiry records are stored with access
           controls and are accessible only to the operator. Data stored locally on your device is protected by your
           device&apos;s own security (screen lock, device encryption). We cannot guarantee absolute security: shared
-          devices, malware, device loss, OS vulnerabilities or device backups you create are outside our control.
+          devices, malware, device loss, OS vulnerabilities or device backups you create are outside our control. Your
+          device&apos;s own backup features (Android Auto Backup / Google One, iCloud Backup) may copy app data to Google&apos;s
+          or Apple&apos;s servers under your account and settings — that copy is governed by their policies, not by us.
         </p>
       </section>
 
@@ -298,6 +321,15 @@ export default function IdeaRepositoryPrivacy() {
         <p style={bullet}>
           • <b>제3자(SDK) 자동 수집</b>: Google AdMob — 광고 식별자(ADID/IDFA), IP 기반 대략적 위치, 광고 상호작용, 기기·진단 정보(광고
           게재·측정) / RevenueCat — 익명 구매 식별자, 구매 이력(구매 검증·복원) / 스토어 — 결제 정보(스토어가 직접 처리).
+        </p>
+        <p style={bullet}>
+          • <b>사용하지 않는 것</b>: 분석·비정상 종료 보고·어트리뷰션 SDK(Firebase·Google Analytics 등), 소셜 로그인, 푸시 알림 없음. AdMob SDK와 위 두
+          요청(문의·부팅 조회) 외 네트워크 요청 없음. Android 권한은 인터넷·광고 ID(AD_ID)·스토어 결제 라이브러리뿐(카메라·연락처·위치·마이크·저장소·알림
+          권한 없음).
+        </p>
+        <p style={bullet}>
+          • <b>기기 백업</b>: 기기 자체 백업 기능(Android 자동 백업 / Google One, iCloud 백업)이 이용자 본인 계정·설정에 따라 앱 데이터를 Google·Apple
+          서버에 복사할 수 있으며, 이는 회사 통제 밖으로 각 사 정책을 따릅니다.
         </p>
         <p style={bullet}>• 회사는 이름·이메일·전화번호·주소·결제 카드 정보를 수집하지 않습니다.</p>
       </section>

@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 2 — global review)
+Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 3 — benchmark against peer apps)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -26,7 +26,9 @@ Everything you create in Idea Repository — **projects, summaries, descriptions
 users, progress, status, priority, dates, idea notes, related resources (titles, URLs, descriptions), categories,
 tags, and settings (theme, language, filters)** — is stored only in local storage on your device (SQLite / app
 storage). It is not uploaded to our servers, and we cannot read it. If you delete the app or change devices, this
-data may be lost; there is no cloud backup.
+data may be lost; there is no cloud backup. Note that your device's own backup features (Android Auto Backup /
+Google One, iCloud Backup) may copy app data to Google's or Apple's servers under **your** account and settings — that
+copy is outside our control and governed by their policies.
 
 When you tap a related resource, the URL is opened by your device's browser. The app itself does not fetch the page or
 its icon, so your list of saved resources is not disclosed to any third party by the app.
@@ -48,6 +50,16 @@ Purchasing "Remove Ads" stops ad serving entirely.
 - Legal basis (GDPR): consent (personalized ads, via the consent form); legitimate interest (non-personalized ads,
   fraud prevention).
 - Retention: by Google under Google's policies. We do not receive or store this data ourselves.
+
+**How to control ads (anywhere in the world).** Android: Settings → Google → Ads → *Delete advertising ID* or *Opt out
+of Ads Personalization*. iOS: Settings → Privacy & Security → Tracking (turn off *Allow Apps to Request to Track*) and
+Apple Advertising → Personalized Ads. EEA / UK / Switzerland: the in-app consent form, later Settings → Privacy options.
+Any region: the one-time "Remove Ads" purchase, where available, stops ad requests entirely.
+
+**What we do not use.** The App contains no analytics, crash-reporting or attribution SDK (no Firebase, no Google
+Analytics), no social login and no push notifications. Beyond the AdMob SDK and the two requests described in 3.b and
+3.c, the App makes no network requests. Android permissions requested: Internet, advertising ID (`AD_ID`), and the
+store billing library — no camera, contacts, location, microphone, storage or notification permissions.
 
 ### b. Support inquiries (optional, user-initiated)
 
@@ -96,7 +108,11 @@ link purchases to any account (there are none).
 | Discord | Internal notification of new inquiries to the operator | Inquiry text summary | US |
 
 Where data is transferred outside your jurisdiction, we rely on the recipient's standard contractual clauses or
-equivalent safeguards. Google's, Apple's and RevenueCat's own privacy policies apply to their processing.
+equivalent safeguards. Their own privacy policies apply to their processing: [Google](https://policies.google.com/privacy)
+· [Apple](https://www.apple.com/legal/privacy/) · [RevenueCat](https://www.revenuecat.com/privacy) ·
+[Vercel](https://vercel.com/legal/privacy-policy) · [Supabase](https://supabase.com/privacy) ·
+[Discord](https://discord.com/privacy). Our Google Play Data Safety form and (on iOS) App Store privacy label mirror
+this policy.
 
 ## 5. Your rights
 
@@ -148,7 +164,9 @@ We will post any changes to this policy at the publication URL with a new effect
 be announced in the app's notice screen.
 
 Revision history: 2026-08-17 first version · 2026-08-17 rev. 2 (global review: Switzerland and other-jurisdiction
-rights, minimum age by country, connection data of the start check, deletion scope, Remove Ads availability).
+rights, minimum age by country, connection data of the start check, deletion scope, Remove Ads availability) ·
+2026-08-17 rev. 3 (peer-app benchmark: OS backup caveat, global ad controls, "what we do not use" and permissions,
+processor policy links, Data Safety mirror).
 
 ## 9. Contact
 

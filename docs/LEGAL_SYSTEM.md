@@ -16,6 +16,7 @@
 | Play 데이터 보안·Apple 라벨 답안 `docs/legal/DATA_SAFETY.md` | ✅ | 2026-08-17. **Play 콘솔 제출 완료**(§2 그대로 — 구매 내역 행은 Phase 7 RC 도입 시 추가) |
 | 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ | 2026-08-17. 배구 레포 `server/app/idearepository/…`로 복사·커밋(볼리볼 `3eb8929` → 2차 `6297b52`) — **정본은 이 레포의 docs/legal**, 수정 시 재복사·재배포 |
 | **2차 글로벌 점검(2026-08-17)** | ✅ | 아래 §8. md 4종·page.tsx 2종·앱 코드(UMP 개인정보 옵션·웰컴 문구) 동시 갱신, 재배포 |
+| **3·4차 타 앱 벤치마크(2026-08-17)** | ✅ | 아래 §9. 처리방침 rev.3 · 약관 4차 재배포 |
 | 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
@@ -127,7 +128,7 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 | 7 | 일본어 등 추가 언어(ja·zh·es·fr·de·pt) 법률 문서 | EN·KO만 | 앱 UI 언어 추가(CLAUDE.md §9) 시 처리방침 번역 필요 여부. 일본은 APPI 별도 형식(`privacy-jp` 스킬) |
 | 8 | 청약철회 제한 고지의 앱 내 문구·위치 | §3 표에 제안 | Phase 7 구현 시 확정. 스토어(Play) 자체 환불 정책도 병기 |
 | 9 | 아동 연령 기준 표기 | 13세 + 거주국 상향 연령(한국 14 · 일부 EEA 16) 병기(2차) | 해소 — 미동의 사용자에게 맞춤 광고 없음 문장 추가 |
-| 11 | **판매자 정보 전화번호** | 이메일만 | 전자상거래법 제10조 표시사항에 전화번호가 있다(대표번호 = 개인 휴대전화, BUSINESS_INFO §1). 형제 앱도 미기재. 노출 여부는 사용자 결정 |
+| 11 | **판매자 정보 전화번호** | 이메일만 | 전자상거래법 제10조 표시사항에 전화번호가 있다(대표번호 = 개인 휴대전화, BUSINESS_INFO §1). **형제 앱 4종 전부 미기재 확인(2026-08-17) → 이메일만 유지**(일관성) |
 | 12 | **스토어 설명의 Remove Ads 문장** | 등록정보 EN/KO에 "one-time Remove Ads purchase" 기재 | vc1에는 미구현(Phase 7). 비공개 테스트 중엔 무해하나 **프로덕션 전 Phase 7 완료 또는 문장 삭제** 중 택1 |
 | 10 | 게시 URL 경로 | `/idearepository/privacy`·`/terms` | 배구 서버 라우트와 충돌 없음(LinkMemo `/linkmemo/...` 선례). 확정 시 BUSINESS_INFO §3 갱신 |
 
@@ -152,7 +153,31 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 | 10 | Apple 최소 EULA 조항·최소 연령 조항 없음 | 약관 EN §11·KO 제15조 "스토어 약관", 이용 연령 13세+ 추가 |
 | — | 값 대조(이메일·주소·번호·보유기간·가격·URL) md ⇄ page ⇄ 라이브 | 불일치 없음(서브에이전트 대조). 라이브 = tsx |
 
-남은 사람 결정: §7 #1(변호사 검토) · #2/#11(전화번호) · #12(스토어 설명 Remove Ads).
+남은 사람 결정: §7 #1(변호사 검토 — 형제 앱도 전부 미검토, 인터넷 참고로 자체 작성. 2026-08-17 타 앱 벤치마크 수행 → §9) · #12(스토어 설명 Remove Ads).
+
+**2026-08-17 가격 통일**: Remove Ads 기준 가격 ₩1,500 → **₩3,300**(사용자 결정, LinkMemo와 같은 날 형제 앱 통일). 약관 KO/EN·게시 페이지 3차(볼리볼 `8ca3613`), CLAUDE·MONETIZATION·STORE_LISTING 동기. 판매 개시 전 정정이라 이용자 불이익 변경 아님.
+
+## 9. 타 앱 벤치마크 (2026-08-17 — 변호사 검토 대신, 형제 앱 관행과 동일하게 인터넷 공개 문서 참고)
+
+**처리방침 비교 대상(실게시본)**: Notepad Free(atomczak) · My Notes(KreoSoft) · Loop Habit Tracker · メモ帳 memo(Komorebi, AdMob+Remove Ads) ·
+Splend Apps Notepad · ClevNote(Cleveni, KR) · Joplin. **약관 비교 대상**: Daylio · HabitKit(독일 1인 개발, lifetime IAP) · Loop(GPL) ·
+편한가계부(Realbyte, KR 광고제거 IAP) · Apple 최소 EULA 조항 · Google Play DDA §3.4/3.8/5.3 · 국내 이용약관 가이드(법무법인 스타 2025-09).
+
+| 벤치마크에서 드러난 우리 쪽 부족 | 조치(3·4차) |
+|---|---|
+| Google `partner-sites` 링크가 게시 페이지에서 빠짐(md엔 있었음) | 페이지 복원 |
+| OS 백업(Android 자동 백업·iCloud)이 앱 데이터를 Google/Apple 서버로 복사할 수 있다는 고지 없음(Loop·Notepad Free·Komorebi는 명시) | §2·§7·제2조·제10조 추가 |
+| 광고 제어 경로(Android 광고 ID 삭제·iOS 추적 끄기)가 EN에선 CCPA 절에만 | §3.a에 전 지역 공통 "How to control ads" |
+| 미사용 SDK(Firebase·GA·크래시)·권한 목록 무언급 — 심사자에겐 침묵이 모호 | "What we do not use" + Android 권한 3종 명시. **`app.json` `blockedPermissions`**(READ/WRITE_EXTERNAL_STORAGE·USE_BIOMETRIC·USE_FINGERPRINT — 조각 선례)로 다음 빌드부터 매니페스트도 일치 |
+| 수탁자 정책 링크 없음(이름만) | Google·Apple·RevenueCat·Vercel·Supabase·Discord 링크 + Data Safety 미러 문장 |
+| 약관: 구매 적용 범위(동일 스토어 계정·가족 공유)·"영구 업데이트/서버 기능 보장 아님"(HabitKit) 없음 | 제7조·§4 추가 |
+| 약관: Play DDA §3.4/3.8 판매자 지위·환불 위임 문장 없음 | 제8조·§4 추가 |
+| 약관: Apple 최소 조항 중 미국 금수 확인이 KO에 없음 | 제15조 추가 |
+| Apple 최소 조항의 **전화번호** | 미기재 유지(형제 앱 일관성) — iOS 출시 시 §7 #6과 함께 재결정 |
+| 최소 연령 13(국내 피어는 14) | 유지 — 개인정보(이메일 등) 미수집이 근거. 문의에 이메일을 받기 시작하면 KO 만 14세로 |
+
+**우리가 피어보다 앞서는 것(유지)**: 나가는 요청 전수 열거(Joplin 수준) · 흐름별 법적 근거 · UMP 재진입 경로 · 처리자/국외이전 표 · 국가별 연령 3단 ·
+GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · 약관의 미성년자·복원·30일 종료 고지·ODR 종료 반영·전상법 판매자 블록(신고번호 포함).
 
 ## 게시 기록
 
