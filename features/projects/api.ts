@@ -1,7 +1,9 @@
 import { randomUUID } from 'expo-crypto';
 
+import type { SQLiteDatabase } from 'expo-sqlite';
+
 import { getDb } from '@/db';
-import { cleanupOrphanTags, replaceProjectTags } from '@/features/tags/api';
+import { cleanupOrphanTags, listProjectTags, replaceProjectTags } from '@/features/tags/api';
 import {
   nullIfBlank,
   type Priority,
@@ -87,6 +89,58 @@ export function listProjects(): ProjectCard[] {
 export function getProject(id: string): Project | null {
   const row = getDb().getFirstSync<ProjectRow>('SELECT * FROM projects WHERE id = ?', [id]);
   return row ? toProject(row) : null;
+}
+
+/** 상세 화면용 — 카테고리명·태그 포함 */
+export function getProjectCard(id: string): ProjectCard | null {
+  const row = getDb().getFirstSync<ProjectRow>(
+    'SELECT p.*, c.name AS category_name FROM projects p LEFT JOIN categories c ON c.id = p.category_id WHERE p.id = ?',
+    [id],
+  );
+  if (!row) return null;
+  return { ...toProject(row), categoryName: row.category_name ?? null, tags: listProjectTags(id) };
+}
+
+/** 노트·자료·태그 변경 시 프로젝트 updated_at 갱신 — "아이디어 발전 = 활동" (CLAUDE.md §14 E) */
+export function touchProject(db: SQLiteDatabase, id: string, at: number = Date.now()): void {
+  db.runSync('UPDATE projects SET updated_at = ? WHERE id = ?', [at, id]);
+}
+
+/** 전 필드 수정 — 이름만 필수. 태그는 배열이 오면 통째로 교체(undefined면 손대지 않는다). */
+export function updateProject(id: string, input: ProjectInput): Project {
+  const name = input.name.trim();
+  if (name.length === 0) throw new Error('project.nameRequired');
+  const now = Date.now();
+  const db = getDb();
+  db.withTransactionSync(() => {
+    db.runSync(
+      `UPDATE projects SET
+        name = ?, summary = ?, description = ?, category_id = ?, problem = ?, goal = ?, core_idea = ?, target_user = ?,
+        progress = ?, status = ?, priority = ?, start_date = ?, target_end_date = ?, updated_at = ?
+       WHERE id = ?`,
+      [
+        name,
+        nullIfBlank(input.summary),
+        nullIfBlank(input.description),
+        input.categoryId ?? null,
+        nullIfBlank(input.problem),
+        nullIfBlank(input.goal),
+        nullIfBlank(input.coreIdea),
+        nullIfBlank(input.targetUser),
+        Math.min(100, Math.max(0, Math.round(input.progress ?? 0))),
+        input.status ?? 'idea',
+        input.priority ?? 'none',
+        input.startDate ?? null,
+        input.targetEndDate ?? null,
+        now,
+        id,
+      ],
+    );
+    if (input.tags) replaceProjectTags(db, id, input.tags);
+  });
+  const updated = getProject(id);
+  if (!updated) throw new Error('project.notFound');
+  return updated;
 }
 
 /** 이름만 필수. 빈 선택 필드는 NULL, 기본값 progress 0 · status idea · priority none. */

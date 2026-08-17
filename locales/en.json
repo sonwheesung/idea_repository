@@ -9,7 +9,9 @@
     "search": "Search",
     "settings": "Settings",
     "reset": "Reset",
-    "back": "Back"
+    "back": "Back",
+    "done": "Done",
+    "clear": "Clear"
   },
   "home": {
     "title": "Idea Repository",
@@ -41,7 +43,23 @@
     "deleteTitle": "Delete \"{{name}}\"?",
     "deleteBody": "Its idea notes and resources will be deleted too.",
     "tags": "Tags",
-    "tagsPlaceholder": "Type a tag and press space (e.g. AI Mobile)"
+    "tagsPlaceholder": "Type a tag and press space (e.g. AI Mobile)",
+    "edit": "Edit Project",
+    "notFound": "Project not found.",
+    "problem": "Problem",
+    "goal": "Goal",
+    "coreIdea": "Core Idea",
+    "targetUser": "Target User",
+    "startDate": "Start Date",
+    "targetEndDate": "Target End Date",
+    "datePlaceholder": "Select a date",
+    "dateWarning": "Target end date is earlier than the start date.",
+    "sectionIdea": "Idea",
+    "sectionProgress": "Progress",
+    "notes": "Idea Notes",
+    "resources": "Related Resources",
+    "addField": "Add {{field}}",
+    "deleteDetail": "{{notes}} note(s) and {{resources}} resource(s) will be deleted too."
   },
   "status": {
     "idea": "Idea",
@@ -98,5 +116,44 @@
       "gradientMinimal": "Gradient Minimal",
       "colorPoint": "Color Point"
     }
+  },
+  "about": {
+    "version": "Version {{version}}",
+    "tagline": "Your ideas. Your device. Yours to build.",
+    "dataTitle": "Where your data lives",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "contact": "Contact",
+    "website": "Website",
+    "openFailed": "Could not open the link.",
+    "business": {
+      "title": "Seller information",
+      "legalName": "Business name",
+      "representative": "Representative",
+      "registrationNo": "Business registration no.",
+      "ecommerceNo": "E-commerce registration no.",
+      "address": "Address",
+      "contact": "Contact"
+    }
+  },
+  "note": {
+    "title": "Idea Note",
+    "add": "New idea note",
+    "addButton": "Add note",
+    "edit": "Edit note",
+    "placeholder": "What came to mind? Notes record how the idea evolves.",
+    "edited": "edited",
+    "contentRequired": "Please write something."
+  },
+  "resource": {
+    "add": "Add resource",
+    "edit": "Edit resource",
+    "url": "URL",
+    "title": "Title",
+    "titlePlaceholder": "Auto-filled from the domain if empty",
+    "description": "Description",
+    "descriptionPlaceholder": "e.g. Market research",
+    "invalidUrl": "Please enter a valid URL.",
+    "openFailed": "Could not open the link."
   }
 }

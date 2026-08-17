@@ -63,7 +63,12 @@ export default function HomeScreen() {
         contentContainerStyle={projects.length === 0 ? styles.emptyContainer : styles.list}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={({ item, index }) => (
-          <ProjectCard project={item} index={index} onLongPress={() => confirmDelete(item)} />
+          <ProjectCard
+            project={item}
+            index={index}
+            onPress={() => router.push({ pathname: '/project/[id]', params: { id: item.id } })}
+            onLongPress={() => confirmDelete(item)}
+          />
         )}
         ListEmptyComponent={
           <View style={styles.empty}>

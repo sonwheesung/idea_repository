@@ -19,6 +19,7 @@
 | [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) | 광고(배너·전면형·금지 순간·UMP) + Remove Ads 일회성 구매·복원 | ✅ |
 | [`I18N_SYSTEM.md`](./I18N_SYSTEM.md) | 다국어 — en 기본·ko·키 규약·날짜 로케일·언어 추가 절차 | ✅ |
 | [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
+| [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
 | `UI_GUIDE.md` | 공통 컴포넌트·여백·타이포 사용법 | ❌ 미작성(Phase 0 토큰 확정 후) |
 | `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성(첫 빌드 시점부터) |
@@ -42,20 +43,21 @@
 | 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ✅ | 2026-08-17 Phase 1 — 생성 폼 Label+input(`TextField`) + Select(카테고리·상태·우선순위), 카드(상태·우선순위·진행률 바·카테고리·태그·수정일), 길게 눌러 삭제 |
 | 카테고리 관리(추가·수정·삭제 시 선택지) | ✅ | 2026-08-17 Phase 1 — 설정 → 카테고리. 사용 수 표시, 중복 거부, 삭제 시 없음/이동 라디오 |
 | 태그(칩 · 자동완성 · 고아 정리) | ✅ | 2026-08-17 Phase 1 — 생성 폼 TagInput(공백/쉼표/엔터 확정, prefix 자동완성), 저장 시 replaceProjectTags + 고아 정리 |
-| 프로젝트 상세 · 편집(전 필드) | ❌ | Phase 2 |
-| 아이디어 노트 CRUD | ❌ | Phase 2 |
-| 관련 자료 CRUD + 외부 브라우저 | ❌ | Phase 2 |
+| 프로젝트 상세 · 편집(전 필드) | ✅ | 2026-08-17 Phase 2 — `app/project/[id]/{index,edit}.tsx`, 공용 `project-form`, 슬라이더·날짜 피커(Expo Go 포함 모듈) |
+| 아이디어 노트 CRUD | ✅ | 2026-08-17 Phase 2 — 상세 인라인 |
+| 관련 자료 CRUD + 외부 브라우저 | ✅ | 2026-08-17 Phase 2 — 다이얼로그(URL 필수·제목 자동 제안), 탭 = 브라우저 |
 | 검색 9필드 | ❌ | Phase 3 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ❌ | Phase 3 |
 | 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 74키 동기, 설정→언어 Select(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
 | 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
-| 하단 배너(메인·상세) | 🔨 자리만 | 2026-08-17 점선 플레이스홀더(메인) — 실배너는 Phase 6 |
+| 하단 배너(메인·상세) | 🔨 자리만 | 2026-08-17 점선 플레이스홀더(메인·상세) — 실배너는 Phase 6 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |
 | UMP 동의 폼 | ❌ | Phase 6 |
 | Remove Ads 구매 + Restore | ❌ | Phase 7 — RevenueCat 익명 |
 | 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
-| 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`). 설정 행은 Phase 2 |
+| 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
+| 정보(About) 화면 — 버전·태그라인·링크(처리방침·약관·문의·웹사이트)·판매자 정보 | ✅ | 2026-08-17 — `app/about.tsx` · 상수 `lib/links.ts` · 문안 [`STORE_LISTING.md`](./STORE_LISTING.md) |
 
 ### 서버·외부 (Idea Repository 밖 선행 작업)
 

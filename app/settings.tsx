@@ -13,7 +13,7 @@ import { useResolvedThemeId, useTheme } from '@/theme/use-theme';
 type LanguageChoice = 'system' | AppLanguage;
 
 // 설정 — 테마(→ 선택 화면)·언어 Select(2026-08-17 사용자 요청: 칩 → select).
-// 카테고리 관리·광고 제거·공지·문의 행은 해당 Phase에서 추가.
+// 광고 제거(Phase 7)·공지·문의(Phase 5) 행은 해당 Phase에서 추가.
 export default function SettingsScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -63,6 +63,19 @@ export default function SettingsScreen() {
             { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
           ]}>
           <Text style={[styles.navLabel, { color: theme.text }]}>{t('settings.categories')}</Text>
+          <Ionicons name="chevron-forward" size={18} color={theme.icon} />
+        </Pressable>
+
+        {/* 광고 제거(Remove Ads·복원) 행 — Phase 7 / 공지·문의 행 — Phase 5 에서 이 자리에 추가 */}
+
+        <Pressable
+          onPress={() => router.push('/about')}
+          accessibilityRole="button"
+          style={({ pressed }) => [
+            styles.navRow,
+            { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+          ]}>
+          <Text style={[styles.navLabel, { color: theme.text }]}>{t('settings.about')}</Text>
           <Ionicons name="chevron-forward" size={18} color={theme.icon} />
         </Pressable>
       </View>
