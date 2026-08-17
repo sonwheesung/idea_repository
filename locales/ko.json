@@ -1,0 +1,45 @@
+{
+  "common": {
+    "appName": "Idea Repository",
+    "save": "저장",
+    "cancel": "취소",
+    "delete": "삭제",
+    "edit": "편집",
+    "add": "추가",
+    "search": "검색",
+    "settings": "설정",
+    "reset": "초기화",
+    "back": "뒤로"
+  },
+  "home": {
+    "title": "Idea Repository",
+    "empty": {
+      "title": "아직 아이디어가 없어요",
+      "body": "+ 를 눌러 첫 아이디어를 기록하세요. 이름만 있으면 됩니다."
+    }
+  },
+  "data": {
+    "notice": {
+      "local": "아이디어는 이 기기에만 저장되며 저희 서버로 업로드되지 않습니다.",
+      "loss": "앱을 삭제하거나 기기를 바꾸면 데이터가 사라질 수 있습니다."
+    }
+  },
+  "project": {
+    "new": "새 프로젝트",
+    "name": "프로젝트 이름",
+    "namePlaceholder": "예: AI Game Balancer",
+    "nameRequired": "프로젝트 이름을 입력해 주세요.",
+    "addDetails": "자세히 입력 (선택)"
+  },
+  "settings": {
+    "title": "설정",
+    "appearance": "화면 모드",
+    "appearanceSystem": "시스템 설정",
+    "appearanceLight": "라이트",
+    "appearanceDark": "다크",
+    "language": "언어",
+    "languageSystem": "시스템 언어",
+    "categories": "카테고리",
+    "about": "정보"
+  }
+}

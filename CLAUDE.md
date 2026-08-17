@@ -272,22 +272,22 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 
 | 영역 | 선택 | 상태 |
 |---|---|---|
-| 앱 | Expo **SDK 54**(~54.0.35) · RN 0.81.5 · React 19.1.0 | ❌ 스캐폴드 전 |
-| 언어 | TypeScript ~5.9 (`strict` · `any` 금지) | ❌ |
-| 네비게이션 | expo-router ~6.0 (단일 메인 + 스택) | ❌ |
-| 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ❌ |
-| 테마 | `theme/palettes.ts` 토큰 — **라이트/다크 2종**, 시스템 따르기 + 수동(LinkMemo 구조 축소 재사용) | ❌ |
+| 앱 | Expo **SDK 54**(~54.0.35) · RN 0.81.5 · React 19.1.0 | ✅ 2026-08-17 스캐폴드(default 템플릿, 예제 미채용) |
+| 언어 | TypeScript ~5.9 (`strict` · `any` 금지) | ✅ typecheck·lint(any=error) 통과 |
+| 네비게이션 | expo-router ~6.0 (단일 메인 + 스택) | ✅ `index` · `project/new`(modal) · `settings` 골격 |
+| 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ✅ 테마·언어 store가 첫 사용처 |
+| 테마 | `theme/palettes.ts` 토큰 — **라이트/다크 2종**, 시스템 따르기 + 수동(LinkMemo 구조 축소 재사용) | ✅ 2026-08-17 토큰 17종 + 설정 화면 칩 |
 | **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ❌ ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
 | 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ❌ |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ❌ |
 | 개발 실행 | **dev build** (`npx expo run:android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**. 광고 전까지는 Expo Go 가능 | ❌ |
 | 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ❌ |
 | 브라우저 열기 | expo-linking (`Linking.openURL`) — 관련 자료 URL | ❌ |
-| 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ❌ |
-| 날짜 | dayjs (+ locale) — 기기 지역 표기 | ❌ |
+| 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko 29키 · 설정→언어 수동 변경 |
+| 날짜 | dayjs (+ locale) — 기기 지역 표기 | ✅ 설치(사용은 Phase 2) |
 | 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ❌ |
 | 배포 | Expo EAS | ❌ |
-| Metro 포트 | **8087 제안**(LinkMemo 8086·조각 8081과 충돌 회피 — 형제 앱 동시 개발 대비) | ❌ |
+| Metro 포트 | **8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피) | ✅ scripts 반영 · :8087 번들 200 실측 |
 
 - `android/`·`ios/`는 CNG 산출물 — 커밋하지 않는다.
 - 커밋 메시지: `YYMMDD :: [태그] 한국어 요약` (LinkMemo·조각·배구 규칙 승계).
@@ -389,6 +389,8 @@ idea_repository/
 
 ## 16. 현재 상태 (2026-08-17)
 
-- 문서 체계 수립(이 문서 + `docs/` 8종). **코드 0줄.** 서버 등록 0 · 스토어 등록 0.
+- 문서 체계 수립(이 문서 + `docs/` 8종). ~~코드 0줄~~ → **Phase 0 완료**(2026-08-17): Expo SDK 54 스캐폴드·단일 메인+스택 골격·
+  라이트/다크 토큰·i18n(en·ko)·설정(화면 모드·언어)·`check:i18n`·Metro 8087. typecheck·lint·i18n·번들(1537모듈) 통과.
+  서버 등록 0 · 스토어 등록 0.
 - **미결정 7건 전부 해소**(2026-08-17 사용자 승인) — 현재 미결정 없음.
-- 다음 단계: Phase 0(Expo SDK 54 스캐폴드·토큰·i18n 뼈대) → Phase 1(DB + 프로젝트 CRUD). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- 다음 단계: Phase 1(DB v1 + 프로젝트 CRUD + 카테고리·태그). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

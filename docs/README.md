@@ -28,14 +28,14 @@
 
 ## 2. 구현 현황
 
-프로젝트는 2026-08-17 문서 체계 수립 단계 — **코드 0줄.** 아래 표가 착수 순서의 기준이 된다.
+2026-08-17 문서 체계 수립 + **Phase 0 완료**(스캐폴드·토큰·i18n·설정 골격). 아래 표가 착수 순서의 기준이 된다.
 
 ### 앱
 
 | 영역 | 상태 | 비고 |
 |---|---|---|
-| Expo 부트(SDK 54 · expo-router · TS strict · Metro 8087) | ❌ | Phase 0. LinkMemo 조합 승계 |
-| 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ❌ | Phase 0 토큰 → 설정 화면은 Phase 2 |
+| Expo 부트(SDK 54 · expo-router · TS strict · Metro 8087) | ✅ | 2026-08-17 — expo ~54.0.35 · RN 0.81.5 · React 19.1.0(LinkMemo 조합). 템플릿 예제 미채용, 단일 메인+스택(`index`·`project/new`·`settings`) |
+| 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ✅ | 2026-08-17 — `theme/palettes.ts` 17토큰 · zustand persist · 설정 화면 칩으로 즉시 전환 |
 | expo-sqlite v1 스키마 + 카테고리 시드 | ❌ | Phase 1 — [`DATABASE.md`](./DATABASE.md) |
 | 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ❌ | Phase 1 |
 | 카테고리 관리(추가·수정·삭제 시 선택지) | ❌ | Phase 1 |
@@ -45,7 +45,7 @@
 | 관련 자료 CRUD + 외부 브라우저 | ❌ | Phase 2 |
 | 검색 9필드 | ❌ | Phase 3 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ❌ | Phase 3 |
-| 다국어 en·ko + `check:i18n` + 언어 설정 | ❌ | Phase 0 뼈대 → Phase 4 완성 |
+| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 29키 동기, 설정→언어(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
 | 날짜 로케일 표기 | ❌ | Phase 4 |
 | 하단 배너(메인·상세) | ❌ | Phase 6 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |
@@ -53,7 +53,7 @@
 | Remove Ads 구매 + Restore | ❌ | Phase 7 — RevenueCat 익명 |
 | 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
-| 데이터 손실 안내 문구 | ❌ | Phase 1 빈 화면 + 설정 |
+| 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`). 설정 행은 Phase 2 |
 
 ### 서버·외부 (Idea Repository 밖 선행 작업)
 
@@ -72,7 +72,7 @@
 
 ---
 
-## 3. 검증 루틴 (Phase 0에서 확정 — LinkMemo 승계 예정)
+## 3. 검증 루틴 (2026-08-17 Phase 0 확정 — LinkMemo 승계)
 
 ```bash
 npm install                    # 의존성
@@ -92,7 +92,8 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-
 
 - ⚠ **Metro 재시작은 PowerShell `Stop-Process`로**(LinkMemo 실증) — git-bash `kill`은 Windows 프로세스에 조용히 실패한다.
   재시작 검증은 ① 포트 소유 PID 변경(`netstat -ano`) ② 콜드 번들이 전체 모듈 수로 도는지("1 module"은 캐시 리셋 실패 신호).
-- **Metro 포트 8087 고정**(제안 — `package.json` scripts): `npm start` = `expo start --port 8087`, `npm run android` = `expo run:android --port 8087`.
+- **Metro 포트 8087 고정**(`package.json` scripts): `npm start` = `expo start --port 8087`, `npm run android` = `expo run:android --port 8087`.
+  2026-08-17 실측: `CI=1 npx expo start --port 8087` → 콜드 번들 200 · 1537 모듈 · 45초.
 - 외부에서 실기기 접속은 LinkMemo README §3의 Tailscale 절차(`REACT_NATIVE_PACKAGER_HOSTNAME=<Tailscale IP>`) 그대로.
 - 광고 SDK가 들어가는 Phase 6부터 **Expo Go 불가 → dev build**. 그 전까지는 Expo Go로 개발 가능.
 

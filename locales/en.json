@@ -1,0 +1,45 @@
+{
+  "common": {
+    "appName": "Idea Repository",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "settings": "Settings",
+    "reset": "Reset",
+    "back": "Back"
+  },
+  "home": {
+    "title": "Idea Repository",
+    "empty": {
+      "title": "No ideas yet",
+      "body": "Tap + to capture your first idea. Only a name is required."
+    }
+  },
+  "data": {
+    "notice": {
+      "local": "Your ideas are stored locally on your device and are not uploaded to our servers.",
+      "loss": "If you delete the app or change devices, your data may be lost."
+    }
+  },
+  "project": {
+    "new": "New Project",
+    "name": "Project name",
+    "namePlaceholder": "e.g. AI Game Balancer",
+    "nameRequired": "Please enter a project name.",
+    "addDetails": "Add details (optional)"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "appearanceSystem": "System",
+    "appearanceLight": "Light",
+    "appearanceDark": "Dark",
+    "language": "Language",
+    "languageSystem": "System language",
+    "categories": "Categories",
+    "about": "About"
+  }
+}

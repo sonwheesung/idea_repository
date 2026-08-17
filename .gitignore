@@ -1,25 +1,53 @@
-# 의존성·빌드
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
 node_modules/
+
+# Expo
 .expo/
 dist/
-build/
-android/
-ios/
-*.aab
-*.apk
-*.tsbuildinfo
+web-build/
+expo-env.d.ts
 
-# 시크릿·서명 (배구·LinkMemo 규약)
-.env
-.env.local
-credentials/
+# Native
+.kotlin/
+*.orig.*
 *.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
 *.keystore
-credentials.json
-google-services.json
 
-# OS·에디터
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS / Windows
 .DS_Store
 Thumbs.db
-.vscode/*
-!.vscode/settings.json
+*.pem
+
+# local env files
+.env
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+
+# generated native folders (CNG 산출물 — 커밋하지 않는다, CLAUDE.md §11)
+/ios
+/android
+
+# 시크릿·서명·빌드 산출물 (배구·LinkMemo 규약)
+credentials/
+credentials.json
+google-services.json
+*.aab
+*.apk
