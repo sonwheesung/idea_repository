@@ -9,18 +9,23 @@ interface AdsState {
   removeAds: boolean;
   /** 콜드 스타트 App Open 흐름이 끝났는가(안 띄웠거나·실패했거나·닫혔거나) */
   startupAdSettled: boolean;
+  /** UMP 개인정보 옵션 재진입이 필요한 지역인가(EEA·영국·스위스) — 설정 행 노출 여부 */
+  privacyOptionsRequired: boolean;
   setReady: (ready: boolean) => void;
   setRemoveAds: (removeAds: boolean) => void;
   setStartupAdSettled: () => void;
+  setPrivacyOptionsRequired: (required: boolean) => void;
 }
 
 export const useAdsStore = create<AdsState>()((set) => ({
   ready: false,
   removeAds: false,
   startupAdSettled: false,
+  privacyOptionsRequired: false,
   setReady: (ready) => set({ ready }),
   setRemoveAds: (removeAds) => set({ removeAds }),
   setStartupAdSettled: () => set({ startupAdSettled: true }),
+  setPrivacyOptionsRequired: (privacyOptionsRequired) => set({ privacyOptionsRequired }),
 }));
 
 export function adsEnabled(): boolean {

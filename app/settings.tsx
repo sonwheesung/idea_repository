@@ -7,6 +7,8 @@ import { Screen } from '@/components/screen';
 import { Select, type SelectOption } from '@/components/select';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
 import { useLanguageStore } from '@/lib/language';
+import { showPrivacyOptions } from '@/features/ads/ads';
+import { useAdsStore } from '@/features/ads/store';
 import { useUnreadNoticeCount } from '@/features/support/store';
 import { useThemeStore } from '@/theme/store';
 import { useResolvedThemeId, useTheme } from '@/theme/use-theme';
@@ -21,6 +23,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const themeSetting = useThemeStore((s) => s.setting);
   const unreadNotices = useUnreadNoticeCount();
+  const privacyOptionsRequired = useAdsStore((s) => s.privacyOptionsRequired);
   const resolvedTheme = useResolvedThemeId();
   const override = useLanguageStore((s) => s.override);
   const setOverride = useLanguageStore((s) => s.setOverride);
@@ -98,6 +101,26 @@ export default function SettingsScreen() {
         </Pressable>
 
         {/* 광고 제거(Remove Ads·복원) 행 — Phase 7 에서 이 자리에 추가 */}
+
+        {/* UMP 개인정보 옵션 — EEA·영국·스위스(privacyOptionsRequirementStatus=REQUIRED)에서만 보인다.
+            Google EU 사용자 동의 정책: 동의를 다시 바꿀 수단 제공. 처리방침 §5·제9조가 이 행을 가리킨다. */}
+        {privacyOptionsRequired ? (
+          <Pressable
+            onPress={() => void showPrivacyOptions()}
+            accessibilityRole="button"
+            style={({ pressed }) => [
+              styles.navRow,
+              { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+            ]}>
+            <View>
+              <Text style={[styles.navLabel, { color: theme.text }]}>{t('settings.privacyOptions')}</Text>
+              <Text style={[styles.navValue, { color: theme.textMuted }]}>
+                {t('settings.privacyOptionsHint')}
+              </Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={theme.icon} />
+          </Pressable>
+        ) : null}
 
         <Pressable
           onPress={() => router.push('/about')}

@@ -42,13 +42,16 @@ export default function IdeaRepositoryTerms() {
         </a>
         을 따릅니다. (English version below.)
       </p>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17 (2차)</p>
 
       <section style={card}>
         <h2 style={h2}>제1조 목적 · 제2조 정의</h2>
         <ul style={li}>
           <li>이 약관은 앱의 이용 조건 및 절차, 회사와 이용자의 권리·의무·책임, 유료 서비스의 결제·환불 기준을 정함을 목적으로 합니다.</li>
-          <li>&quot;이용자&quot;란 앱을 설치하여 이용하는 자를 말합니다. 앱은 회원가입·로그인이 없으므로 회원·비회원 구분이 없습니다.</li>
+          <li>
+            &quot;이용자&quot;란 앱을 설치하여 이용하는 자를 말합니다. 앱은 회원가입·로그인이 없으므로 회원·비회원 구분이 없습니다. 만 13세 미만(거주국
+            법령이 더 높은 연령을 정한 경우 그 연령 미만)은 이용할 수 없으며, 미성년자는 법정대리인의 동의를 얻어 이용합니다.
+          </li>
           <li>&quot;이용자 데이터&quot;란 이용자가 앱에 입력한 프로젝트·노트·관련 자료·카테고리·태그·설정 등 일체의 정보를 말합니다.</li>
           <li>&quot;광고 제거(Remove Ads)&quot;란 앱 내 광고를 표시하지 않도록 하는 비소모성 일회성 유료 상품을, &quot;스토어&quot;란 Google Play·App Store를 말합니다.</li>
         </ul>
@@ -105,7 +108,7 @@ export default function IdeaRepositoryTerms() {
         <h2 style={h2}>제7조 유료 서비스 — 광고 제거(Remove Ads)</h2>
         <ul style={li}>
           <li>
-            유형: <strong>비소모성 일회성 구매.</strong> 구독·자동 갱신·추가 과금 없음. 내용: 앱 내 모든 광고 제거 — <strong>기능 차이 없음</strong>
+            유형: <strong>비소모성 일회성 구매</strong>(해당 기능이 제공되는 앱 버전에서). 구독·자동 갱신·추가 과금 없음. 내용: 앱 내 모든 광고 제거 — <strong>기능 차이 없음</strong>
             (무료 = 모든 기능 + 광고, 구매 = 모든 기능 + 광고 없음).
           </li>
           <li>
@@ -181,8 +184,14 @@ export default function IdeaRepositoryTerms() {
         <h2 style={h2}>제14조 준거법 및 관할</h2>
         <p style={muted}>
           이 약관은 대한민국 법률을 준거법으로 하며, 분쟁은 「민사소송법」에 따른 관할 법원에 제기합니다. 대한민국 외에 거주하는 소비자는 거주국의 강행
-          소비자보호 규정에 따른 보호를 추가로 받으며, 이 조항이 그 권리를 제한하지 않습니다. EU 소비자는 유럽위원회 온라인 분쟁해결 플랫폼
-          (ec.europa.eu/consumers/odr)을 이용할 수 있습니다.
+          소비자보호 규정에 따른 보호를 추가로 받으며, 이 조항이 그 권리를 제한하지 않습니다. EU 소비자는 거주 회원국의 대체적 분쟁해결(ADR)
+          기구를 이용할 수 있습니다(유럽위원회 ODR 플랫폼은 2025-07-20 운영 종료).
+        </p>
+        <p style={muted}>
+          <b>스토어 약관.</b> 앱은 Google Play 및 (출시 시) Apple App Store를 통해 배포되며 다운로드·결제에는 각 스토어의 약관이 함께 적용됩니다.
+          스토어는 이 약관의 당사자가 아니며 앱의 유지보수·지원 의무를 지지 않습니다. iOS의 경우 이 약관은 이용자와 회사 사이의 것으로 Apple은
+          앱에 대한 보증·제조물 책임·지식재산권 침해·법령 준수 의무를 지지 않으며, Apple 및 그 자회사는 이 약관의 제3수익자로서 약관을 집행할 수
+          있습니다.
         </p>
       </section>
 
@@ -224,7 +233,8 @@ export default function IdeaRepositoryTerms() {
         <h2 style={h2}>1. The service · 2. License</h2>
         <p style={muted}>
           Idea Repository is a personal, on-device organizer for ideas and projects. It has <b>no user accounts, no
-          login and no cloud sync</b>. All features are free; the free version shows ads. We grant you a personal,
+          login and no cloud sync</b>. All features are free; the free version shows ads. You must be at least 13 (or the
+          higher minimum age in your country) to use the App; minors need a parent&apos;s or guardian&apos;s consent. We grant you a personal,
           non-exclusive, non-transferable, revocable license to use the App on devices you own or control for personal,
           non-commercial purposes. You may not copy, modify, distribute, sell, rent, reverse-engineer or create
           derivative works of the App except as permitted by law.
@@ -251,7 +261,7 @@ export default function IdeaRepositoryTerms() {
             Google AdMob. In the EEA, the UK and Switzerland you choose in the in-app consent form whether ads are personalized.
           </li>
           <li>
-            <b>Remove Ads</b> is a single one-time, non-consumable in-app purchase (Settings → Remove Ads). It removes all ads; it does not unlock features and
+            <b>Remove Ads</b>, where available in your version of the App, is a single one-time, non-consumable in-app purchase (Settings → Remove Ads). It removes all ads; it does not unlock features and
             is not a subscription. Price is shown in the store in your local currency (reference price in Korea: ₩1,500).
           </li>
           <li>Payment is processed by Google Play or the Apple App Store; we do not receive your payment details. Ads are removed <b>immediately</b> after the store confirms the purchase.</li>
@@ -306,7 +316,13 @@ export default function IdeaRepositoryTerms() {
         <p style={muted}>
           These Terms are governed by the laws of the Republic of Korea, with disputes subject to its competent courts. Consumers residing elsewhere keep the
           protection of the mandatory consumer-protection provisions of their country of residence, including any right to bring proceedings in local courts. EU
-          consumers may use https://ec.europa.eu/consumers/odr.
+          consumers may refer disputes to an ADR body in their member state (the EU ODR platform was discontinued on 20 July 2025).
+        </p>
+        <p style={muted}>
+          <b>App store terms.</b> Google Play and (if released there) the Apple App Store terms also apply to your download and purchases; the stores are not
+          parties to these Terms and owe no maintenance or support. For iOS: these Terms are between you and us, not Apple; Apple has no warranty,
+          product-claim, IP-infringement or legal-compliance obligation for the App; you represent you are not in a US-embargoed country or on a US
+          prohibited-parties list; Apple and its subsidiaries are third-party beneficiaries entitled to enforce these Terms.
         </p>
         <ul style={li}>
           <li>Operator: Hwiseong Games (brand: Vivace Games) — Representative: Son Hwi-seong</li>

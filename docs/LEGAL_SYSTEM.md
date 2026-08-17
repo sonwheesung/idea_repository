@@ -14,7 +14,8 @@
 | 이용약관 EN `docs/legal/TERMS.en.md` | ✅ 초안 작성 | 2026-08-17 |
 | 이용약관·운영·환불 정책 KO `docs/legal/TERMS.ko.md` | ✅ 초안 작성 | 2026-08-17. 전자상거래법 판매자 정보·청약철회 제한 고지·종료 30일 고지 |
 | Play 데이터 보안·Apple 라벨 답안 `docs/legal/DATA_SAFETY.md` | ✅ | 2026-08-17. **Play 콘솔 제출 완료**(§2 그대로 — 구매 내역 행은 Phase 7 RC 도입 시 추가) |
-| 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ | 2026-08-17. 배구 레포 `server/app/idearepository/…`로 복사·커밋(볼리볼 `3eb8929`) — **정본은 이 레포의 docs/legal**, 수정 시 재복사·재배포 |
+| 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ | 2026-08-17. 배구 레포 `server/app/idearepository/…`로 복사·커밋(볼리볼 `3eb8929` → 2차 `6297b52`) — **정본은 이 레포의 docs/legal**, 수정 시 재복사·재배포 |
+| **2차 글로벌 점검(2026-08-17)** | ✅ | 아래 §8. md 4종·page.tsx 2종·앱 코드(UMP 개인정보 옵션·웰컴 문구) 동시 갱신, 재배포 |
 | 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
@@ -122,16 +123,40 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 | 3 | Discord 수탁자 표기 | 포함(ARCHITECTURE §5.2-5 웹훅 계획 기준, LinkMemo 방침과 동일) | 웹훅을 안 붙이면 표에서 삭제 |
 | 4 | Data Safety "비정상 종료 로그" · "기기 ID 삭제 요청" 답 | 진단만 / 삭제 가능 = 예 | AdMob 공식 표 대조 후 확정([`legal/DATA_SAFETY.md`](./legal/DATA_SAFETY.md) §6) |
 | 5 | RevenueCat 실제 채택 여부 | 채택 전제(CLAUDE.md §14 B) | 바뀌면 처리방침 §3.d·§4·KO 제6·7조·Data Safety 구매 내역 행 삭제 |
-| 6 | **iOS EULA 표기** | 미표기 | App Store Connect 기본 EULA(Apple Standard EULA)를 쓸지, 이 약관을 커스텀 EULA로 올릴지. iOS 출시 시 결정. ATT 문구도 함께 |
+| 6 | **iOS EULA 표기** | 약관에 "스토어 약관"(Apple 최소 조항·제3수익자) 절 추가(2차) | App Store Connect 기본 EULA(Apple Standard EULA)를 쓸지, 이 약관을 커스텀 EULA로 올릴지. iOS 출시 시 결정. ATT 문구도 함께 |
 | 7 | 일본어 등 추가 언어(ja·zh·es·fr·de·pt) 법률 문서 | EN·KO만 | 앱 UI 언어 추가(CLAUDE.md §9) 시 처리방침 번역 필요 여부. 일본은 APPI 별도 형식(`privacy-jp` 스킬) |
 | 8 | 청약철회 제한 고지의 앱 내 문구·위치 | §3 표에 제안 | Phase 7 구현 시 확정. 스토어(Play) 자체 환불 정책도 병기 |
-| 9 | 아동 연령 기준 표기 | 국외 13세 · 한국 14세 병기 | GDPR 회원국별 13~16세 차이는 "not directed at children"으로 처리 — 유지 여부 |
+| 9 | 아동 연령 기준 표기 | 13세 + 거주국 상향 연령(한국 14 · 일부 EEA 16) 병기(2차) | 해소 — 미동의 사용자에게 맞춤 광고 없음 문장 추가 |
+| 11 | **판매자 정보 전화번호** | 이메일만 | 전자상거래법 제10조 표시사항에 전화번호가 있다(대표번호 = 개인 휴대전화, BUSINESS_INFO §1). 형제 앱도 미기재. 노출 여부는 사용자 결정 |
+| 12 | **스토어 설명의 Remove Ads 문장** | 등록정보 EN/KO에 "one-time Remove Ads purchase" 기재 | vc1에는 미구현(Phase 7). 비공개 테스트 중엔 무해하나 **프로덕션 전 Phase 7 완료 또는 문장 삭제** 중 택1 |
 | 10 | 게시 URL 경로 | `/idearepository/privacy`·`/terms` | 배구 서버 라우트와 충돌 없음(LinkMemo `/linkmemo/...` 선례). 확정 시 BUSINESS_INFO §3 갱신 |
 
 - 이 문서는 **세무·정산(AdMob 세금정보·RC 정산·부가세)과 무관**하다 — 그건 BUSINESS_INFO §5·스토어 콘솔의 영역.
 - Play "계정 삭제 URL" 요건은 계정이 없어 **해당 없음**(CLAUDE.md §4). 로그인을 붙이는 순간 처리방침·약관·삭제 URL이 세트로 바뀐다.
 
+## 8. 2차 글로벌 점검 기록 (2026-08-17)
+
+점검 기준: GDPR/UK GDPR/Swiss FADP · CCPA/CPRA · PIPA · COPPA · LGPD 등 기타국 · Google Play(데이터 보안·EU 사용자 동의 정책·메타데이터) · Apple 최소 EULA · 전자상거래법.
+
+| # | 발견 | 조치 |
+|---|---|---|
+| 1 | 약관의 **EU ODR 플랫폼 링크** — 플랫폼은 2025-07-20 운영 종료(Reg. (EU) 2024/3037) | EN §10·KO 제14조 → 회원국 ADR 기구 안내로 교체 |
+| 2 | 처리방침이 약속한 "설정 → Privacy options"(동의 재변경)가 **앱에 없었다** — Google EU 사용자 동의 정책 위반 소지 | `features/ads/ads.ts` `showPrivacyOptions()` + 설정 행(REQUIRED 지역만) 구현. `canRequestAds` false면 SDK 미초기화 |
+| 3 | 웰컴 시트 "기기를 떠나는 것 = 광고 SDK와 문의뿐, 그 외 없음" — bootstrap 조회(앱 버전)도 나간다 → §6 정직 규칙 위반 | 문구 3가지로 정정(en·ko), CLAUDE.md §6 동기 |
+| 4 | 스위스(FADP)·기타국(LGPD·PIPEDA·APPI·DPDP) 권리 절 없음, GDPR 제27조 대리인 미지정 미고지, 자동화 결정 미언급 | EN §5·page 추가 |
+| 5 | 아동 연령이 13/14만 — EEA 회원국 16세 상향 미반영 | §6·제13조 정정 + 미동의 시 비맞춤 광고 명시 |
+| 6 | Remove Ads가 현재 버전에 없는데 단정 서술 | "제공되는 버전에 한함" 한정(처리방침·약관 EN/KO) — §7 #12 |
+| 7 | KO 게시 페이지에 **처리위탁 표(제26조)** 누락(md에만 있음), RevenueCat 수탁자 미표기 | page.tsx 제5~7조 절에 위탁 표 삽입 |
+| 8 | 삭제 요청 범위에 Discord 알림 사본 미언급 | EN §5·KO 제4조 보완 |
+| 9 | bootstrap 요청의 접속 정보(IP) 미언급 | EN §3.c·KO 제2조 보완 |
+| 10 | Apple 최소 EULA 조항·최소 연령 조항 없음 | 약관 EN §11·KO 제15조 "스토어 약관", 이용 연령 13세+ 추가 |
+| — | 값 대조(이메일·주소·번호·보유기간·가격·URL) md ⇄ page ⇄ 라이브 | 불일치 없음(서브에이전트 대조). 라이브 = tsx |
+
+남은 사람 결정: §7 #1(변호사 검토) · #2/#11(전화번호) · #12(스토어 설명 Remove Ads).
+
 ## 게시 기록
+
+- **2026-08-17 (2차)** — 배구 레포 `6297b52` → detached worktree에서 `vercel link --project volleyball --scope sonws` 후 `vercel --prod --yes`(복사한 `.vercel`로는 "Not authorized" — 재링크로 해결) → Ready → 라이브에서 `rev. 2`·`처리위탁(제26조)`·ODR 종료 문구 확인. worktree 삭제(link가 만든 `.env.local` 포함).
 
 - **2026-08-17** — 배구 레포 커밋 `3eb8929`(페이지 2개만 스테이징 — 다른 세션의 미커밋 작업과 분리) → 깨끗한 git worktree(HEAD)에서
   `npx vercel --prod --yes`(⚠ Vercel 프로젝트 Root Directory = `server`이므로 **레포 루트에서** 실행, `.vercel/project.json`은 루트 것) →

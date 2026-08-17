@@ -82,7 +82,9 @@
     "about": "About",
     "theme": "Theme",
     "notice": "Notices",
-    "inquiry": "Contact Us"
+    "inquiry": "Contact Us",
+    "privacyOptions": "Privacy options",
+    "privacyOptionsHint": "Change your ad consent choices"
   },
   "category": {
     "name": "Category name",
@@ -184,7 +186,7 @@
     "point": {
       "noAccount": "No account, no sign-in. Nothing to register.",
       "noCloud": "No cloud sync. Your ideas never go to our servers.",
-      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob) and any support inquiry you choose to send. Nothing else."
+      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob), a start-up check for notices and updates (app version only), and any support inquiry you choose to send."
     },
     "readPolicy": "Read the privacy policy",
     "start": "Start"

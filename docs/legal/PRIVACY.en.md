@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17
+Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 2 — global review)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -64,8 +64,9 @@ limiting and is not stored with the inquiry. If you never send an inquiry, none 
 ### c. App start check (announcements, maintenance, required updates)
 
 On launch the app contacts our server once to fetch service notices, maintenance status and version requirements. The
-request carries only the app code, platform and app version. None of your saved content is included, and nothing
-personal is stored from this request.
+request carries only the app code, platform and app version (plus the standard connection data of any internet
+request, such as your IP address, which our hosting provider processes transiently). None of your saved content is
+included, and nothing personal is stored from this request.
 
 - Purpose: service operation (notices, maintenance gate, update prompts).
 - Legal basis (GDPR): legitimate interest in operating the service.
@@ -73,7 +74,8 @@ personal is stored from this request.
 
 ### d. Purchases ("Remove Ads")
 
-The one-time "Remove Ads" purchase is processed by Google Play (Android) or the Apple App Store (iOS). We never receive
+Where the one-time "Remove Ads" purchase is available in your version of the App, it is processed by Google Play
+(Android) or the Apple App Store (iOS). We never receive
 your card or payment details. Purchase receipts are validated by RevenueCat (US), which keeps an anonymous purchase
 identifier and purchase history so that "Restore Purchases" works after reinstalling or changing devices. We do not
 link purchases to any account (there are none).
@@ -100,12 +102,16 @@ equivalent safeguards. Google's, Apple's and RevenueCat's own privacy policies a
 
 You can request access to, correction or deletion of the inquiry data described in section 3.b at any time via
 support@vivace-games.com. Because we hold no name or email, please include the approximate date and content of the
-inquiry so that we can locate it. Data stored on your device is under your control: deleting the app deletes it.
+inquiry so that we can locate it. Deletion covers the database record and the operator's notification copy (section
+4). Data stored on your device is under your control: deleting the app deletes it.
 
-**EEA / UK (GDPR).** You have the rights of access, rectification, erasure, restriction, data portability and
-objection, and the right to withdraw consent at any time (for ads: Settings → Privacy options in the app, or your
-device's ad settings) without affecting prior processing. You may lodge a complaint with your local supervisory
-authority. We respond within one month.
+**EEA / UK / Switzerland (GDPR, UK GDPR, Swiss FADP).** You have the rights of access, rectification, erasure,
+restriction, data portability and objection, and the right to withdraw consent at any time (for ads: Settings →
+Privacy options in the app — shown where the consent form applies — or your device's ad settings) without affecting
+prior processing. You may lodge a complaint with your local supervisory authority. We respond within one month. We
+have not appointed an EU/UK representative because our processing is occasional, small-scale and low-risk (GDPR
+Art. 27(2)); contact us directly at the address below. We do not make automated decisions with legal or similarly
+significant effects.
 
 **California and other US states (CCPA/CPRA and similar laws).** You have the right to know, delete and correct
 personal information, and the right to opt out of "sale" or "sharing". We do not sell personal information. The
@@ -119,10 +125,15 @@ under 16. We will not discriminate against you for exercising your rights.
 personal information, and you may object to the international transfer of the data in section 4. Requests are handled
 by the privacy officer below within 10 days. Details in the Korean policy.
 
+**Other countries (e.g. Brazil LGPD, Canada PIPEDA, Australia Privacy Act, Japan APPI, India DPDP).** Where local
+law grants you rights of access, correction, deletion, portability, objection or complaint to a local authority, you
+can exercise them through the same contact, and we will honor them to the extent required by that law.
+
 ## 6. Children
 
-Idea Repository is not directed at children under 13 (under 14 in the Republic of Korea), and we do not knowingly
-collect their personal data. If you believe a child has sent us an inquiry, contact us and we will delete it.
+Idea Repository is not directed at children under 13 — or under the higher minimum age that applies in your country
+(14 in the Republic of Korea; up to 16 in some EEA member states for consent to ad personalization) — and we do not
+knowingly collect their personal data. Ads shown to users who have not consented are not personalized. If you believe a child has sent us an inquiry, contact us and we will delete it.
 
 ## 7. Security and honest limits
 
@@ -135,6 +146,9 @@ loss, OS vulnerabilities or device backups you create are outside our control.
 
 We will post any changes to this policy at the publication URL with a new effective date. Material changes will also
 be announced in the app's notice screen.
+
+Revision history: 2026-08-17 first version · 2026-08-17 rev. 2 (global review: Switzerland and other-jurisdiction
+rights, minimum age by country, connection data of the start check, deletion scope, Remove Ads availability).
 
 ## 9. Contact
 

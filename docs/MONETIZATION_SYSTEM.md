@@ -10,7 +10,8 @@
 | ~~하단 배너 — 자리 플레이스홀더~~ | 🚫 | 실배너로 교체하며 삭제(2026-08-17) |
 | 하단 배너 — 실제 AdMob(메인·상세) | ✅ | 2026-08-17 Phase 6 — `components/ad-banner.tsx`(ANCHORED_ADAPTIVE). 미수신·미초기화·구매자면 자리 미점유. dev는 테스트 단위 |
 | App Open 광고(콜드 스타트 · 쿨타임 3시간) | ✅ | 2026-08-17 Phase 6 — `features/ads/app-open.ts`. 콜드 스타트만, 쿨타임 전엔 로드 안 함, 로드 8초 타임아웃 |
-| UMP 동의 폼(EEA) | ✅ | 2026-08-17 Phase 6 — `features/ads/ads.ts`(requestInfoUpdate→REQUIRED면 showForm→init), `delayAppMeasurementInit`. 콘솔 GDPR 메시지 게시됨 |
+| UMP 동의 폼(EEA) | ✅ | 2026-08-17 Phase 6 — `features/ads/ads.ts`(requestInfoUpdate→REQUIRED면 showForm→**canRequestAds일 때만** init), `delayAppMeasurementInit`. 콘솔 GDPR 메시지 게시됨 |
+| **UMP 개인정보 옵션 재진입**(설정 → Privacy options) | ✅ | 2026-08-17 법무 점검 — `privacyOptionsRequirementStatus === REQUIRED`(EEA·영국·스위스)일 때만 설정에 행 노출 → `AdsConsent.showPrivacyOptionsForm()`. Google EU 사용자 동의 정책(동의 재방문 수단) + 처리방침 §5·제9조 약속의 실체 |
 | 광고 게이트 `adsEnabled()` | ✅ | 2026-08-17 — `features/ads/store.ts` 단일 출처. Phase 7에서 removeAds 연결 |
 | AdMob 앱·광고단위 발급 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — §3.1 |
 | Remove Ads 구매(RevenueCat 익명) | ❌ | |
@@ -97,7 +98,9 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
 - 전면형은 쿨타임을 먼저 판정하고, 통과한 경우에만 로드한다 — 캡에 걸려 있으면 로드조차 안 한다.
 - **EEA·영국·스위스 포함 출시 — UMP 동의 폼**: `AdsConsent.requestInfoUpdate()` → 필요 시 `showForm()`을
   **첫 광고 요청 전에**. `app.json`에 `delay_app_measurement_init: true`. AdMob 콘솔 Privacy & messaging에서
-  GDPR 메시지 설정이 선행.
+  GDPR 메시지 설정이 선행. **동의 후 `canRequestAds`가 false면 SDK를 초기화하지 않는다**(광고 0 — 앱은 정상 동작).
+  **동의 재방문**: `privacyOptionsRequirementStatus === REQUIRED`면 설정 화면에 "Privacy options" 행을 노출해
+  `showPrivacyOptionsForm()`을 연다(Google 정책 요건 — 동의를 바꿀 수단 제공). 그 외 지역엔 행 자체가 없다.
 - **개발 빌드는 Google 테스트 단위만.** `__DEV__` 분기 유지.
 - ⚠ `react-native-google-mobile-ads`는 **16.0.0 고정**(조각·LinkMemo 실증: 16.4.0의 play-services-ads 25.4.0이
   Kotlin 2.3 컴파일 → Expo SDK 54의 2.1.20과 충돌). 올릴 때 pinned ads sdk의 Kotlin 버전 먼저 확인.

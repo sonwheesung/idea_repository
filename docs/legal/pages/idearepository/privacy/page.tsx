@@ -43,7 +43,7 @@ export default function IdeaRepositoryPrivacy() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — Privacy Policy</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-17</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 2)</p>
       <p style={muted}>
         Idea Repository is a personal idea and project organizer. It is built around one principle:{' '}
         <b>your ideas are stored locally on your device and are not uploaded to our servers.</b> Idea Repository has
@@ -127,7 +127,8 @@ export default function IdeaRepositoryPrivacy() {
         <p style={h3}>d. Purchases (&quot;Remove Ads&quot;)</p>
         <p style={muted}>
           The one-time &quot;Remove Ads&quot; purchase is processed by Google Play (Android) or the Apple App Store
-          (iOS). We never receive your card or payment details. Purchase receipts are validated by RevenueCat (US),
+          (iOS), where that purchase is available in your version of the App. We never receive your card or payment
+          details. Purchase receipts are validated by RevenueCat (US),
           which keeps an anonymous purchase identifier and purchase history so that &quot;Restore Purchases&quot; works
           after reinstalling or changing devices. We do not link purchases to any account (there are none).
         </p>
@@ -203,10 +204,13 @@ export default function IdeaRepositoryPrivacy() {
           deletes it.
         </p>
         <p style={muted}>
-          <b>EEA / UK (GDPR).</b> You have the rights of access, rectification, erasure, restriction, data portability
-          and objection, and the right to withdraw consent at any time (for ads: the in-app privacy options or your
-          device&apos;s ad settings) without affecting prior processing. You may lodge a complaint with your local
-          supervisory authority. We respond within one month.
+          <b>EEA / UK / Switzerland (GDPR, UK GDPR, Swiss FADP).</b> You have the rights of access, rectification,
+          erasure, restriction, data portability and objection, and the right to withdraw consent at any time (for ads:
+          Settings → Privacy options in the app — shown where the consent form applies — or your device&apos;s ad
+          settings) without affecting prior processing. You may lodge a complaint with your local supervisory authority.
+          We respond within one month. We have not appointed an EU/UK representative because our processing is
+          occasional, small-scale and low-risk (GDPR Art. 27(2)); contact us directly. We make no automated decisions
+          with legal or similarly significant effects.
         </p>
         <p style={muted}>
           <b>California and other US states (CCPA/CPRA and similar laws).</b> You have the right to know, delete and
@@ -223,13 +227,20 @@ export default function IdeaRepositoryPrivacy() {
           your personal information, and you may object to the international transfer of the data in section 4.
           Requests are handled by the privacy officer below within 10 days. Details in the Korean policy below.
         </p>
+        <p style={muted}>
+          <b>Other countries (e.g. Brazil LGPD, Canada PIPEDA, Australia, Japan APPI, India DPDP).</b> Where local law
+          grants you rights of access, correction, deletion, portability, objection or complaint to a local authority,
+          exercise them through the same contact; we honor them to the extent that law requires. Deletion of an inquiry
+          covers the database record and the operator&apos;s notification copy.
+        </p>
       </section>
 
       <section style={card}>
         <h2 style={h2}>6. Children</h2>
         <p style={muted}>
-          Idea Repository is not directed at children under 13 (under 14 in the Republic of Korea), and we do not
-          knowingly collect their personal data. If you believe a child has sent us an inquiry, contact us and we will
+          Idea Repository is not directed at children under 13 — or the higher minimum age in your country (14 in the
+          Republic of Korea; up to 16 in some EEA member states for consent to ad personalization) — and we do not
+          knowingly collect their personal data. Ads shown to users who have not consented are not personalized. If you believe a child has sent us an inquiry, contact us and we will
           delete it.
         </p>
       </section>
@@ -308,6 +319,40 @@ export default function IdeaRepositoryPrivacy() {
           회사는 「개인정보 보호법」 제17조·제18조에 해당하는 경우를 제외하고 개인정보를 제3자에게 제공하지 않습니다. 광고 SDK가 Google에
           전송하는 행태정보는 제9조와 아래 국외 이전 표에 따릅니다.
         </p>
+        <p style={muted}>
+          <b>처리위탁(제26조)</b> — 위탁계약에 목적 외 처리 금지·보호조치·재위탁 제한을 규정하며, 수탁자 변경 시 이 방침으로 공개합니다.
+        </p>
+        <table style={table}>
+          <thead>
+            <tr>
+              <th style={th}>수탁자</th>
+              <th style={th}>위탁 업무</th>
+              <th style={th}>위탁 항목</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={td}>Supabase, Inc.</td>
+              <td style={td}>문의 데이터베이스 호스팅(서울 리전)</td>
+              <td style={td}>문의 본문·유형, 플랫폼·앱 버전, 기기 식별자</td>
+            </tr>
+            <tr>
+              <td style={td}>Vercel Inc.</td>
+              <td style={td}>애플리케이션 서버 호스팅(문의·부팅 조회 처리)</td>
+              <td style={td}>위 항목의 전송·처리, 일시적 요청 로그</td>
+            </tr>
+            <tr>
+              <td style={td}>RevenueCat, Inc.</td>
+              <td style={td}>인앱결제 영수증 검증·구매 복원(광고 제거 제공 버전)</td>
+              <td style={td}>익명 구매 식별자, 구매 이력</td>
+            </tr>
+            <tr>
+              <td style={td}>Discord Inc.</td>
+              <td style={td}>신규 문의 접수 시 운영자 내부 알림</td>
+              <td style={td}>문의 본문 요약</td>
+            </tr>
+          </tbody>
+        </table>
         <table style={table}>
           <thead>
             <tr>
@@ -408,7 +453,7 @@ export default function IdeaRepositoryPrivacy() {
       <section style={card}>
         <h2 style={h2}>제13조 아동 · 제14조 변경 · 처리자 정보</h2>
         <p style={muted}>
-          앱은 만 14세 미만 아동(국외 만 13세 미만)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
+          앱은 만 14세 미만 아동(국외 만 13세 미만 또는 해당국 법령상 더 높은 연령 — 일부 EEA 회원국 만 16세)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
           (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정.
         </p>
         <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games) · 대표 손휘성</p>

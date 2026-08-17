@@ -160,7 +160,8 @@ Project                        IdeaNote               Resource              Cate
 클라우드 동기화도 없다.
 
 - **첫 실행 1회 프라이버시 웰컴 시트**(2026-08-17 사용자 결정 — 한 장, 버튼 하나 "Start", 다시 안 뜸): 제목 "Your ideas stay on your device." +
-  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK와 사용자가 보낸 문의뿐**) + 손실 안내 + 처리방침 링크.
+  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK · 시작 시 공지/업데이트 확인(앱 버전만) · 사용자가 보낸 문의**) + 손실 안내 + 처리방침 링크.
+  (2026-08-17 법무 점검: bootstrap 조회도 기기를 떠나므로 "그 외에는 없다"는 표현은 §6 정직 규칙 위반 — 세 가지로 정정.)
   같은 내용을 설정 → About "Privacy at a glance"에서 다시 볼 수 있다(`components/privacy-overview.tsx`). 온보딩 여러 장·매 실행 팝업 🚫.
 - **데이터 손실 안내를 앱 내에 명시한다**(빈 화면·웰컴 시트·설정):
   > *Your ideas are stored locally on your device and are not uploaded to our servers.*

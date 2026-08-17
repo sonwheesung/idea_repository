@@ -82,7 +82,9 @@
     "about": "정보",
     "theme": "테마",
     "notice": "공지사항",
-    "inquiry": "문의하기"
+    "inquiry": "문의하기",
+    "privacyOptions": "개인정보 옵션",
+    "privacyOptionsHint": "광고 동의 선택 변경"
   },
   "category": {
     "name": "카테고리 이름",
@@ -184,7 +186,7 @@
     "point": {
       "noAccount": "계정도 로그인도 없습니다. 가입할 것이 없습니다.",
       "noCloud": "클라우드 동기화가 없습니다. 아이디어는 저희 서버로 가지 않습니다.",
-      "whatLeaves": "기기를 떠나는 것: 광고 SDK(Google AdMob)와 사용자가 직접 보내는 문의뿐입니다. 그 외에는 없습니다."
+      "whatLeaves": "기기를 떠나는 것: 광고 SDK(Google AdMob), 시작 시 공지·업데이트 확인(앱 버전만), 그리고 사용자가 직접 보내는 문의입니다."
     },
     "readPolicy": "개인정보처리방침 보기",
     "start": "시작하기"

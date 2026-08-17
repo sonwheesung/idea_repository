@@ -1,6 +1,6 @@
 # Idea Repository — Terms of Use
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17
+Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 2 — global review)
 
 > Publication target: `https://vivace-games.com/idearepository/terms` (KO main + EN section, mirroring the sister-app
 > terms page). Source text for the page `docs/legal/pages/idearepository/terms/page.tsx`. Korean version (with the
@@ -9,7 +9,8 @@ Effective date: 2026-08-17 · Last updated: 2026-08-17
 
 These Terms of Use ("Terms") govern your use of the mobile application **Idea Repository** (the "App") provided by
 Hwiseong Games (brand: Vivace Games; "we", "us"). By installing or using the App you agree to these Terms. If you do
-not agree, do not use the App.
+not agree, do not use the App. You must be at least 13 years old (or the higher minimum age for using online
+services in your country) to use the App; if you are a minor, use it with the consent of a parent or guardian.
 
 ## 1. The service
 
@@ -43,8 +44,8 @@ licensors.
 start (at most once every 3 hours). Ads are served by Google AdMob; see the Privacy Policy for what the ad SDK
 collects. In the EEA, the UK and Switzerland you can choose whether ads are personalized in the in-app consent form.
 
-**Remove Ads.** You may buy a single one-time, non-consumable in-app purchase called **"Remove Ads"** (Settings →
-Remove Ads). It removes all ads in the App. It does not unlock features — the free version already includes every
+**Remove Ads.** Where available in your version of the App, you may buy a single one-time, non-consumable in-app
+purchase called **"Remove Ads"** (Settings → Remove Ads). It removes all ads in the App. It does not unlock features — the free version already includes every
 feature — and it is not a subscription; there are no recurring charges.
 
 - Price: shown in the store in your local currency before you confirm. In the Republic of Korea the reference price
@@ -108,10 +109,20 @@ These Terms are governed by the laws of the Republic of Korea, and disputes are 
 competent courts of the Republic of Korea. If you are a consumer residing in another jurisdiction, you additionally
 enjoy the protection of the mandatory consumer-protection provisions of the law of your country of residence, and
 nothing in this section deprives you of the right to bring proceedings in your local courts where such law so
-provides. EU consumers may also use the European Commission's online dispute resolution platform
-(https://ec.europa.eu/consumers/odr).
+provides. EU consumers may also refer a dispute to an alternative dispute resolution (ADR) body in their member state (the
+European Commission's ODR platform was discontinued on 20 July 2025).
 
-## 11. Contact and seller information
+## 11. App store terms
+
+The App is distributed through Google Play and (if released there) the Apple App Store, and their terms also apply
+to your download and purchases. The stores are not parties to these Terms and have no obligation to provide
+maintenance or support for the App. In particular, for iOS: these Terms are between you and us, not Apple; Apple
+has no warranty, product-claim, IP-infringement or legal-compliance obligation for the App; you represent that you
+are not in a country under a US Government embargo or on any US Government list of prohibited or restricted
+parties; and Apple and its subsidiaries are third-party beneficiaries of these Terms with the right to enforce them
+against you.
+
+## 12. Contact and seller information
 
 - Operator: Hwiseong Games (brand: Vivace Games) — Representative: Son Hwi-seong
 - Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-울산중구-0170호
