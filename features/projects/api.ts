@@ -13,7 +13,7 @@ import {
   type Status,
 } from '@/features/projects/types';
 
-interface ProjectRow {
+export interface ProjectRow {
   id: string;
   name: string;
   summary: string | null;
@@ -33,7 +33,7 @@ interface ProjectRow {
   category_name?: string | null;
 }
 
-function toProject(r: ProjectRow): Project {
+export function toProject(r: ProjectRow): Project {
   return {
     id: r.id,
     name: r.name,
@@ -54,18 +54,10 @@ function toProject(r: ProjectRow): Project {
   };
 }
 
-// 메인 목록 — 기본 정렬 Recently Updated (PROJECT_SYSTEM §11). 검색·필터·정렬 결합은 Phase 3.
-export function listProjects(): ProjectCard[] {
-  const db = getDb();
-  const rows = db.getAllSync<ProjectRow>(
-    `SELECT p.*, c.name AS category_name
-     FROM projects p LEFT JOIN categories c ON c.id = p.category_id
-     ORDER BY p.updated_at DESC`,
-  );
-  if (rows.length === 0) return [];
-
-  // 태그는 한 번에 가져와 붙인다 (N+1 회피 — DATABASE.md §3)
-  const ids = rows.map((r) => r.id);
+/** 카드 목록에 태그를 한 번에 붙인다 (N+1 회피 — DATABASE.md §3) */
+export function attachTags(db: SQLiteDatabase, cards: ProjectCard[]): ProjectCard[] {
+  if (cards.length === 0) return cards;
+  const ids = cards.map((c) => c.id);
   const placeholders = ids.map(() => '?').join(',');
   const tagRows = db.getAllSync<{ project_id: string; name: string }>(
     `SELECT pt.project_id, t.name FROM project_tags pt JOIN tags t ON t.id = pt.tag_id
@@ -78,12 +70,21 @@ export function listProjects(): ProjectCard[] {
     list.push(t.name);
     tagsByProject.set(t.project_id, list);
   }
+  return cards.map((c) => ({ ...c, tags: tagsByProject.get(c.id) ?? [] }));
+}
 
-  return rows.map((r) => ({
-    ...toProject(r),
-    categoryName: r.category_name ?? null,
-    tags: tagsByProject.get(r.id) ?? [],
-  }));
+// 메인 목록 — 기본 정렬 Recently Updated. 검색·필터·정렬 결합은 features/projects/query.ts.
+export function listProjects(): ProjectCard[] {
+  const db = getDb();
+  const rows = db.getAllSync<ProjectRow>(
+    `SELECT p.*, c.name AS category_name
+     FROM projects p LEFT JOIN categories c ON c.id = p.category_id
+     ORDER BY p.updated_at DESC`,
+  );
+  return attachTags(
+    db,
+    rows.map((r) => ({ ...toProject(r), categoryName: r.category_name ?? null, tags: [] })),
+  );
 }
 
 export function getProject(id: string): Project | null {

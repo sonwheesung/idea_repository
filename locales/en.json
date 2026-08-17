@@ -18,7 +18,8 @@
     "empty": {
       "title": "No ideas yet",
       "body": "Tap + to capture your first idea. Only a name is required."
-    }
+    },
+    "count": "{{count}} project(s)"
   },
   "data": {
     "notice": {
@@ -155,5 +156,27 @@
     "descriptionPlaceholder": "e.g. Market research",
     "invalidUrl": "Please enter a valid URL.",
     "openFailed": "Could not open the link."
+  },
+  "search": {
+    "placeholder": "Search ideas, notes, #tags…",
+    "empty": "No projects match your search."
+  },
+  "filter": {
+    "title": "Filter",
+    "button": "Filter",
+    "all": "All",
+    "category": "Category",
+    "priority": "Priority",
+    "empty": "No projects match these filters.",
+    "resetAll": "Reset search and filters"
+  },
+  "sort": {
+    "title": "Sort by",
+    "recentlyUpdated": "Recently Updated",
+    "recentlyCreated": "Recently Created",
+    "name": "Name",
+    "progress": "Progress",
+    "targetEndDate": "Target End Date",
+    "priority": "Priority"
   }
 }

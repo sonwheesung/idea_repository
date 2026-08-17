@@ -1,25 +1,69 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { AdBanner } from '@/components/ad-banner';
+import { Chip, FilterSheet } from '@/components/filter-sheet';
+import { OptionSheet } from '@/components/option-sheet';
 import { ProjectCard } from '@/components/project-card';
 import { Screen } from '@/components/screen';
-import { deleteProject, listProjects } from '@/features/projects/api';
-import type { ProjectCard as ProjectCardData } from '@/features/projects/types';
+import { listCategories, type Category } from '@/features/categories/api';
+import { deleteProject } from '@/features/projects/api';
+import { useFilterStore } from '@/features/projects/filter-store';
+import { queryProjects, SORT_KEYS, type SortKey } from '@/features/projects/query';
+import { STATUSES, type ProjectCard as ProjectCardData, type Status } from '@/features/projects/types';
 import { useTheme } from '@/theme/use-theme';
 
-// 메인 화면 (docs/PROJECT_SYSTEM.md §8). 검색바·상태 칩·필터/정렬은 Phase 3에서.
+const SEARCH_DEBOUNCE_MS = 250;
+
+// 메인 화면 (docs/PROJECT_SYSTEM.md §8) — 검색(9필드) · 상태 칩 · 필터/정렬 시트 · 카드 목록.
 export default function HomeScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
-  const [projects, setProjects] = useState<ProjectCardData[]>([]);
 
-  const reload = useCallback(() => setProjects(listProjects()), []);
+  const status = useFilterStore((s) => s.status);
+  const categoryId = useFilterStore((s) => s.categoryId);
+  const priority = useFilterStore((s) => s.priority);
+  const sort = useFilterStore((s) => s.sort);
+  const setStatus = useFilterStore((s) => s.setStatus);
+  const setCategoryId = useFilterStore((s) => s.setCategoryId);
+  const setPriority = useFilterStore((s) => s.setPriority);
+  const setSort = useFilterStore((s) => s.setSort);
+  const resetFilter = useFilterStore((s) => s.reset);
+
+  const [searchText, setSearchText] = useState('');
+  const [q, setQ] = useState('');
+  const [projects, setProjects] = useState<ProjectCardData[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
+
+  // 검색어 디바운스 — 세션 한정(저장하지 않는다)
+  useEffect(() => {
+    const timer = setTimeout(() => setQ(searchText), SEARCH_DEBOUNCE_MS);
+    return () => clearTimeout(timer);
+  }, [searchText]);
+
+  const reload = useCallback(() => {
+    const cats = listCategories();
+    setCategories(cats);
+    // 저장된 카테고리 필터가 삭제됐으면 해제
+    if (categoryId && !cats.some((c) => c.id === categoryId)) {
+      setCategoryId(null);
+      return;
+    }
+    setProjects(queryProjects({ q, status, categoryId, priority, sort }));
+  }, [q, status, categoryId, priority, sort, setCategoryId]);
   useFocusEffect(reload);
+  useEffect(reload, [reload]);
+
+  const activeFilterCount = (categoryId ? 1 : 0) + (priority ? 1 : 0);
+  const isFiltering = activeFilterCount > 0 || status !== null || q.trim().length > 0;
+
+  const sortOptions = useMemo(() => SORT_KEYS.map((k) => ({ value: k, label: t(`sort.${k}`) })), [t]);
 
   const confirmDelete = (p: ProjectCardData) => {
     Alert.alert(t('project.deleteTitle', { name: p.name }), t('project.deleteBody'), [
@@ -57,9 +101,62 @@ export default function HomeScreen() {
         </View>
       </View>
 
+      {/* 검색바 */}
+      <View style={[styles.searchBar, { backgroundColor: theme.searchBar, borderColor: theme.border }]}>
+        <Ionicons name="search" size={18} color={theme.textMuted} />
+        <TextInput
+          value={searchText}
+          onChangeText={setSearchText}
+          placeholder={t('search.placeholder')}
+          placeholderTextColor={theme.textMuted}
+          returnKeyType="search"
+          autoCapitalize="none"
+          autoCorrect={false}
+          style={[styles.searchInput, { color: theme.text }]}
+          accessibilityLabel={t('common.search')}
+        />
+        {searchText ? (
+          <Pressable hitSlop={8} onPress={() => setSearchText('')} accessibilityLabel={t('common.clear')}>
+            <Ionicons name="close-circle" size={18} color={theme.textMuted} />
+          </Pressable>
+        ) : null}
+      </View>
+
+      {/* 상태 칩 (All + 6) */}
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>
+          <Chip label={t('filter.all')} active={status === null} onPress={() => setStatus(null)} />
+          {STATUSES.map((s: Status) => (
+            <Chip key={s} label={t(`status.${s}`)} active={status === s} onPress={() => setStatus(s)} />
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* 필터 · 정렬 · 개수 */}
+      <View style={styles.toolbar}>
+        <Pressable onPress={() => setFilterOpen(true)} style={styles.toolButton} accessibilityRole="button">
+          <Ionicons name="funnel-outline" size={16} color={activeFilterCount ? theme.primary : theme.icon} />
+          <Text style={[styles.toolText, { color: activeFilterCount ? theme.primary : theme.text }]}>
+            {t('filter.button')}
+            {activeFilterCount ? ` · ${activeFilterCount}` : ''}
+          </Text>
+        </Pressable>
+        <Pressable onPress={() => setSortOpen(true)} style={styles.toolButton} accessibilityRole="button">
+          <Ionicons name="swap-vertical-outline" size={16} color={theme.icon} />
+          <Text style={[styles.toolText, { color: theme.text }]} numberOfLines={1}>
+            {t(`sort.${sort}`)}
+          </Text>
+        </Pressable>
+        <Text style={[styles.count, { color: theme.textMuted }]}>
+          {t('home.count', { count: projects.length })}
+        </Text>
+      </View>
+
       <FlatList
         data={projects}
         keyExtractor={(p) => p.id}
+        keyboardShouldPersistTaps="handled"
+        keyboardDismissMode="on-drag"
         contentContainerStyle={projects.length === 0 ? styles.emptyContainer : styles.list}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         renderItem={({ item, index }) => (
@@ -72,15 +169,59 @@ export default function HomeScreen() {
         )}
         ListEmptyComponent={
           <View style={styles.empty}>
-            <Ionicons name="bulb-outline" size={40} color={theme.textMuted} />
-            <Text style={[styles.emptyTitle, { color: theme.text }]}>{t('home.empty.title')}</Text>
-            <Text style={[styles.emptyBody, { color: theme.textMuted }]}>{t('home.empty.body')}</Text>
-            {/* 데이터 손실 안내 — CLAUDE.md §6 (키 분리: data.notice.*) */}
-            <Text style={[styles.notice, { color: theme.textMuted }]}>
-              {t('data.notice.local')} {t('data.notice.loss')}
-            </Text>
+            <Ionicons
+              name={isFiltering ? 'search-outline' : 'bulb-outline'}
+              size={40}
+              color={theme.textMuted}
+            />
+            {isFiltering ? (
+              <>
+                <Text style={[styles.emptyTitle, { color: theme.text }]}>
+                  {q.trim() ? t('search.empty') : t('filter.empty')}
+                </Text>
+                <Pressable
+                  onPress={() => {
+                    setSearchText('');
+                    resetFilter();
+                  }}
+                  style={styles.resetLink}>
+                  <Text style={[styles.resetText, { color: theme.primary }]}>{t('filter.resetAll')}</Text>
+                </Pressable>
+              </>
+            ) : (
+              <>
+                <Text style={[styles.emptyTitle, { color: theme.text }]}>{t('home.empty.title')}</Text>
+                <Text style={[styles.emptyBody, { color: theme.textMuted }]}>{t('home.empty.body')}</Text>
+                {/* 데이터 손실 안내 — CLAUDE.md §6 (키 분리: data.notice.*) */}
+                <Text style={[styles.notice, { color: theme.textMuted }]}>
+                  {t('data.notice.local')} {t('data.notice.loss')}
+                </Text>
+              </>
+            )}
           </View>
         }
+      />
+
+      <FilterSheet
+        visible={filterOpen}
+        categories={categories}
+        categoryId={categoryId}
+        priority={priority}
+        onCategory={setCategoryId}
+        onPriority={setPriority}
+        onReset={() => {
+          setCategoryId(null);
+          setPriority(null);
+        }}
+        onClose={() => setFilterOpen(false)}
+      />
+      <OptionSheet<SortKey>
+        visible={sortOpen}
+        title={t('sort.title')}
+        value={sort}
+        options={sortOptions}
+        onSelect={setSort}
+        onClose={() => setSortOpen(false)}
       />
     </Screen>
   );
@@ -98,17 +239,30 @@ const styles = StyleSheet.create({
   title: { fontSize: 22, fontWeight: '700' },
   headerActions: { flexDirection: 'row', gap: 4 },
   iconButton: { padding: 6 },
-  list: { padding: 16 },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginHorizontal: 16,
+    marginTop: 12,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    height: 44,
+  },
+  searchInput: { flex: 1, fontSize: 16, paddingVertical: 0 },
+  chips: { paddingHorizontal: 16, paddingVertical: 12, gap: 8 },
+  toolbar: { flexDirection: 'row', alignItems: 'center', gap: 16, paddingHorizontal: 16, paddingBottom: 8 },
+  toolButton: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingVertical: 4 },
+  toolText: { fontSize: 13, fontWeight: '500' },
+  count: { marginLeft: 'auto', fontSize: 12 },
+  list: { paddingHorizontal: 16, paddingBottom: 16 },
   separator: { height: 12 },
   emptyContainer: { flexGrow: 1 },
-  empty: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 32,
-    gap: 10,
-  },
-  emptyTitle: { fontSize: 18, fontWeight: '600', marginTop: 6 },
+  empty: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32, gap: 10 },
+  emptyTitle: { fontSize: 18, fontWeight: '600', marginTop: 6, textAlign: 'center' },
   emptyBody: { fontSize: 14, textAlign: 'center' },
   notice: { fontSize: 12, textAlign: 'center', marginTop: 24, lineHeight: 18 },
+  resetLink: { paddingVertical: 6 },
+  resetText: { fontSize: 14, fontWeight: '500' },
 });

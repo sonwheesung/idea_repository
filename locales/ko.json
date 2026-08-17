@@ -18,7 +18,8 @@
     "empty": {
       "title": "아직 아이디어가 없어요",
       "body": "+ 를 눌러 첫 아이디어를 기록하세요. 이름만 있으면 됩니다."
-    }
+    },
+    "count": "프로젝트 {{count}}개"
   },
   "data": {
     "notice": {
@@ -155,5 +156,27 @@
     "descriptionPlaceholder": "예: 시장 조사 자료",
     "invalidUrl": "올바른 URL을 입력해 주세요.",
     "openFailed": "링크를 열 수 없습니다."
+  },
+  "search": {
+    "placeholder": "아이디어, 노트, #태그 검색…",
+    "empty": "검색 결과가 없습니다."
+  },
+  "filter": {
+    "title": "필터",
+    "button": "필터",
+    "all": "전체",
+    "category": "카테고리",
+    "priority": "우선순위",
+    "empty": "조건에 맞는 프로젝트가 없습니다.",
+    "resetAll": "검색·필터 초기화"
+  },
+  "sort": {
+    "title": "정렬",
+    "recentlyUpdated": "최근 수정순",
+    "recentlyCreated": "최근 생성순",
+    "name": "이름순",
+    "progress": "진행률순",
+    "targetEndDate": "마감일순",
+    "priority": "우선순위순"
   }
 }
