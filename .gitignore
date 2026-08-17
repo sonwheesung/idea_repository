@@ -1,0 +1,25 @@
+# 의존성·빌드
+node_modules/
+.expo/
+dist/
+build/
+android/
+ios/
+*.aab
+*.apk
+*.tsbuildinfo
+
+# 시크릿·서명 (배구·LinkMemo 규약)
+.env
+.env.local
+credentials/
+*.jks
+*.keystore
+credentials.json
+google-services.json
+
+# OS·에디터
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/settings.json
