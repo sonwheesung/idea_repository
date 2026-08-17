@@ -15,7 +15,7 @@
 | 3 | 탐색 — 검색 9필드 · 필터 3축 · 정렬 6종 | ✅ 2026-08-17 — `features/projects/query.ts`(한 쿼리: 7필드 LIKE + 노트·태그 EXISTS, `#` 처리, `%_` 이스케이프, 정렬 6종 SQL + 이름은 localeCompare) · `filter-store.ts`(zustand persist, 삭제된 카테고리 자동 해제) · 홈: 검색바(250ms 디바운스, 세션 한정) · 상태 칩 · 필터 시트(카테고리·우선순위 칩, Reset) · 정렬 OptionSheet · 결과 개수 · 검색/필터 0건 문구 + 초기화 링크. typecheck·lint·i18n(140키)·번들 통과. ⏳ 실기기 확인(사용자) |
 | 4 | i18n 완성 — ko + check:i18n + 날짜 로케일 | ✅ 2026-08-17 — en·ko 전 키 동기(175키), `check:i18n`에 **코드 사용 키 검사(④)** 추가(누락 1건 발견·수정), 미사용 키 정리, 날짜 로케일은 Phase 2에서 적용 |
 | 5 | common_server 연동 — 등록·SDK·부팅 게이트·공지·문의 | ✅ 2026-08-17 — `idearepository` seed → **bootstrap 200 실측** · SDK 복사(2026-08-14) · `_dv_sdk` 22/22 · BootGate(점검/강제업데이트, 실패 시 통과, 출구 포함) · 공지 화면 + 설정 배지 · 문의(기기 subject: 등록→귀속→내역/답변/상태) **프로덕션 E2E 실측**(등록·문의·mine 200, 잘못된 deviceId 400). ⏸ 디스코드 웹훅 env(사용자 URL 필요) · 소프트 업데이트(latest) 안내 · pinned 홈 팝업 |
-| 6 | 광고 — dev build 전환 · 배너 · 전면형(포맷 확정분) · UMP | ⬜ |
+| 6 | 광고 — dev build 전환 · 배너 · App Open · UMP | 🔨 2026-08-17 — AdMob 콘솔 대행 ✅(앱·배너·App Open·GDPR 게시) · SDK 16.0.0 고정 · config plugin(앱 ID·delayAppMeasurementInit) · `features/ads/{store,ads,app-open}` + 실배너(메인·상세) · **Expo Go 종료 → dev build**(`npm run android`, 에뮬레이터 `volleyball` AVD에 설치). **에뮬레이터 실측 ✅**: 콜드 스타트 App Open 테스트 광고 노출 → 닫기 → 웰컴 시트 → 홈 하단 배너(Test Ad) · 재실행 시 App Open 미노출(3h 쿨타임)·웰컴 재노출 없음. ⚠ 함정 2건: ① 프로젝트에 expo-dev-client가 없어 `expo run:android`는 일반 RN 디버그 앱 → 기본 dev 서버 8081(다른 프로젝트 Metro)에 붙는다 → `debug_http_host` 공유 프리퍼런스를 `10.0.2.2:8087`로 지정해 해결 ② 광고 패키지 설치 **후** Metro `--clear` 재시작 필수(파일 맵 낡음 → AppOpenAd 모듈 해석 실패) |
 | 6.5 | 비공개 테스트 개시(개인 계정이면 12명×14일 시계 병행) | ⬜ |
 | 7 | Remove Ads — RevenueCat 익명 · 구매/복원 | ⬜ |
 | 8 | 출시 준비 — 아이콘/스플래시 · 처리방침 · 데이터 보안 선언 · AAB · 스토어 | ⬜ |

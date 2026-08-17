@@ -51,9 +51,10 @@
 | 필터 3축 · 정렬 6종 · 상태 유지 | ✅ | 2026-08-17 Phase 3 — 상태 칩 · 필터 시트 · 정렬 시트 · zustand persist |
 | 다국어 en·ko + `check:i18n`(리소스 정합 + 코드 사용 키) + 언어 설정 | ✅ | 2026-08-17 — 175키 동기, 설정→언어 Select(시스템/English/한국어). Phase 4 점검 완료 |
 | 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
-| 하단 배너(메인·상세) | 🔨 자리만 | 2026-08-17 점선 플레이스홀더(메인·상세) — 실배너는 Phase 6 |
-| App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |
-| UMP 동의 폼 | ❌ | Phase 6 |
+| 하단 배너(메인·상세) | ✅ | 2026-08-17 Phase 6 — 실 AdMob 배너(dev=테스트 단위), 미수신 시 자리 미점유 |
+| App Open 광고(콜드 스타트 · 쿨타임 3h) | ✅ | 2026-08-17 Phase 6 — 복귀 노출 없음, 로드 8초 타임아웃 |
+| UMP 동의 폼 | ✅ | 2026-08-17 Phase 6 — 콘솔 GDPR 메시지 게시 + AdsConsent 흐름 |
+| ⚠ **Expo Go 종료** | — | 2026-08-17 — 광고 SDK(네이티브) 설치. 이후 개발은 디버그 빌드(`npx expo run:android --device <AVD명> --no-bundler`; expo-dev-client 미포함이라 일반 RN 디버그 앱). **Metro 8087에 붙이려면** 앱의 RN 개발 메뉴 → Settings → Debug server host를 `<호스트>:8087`로(에뮬레이터는 `10.0.2.2:8087`, 폰은 Tailscale `100.91.69.45:8087`) — 기본은 8081이라 다른 프로젝트 Metro에 붙는다(2026-08-17 실증). 에뮬레이터는 `run-as`로 `debug_http_host` 프리퍼런스를 직접 써도 된다 |
 | Remove Ads 구매 + Restore | ❌ | Phase 7 — RevenueCat 익명 |
 | 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
@@ -104,7 +105,7 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-
 - **외부 실기기(Tailscale)**: `REACT_NATIVE_PACKAGER_HOSTNAME=100.91.69.45 npx expo start --port 8087` → 폰 Expo Go에서 `exp://100.91.69.45:8087`.
   2026-08-17 실측: manifest launchAsset이 Tailscale IP로 광고됨, 사용자 실기기 확인 완료. 폰 `s24`에 Tailscale이 켜져 있어야 붙는다.
 - 외부에서 실기기 접속은 LinkMemo README §3의 Tailscale 절차(`REACT_NATIVE_PACKAGER_HOSTNAME=<Tailscale IP>`) 그대로.
-- 광고 SDK가 들어가는 Phase 6부터 **Expo Go 불가 → dev build**. 그 전까지는 Expo Go로 개발 가능.
+- ~~광고 SDK가 들어가는 Phase 6부터 **Expo Go 불가 → dev build**~~ → **2026-08-17 Phase 6 진입: Expo Go 불가.** `npm run android`(에뮬레이터/USB 기기) 또는 `cd android && ./gradlew assembleDebug`로 APK를 만들어 폰에 설치. dev client는 Metro(8087, Tailscale IP)에 붙는다.
 
 ---
 

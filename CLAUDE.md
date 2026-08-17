@@ -282,8 +282,8 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 테마 | `theme/palettes.ts` 토큰 — **12종 + 시스템(자동)**(LinkMemo 구조 승계) | ✅ 2026-08-17 토큰 17종(+cardAccents) · `app/theme.tsx` 미니어처 그리드 |
 | **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ✅ 2026-08-17 v1 6테이블 + 시드 ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
 | 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ❌ |
-| 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ❌ |
-| 개발 실행 | **dev build** (`npx expo run:android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**. 광고 전까지는 Expo Go 가능 | ❌ |
+| 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ✅ 2026-08-17 Phase 6 |
+| 개발 실행 | **dev build** (`npm run android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**(2026-08-17부터) | ✅ |
 | 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ❌ |
 | 브라우저 열기 | expo-linking (`Linking.openURL`) — 관련 자료 URL | ❌ |
 | 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko 29키 · 설정→언어 수동 변경 |
@@ -403,4 +403,5 @@ idea_repository/
 - **Phase 3 완료**(2026-08-17): 검색(9필드)·상태 칩·필터 시트·정렬 6종·상태 유지. 법무 문서 초안(`docs/legal/`)·STORE_LISTING 작성(미게시).
 - 첫 실행 프라이버시 웰컴 시트 ✅(2026-08-17). 법무 문서 게시는 아래 LEGAL_SYSTEM 참조.
 - **Phase 4·5 완료**(2026-08-17): i18n 코드 키 검사 추가 · common_server 연동(등록·SDK·BootGate·공지·문의 기기 subject, 프로덕션 E2E). ⏸ 디스코드 웹훅 env(사용자 URL).
-- 다음 단계: Phase 6(광고 — AdMob 발급·SDK 16.0.0·dev build·배너·App Open·UMP) → 7(Remove Ads) → 8(출시 준비). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- **Phase 6 완료**(2026-08-17): AdMob 콘솔 대행(앱·배너·App Open·GDPR) · SDK 16.0.0 · 실배너·App Open(3h)·UMP · **Expo Go 종료 → 디버그 빌드**(에뮬레이터 실측: 테스트 광고 노출·쿨타임 동작).
+- 다음 단계: Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원) → 8(출시 준비: 아이콘·AAB·비공개 테스트). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
