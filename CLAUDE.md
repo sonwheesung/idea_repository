@@ -277,14 +277,14 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 네비게이션 | expo-router ~6.0 (단일 메인 + 스택) | ✅ `index` · `project/new`(modal) · `settings` 골격 |
 | 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ✅ 테마·언어 store가 첫 사용처 |
 | 테마 | `theme/palettes.ts` 토큰 — **라이트/다크 2종**, 시스템 따르기 + 수동(LinkMemo 구조 축소 재사용) | ✅ 2026-08-17 토큰 17종 + 설정 화면 칩 |
-| **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ❌ ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
+| **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ✅ 2026-08-17 v1 6테이블 + 시드 ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
 | 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ❌ |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ❌ |
 | 개발 실행 | **dev build** (`npx expo run:android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**. 광고 전까지는 Expo Go 가능 | ❌ |
 | 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ❌ |
 | 브라우저 열기 | expo-linking (`Linking.openURL`) — 관련 자료 URL | ❌ |
 | 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko 29키 · 설정→언어 수동 변경 |
-| 날짜 | dayjs (+ locale) — 기기 지역 표기 | ✅ 설치(사용은 Phase 2) |
+| 날짜 | dayjs (+ locale · localizedFormat · customParseFormat) — 기기 지역 표기 | ✅ `lib/date.ts` (카드 수정일) |
 | 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ❌ |
 | 배포 | Expo EAS | ❌ |
 | Metro 포트 | **8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피) | ✅ scripts 반영 · :8087 번들 200 실측 |
@@ -354,6 +354,7 @@ idea_repository/
 | J | 필터·정렬 상태 로컬 유지 | 매번 재설정 마찰 제거 |
 | K | Metro 포트 8087 | 형제 앱 충돌 회피 — §11 |
 | L | **`app_code = idearepository` · 패키지 `com.vivacegames.idearepository` · 표시명 Idea Repository** (2026-08-17 사용자 확정 — 미결정 #1 해소) | 브랜드 도메인 역순 규약(LinkMemo) 승계. 등록 후 변경 불가 |
+| M | **폼 UI 규약** — 선택형 값은 `Select`(라벨 + 현재 값 행 → 옵션 모달), 텍스트는 `TextField`(Label + input) (2026-08-17 사용자 지시 — 설정 칩 → select, 프로젝트 등록 폼 = Label + input) | 설정(화면 모드·언어)과 프로젝트 폼(카테고리·상태·우선순위)이 같은 컴포넌트를 쓴다. 칩은 필터(상태 칩)에만 |
 
 ### ✅ 원 미결정 7건 — 2026-08-17 사용자 승인으로 전부 확정 (제안값 그대로)
 
@@ -393,4 +394,5 @@ idea_repository/
   라이트/다크 토큰·i18n(en·ko)·설정(화면 모드·언어)·`check:i18n`·Metro 8087. typecheck·lint·i18n·번들(1537모듈) 통과.
   서버 등록 0 · 스토어 등록 0.
 - **미결정 7건 전부 해소**(2026-08-17 사용자 승인) — 현재 미결정 없음.
-- 다음 단계: Phase 1(DB v1 + 프로젝트 CRUD + 카테고리·태그). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- **Phase 1 진행 중**(2026-08-17): DB v1 + 카테고리 시드 · 프로젝트 생성(이름만 + Add details: 요약·설명·카테고리·상태·우선순위) ·
+  카드 목록(Recently Updated) · 길게 눌러 삭제. 남은 것: 카테고리 관리 화면 · 태그 입력. 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

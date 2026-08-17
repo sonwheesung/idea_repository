@@ -7,8 +7,8 @@
 
 | 영역 | 상태 |
 |---|---|
-| DB 오픈·마이그레이션 러너(`db/index.ts`) | ❌ |
-| v1 스키마(projects·categories·tags·project_tags·notes·resources) + 카테고리 시드 | ❌ |
+| DB 오픈·마이그레이션 러너(`db/index.ts`) | ✅ 2026-08-17 — user_version 기반, FK ON, 마이그레이션은 함수(스키마 + 시드 INSERT) |
+| v1 스키마(projects·categories·tags·project_tags·notes·resources) + 카테고리 시드 | ✅ 2026-08-17 |
 
 ## 1. 규약 (LinkMemo 승계)
 

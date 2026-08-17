@@ -29,7 +29,31 @@
     "name": "Project name",
     "namePlaceholder": "e.g. AI Game Balancer",
     "nameRequired": "Please enter a project name.",
-    "addDetails": "Add details (optional)"
+    "addDetails": "Add details (optional)",
+    "summary": "One-line summary",
+    "description": "Description",
+    "category": "Category",
+    "categoryNone": "None",
+    "status": "Status",
+    "priority": "Priority",
+    "progress": "Progress",
+    "updated": "Updated {{date}}",
+    "deleteTitle": "Delete \"{{name}}\"?",
+    "deleteBody": "Its idea notes and resources will be deleted too."
+  },
+  "status": {
+    "idea": "Idea",
+    "planned": "Planned",
+    "in_progress": "In Progress",
+    "on_hold": "On Hold",
+    "cancelled": "Cancelled",
+    "completed": "Completed"
+  },
+  "priority": {
+    "high": "High",
+    "medium": "Medium",
+    "low": "Low",
+    "none": "None"
   },
   "settings": {
     "title": "Settings",

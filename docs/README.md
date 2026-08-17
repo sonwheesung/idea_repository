@@ -35,18 +35,18 @@
 | 영역 | 상태 | 비고 |
 |---|---|---|
 | Expo 부트(SDK 54 · expo-router · TS strict · Metro 8087) | ✅ | 2026-08-17 — expo ~54.0.35 · RN 0.81.5 · React 19.1.0(LinkMemo 조합). 템플릿 예제 미채용, 단일 메인+스택(`index`·`project/new`·`settings`) |
-| 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ✅ | 2026-08-17 — `theme/palettes.ts` 17토큰 · zustand persist · 설정 화면 칩으로 즉시 전환 |
-| expo-sqlite v1 스키마 + 카테고리 시드 | ❌ | Phase 1 — [`DATABASE.md`](./DATABASE.md) |
-| 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ❌ | Phase 1 |
-| 카테고리 관리(추가·수정·삭제 시 선택지) | ❌ | Phase 1 |
-| 태그(칩 · 자동완성 · 고아 정리) | ❌ | Phase 1 |
+| 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ✅ | 2026-08-17 — `theme/palettes.ts` 17토큰 · zustand persist · 설정 화면 **Select**로 전환(칩 → select, 사용자 지시) |
+| expo-sqlite v1 스키마 + 카테고리 시드 | ✅ | 2026-08-17 Phase 1 — [`DATABASE.md`](./DATABASE.md) |
+| 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ✅ | 2026-08-17 Phase 1 — 생성 폼 Label+input(`TextField`) + Select(카테고리·상태·우선순위), 카드(상태·우선순위·진행률 바·카테고리·태그·수정일), 길게 눌러 삭제 |
+| 카테고리 관리(추가·수정·삭제 시 선택지) | ❌ | Phase 1 남은 항목 |
+| 태그(칩 · 자동완성 · 고아 정리) | ❌ | Phase 1 남은 항목(고아 정리 SQL은 deleteProject에 이미 포함) |
 | 프로젝트 상세 · 편집(전 필드) | ❌ | Phase 2 |
 | 아이디어 노트 CRUD | ❌ | Phase 2 |
 | 관련 자료 CRUD + 외부 브라우저 | ❌ | Phase 2 |
 | 검색 9필드 | ❌ | Phase 3 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ❌ | Phase 3 |
-| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 29키 동기, 설정→언어(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
-| 날짜 로케일 표기 | ❌ | Phase 4 |
+| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 49키 동기, 설정→언어 Select(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
+| 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
 | 하단 배너(메인·상세) | ❌ | Phase 6 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |
 | UMP 동의 폼 | ❌ | Phase 6 |
@@ -93,7 +93,9 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-
 - ⚠ **Metro 재시작은 PowerShell `Stop-Process`로**(LinkMemo 실증) — git-bash `kill`은 Windows 프로세스에 조용히 실패한다.
   재시작 검증은 ① 포트 소유 PID 변경(`netstat -ano`) ② 콜드 번들이 전체 모듈 수로 도는지("1 module"은 캐시 리셋 실패 신호).
 - **Metro 포트 8087 고정**(`package.json` scripts): `npm start` = `expo start --port 8087`, `npm run android` = `expo run:android --port 8087`.
-  2026-08-17 실측: `CI=1 npx expo start --port 8087` → 콜드 번들 200 · 1537 모듈 · 45초.
+  2026-08-17 실측: `CI=1 npx expo start --port 8087` → 콜드 번들 200 · 1537 모듈 · 45초. sqlite·crypto 추가 후 `--clear` 재시작 1566 모듈.
+- **외부 실기기(Tailscale)**: `REACT_NATIVE_PACKAGER_HOSTNAME=100.91.69.45 npx expo start --port 8087` → 폰 Expo Go에서 `exp://100.91.69.45:8087`.
+  2026-08-17 실측: manifest launchAsset이 Tailscale IP로 광고됨, 사용자 실기기 확인 완료. 폰 `s24`에 Tailscale이 켜져 있어야 붙는다.
 - 외부에서 실기기 접속은 LinkMemo README §3의 Tailscale 절차(`REACT_NATIVE_PACKAGER_HOSTNAME=<Tailscale IP>`) 그대로.
 - 광고 SDK가 들어가는 Phase 6부터 **Expo Go 불가 → dev build**. 그 전까지는 Expo Go로 개발 가능.
 
