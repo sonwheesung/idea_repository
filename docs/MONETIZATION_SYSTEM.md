@@ -12,7 +12,7 @@
 | App Open 광고(콜드 스타트 · 쿨타임 3시간) | ❌ | 2026-08-17 확정 |
 | UMP 동의 폼(EEA) | ❌ | 글로벌 출시 전제 |
 | 광고 게이트 `adsEnabled()` | ❌ | 단일 출처 |
-| AdMob 앱·광고단위 발급 | ❌ | 사용자 콘솔 작업(또는 브라우저 대행) |
+| AdMob 앱·광고단위 발급 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — §3.1 |
 | Remove Ads 구매(RevenueCat 익명) | ❌ | |
 | Restore Purchases | ❌ | |
 
@@ -105,17 +105,19 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
   바꾸면 prebuild + 재빌드.
 - 스토어 미출시 상태의 AdMob 앱은 "게재 제한"이 정상. 출시 후 스토어 연결 → 승인까지 실노출 0 — 코드 문제로 오해하지 않는다.
 
-## 3.1 AdMob 계정 (미발급)
+## 3.1 AdMob 계정 (2026-08-17 발급 — 브라우저 대행, LinkMemo 방식)
 
 | 것 | 값 |
 |---|---|
-| AdMob 앱 (Android) | ❌ 미발급 — 발급 후 여기 기록. LinkMemo는 `ca-app-pub-2731473780180274~…` 같은 퍼블리셔 계정 |
-| 배너 단위 | ❌ |
-| App Open 단위 | ❌ |
-| GDPR 메시지 | ❌ |
+| AdMob 앱 (Android) | `ca-app-pub-2731473780180274~7371574153` — `app.json` config plugin에 들어간다(네이티브 매니페스트에 박힘 — 변경 시 prebuild 재빌드). 스토어 미등록 상태로 등록("아니요") |
+| 배너 `하단 배너` | `ca-app-pub-2731473780180274/5348046046` |
+| 앱 오프닝 `앱 시작 오프닝` | `ca-app-pub-2731473780180274/9239189595` |
+| GDPR 메시지 | **"Idea Repository GDPR" 게시됨**(2026-08-17) — 동의 / 동의하지 않음(전 EEA 국가) / 옵션 관리 3버튼, 기본 언어 영어, 처리방침 URL `https://vivace-games.com/idearepository/privacy` 등록 |
+| 미국 주 규정 메시지 | ⏸ 미생성 — LinkMemo도 미생성. CCPA "판매 안 함" 입장이라 선택 사항; 필요해지면 같은 화면에서 생성 |
 
-- 처리방침 URL이 AdMob 앱 설정에 들어간다 — LinkMemo는 배구 서버 Vercel 정적 페이지(`vivace-games.com/linkmemo/privacy`)로
-  게시했다. 같은 방식이면 `vivace-games.com/idearepository/privacy` 류. Play 데이터 보안 선언과 1:1 일치시킬 것.
+- 개발 빌드는 여전히 **Google 테스트 단위**를 쓴다(`__DEV__` 분기) — 실단위로 개발하면 무효 트래픽으로 계정 정지 위험.
+- 이 앱은 스토어 미출시라 "검토 필요 · 게재 제한" 상태가 정상. Play 출시 후 스토어 연결 → 승인까지 실노출 0.
+- ⚠ 광고 단위 발급 후 게재 시작까지 최대 1시간(콘솔 안내).
 
 ---
 

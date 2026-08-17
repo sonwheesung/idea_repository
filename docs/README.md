@@ -68,7 +68,7 @@
 | common_server `apps`에 `idearepository` 등록 | ❌ | app_code 확정(2026-08-17). 확인: `bootstrap?app=idearepository` 200 |
 | common_server SDK 복사(`lib/common-server/`) | ❌ | SDK_VERSION 2026-08-14 |
 | 디스코드 문의 웹훅 env + 재배포 | ❌ | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` |
-| AdMob 앱·광고단위 + GDPR 메시지 | ❌ | 배너 1 + App Open 1 |
+| AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
 | RevenueCat 프로젝트(익명 모드) | ❌ | 웹훅·서버 연동 없음 |
 | 스토어 Remove Ads 상품 등록 | ❌ | 비소모성 1상품 |
 | 처리방침·약관 게시 | ✅ | 2026-08-17 — `vivace-games.com/idearepository/{privacy,terms}` 200(배구 서버 정적 페이지, 사용자 확인 후 배포). 정본 `docs/legal/`, 절차 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) |
