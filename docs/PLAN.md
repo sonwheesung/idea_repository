@@ -8,7 +8,7 @@
 
 | Phase | 내용 | 상태 |
 |---|---|---|
-| — | **미결정 확정**(CLAUDE.md §14) — ~~app_code~~(✅ 2026-08-17 `idearepository`)·전면 광고 포맷·문의 귀속·백업·기본 카테고리·다크 모드·출시 계정 | 🔨 1/7 해소, 6건 대기 |
+| — | **미결정 7건 확정**(CLAUDE.md §14) — app_code·App Open 3h·기기 subject·백업 제외·기본 카테고리 편집 허용·라이트/다크·출시 계정 | ✅ 2026-08-17 사용자 승인(제안값 그대로) |
 | 0 | 기반 정리 — Expo SDK 54 스캐폴드·폴더 구조·i18n 뼈대·테마 토큰·Metro 8087 | ⬜ |
 | 1 | DB + 프로젝트 CRUD(이름만 생성) + 카테고리 시드/관리 + 태그 (핵심 도메인) | ⬜ |
 | 2 | 상세·편집 전 필드 + 아이디어 노트 + 관련 자료 | ⬜ |
@@ -32,7 +32,7 @@
 - 폴더 구조 확립(CLAUDE.md §12): `features/` `db/` `theme/` `locales/` `lib/` `scripts/`
 - **i18n 뼈대**: i18next + expo-localization, `locales/en.json`·`ko.json`. ⚠ **화면은 처음부터 `t()` 키로** — 하드코딩 후
   걷어내는 재작업 금지(조각·LinkMemo 규약). LinkMemo `scripts/check-i18n.mjs` 이식.
-- **테마 토큰** `theme/`: 미결정 #6 결과에 따라 라이트 1종 또는 라이트/다크 2종. 어느 쪽이든 화면은 토큰만 참조.
+- **테마 토큰** `theme/palettes.ts`: **라이트/다크 2종** + zustand persist(시스템 따르기/라이트/다크). 화면은 토큰만 참조.
 - 공통 컴포넌트 시작: `Screen`(세이프에어리어 + 배너 footer 자리) · `Card` · `Button`
 - ESLint `any` 금지, `package.json` scripts: `start`/`android` **`--port 8087`**, `typecheck`, `lint`, `check:i18n`
 - `.gitignore`에 `credentials/` `*.jks` `*.aab` `android/` `ios/` 추가
@@ -83,25 +83,25 @@
 
 - 서버 쪽: `seed.ts idearepository` 등록 → `bootstrap?app=idearepository` **200 출력 확보**
 - 앱 쪽: SDK 복사(`lib/common-server/`, SDK_VERSION 주석) → 부팅 게이트(실패해도 앱 진행, 차단 화면 출구) →
-  공지 화면(읽음은 로컬) → 문의 화면(미결정 #3: 기기 subject면 `registerDevice` + 내역/답변 화면)
+  공지 화면(읽음은 로컬) → 문의(기기 subject `registerDevice` + 작성 폼 + 내역/답변/상태 화면)
 - 디스코드 웹훅 env `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` + 재배포(유일한 재배포 지점, env 파일 끝 개행 확인)
 
-**완료 기준**: 실기기에서 공지 노출 + 문의 전송 → 관리자 콘솔·디스코드 도착 (+ 기기 subject면 내역 화면에 상태 표시).
+**완료 기준**: 실기기에서 공지 노출 + 문의 전송 → 관리자 콘솔·디스코드 도착 + 내역 화면에 상태 표시.
 
 ## Phase 6 — 광고 (1일) ⚠ 사용자 작업 포함
 
-- ⚠ AdMob 콘솔: 앱 · 배너 단위 · 전면형 단위(미결정 #2 포맷) · GDPR 메시지 — LinkMemo는 브라우저 대행으로 처리했다
+- ⚠ AdMob 콘솔: 앱 · 배너 단위 · App Open 단위 · GDPR 메시지 — LinkMemo는 브라우저 대행으로 처리했다
 - `react-native-google-mobile-ads` **16.0.0 고정** 설치 → **Expo Go 탈출, dev build 전환**(`npm run android`)
 - 배너: `Screen` footer(메인·상세만), 미수신 시 자리 미점유
-- 전면형: 확정 포맷 + 쿨타임(로컬 저장) + 금지 순간 가드(작성·편집·노트·자료·삭제 확인·카테고리 관리)
+- App Open: 콜드 스타트 + 쿨타임 3시간(로컬 저장) + 로드 8초 타임아웃 + 금지 순간 가드, 복귀 노출 없음
 - UMP: `AdsConsent` 흐름 + `delay_app_measurement_init: true`
 - `adsEnabled()` 단일 게이트(dev는 테스트 단위 고정)
 
-**완료 기준**: dev build에서 테스트 배너·전면형 노출, 쿨타임 동작(시간 조작 테스트), 금지 순간 미노출, 편집 화면 배너 없음.
+**완료 기준**: dev build에서 테스트 배너·App Open 노출, 3시간 쿨타임 동작(시간 조작 테스트), 금지 순간 미노출, 편집 화면 배너 없음.
 
 ## Phase 6.5 — 비공개 테스트 개시 ⚠ 사용자 작업 포함
 
-- ⚠ 출시 계정 확정(미결정 #7) — 개인 계정이면 **12명×14일**이 크리티컬 패스라 개발과 병행 시작
+- ⚠ 출시 계정 = Vivace Games Studio(개인, 2026-08-17 확정) — **12명×14일**이 크리티컬 패스라 개발과 병행 시작. `GOOGLE_ACCOUNT_CASE.md` 최신 상태 재확인
 - Play 콘솔 앱 생성 · 트랙 · 첫 AAB · 앱 콘텐츠 선언(처리방침 URL·광고·데이터 보안·콘텐츠 등급) · 등록정보 · 그래픽 —
   LinkMemo PLAN Phase 6.5의 순서·함정 그대로(처리방침 404·한국 개발자 추가 정보 등)
 

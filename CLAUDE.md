@@ -67,10 +67,11 @@
 | 14 | 정렬 | 로컬 | Recently Updated(기본) · Recently Created · Name · Progress · Target End Date · Priority(High→Medium→Low→None) |
 | 15 | 다국어 | 로컬 | **en(기본)·ko.** Localization 구조로 확장 가능([`docs/I18N_SYSTEM.md`](./docs/I18N_SYSTEM.md)) |
 | 16 | 날짜 표기 | 로컬 | 기기 지역 설정 기준(`2026.08.14` / `08/14/2026` / `2026/08/14`) |
-| 17 | 광고 | AdMob | 하단 배너 + **메인 화면 간헐적 전면(빈도 제한)**. 포맷은 §14 미결정 #2. §7 |
+| 17 | 광고 | AdMob | 하단 배너 + **App Open 광고(콜드 스타트만, 쿨타임 3시간)**(2026-08-17 확정). §7 |
 | 18 | 광고 제거 | 스토어 IAP | **Remove Ads ₩1,500 일회성**(스토어 현지 가격) + Restore Purchases. §7.1 |
 | 19 | 공지·점검·강제업데이트 | common_server | bootstrap 1회 호출. 실패해도 앱을 막지 않는다 |
-| 20 | 문의하기 | common_server | 로그인 없음. 귀속 방식은 §14 미결정 #3(제안: 기기 subject — LinkMemo 방식) |
+| 20 | 문의하기 | common_server | 로그인 없음. **기기 subject 귀속**(2026-08-17 확정 — LinkMemo 방식): 문의 목록·답변·상태 확인 가능 |
+| 21 | 다크 모드 | 로컬 | **라이트/다크 2종 · 시스템 따르기 + 수동 선택**(2026-08-17 확정 — 기획서 밖 추가). 테마 10종 시스템은 안 만든다 |
 
 하단 네비게이션: **없음 — 단일 메인 화면 + 스택**(기획서 §14 메인 화면 구성 그대로. LinkMemo와 같은 구조).
 메인 상단 = 검색바 · [＋] · [⚙ 설정]. 필터(카테고리·우선순위)·정렬은 메인의 필터/정렬 버튼 → 시트.
@@ -80,13 +81,14 @@
 
 회원가입 · 로그인 · 계정 · 서버 저장 · 클라우드 동기화 · 여러 기기 간 동기화 · 구독 모델 · Pro 등급 ·
 기능 잠금 해제형 상품 · 사용자 콘텐츠 자동 번역 · Idea Repository 전용 서버 · 웹 버전 ·
-**로컬 백업/내보내기**(기획서 §24 "필요성이 낮다면 제외할 수 있다" → §14 미결정 #4) ·
+**로컬 백업/내보내기**(기획서 §24 "필요성이 낮다면 제외할 수 있다" → **MVP 제외 확정, 출시 후 P1 재검토** 2026-08-17) ·
 협업/공유 · 알림/리마인더 · 위젯 · 프로젝트 평가/난이도 점수(기획서 노트 예시에만 등장 — MVP 아님).
 
 ### 출시 후 확장 후보 (기획서에서 언급된 것만)
 
 - 로컬 백업/내보내기(기획서 §24) · 언어 추가(ja·zh·es·fr·de·pt — 기획서 §25) · 빈 항목 숨김/표시 설정.
-- 그 외(다크 모드·정렬 세분화·프로젝트 템플릿 등)는 **기획서에 없다** — 필요해지면 이 문서에 먼저 적고 결정한다.
+- 그 외(정렬 세분화·프로젝트 템플릿·태그 관리 화면 등)는 **기획서에 없다** — 필요해지면 이 문서에 먼저 적고 결정한다.
+  (다크 모드는 기획서에 없었지만 2026-08-17 MVP로 편입 — §3 #21.)
 
 ---
 
@@ -99,10 +101,10 @@ Install → Launch → Main screen → Capture ideas
 ```
 
 - 광고 제거 구매도 로그인 없이 스토어 인앱결제로만 처리한다(§7.1).
-- 문의하기: 로그인이 없으므로 (a) 완전 익명 단방향 또는 (b) **기기 subject 귀속**(LinkMemo 2026-08-14 방식 —
+- 문의하기: ~~완전 익명 단방향~~ → **기기 subject 귀속으로 확정**(2026-08-17 — LinkMemo 2026-08-14 방식):
   앱이 최초 1회 UUID를 만들어 SecureStore에 보관, common_server `POST /api/v1/devices`로 익명 subject + 서명
   토큰을 발급받아 문의 목록·답변·상태를 볼 수 있다. **로그인·계정이 아니다** — 이메일도 이름도 없고, 앱을 지우면
-  연결이 끊긴다). §14 미결정 #3 — 제안은 (b).
+  연결이 끊긴다(그 한계를 화면에 고지).
 - ⚠ 계정을 만들지 않으므로 Play의 "계정 삭제 URL" 요건이 **해당 없음**이다. 로그인을 나중에 붙이는 순간
   탈퇴 경로·웹 삭제 URL이 세트로 필요해진다(조각 §4 참고).
 
@@ -160,7 +162,7 @@ Project                        IdeaNote               Resource              Cate
 - **데이터 손실 안내를 앱 내에 명시한다**(빈 화면·설정):
   > *Your ideas are stored locally on your device and are not uploaded to our servers.*
   > *If you delete the app or change devices, your data may be lost.*
-- **백업은 MVP에서 제외**(§14 미결정 #4). 하게 되면 서버 업로드가 아니라 **사용자 기기에서 파일을 직접 관리**하는
+- **백업은 MVP에서 제외**(2026-08-17 확정 — 출시 후 P1 재검토). 하게 되면 서버 업로드가 아니라 **사용자 기기에서 파일을 직접 관리**하는
   로컬 내보내기/가져오기 방식이다 — "사용자의 데이터를 서비스가 가지고 있지 않으며, 사용자가 자신의 데이터를
   직접 관리한다"(기획서 §24)는 원칙이 기준.
 - 광고 SDK 등 서드파티가 수집하는 정보는 별도로 확인해 개인정보처리방침과 Play 데이터 보안 선언에 정확히 반영한다.
@@ -182,7 +184,7 @@ Project                        IdeaNote               Resource              Cate
 | 지면 | 어디에 | 언제 |
 |---|---|---|
 | **하단 배너** | 메인 화면 최하단(세이프에어리어 위) · 프로젝트 상세 하단 | 상시. **작성/편집·노트·자료 입력 화면에는 없음**(입력 영역·키보드 간섭 회피) |
-| **전면형** | 메인 화면 진입 | **간헐적 — 빈도 제한 필수.** 매 실행·매 프로젝트 열기마다 X. 포맷·쿨타임은 §14 미결정 #2 |
+| **App Open** | **앱 콜드 스타트**(메인 화면 진입 직전) | **쿨타임 3시간**(2026-08-17 확정). 매 실행·매 프로젝트 열기마다 X. 포그라운드 복귀 노출 없음 |
 
 ### 전면 광고를 띄우지 않는 순간 (기둥 5 — 기획 확정)
 
@@ -219,7 +221,7 @@ Project                        IdeaNote               Resource              Cate
 
 - **기본 카테고리 7종은 영어**(App·Game·Web·Service·Business·Content·Other) — 글로벌 사용자 대상이라 번역 리소스가
   아니라 **일반 데이터 행으로 시드**한다. 사용자가 추가한 카테고리와 같은 테이블·같은 취급.
-  기본 카테고리의 수정·삭제 허용 여부는 §14 미결정 #5.
+  기본 카테고리도 **수정·삭제 허용**(2026-08-17 확정 — 특별 취급 없음. 지운 기본값을 다시 만들어 주지 않는다).
 - 태그는 사용자가 자유 생성. `#` 없이 저장하고 표시할 때 `#`을 붙인다. 대소문자 무시 유일. **사용처가 0이 되면
   태그 행을 자동 정리**한다(자동완성 목록에 유령 태그가 남지 않게 — 2026-08-17 위임 판단).
 - 검색은 9개 필드(§3 #12) 전체 대상 LIKE. 태그 검색은 `#AI` 입력 시 `#`을 벗겨 비교.
@@ -273,9 +275,10 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 앱 | Expo **SDK 54**(~54.0.35) · RN 0.81.5 · React 19.1.0 | ❌ 스캐폴드 전 |
 | 언어 | TypeScript ~5.9 (`strict` · `any` 금지) | ❌ |
 | 네비게이션 | expo-router ~6.0 (단일 메인 + 스택) | ❌ |
-| 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·설정) | ❌ |
+| 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ❌ |
+| 테마 | `theme/palettes.ts` 토큰 — **라이트/다크 2종**, 시스템 따르기 + 수동(LinkMemo 구조 축소 재사용) | ❌ |
 | **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ❌ ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
-| 보안 저장 | expo-secure-store — 기기 subject deviceId(§14 #3 채택 시) | ❌ |
+| 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ❌ |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ❌ |
 | 개발 실행 | **dev build** (`npx expo run:android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**. 광고 전까지는 Expo Go 가능 | ❌ |
 | 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ❌ |
@@ -299,7 +302,7 @@ idea_repository/
 ├── features/     # projects / categories / tags / notes / resources / search / ads / purchase / support
 ├── components/   # 공통 UI (Screen · Button · Card · ProgressBar · StatusBadge · PriorityBadge …)
 ├── db/           # expo-sqlite 스키마·마이그레이션 (user_version 기반)
-├── theme/        # 토큰 (라이트/다크 여부는 §14 미결정 #6)
+├── theme/        # 토큰 — 라이트/다크 2종 (palettes.ts)
 ├── locales/      # en · ko
 ├── lib/          # common-server SDK 복사본 · i18n · date
 ├── scripts/      # check-i18n.mjs 등
@@ -352,17 +355,21 @@ idea_repository/
 | K | Metro 포트 8087 | 형제 앱 충돌 회피 — §11 |
 | L | **`app_code = idearepository` · 패키지 `com.vivacegames.idearepository` · 표시명 Idea Repository** (2026-08-17 사용자 확정 — 미결정 #1 해소) | 브랜드 도메인 역순 규약(LinkMemo) 승계. 등록 후 변경 불가 |
 
-### ⚠ 미결정 (착수 전에 매듭 — 사용자 확인 필요) — 6건 남음
+### ✅ 원 미결정 7건 — 2026-08-17 사용자 승인으로 전부 확정 (제안값 그대로)
 
-| # | 항목 | 제안 | 왜 사용자 확인이 필요한가 |
+| # | 항목 | 확정 내용 | 근거 |
 |---|---|---|---|
-| ~~1~~ | ~~`app_code` · 패키지명~~ | **해소(2026-08-17)** → 확정 표 L | — |
-| 2 | **전면 광고 포맷·쿨타임** | **App Open(콜드 스타트만) + 쿨타임 3시간** — LinkMemo `features/ads/app-open.ts` 그대로 재사용, 정책 안전, 작성 흐름 방해 0. 대안: 상세→메인 복귀 시 interstitial(빈도 캡) — 정책상 가능하나 "프로젝트를 열 때 광고 X" 취지와 마찰 | 기획서 §28은 "메인 화면 간헐적 전면"만 정했고 포맷·빈도가 비어 있다. 수익·UX 트레이드오프 |
-| 3 | **문의 귀속 방식** | **기기 subject**(LinkMemo 방식 — 문의 목록·답변·상태 확인 가능, 서버 이미 구현·E2E 검증) | 완전 익명이면 답변을 볼 경로가 없다. LinkMemo에서 사용자가 "답변이 보여야 한다"고 요구해 바꾼 이력 |
-| 4 | **로컬 백업/내보내기** | **MVP 제외**, 출시 후 P1 재검토. LinkMemo는 영구 제외했지만(파일이 생기면 유출 경로) Idea Repository 기획서 §24는 "사용자가 자기 데이터를 직접 관리"를 원칙으로 열어 뒀다 | 기획서가 열어 둔 항목 |
-| 5 | **기본 카테고리 수정·삭제 허용** | **허용**(일반 행과 동일 취급 — 특별 취급하면 분기만 늘고, Other를 지우고 싶은 사용자를 막을 이유 없음) | 기획서 §6.3이 "사용자가 직접 만든 카테고리"만 수정 대상으로 읽힐 여지 |
-| 6 | **다크 모드** | **라이트/다크 2종 · 시스템 따르기 + 수동 선택** — LinkMemo `theme/palettes.ts` 구조를 2종만 재사용(테마 10종 시스템은 안 만든다) | 기획서에 언급 없음 — 범위 추가라 확인 필요. 토큰을 처음부터 잡으면 비용이 낮다 |
-| 7 | **출시 계정** | Vivace Games Studio(개인, `6329667596149711059`) — LinkMemo와 동일. 개인 계정 → 비공개 테스트 12명×14일 | 정본 `volleyball/docs/GOOGLE_ACCOUNT_CASE.md` 최신 상태 확인 후 |
+| 1 | `app_code` · 패키지명 | `idearepository` · `com.vivacegames.idearepository` · 표시명 Idea Repository | 확정 표 L |
+| 2 | 전면 광고 | **App Open(콜드 스타트만) + 쿨타임 3시간.** 포그라운드 복귀 노출 없음 | 앱 시작 interstitial은 AdMob 정책 위반 — App Open이 그 자리 전용. LinkMemo `features/ads/app-open.ts` 재사용, 작성 흐름 방해 0. 상세→메인 복귀 interstitial 안은 🚫(기획서 "프로젝트를 열 때 광고 X" 취지와 마찰) |
+| 3 | 문의 귀속 | **기기 subject**(SecureStore UUID → `POST /v1/devices` → 세션) — 문의 목록·답변·상태 화면 포함 | 완전 익명이면 답변을 볼 경로가 없다. 서버 이미 배포·LinkMemo E2E 실측. 계정이 아니다 |
+| 4 | 로컬 백업/내보내기 | **MVP 제외.** 출시 후 P1에서 로컬 파일 내보내기/가져오기로 재검토(서버 업로드 🚫) | 기획서 §24가 열어 둔 항목 — 필요성 확인 후 |
+| 5 | 기본 카테고리 수정·삭제 | **허용** — 일반 행과 동일 취급. 지운 기본값은 재생성하지 않는다 | 분기 최소화. Other를 지우고 싶은 사용자를 막을 이유 없음 |
+| 6 | 다크 모드 | **라이트/다크 2종 · 시스템 따르기 + 수동 선택**(설정 → Appearance). 테마 10종 시스템 🚫 | 기획서 밖 추가지만 토큰을 Phase 0에서 잡으면 비용이 낮다 — §3 #21 |
+| 7 | 출시 계정 | Vivace Games Studio(개인, `6329667596149711059`) — LinkMemo와 동일. 비공개 테스트 12명×14일 병행 | 정본 `volleyball/docs/GOOGLE_ACCOUNT_CASE.md`. Phase 6.5에서 최신 상태 재확인 |
+
+### ⚠ 미결정
+
+현재 없음(2026-08-17). 새 항목이 생기면 여기에 적는다.
 
 ---
 
@@ -373,7 +380,7 @@ idea_repository/
 | `apps`에 `idearepository` 등록 | common_server (`tools/seed.ts`) | 확인: `bootstrap?app=idearepository` **200** |
 | 디스코드 문의 웹훅 env | common_server Vercel | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` — **유일하게 재배포 필요한 지점** |
 | SDK 복사 | `common_server/client/` → `lib/common-server/` | 복사본 상단에 SDK_VERSION 주석(현재 2026-08-14 — `registerDevice` 포함) |
-| AdMob 앱·광고단위 발급 | AdMob 콘솔 | 배너 1 + 전면형 1(포맷은 §14 #2). GDPR 메시지(UMP) 설정. 스토어 미출시 상태에선 "게재 제한"이 정상 |
+| AdMob 앱·광고단위 발급 | AdMob 콘솔 | 배너 1 + **App Open** 1. GDPR 메시지(UMP) 설정. 스토어 미출시 상태에선 "게재 제한"이 정상 |
 | 스토어 상품 등록 (Remove Ads) | Play/App Store 콘솔 | 비소모성 1상품 |
 | RevenueCat 프로젝트 생성 | RC 대시보드 | 익명 모드 — 웹훅·서버 연동 없음. `store-iap-setup` 스킬 참조 |
 | 처리방침 게시 URL | `vivace-games.com` 계열 | LinkMemo는 배구 서버 Vercel 정적 페이지로 게시했다(`server/app/linkmemo/privacy/page.tsx`) — 같은 방식 가능. 값은 `common/BUSINESS_INFO.md` |
@@ -383,5 +390,5 @@ idea_repository/
 ## 16. 현재 상태 (2026-08-17)
 
 - 문서 체계 수립(이 문서 + `docs/` 8종). **코드 0줄.** 서버 등록 0 · 스토어 등록 0.
-- 서비스명·app_code·패키지명 확정(2026-08-17). §14 미결정 **6건**(#2~#7) — 사용자 확인 대기. 확인되면 확정 표로 옮기고 착수.
-- 다음 단계: 미결정 확정 → Expo SDK 54 스캐폴드(Phase 0) → DB 스키마 + 프로젝트 CRUD(Phase 1). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- **미결정 7건 전부 해소**(2026-08-17 사용자 승인) — 현재 미결정 없음.
+- 다음 단계: Phase 0(Expo SDK 54 스캐폴드·토큰·i18n 뼈대) → Phase 1(DB + 프로젝트 CRUD). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

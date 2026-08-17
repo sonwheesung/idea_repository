@@ -10,7 +10,7 @@
 
 | 문서 | 범위 | 상태 |
 |---|---|---|
-| [`../CLAUDE.md`](../CLAUDE.md) | 설계 정본 — 기둥·MVP 범위·회원 없음/로컬 온리 정책·BM·스택·결정 로그·**미결정 6건** | ✅ |
+| [`../CLAUDE.md`](../CLAUDE.md) | 설계 정본 — 기둥·MVP 범위·회원 없음/로컬 온리 정책·BM·스택·결정 로그(미결정 0건 — 2026-08-17 전부 확정) | ✅ |
 | [`PLAN.md`](./PLAN.md) | MVP 구현 플랜 — Phase 0~8 착수 순서·완료 기준·진행 현황 | ✅ |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | 서버 경계 — common_server 연동(공지·문의)·전용 서버 없음·선행 작업 | ✅ |
 | [`DOC_DISCIPLINE.md`](./DOC_DISCIPLINE.md) | 문서 작업 규율 (LinkMemo·조각 승계) | ✅ |
@@ -35,7 +35,7 @@
 | 영역 | 상태 | 비고 |
 |---|---|---|
 | Expo 부트(SDK 54 · expo-router · TS strict · Metro 8087) | ❌ | Phase 0. LinkMemo 조합 승계 |
-| 테마 토큰(라이트 / 라이트+다크) | ❌ | 미결정 #6 후 Phase 0 |
+| 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ❌ | Phase 0 토큰 → 설정 화면은 Phase 2 |
 | expo-sqlite v1 스키마 + 카테고리 시드 | ❌ | Phase 1 — [`DATABASE.md`](./DATABASE.md) |
 | 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ❌ | Phase 1 |
 | 카테고리 관리(추가·수정·삭제 시 선택지) | ❌ | Phase 1 |
@@ -48,11 +48,11 @@
 | 다국어 en·ko + `check:i18n` + 언어 설정 | ❌ | Phase 0 뼈대 → Phase 4 완성 |
 | 날짜 로케일 표기 | ❌ | Phase 4 |
 | 하단 배너(메인·상세) | ❌ | Phase 6 |
-| 메인 전면형 + 쿨타임 | ❌ | 미결정 #2 → Phase 6 |
+| App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |
 | UMP 동의 폼 | ❌ | Phase 6 |
 | Remove Ads 구매 + Restore | ❌ | Phase 7 — RevenueCat 익명 |
 | 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
-| 문의하기(+ 기기 subject 내역) | ❌ | 미결정 #3 → Phase 5 |
+| 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
 | 데이터 손실 안내 문구 | ❌ | Phase 1 빈 화면 + 설정 |
 
 ### 서버·외부 (Idea Repository 밖 선행 작업)
@@ -62,11 +62,11 @@
 | common_server `apps`에 `idearepository` 등록 | ❌ | app_code 확정(2026-08-17). 확인: `bootstrap?app=idearepository` 200 |
 | common_server SDK 복사(`lib/common-server/`) | ❌ | SDK_VERSION 2026-08-14 |
 | 디스코드 문의 웹훅 env + 재배포 | ❌ | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` |
-| AdMob 앱·광고단위 + GDPR 메시지 | ❌ | 배너 1 + 전면형 1 |
+| AdMob 앱·광고단위 + GDPR 메시지 | ❌ | 배너 1 + App Open 1 |
 | RevenueCat 프로젝트(익명 모드) | ❌ | 웹훅·서버 연동 없음 |
 | 스토어 Remove Ads 상품 등록 | ❌ | 비소모성 1상품 |
 | 처리방침 게시 | ❌ | 사업자 값은 `C:\project\common\BUSINESS_INFO.md` |
-| Play 콘솔 앱 · 비공개 테스트 | ❌ | 출시 계정 미결정 #7 |
+| Play 콘솔 앱 · 비공개 테스트 | ❌ | Vivace Games Studio(개인) — 12명×14일 |
 
 🚫 = 안 하기로 결정 / ⏸ = 보류 / ❌ = 미착수 / ✅ = 완료
 
