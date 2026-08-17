@@ -1,6 +1,7 @@
 import { randomUUID } from 'expo-crypto';
 
 import { getDb } from '@/db';
+import { cleanupOrphanTags, replaceProjectTags } from '@/features/tags/api';
 import {
   nullIfBlank,
   type Priority,
@@ -94,30 +95,34 @@ export function createProject(input: ProjectInput): Project {
   if (name.length === 0) throw new Error('project.nameRequired');
   const now = Date.now();
   const id = randomUUID();
-  getDb().runSync(
-    `INSERT INTO projects
+  const db = getDb();
+  db.withTransactionSync(() => {
+    db.runSync(
+      `INSERT INTO projects
       (id, name, summary, description, category_id, problem, goal, core_idea, target_user,
        progress, status, priority, start_date, target_end_date, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [
-      id,
-      name,
-      nullIfBlank(input.summary),
-      nullIfBlank(input.description),
-      input.categoryId ?? null,
-      nullIfBlank(input.problem),
-      nullIfBlank(input.goal),
-      nullIfBlank(input.coreIdea),
-      nullIfBlank(input.targetUser),
-      input.progress ?? 0,
-      input.status ?? 'idea',
-      input.priority ?? 'none',
-      input.startDate ?? null,
-      input.targetEndDate ?? null,
-      now,
-      now,
-    ],
-  );
+      [
+        id,
+        name,
+        nullIfBlank(input.summary),
+        nullIfBlank(input.description),
+        input.categoryId ?? null,
+        nullIfBlank(input.problem),
+        nullIfBlank(input.goal),
+        nullIfBlank(input.coreIdea),
+        nullIfBlank(input.targetUser),
+        input.progress ?? 0,
+        input.status ?? 'idea',
+        input.priority ?? 'none',
+        input.startDate ?? null,
+        input.targetEndDate ?? null,
+        now,
+        now,
+      ],
+    );
+    if (input.tags && input.tags.length > 0) replaceProjectTags(db, id, input.tags);
+  });
   const created = getProject(id);
   if (!created) throw new Error('project.createFailed');
   return created;
@@ -128,6 +133,6 @@ export function deleteProject(id: string): void {
   const db = getDb();
   db.withTransactionSync(() => {
     db.runSync('DELETE FROM projects WHERE id = ?', [id]);
-    db.runSync('DELETE FROM tags WHERE id NOT IN (SELECT DISTINCT tag_id FROM project_tags)');
+    cleanupOrphanTags(db);
   });
 }

@@ -38,16 +38,16 @@
 | 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ✅ | 2026-08-17 — `theme/palettes.ts` 17토큰 · zustand persist · 설정 화면 **Select**로 전환(칩 → select, 사용자 지시) |
 | expo-sqlite v1 스키마 + 카테고리 시드 | ✅ | 2026-08-17 Phase 1 — [`DATABASE.md`](./DATABASE.md) |
 | 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ✅ | 2026-08-17 Phase 1 — 생성 폼 Label+input(`TextField`) + Select(카테고리·상태·우선순위), 카드(상태·우선순위·진행률 바·카테고리·태그·수정일), 길게 눌러 삭제 |
-| 카테고리 관리(추가·수정·삭제 시 선택지) | ❌ | Phase 1 남은 항목 |
-| 태그(칩 · 자동완성 · 고아 정리) | ❌ | Phase 1 남은 항목(고아 정리 SQL은 deleteProject에 이미 포함) |
+| 카테고리 관리(추가·수정·삭제 시 선택지) | ✅ | 2026-08-17 Phase 1 — 설정 → 카테고리. 사용 수 표시, 중복 거부, 삭제 시 없음/이동 라디오 |
+| 태그(칩 · 자동완성 · 고아 정리) | ✅ | 2026-08-17 Phase 1 — 생성 폼 TagInput(공백/쉼표/엔터 확정, prefix 자동완성), 저장 시 replaceProjectTags + 고아 정리 |
 | 프로젝트 상세 · 편집(전 필드) | ❌ | Phase 2 |
 | 아이디어 노트 CRUD | ❌ | Phase 2 |
 | 관련 자료 CRUD + 외부 브라우저 | ❌ | Phase 2 |
 | 검색 9필드 | ❌ | Phase 3 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ❌ | Phase 3 |
-| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 49키 동기, 설정→언어 Select(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
+| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 63키 동기, 설정→언어 Select(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
 | 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
-| 하단 배너(메인·상세) | ❌ | Phase 6 |
+| 하단 배너(메인·상세) | 🔨 자리만 | 2026-08-17 점선 플레이스홀더(메인) — 실배너는 Phase 6 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |
 | UMP 동의 폼 | ❌ | Phase 6 |
 | Remove Ads 구매 + Restore | ❌ | Phase 7 — RevenueCat 익명 |
@@ -80,6 +80,7 @@ npm install                    # 의존성
 # 커밋 전 필수
 npm run typecheck              # tsc --noEmit
 npm run lint                   # expo lint
+npx prettier --check .         # 포맷(.prettierrc — 조각 승계, printWidth 110)
 npm run check:i18n             # en·ko 키 누락·잉여·보간 일치·비한국어 파일 한글 잔존
 ```
 

@@ -39,7 +39,9 @@
     "progress": "Progress",
     "updated": "Updated {{date}}",
     "deleteTitle": "Delete \"{{name}}\"?",
-    "deleteBody": "Its idea notes and resources will be deleted too."
+    "deleteBody": "Its idea notes and resources will be deleted too.",
+    "tags": "Tags",
+    "tagsPlaceholder": "Type a tag and press space (e.g. AI Mobile)"
   },
   "status": {
     "idea": "Idea",
@@ -65,5 +67,21 @@
     "languageSystem": "System language",
     "categories": "Categories",
     "about": "About"
+  },
+  "category": {
+    "name": "Category name",
+    "add": "Add category",
+    "rename": "Rename category",
+    "nameRequired": "Please enter a category name.",
+    "duplicate": "A category with this name already exists.",
+    "error": "Could not save the category.",
+    "projectCount": "{{count}} project(s)",
+    "deleteTitle": "Delete \"{{name}}\"?",
+    "deleteUsed": "This category is used by {{count}} project(s).",
+    "deleteUnused": "No projects use this category.",
+    "deleteOption": {
+      "clear": "Remove category from these projects",
+      "move": "Move them to:"
+    }
   }
 }

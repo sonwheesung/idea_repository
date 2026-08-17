@@ -47,6 +47,8 @@ export interface ProjectInput {
   priority?: Priority;
   startDate?: string | null;
   targetEndDate?: string | null;
+  /** 태그 이름 배열('#' 없이) — 저장 시 tags/project_tags 교체 */
+  tags?: string[];
 }
 
 /** 빈 문자열은 NULL로 저장 — 빈 필드는 "없음"이지 빈 텍스트가 아니다 */

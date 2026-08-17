@@ -29,9 +29,7 @@ export const useLanguageStore = create<LanguageState>()(
       merge: (persisted, current) => {
         const p = persisted as Partial<LanguageState> | undefined;
         const override =
-          p?.override && (SUPPORTED_LANGUAGES as readonly string[]).includes(p.override)
-            ? p.override
-            : null;
+          p?.override && (SUPPORTED_LANGUAGES as readonly string[]).includes(p.override) ? p.override : null;
         return { ...current, override };
       },
       onRehydrateStorage: () => (state) => {

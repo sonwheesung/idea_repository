@@ -7,6 +7,7 @@ import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
 import { Select, type SelectOption } from '@/components/select';
+import { TagInput } from '@/components/tag-input';
 import { TextField } from '@/components/text-field';
 import { listCategories } from '@/features/categories/api';
 import { createProject } from '@/features/projects/api';
@@ -17,7 +18,7 @@ const NO_CATEGORY = '__none__';
 
 // 프로젝트 생성 — 이름 1칸 + "Add details" 펼침, 저장 후 목록 복귀 (PROJECT_SYSTEM §2).
 // 폼은 Label + input (2026-08-17 사용자 요청). 문제점·목표·핵심 아이디어·타겟·일정·태그·노트·자료는
-// 상세/편집(Phase 2)에서 — 생성은 빠르게(기둥 1).
+// 상세/편집(Phase 2)에서 — 생성은 빠르게(기둥 1). 태그는 생성 시에도 넣을 수 있다.
 export default function NewProjectScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -31,6 +32,7 @@ export default function NewProjectScreen() {
   const [categoryId, setCategoryId] = useState<string>(NO_CATEGORY);
   const [status, setStatus] = useState<Status>('idea');
   const [priority, setPriority] = useState<Priority>('none');
+  const [tags, setTags] = useState<string[]>([]);
 
   const categories = useMemo(() => listCategories(), []);
   const categoryOptions: SelectOption<string>[] = [
@@ -55,6 +57,7 @@ export default function NewProjectScreen() {
       categoryId: categoryId === NO_CATEGORY ? null : categoryId,
       status,
       priority,
+      tags,
     });
     router.back();
   };
@@ -82,8 +85,14 @@ export default function NewProjectScreen() {
             onPress={() => setShowDetails((v) => !v)}
             accessibilityRole="button"
             style={styles.detailsToggle}>
-            <Ionicons name={showDetails ? 'chevron-down' : 'chevron-forward'} size={16} color={theme.primary} />
-            <Text style={[styles.detailsToggleText, { color: theme.primary }]}>{t('project.addDetails')}</Text>
+            <Ionicons
+              name={showDetails ? 'chevron-down' : 'chevron-forward'}
+              size={16}
+              color={theme.primary}
+            />
+            <Text style={[styles.detailsToggleText, { color: theme.primary }]}>
+              {t('project.addDetails')}
+            </Text>
           </Pressable>
 
           {showDetails ? (
@@ -101,7 +110,18 @@ export default function NewProjectScreen() {
                 options={categoryOptions}
                 onChange={setCategoryId}
               />
-              <Select label={t('project.status')} value={status} options={statusOptions} onChange={setStatus} />
+              <TagInput
+                label={t('project.tags')}
+                value={tags}
+                onChange={setTags}
+                placeholder={t('project.tagsPlaceholder')}
+              />
+              <Select
+                label={t('project.status')}
+                value={status}
+                options={statusOptions}
+                onChange={setStatus}
+              />
               <Select
                 label={t('project.priority')}
                 value={priority}

@@ -63,7 +63,8 @@ export function Select<T extends string>({ label, value, options, onChange, plac
                       styles.option,
                       { backgroundColor: pressed ? theme.surface : 'transparent' },
                     ]}>
-                    <Text style={[styles.optionLabel, { color: theme.text, fontWeight: active ? '600' : '400' }]}>
+                    <Text
+                      style={[styles.optionLabel, { color: theme.text, fontWeight: active ? '600' : '400' }]}>
                       {item.label}
                     </Text>
                     {active ? <Ionicons name="checkmark" size={20} color={theme.primary} /> : null}

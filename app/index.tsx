@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 
+import { AdBanner } from '@/components/ad-banner';
 import { ProjectCard } from '@/components/project-card';
 import { Screen } from '@/components/screen';
 import { deleteProject, listProjects } from '@/features/projects/api';
@@ -35,7 +36,7 @@ export default function HomeScreen() {
   };
 
   return (
-    <Screen>
+    <Screen footer={<AdBanner />}>
       <View style={[styles.header, { borderBottomColor: theme.border }]}>
         <Text style={[styles.title, { color: theme.text }]}>{t('home.title')}</Text>
         <View style={styles.headerActions}>
