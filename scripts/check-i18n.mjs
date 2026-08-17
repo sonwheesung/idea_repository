@@ -19,7 +19,10 @@ function flatten(obj, prefix = '') {
 }
 
 const locales = Object.fromEntries(
-  LANGS.map((lang) => [lang, flatten(JSON.parse(readFileSync(join(root, 'locales', `${lang}.json`), 'utf8')))]),
+  LANGS.map((lang) => [
+    lang,
+    flatten(JSON.parse(readFileSync(join(root, 'locales', `${lang}.json`), 'utf8'))),
+  ]),
 );
 
 const refKeys = Object.keys(locales[REFERENCE]).sort();
