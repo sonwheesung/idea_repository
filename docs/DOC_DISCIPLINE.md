@@ -1,7 +1,7 @@
 # DOC_DISCIPLINE — 문서 작업법
 
 > LinkMemo `C:\project\link_memo`(← 조각 `C:\project\diary` ← 배구 `C:\project\volleyball`)의 동명 문서를
-> Idea Vault에 맞춰 승계한 것. 이걸 지키면 "코드와 문서가 따로 노는" drift와 "옛날 수치가 조용히 거짓이 되는" 사고를 막는다.
+> Idea Repository에 맞춰 승계한 것. 이걸 지키면 "코드와 문서가 따로 노는" drift와 "옛날 수치가 조용히 거짓이 되는" 사고를 막는다.
 
 ---
 

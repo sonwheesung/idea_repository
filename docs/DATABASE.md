@@ -12,7 +12,7 @@
 
 ## 1. 규약 (LinkMemo 승계)
 
-- **파일**: `ideavault.db` (expo-sqlite, sync API — 로컬 소량 데이터라 충분).
+- **파일**: `idearepository.db` (expo-sqlite, sync API — 로컬 소량 데이터라 충분).
 - **마이그레이션**: `PRAGMA user_version` 기반. `db/index.ts`의 `MIGRATIONS` 배열에 **추가만** 한다
   (Expand-only — 배포된 버전의 마이그레이션을 수정·삭제하면 기존 사용자 DB가 깨진다).
   각 마이그레이션은 트랜잭션으로 적용 후 user_version을 올린다.

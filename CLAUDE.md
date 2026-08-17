@@ -1,4 +1,4 @@
-# Idea Vault — 설계 정본
+# Idea Repository — 설계 정본
 
 > 이 문서는 Claude Code가 개발을 진행하기 위한 단일 기준 문서다.
 > 모호하면 이 문서의 "핵심 기둥"을 우선한다. **새 결정은 코드보다 먼저 이 문서에 반영한 뒤** 진행한다.
@@ -6,20 +6,21 @@
 > 문서 규율은 [`docs/DOC_DISCIPLINE.md`](./docs/DOC_DISCIPLINE.md).
 > 사업자·연락처·스토어 정보의 단일 출처는 `C:\project\common\BUSINESS_INFO.md` (커밋 금지 파일).
 
-작성일: 2026-08-17 · 원본 기획서("Idea Vault 글로벌 MVP 기획서")를 프로젝트 문서 체계
+작성일: 2026-08-17 · 원본 기획서("Idea Vault 글로벌 MVP 기획서" — 서비스명은 ~~Idea Vault(가칭)~~ → **Idea Repository**로 2026-08-17 사용자 확정)를 프로젝트 문서 체계
 (LinkMemo `C:\project\link_memo` ← 조각 `C:\project\diary` ← 배구 `C:\project\volleyball` 계보)로 옮긴 것.
 
 ---
 
 ## 1. 한 줄 요약
 
-> **Your ideas. Your device. Your vault.**
+> **Your ideas. Your device. Yours to build.**
 
 떠오른 아이디어를 **프로젝트 단위**로 빠르게 저장하고, 시간이 지나면서 문제점·목표·핵심 아이디어·타겟 사용자·
 진행률·상태·우선순위·일정·아이디어 노트·관련 자료를 덧붙여 **구체적인 프로젝트로 발전**시키는
 **개인용 로컬 아이디어 보관함**. Todo 앱이 아니라 **"내가 만들고 싶은 것들"을 관리하는 앱**이다.
 
-**출시 초기부터 글로벌**(기본 언어 English, §9). 회원가입·로그인·클라우드 동기화 **없음**.
+**전 세계 동시 출시가 전제**다 — 한국은 여러 출시 국가 중 하나이지 기준 시장이 아니다(기본 언어 English, 기본 카테고리 영어,
+스토어 가격은 국가별 현지 통화, 날짜는 기기 로케일, EEA UMP 동의 — §9·§7). 회원가입·로그인·클라우드 동기화 **없음**.
 
 ### 제품 포지션
 
@@ -78,7 +79,7 @@
 ### MVP에서 제외 (기획서 §19~21·§24·§31)
 
 회원가입 · 로그인 · 계정 · 서버 저장 · 클라우드 동기화 · 여러 기기 간 동기화 · 구독 모델 · Pro 등급 ·
-기능 잠금 해제형 상품 · 사용자 콘텐츠 자동 번역 · Idea Vault 전용 서버 · 웹 버전 ·
+기능 잠금 해제형 상품 · 사용자 콘텐츠 자동 번역 · Idea Repository 전용 서버 · 웹 버전 ·
 **로컬 백업/내보내기**(기획서 §24 "필요성이 낮다면 제외할 수 있다" → §14 미결정 #4) ·
 협업/공유 · 알림/리마인더 · 위젯 · 프로젝트 평가/난이도 점수(기획서 노트 예시에만 등장 — MVP 아님).
 
@@ -239,7 +240,7 @@ Project                        IdeaNote               Resource              Cate
 
 ## 10. 서버 경계 (핵심 — 어기면 되돌리기 비싸다)
 
-| | common_server | Idea Vault 전용 서버 |
+| | common_server | Idea Repository 전용 서버 |
 |---|---|---|
 | 위치 | `C:\project\common_server` (배포됨: `https://common-server.vercel.app`) | **없음 — 만들지 않는다** |
 | 담당 | 공지 · 점검/강제업데이트 게이트(bootstrap) · 문의(익명 또는 기기 subject) | — |
@@ -250,13 +251,14 @@ Project                        IdeaNote               Resource              Cate
 - 엔타이틀먼트 서버 판정은 쓰지 않는다 — 광고 제거는 스토어 구매 이력이 진실(§7.1).
 - 연동 계약·확인 명령·선행 작업은 [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)와
   `common_server/docs/ONBOARDING.md`("새 앱 붙이기")를 따른다.
-- `app_code`는 **`ideavault` 제안**(규격 `[a-z0-9_]{2,64}` 통과. 등록 후 변경 사실상 불가 — §14 미결정 #1).
+- `app_code`는 **`idearepository` 확정**(2026-08-17 사용자 결정 — 서비스명 Idea Repository와 함께. 규격 `[a-z0-9_]{2,64}` 통과.
+  등록 후 변경 사실상 불가).
 
 ### 별도 서버 vs common_server — **common_server 그대로** (LinkMemo 2026-08-14 판단 승계)
 
-Idea Vault가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이건 이미 배포·검증 완료다. common_server는
+Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이건 이미 배포·검증 완료다. common_server는
 **1배포 N앱** — 앱 추가 = DB `apps`에 seed 1행, 코드 수정·재배포 없이 붙는다(유일한 예외: 디스코드 알림 env).
-별도 서버는 Supabase 무료 티어 한도(활성 2프로젝트)를 깨고 운영만 이중이 된다. Idea Vault는 사용자 데이터를
+별도 서버는 Supabase 무료 티어 한도(활성 2프로젝트)를 깨고 운영만 이중이 된다. Idea Repository는 사용자 데이터를
 서버에 두지 않아 격리할 것 자체가 없다.
 
 ---
@@ -320,6 +322,8 @@ idea_repository/
 
 | 결정 | 내용 |
 |---|---|
+| **서비스명 Idea Repository** | ~~Idea Vault(가칭)~~ → **Idea Repository**(2026-08-17 사용자 결정). 폴더·app_code·패키지명과 일치. 캐치프레이즈는 "Your ideas. Your device. Yours to build." / "Capture your ideas. Keep them private. Build what matters."로 정리 |
+| **전 세계 출시** | 한국은 출시 국가 중 하나. 영어 기본·현지 통화·기기 로케일·EEA UMP(2026-08-17 사용자 재확인) |
 | 회원 시스템 없음 | 가입·로그인·계정 서버 전부 제외. 구매도 스토어만 |
 | 로컬 온리 | 서버에 사용자 데이터 저장 없음 · 클라우드 동기화 없음 |
 | 프로젝트명만 필수 | 나머지 15개 항목 전부 선택 |
@@ -346,27 +350,28 @@ idea_repository/
 | I | 생성 화면 = 이름 1칸 + "Add details" 펼침, 저장 후 목록 복귀 | 빠른 기록(기둥 1) 우선. 상세는 카드 탭으로 |
 | J | 필터·정렬 상태 로컬 유지 | 매번 재설정 마찰 제거 |
 | K | Metro 포트 8087 | 형제 앱 충돌 회피 — §11 |
+| L | **`app_code = idearepository` · 패키지 `com.vivacegames.idearepository` · 표시명 Idea Repository** (2026-08-17 사용자 확정 — 미결정 #1 해소) | 브랜드 도메인 역순 규약(LinkMemo) 승계. 등록 후 변경 불가 |
 
-### ⚠ 미결정 (착수 전에 매듭 — 사용자 확인 필요)
+### ⚠ 미결정 (착수 전에 매듭 — 사용자 확인 필요) — 6건 남음
 
 | # | 항목 | 제안 | 왜 사용자 확인이 필요한가 |
 |---|---|---|---|
-| 1 | **`app_code` · 패키지명** | `ideavault` · `com.vivacegames.ideavault`(LinkMemo 브랜드 도메인 역순 규약 승계). 앱 표시명 "Idea Vault"(가칭) | 등록 후 **변경 불가**(서버·번들·RC에 박힌다). 서비스명이 가칭이라 최종명 확정과 함께 |
+| ~~1~~ | ~~`app_code` · 패키지명~~ | **해소(2026-08-17)** → 확정 표 L | — |
 | 2 | **전면 광고 포맷·쿨타임** | **App Open(콜드 스타트만) + 쿨타임 3시간** — LinkMemo `features/ads/app-open.ts` 그대로 재사용, 정책 안전, 작성 흐름 방해 0. 대안: 상세→메인 복귀 시 interstitial(빈도 캡) — 정책상 가능하나 "프로젝트를 열 때 광고 X" 취지와 마찰 | 기획서 §28은 "메인 화면 간헐적 전면"만 정했고 포맷·빈도가 비어 있다. 수익·UX 트레이드오프 |
 | 3 | **문의 귀속 방식** | **기기 subject**(LinkMemo 방식 — 문의 목록·답변·상태 확인 가능, 서버 이미 구현·E2E 검증) | 완전 익명이면 답변을 볼 경로가 없다. LinkMemo에서 사용자가 "답변이 보여야 한다"고 요구해 바꾼 이력 |
-| 4 | **로컬 백업/내보내기** | **MVP 제외**, 출시 후 P1 재검토. LinkMemo는 영구 제외했지만(파일이 생기면 유출 경로) Idea Vault 기획서 §24는 "사용자가 자기 데이터를 직접 관리"를 원칙으로 열어 뒀다 | 기획서가 열어 둔 항목 |
+| 4 | **로컬 백업/내보내기** | **MVP 제외**, 출시 후 P1 재검토. LinkMemo는 영구 제외했지만(파일이 생기면 유출 경로) Idea Repository 기획서 §24는 "사용자가 자기 데이터를 직접 관리"를 원칙으로 열어 뒀다 | 기획서가 열어 둔 항목 |
 | 5 | **기본 카테고리 수정·삭제 허용** | **허용**(일반 행과 동일 취급 — 특별 취급하면 분기만 늘고, Other를 지우고 싶은 사용자를 막을 이유 없음) | 기획서 §6.3이 "사용자가 직접 만든 카테고리"만 수정 대상으로 읽힐 여지 |
 | 6 | **다크 모드** | **라이트/다크 2종 · 시스템 따르기 + 수동 선택** — LinkMemo `theme/palettes.ts` 구조를 2종만 재사용(테마 10종 시스템은 안 만든다) | 기획서에 언급 없음 — 범위 추가라 확인 필요. 토큰을 처음부터 잡으면 비용이 낮다 |
 | 7 | **출시 계정** | Vivace Games Studio(개인, `6329667596149711059`) — LinkMemo와 동일. 개인 계정 → 비공개 테스트 12명×14일 | 정본 `volleyball/docs/GOOGLE_ACCOUNT_CASE.md` 최신 상태 확인 후 |
 
 ---
 
-## 15. 선행 의존 (Idea Vault 밖 작업)
+## 15. 선행 의존 (Idea Repository 밖 작업)
 
 | 작업 | 어디서 | 비고 |
 |---|---|---|
-| `apps`에 `ideavault` 등록 | common_server (`tools/seed.ts`) | 확인: `bootstrap?app=ideavault` **200** |
-| 디스코드 문의 웹훅 env | common_server Vercel | `DISCORD_TICKET_WEBHOOK_URL_IDEAVAULT` — **유일하게 재배포 필요한 지점** |
+| `apps`에 `idearepository` 등록 | common_server (`tools/seed.ts`) | 확인: `bootstrap?app=idearepository` **200** |
+| 디스코드 문의 웹훅 env | common_server Vercel | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` — **유일하게 재배포 필요한 지점** |
 | SDK 복사 | `common_server/client/` → `lib/common-server/` | 복사본 상단에 SDK_VERSION 주석(현재 2026-08-14 — `registerDevice` 포함) |
 | AdMob 앱·광고단위 발급 | AdMob 콘솔 | 배너 1 + 전면형 1(포맷은 §14 #2). GDPR 메시지(UMP) 설정. 스토어 미출시 상태에선 "게재 제한"이 정상 |
 | 스토어 상품 등록 (Remove Ads) | Play/App Store 콘솔 | 비소모성 1상품 |
@@ -378,5 +383,5 @@ idea_repository/
 ## 16. 현재 상태 (2026-08-17)
 
 - 문서 체계 수립(이 문서 + `docs/` 8종). **코드 0줄.** 서버 등록 0 · 스토어 등록 0.
-- §14 미결정 7건 — 사용자 확인 대기. 확인되면 이 표를 확정 표로 옮기고 착수.
+- 서비스명·app_code·패키지명 확정(2026-08-17). §14 미결정 **6건**(#2~#7) — 사용자 확인 대기. 확인되면 확정 표로 옮기고 착수.
 - 다음 단계: 미결정 확정 → Expo SDK 54 스캐폴드(Phase 0) → DB 스키마 + 프로젝트 CRUD(Phase 1). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

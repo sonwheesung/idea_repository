@@ -1,6 +1,6 @@
 # PROJECT_SYSTEM — 프로젝트·카테고리·태그·노트·자료·탐색 (도메인 정본)
 
-> Idea Vault의 핵심 도메인. 정책 요약과 기둥은 [`../CLAUDE.md`](../CLAUDE.md) §5·§8, 여기는 상세.
+> Idea Repository의 핵심 도메인. 정책 요약과 기둥은 [`../CLAUDE.md`](../CLAUDE.md) §5·§8, 여기는 상세.
 > 2026-08-17 기획서 확정 내용을 옮긴 것 — 구현 0%. 스키마는 [`DATABASE.md`](./DATABASE.md).
 
 ## 구현 현황
@@ -198,7 +198,7 @@ This category is used by 3 projects.
 ## 8. 메인 화면
 
 ```
-Idea Vault
+Idea Repository
 ┌ Search ─────────────────────┐  [＋] [⚙]
 └─────────────────────────────┘
 [All] [Idea] [Planned] [In Progress] [On Hold] [Cancelled] [Completed]   ← 가로 스크롤 칩

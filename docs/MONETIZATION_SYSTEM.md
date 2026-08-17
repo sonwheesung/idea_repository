@@ -107,7 +107,7 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
 | GDPR 메시지 | ❌ |
 
 - 처리방침 URL이 AdMob 앱 설정에 들어간다 — LinkMemo는 배구 서버 Vercel 정적 페이지(`vivace-games.com/linkmemo/privacy`)로
-  게시했다. 같은 방식이면 `vivace-games.com/ideavault/privacy` 류. Play 데이터 보안 선언과 1:1 일치시킬 것.
+  게시했다. 같은 방식이면 `vivace-games.com/idearepository/privacy` 류. Play 데이터 보안 선언과 1:1 일치시킬 것.
 
 ---
 
@@ -117,7 +117,7 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
 |---|---|
 | 유형 | **비소모성(non-consumable) 일회성** 인앱결제. 구독 아님 |
 | 가격 | **₩1,500**(한국). 글로벌은 스토어 국가별 가격 정책 — 앱 UI에 특정 통화 고정 금지, 스토어 가격 문자열 그대로 표시 |
-| 로그인 | 불요 — Idea Vault 회원 시스템이 없다 |
+| 로그인 | 불요 — Idea Repository 회원 시스템이 없다 |
 | 효과 | 하단 배너 제거 + 메인 전면 제거. 기능 동일 |
 | 흐름 | `Settings → Remove Ads → Store Purchase → Purchase Complete → Ads Removed` |
 | 복원 | `Settings → Remove Ads → Restore Purchases → Store Purchase History → Restore` |
@@ -143,6 +143,6 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
 
 ## 5. 스토어 포지셔닝 (기획서 §35)
 
-- 핵심 문구: **Your ideas. Your device. Your vault.** / **Capture your ideas. Keep them private. Build what matters.**
+- 핵심 문구: **Your ideas. Your device. Yours to build.** / **Capture your ideas. Keep them private. Build what matters.**
 - 정직한 보안 문구: *Your ideas are stored locally on your device and are not uploaded to our servers.* — 절대 보장 표현 금지(CLAUDE.md §6).
 - ⚠ 스토어 데이터 보안 선언은 **실제 트래픽 기준**(광고 SDK 수집 항목 포함). 출시 직전 `play-store-launch-checklist` 스킬로 점검.

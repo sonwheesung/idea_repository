@@ -1,4 +1,4 @@
-# Idea Vault — MVP 구현 플랜
+# Idea Repository — MVP 구현 플랜
 
 > 범위 정본은 [`../CLAUDE.md`](../CLAUDE.md) §3(MVP)·§14(결정·미결정). 이 문서는 **착수 순서와 완료 기준**이다.
 > 형식은 LinkMemo `docs/PLAN.md`(← common_server PLAN) 승계. 각 Phase는 완료 기준을 만족하고 실기기에서
@@ -8,7 +8,7 @@
 
 | Phase | 내용 | 상태 |
 |---|---|---|
-| — | **미결정 7건 확정**(CLAUDE.md §14) — app_code·전면 광고 포맷·문의 귀속·백업·기본 카테고리·다크 모드·출시 계정 | ⬜ 사용자 확인 대기 |
+| — | **미결정 확정**(CLAUDE.md §14) — ~~app_code~~(✅ 2026-08-17 `idearepository`)·전면 광고 포맷·문의 귀속·백업·기본 카테고리·다크 모드·출시 계정 | 🔨 1/7 해소, 6건 대기 |
 | 0 | 기반 정리 — Expo SDK 54 스캐폴드·폴더 구조·i18n 뼈대·테마 토큰·Metro 8087 | ⬜ |
 | 1 | DB + 프로젝트 CRUD(이름만 생성) + 카테고리 시드/관리 + 태그 (핵심 도메인) | ⬜ |
 | 2 | 상세·편집 전 필드 + 아이디어 노트 + 관련 자료 | ⬜ |
@@ -81,10 +81,10 @@
 
 절차 정본: [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5 · `common_server/docs/ONBOARDING.md`.
 
-- 서버 쪽: `seed.ts ideavault` 등록 → `bootstrap?app=ideavault` **200 출력 확보**
+- 서버 쪽: `seed.ts idearepository` 등록 → `bootstrap?app=idearepository` **200 출력 확보**
 - 앱 쪽: SDK 복사(`lib/common-server/`, SDK_VERSION 주석) → 부팅 게이트(실패해도 앱 진행, 차단 화면 출구) →
   공지 화면(읽음은 로컬) → 문의 화면(미결정 #3: 기기 subject면 `registerDevice` + 내역/답변 화면)
-- 디스코드 웹훅 env `DISCORD_TICKET_WEBHOOK_URL_IDEAVAULT` + 재배포(유일한 재배포 지점, env 파일 끝 개행 확인)
+- 디스코드 웹훅 env `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` + 재배포(유일한 재배포 지점, env 파일 끝 개행 확인)
 
 **완료 기준**: 실기기에서 공지 노출 + 문의 전송 → 관리자 콘솔·디스코드 도착 (+ 기기 subject면 내역 화면에 상태 표시).
 

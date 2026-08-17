@@ -1,4 +1,4 @@
-# Idea Vault — 문서 색인
+# Idea Repository — 문서 색인
 
 > 이 파일이 **문서 색인이자 구현 현황 정본**이다. 새 `*_SYSTEM.md`를 추가하면 반드시 아래 목록과
 > 구현 현황표에 함께 등록한다([`DOC_DISCIPLINE.md`](./DOC_DISCIPLINE.md) 부록 체크리스트).
@@ -10,7 +10,7 @@
 
 | 문서 | 범위 | 상태 |
 |---|---|---|
-| [`../CLAUDE.md`](../CLAUDE.md) | 설계 정본 — 기둥·MVP 범위·회원 없음/로컬 온리 정책·BM·스택·결정 로그·**미결정 7건** | ✅ |
+| [`../CLAUDE.md`](../CLAUDE.md) | 설계 정본 — 기둥·MVP 범위·회원 없음/로컬 온리 정책·BM·스택·결정 로그·**미결정 6건** | ✅ |
 | [`PLAN.md`](./PLAN.md) | MVP 구현 플랜 — Phase 0~8 착수 순서·완료 기준·진행 현황 | ✅ |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | 서버 경계 — common_server 연동(공지·문의)·전용 서버 없음·선행 작업 | ✅ |
 | [`DOC_DISCIPLINE.md`](./DOC_DISCIPLINE.md) | 문서 작업 규율 (LinkMemo·조각 승계) | ✅ |
@@ -21,7 +21,7 @@
 | `UI_GUIDE.md` | 공통 컴포넌트·여백·타이포 사용법 | ❌ 미작성(Phase 0 토큰 확정 후) |
 | `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성(첫 빌드 시점부터) |
 
-원본 기획서("Idea Vault 글로벌 MVP 기획서", 2026-08-17)는 이 문서 체계로 전부 옮겼다 — 기획서 §번호는 CLAUDE.md 곳곳에
+원본 기획서("Idea Vault 글로벌 MVP 기획서", 2026-08-17 — 서비스명은 같은 날 Idea Repository로 확정)는 이 문서 체계로 전부 옮겼다 — 기획서 §번호는 CLAUDE.md 곳곳에
 출처로 인용돼 있다. 기획서 자체는 레포에 두지 않는다(정본은 CLAUDE.md).
 
 ---
@@ -55,13 +55,13 @@
 | 문의하기(+ 기기 subject 내역) | ❌ | 미결정 #3 → Phase 5 |
 | 데이터 손실 안내 문구 | ❌ | Phase 1 빈 화면 + 설정 |
 
-### 서버·외부 (Idea Vault 밖 선행 작업)
+### 서버·외부 (Idea Repository 밖 선행 작업)
 
 | 영역 | 상태 | 비고 |
 |---|---|---|
-| common_server `apps`에 `ideavault` 등록 | ❌ | app_code 확정 후. 확인: `bootstrap?app=ideavault` 200 |
+| common_server `apps`에 `idearepository` 등록 | ❌ | app_code 확정(2026-08-17). 확인: `bootstrap?app=idearepository` 200 |
 | common_server SDK 복사(`lib/common-server/`) | ❌ | SDK_VERSION 2026-08-14 |
-| 디스코드 문의 웹훅 env + 재배포 | ❌ | `DISCORD_TICKET_WEBHOOK_URL_IDEAVAULT` |
+| 디스코드 문의 웹훅 env + 재배포 | ❌ | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` |
 | AdMob 앱·광고단위 + GDPR 메시지 | ❌ | 배너 1 + 전면형 1 |
 | RevenueCat 프로젝트(익명 모드) | ❌ | 웹훅·서버 연동 없음 |
 | 스토어 Remove Ads 상품 등록 | ❌ | 비소모성 1상품 |
@@ -103,6 +103,6 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-
 - 의존 방향: `app/`(라우트) → `features/` → `db/`·`lib/`·`theme/`. 역방향 import 금지.
 - **사용자 데이터의 진실은 기기 로컬**이다. 서버가 죽어도 앱은 완전히 동작해야 한다.
 - **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐.
-- **공통 기능(공지·문의)은 common_server, Idea Vault 전용 서버는 없다.** 상세는 [`ARCHITECTURE.md`](./ARCHITECTURE.md).
+- **공통 기능(공지·문의)은 common_server, Idea Repository 전용 서버는 없다.** 상세는 [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 - 로그인이 없으므로 엔타이틀먼트 서버 판정도 없다. 광고 제거는 스토어 구매 이력이 진실.
 - 프로젝트명만 필수 — 나머지 필드에 필수 검증을 추가하지 않는다(기둥 1). 공통 UI는 `components/`에만. `any` 금지, `strict` 유지.

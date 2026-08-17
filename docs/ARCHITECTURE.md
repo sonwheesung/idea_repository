@@ -1,20 +1,20 @@
 # ARCHITECTURE — 서버 경계와 연동
 
 > 정책 요약은 [`../CLAUDE.md`](../CLAUDE.md) §10. LinkMemo `docs/ARCHITECTURE.md`의 틀을 승계 —
-> Idea Vault도 **로그인 없음·전용 서버 없음**이라 같은 두께다. 2026-08-17 작성 — 연동 0%.
+> Idea Repository도 **로그인 없음·전용 서버 없음**이라 같은 두께다. 2026-08-17 작성 — 연동 0%.
 
 ---
 
 ## 1. 전체 그림
 
 ```
-Idea Vault 앱 (Expo RN)
+Idea Repository 앱 (Expo RN)
  │
  ├── 로컬 (expo-sqlite / AsyncStorage / SecureStore)
  │     ← 프로젝트·노트·자료·카테고리·태그·필터/정렬 상태·설정 = 전부 여기. 진실의 전부
  │
  ├── HTTPS ──▶ common_server (https://common-server.vercel.app)
- │              ├─ GET  /api/v1/bootstrap?app=ideavault   ← 부팅 1회: 점검·강제업데이트·공지
+ │              ├─ GET  /api/v1/bootstrap?app=idearepository   ← 부팅 1회: 점검·강제업데이트·공지
  │              ├─ POST /api/v1/devices                    ← (미결정 #3 채택 시) 기기 subject 등록 → 세션 토큰
  │              ├─ POST /api/v1/tickets                    ← 문의(익명 또는 기기 귀속)
  │              └─ GET  /api/v1/tickets/mine               ← (기기 subject 시) 내 문의 목록·답변·상태
@@ -23,7 +23,7 @@ Idea Vault 앱 (Expo RN)
  ├── AdMob SDK ← 광고 (테스트 단위로 개발 · EEA는 UMP 동의 폼)
  └── RevenueCat(익명) + 스토어 인앱결제 ← Remove Ads (서버 웹훅·미러 없음)
 
-Idea Vault 전용 서버: 없음 (만들지 않는다)
+Idea Repository 전용 서버: 없음 (만들지 않는다)
 ```
 
 **우리 서버(common_server)로 나가는 사용자 입력은 문의 본문뿐이다.** 프로젝트·노트·자료는 어떤 요청에도 실리지 않는다.
@@ -31,14 +31,14 @@ Idea Vault 전용 서버: 없음 (만들지 않는다)
 
 ---
 
-## 2. 왜 Idea Vault 전용 서버가 없는가 — ✅ 확정 (LinkMemo 2026-08-14 판단 승계)
+## 2. 왜 Idea Repository 전용 서버가 없는가 — ✅ 확정 (LinkMemo 2026-08-14 판단 승계)
 
-**common_server 그대로, 튜닝조차 불필요.** 1배포 N앱 설계라 앱 추가 = `apps` seed 1행이며, Idea Vault가 쓰는
+**common_server 그대로, 튜닝조차 불필요.** 1배포 N앱 설계라 앱 추가 = `apps` seed 1행이며, Idea Repository가 쓰는
 v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026-08-14 같은 경로로 붙어 프로덕션 E2E까지 실측).
 별도 서버는 Supabase 무료 티어 한도(활성 2프로젝트 — 배구 + common)를 깨고 운영만 이중이 된다.
 
 - 기둥 2(로컬 온리)가 기획의 정체성이다 — 서버가 생기는 순간 "not uploaded to our servers" 포지셔닝이 흐려진다.
-- 조각이 전용 서버를 판 이유(E2EE 백업 저장 · AI 프록시)에 해당하는 기능이 Idea Vault엔 없다.
+- 조각이 전용 서버를 판 이유(E2EE 백업 저장 · AI 프록시)에 해당하는 기능이 Idea Repository엔 없다.
   로컬 백업/내보내기(미결정 #4)도 서버가 필요 없다.
 - 공지·문의·점검 게이트는 이미 있는 common_server에 태우면 된다 — 한계비용 0.
 
@@ -80,24 +80,24 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 
 | 항목 | 값 | 변경 가능? |
 |---|---|---|
-| `app_code` | **`ideavault` 제안**(CLAUDE.md §14 미결정 #1 — 앱 최종명과 함께 확정) | ❌ 등록 후 사실상 불가 |
-| 표시 이름 | Idea Vault | ✅ 콘솔에서 |
+| `app_code` | **`idearepository` 확정**(2026-08-17 사용자 결정, CLAUDE.md §14 L) | ❌ 등록 후 사실상 불가 |
+| 표시 이름 | Idea Repository | ✅ 콘솔에서 |
 | 로그인 | **없음** | ✅ 나중에 추가 가능(subject는 덧붙이는 구조) |
 | 구독 | **없음** (일회성 IAP뿐 · 서버 무관) | ✅ |
 
 ### 5.2 연동 순서 (ONBOARDING 승계 — 로그인·구독 절 건너뜀)
 
-1. **앱 등록(서버)**: `node --env-file=.env.local tools/seed.ts ideavault "Idea Vault"` →
-   확인: `curl "https://common-server.vercel.app/api/v1/bootstrap?app=ideavault&platform=android&appVersion=0.1.0"` **200**
+1. **앱 등록(서버)**: `node --env-file=.env.local tools/seed.ts idearepository "Idea Repository"` →
+   확인: `curl "https://common-server.vercel.app/api/v1/bootstrap?app=idearepository&platform=android&appVersion=0.1.0"` **200**
    (404 = 미등록/비활성. "했다"가 아니라 출력을 남긴다)
 2. **SDK 복사(앱)**: `common_server/client/{index,types}.ts` → `lib/common-server/`. 복사본 상단에 `SDK_VERSION` 주석
-   (현재 `2026-08-14`). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=ideavault node tools/_dv_sdk.ts`
+   (현재 `2026-08-14`). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
 3. **부팅 게이트(앱)**: `fetchBootstrap()` 1회. **실패해도 앱을 막지 않는다** — 로컬 앱이 서버 때문에 못 열리면
    기둥 2 위반. 성공 시에만: 점검 화면 / min 미만 강제 업데이트 / latest 미만 소프트 안내 / 공지 배지.
    ⚠ **차단 화면에 반드시 출구를 둔다** — 스토어 URL이 비어 있으면 안내문이라도(my_word 실제 사고).
 4. **문의(앱)**: `sendInquiry(category, content)`. 본문 5~2000자, 24h 앱별 캡(기본 30) 초과 시 `rate-limited`.
    (b) 채택 시 전송 전 `registerDevice(uuid)`로 세션 확보(실패하면 익명 폴백 — LinkMemo 방식).
-5. **디스코드 알림(서버·선택)**: `DISCORD_TICKET_WEBHOOK_URL_IDEAVAULT` env + **재배포** —
+5. **디스코드 알림(서버·선택)**: `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` env + **재배포** —
    연동 전 과정에서 유일하게 재배포가 필요한 지점. 없으면 "문의는 들어오는데 알림만 없는" 상태다(고장 아님).
    ⚠ LinkMemo 등록 때 `.env.local` 마지막 줄 무개행 + append로 `SESSION_JWT_SECRET`이 오염된 사고가 있었다 —
    env 추가 전 파일 끝 개행을 확인한다.
@@ -106,7 +106,7 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 
 - bootstrap 게이트는 **서버 응답으로만** 판정 — 앱 로컬 신뢰 금지.
 - SDK 모듈은 **throw 하지 않는다** — 실패를 타입으로 반환.
-- 고정(pinned) 공지 홈 팝업은 LinkMemo가 2026-08-17 추가한 앱 쪽 규칙(서버 변경 없음) — Idea Vault도 같은 규칙으로
+- 고정(pinned) 공지 홈 팝업은 LinkMemo가 2026-08-17 추가한 앱 쪽 규칙(서버 변경 없음) — Idea Repository도 같은 규칙으로
   가려면 "전면 광고 종료 후·메인 포커스 중·안 읽은 pinned만 1회". 기획서엔 없으므로 채택 여부는 구현 시 결정.
 - 서버 세션에 상태를 넘길 때는 확인 명령의 **출력을 붙여넣는다**(ONBOARDING §9 표).
 
@@ -116,7 +116,7 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 
 | 항목 | 상태 |
 |---|---|
-| `apps`에 `ideavault` 등록 | ❌ — app_code 확정 후 |
+| `apps`에 `idearepository` 등록 | ❌ — app_code 확정됨, Phase 5에서 seed |
 | SDK 복사 | ❌ |
 | 부팅 게이트 | ❌ |
 | 공지 화면 + 읽음 배지 | ❌ |
@@ -125,4 +125,4 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 
 ## 7. 열린 질문
 
-- app_code(#1) · 문의 귀속 방식(#3) — CLAUDE.md §14. 확정되면 여기와 §5.1을 갱신한다.
+- ~~app_code(#1)~~ 해소(2026-08-17 `idearepository`). 문의 귀속 방식(#3) — CLAUDE.md §14. 확정되면 §4·§5.2를 갱신한다.
