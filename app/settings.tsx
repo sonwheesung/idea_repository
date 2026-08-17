@@ -7,32 +7,21 @@ import { Screen } from '@/components/screen';
 import { Select, type SelectOption } from '@/components/select';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
 import { useLanguageStore } from '@/lib/language';
-import { THEME_MODES, type ThemeMode } from '@/theme/palettes';
 import { useThemeStore } from '@/theme/store';
-import { useTheme } from '@/theme/use-theme';
+import { useResolvedThemeId, useTheme } from '@/theme/use-theme';
 
 type LanguageChoice = 'system' | AppLanguage;
 
-// 설정 — 화면 모드·언어는 Select(2026-08-17 사용자 요청: 칩 → select).
+// 설정 — 테마(→ 선택 화면)·언어 Select(2026-08-17 사용자 요청: 칩 → select).
 // 카테고리 관리·광고 제거·공지·문의 행은 해당 Phase에서 추가.
 export default function SettingsScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
-  const mode = useThemeStore((s) => s.mode);
-  const setMode = useThemeStore((s) => s.setMode);
+  const themeSetting = useThemeStore((s) => s.setting);
+  const resolvedTheme = useResolvedThemeId();
   const override = useLanguageStore((s) => s.override);
   const setOverride = useLanguageStore((s) => s.setOverride);
-
-  const modeOptions: SelectOption<ThemeMode>[] = THEME_MODES.map((m) => ({
-    value: m,
-    label:
-      m === 'system'
-        ? t('settings.appearanceSystem')
-        : m === 'light'
-          ? t('settings.appearanceLight')
-          : t('settings.appearanceDark'),
-  }));
 
   const languageOptions: SelectOption<LanguageChoice>[] = [
     { value: 'system', label: t('settings.languageSystem') },
@@ -42,7 +31,23 @@ export default function SettingsScreen() {
   return (
     <Screen hasHeader>
       <View style={styles.body}>
-        <Select label={t('settings.appearance')} value={mode} options={modeOptions} onChange={setMode} />
+        <Pressable
+          onPress={() => router.push('/theme')}
+          accessibilityRole="button"
+          style={({ pressed }) => [
+            styles.navRow,
+            { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+          ]}>
+          <View>
+            <Text style={[styles.navLabel, { color: theme.text }]}>{t('settings.theme')}</Text>
+            <Text style={[styles.navValue, { color: theme.textMuted }]}>
+              {themeSetting === 'system'
+                ? `${t('theme.system')} · ${t(`theme.names.${resolvedTheme}`)}`
+                : t(`theme.names.${resolvedTheme}`)}
+            </Text>
+          </View>
+          <Ionicons name="chevron-forward" size={18} color={theme.icon} />
+        </Pressable>
         <Select
           label={t('settings.language')}
           value={override ?? 'system'}
@@ -77,4 +82,5 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   navLabel: { fontSize: 16 },
+  navValue: { fontSize: 12, marginTop: 2 },
 });

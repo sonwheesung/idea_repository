@@ -1,12 +1,16 @@
 import { useColorScheme } from 'react-native';
 
-import { THEMES, type ThemePalette } from '@/theme/palettes';
+import { SYSTEM_DARK, SYSTEM_LIGHT, THEMES, type ThemeId, type ThemePalette } from '@/theme/palettes';
 import { useThemeStore } from '@/theme/store';
 
-/** 현재 팔레트 — mode가 system이면 OS 색상 스킴을 따른다. */
-export function useTheme(): ThemePalette {
-  const mode = useThemeStore((s) => s.mode);
+/** 설정 → 실제 테마 id (system이면 OS 스킴으로 Light/Dark Minimal) */
+export function useResolvedThemeId(): ThemeId {
+  const setting = useThemeStore((s) => s.setting);
   const scheme = useColorScheme();
-  const resolved = mode === 'system' ? (scheme === 'dark' ? 'dark' : 'light') : mode;
-  return THEMES[resolved];
+  if (setting === 'system') return scheme === 'dark' ? SYSTEM_DARK : SYSTEM_LIGHT;
+  return setting;
+}
+
+export function useTheme(): ThemePalette {
+  return THEMES[useResolvedThemeId()];
 }

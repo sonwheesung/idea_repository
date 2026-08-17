@@ -24,6 +24,7 @@ export default function RootLayout() {
         <Stack.Screen name="project/new" options={{ presentation: 'modal', title: t('project.new') }} />
         <Stack.Screen name="settings" options={{ title: t('common.settings') }} />
         <Stack.Screen name="categories" options={{ title: t('settings.categories') }} />
+        <Stack.Screen name="theme" options={{ title: t('settings.theme') }} />
       </Stack>
       <StatusBar style={theme.isDark ? 'light' : 'dark'} />
     </>

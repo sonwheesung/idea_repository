@@ -59,14 +59,11 @@
   },
   "settings": {
     "title": "설정",
-    "appearance": "화면 모드",
-    "appearanceSystem": "시스템 설정",
-    "appearanceLight": "라이트",
-    "appearanceDark": "다크",
     "language": "언어",
     "languageSystem": "시스템 언어",
     "categories": "카테고리",
-    "about": "정보"
+    "about": "정보",
+    "theme": "테마"
   },
   "category": {
     "name": "카테고리 이름",
@@ -82,6 +79,24 @@
     "deleteOption": {
       "clear": "이 프로젝트들의 카테고리를 없음으로 변경",
       "move": "다른 카테고리로 이동:"
+    }
+  },
+  "theme": {
+    "current": "현재",
+    "system": "시스템 (자동)",
+    "names": {
+      "lightMinimal": "라이트 미니멀",
+      "darkMinimal": "다크 미니멀",
+      "softPurple": "소프트 퍼플",
+      "mintClean": "민트 클린",
+      "oceanBlue": "오션 블루",
+      "warmBeige": "웜 베이지",
+      "monotone": "모노톤",
+      "lightGlass": "라이트 글래스",
+      "natureLight": "네이처 라이트",
+      "simpleNavy": "심플 네이비",
+      "gradientMinimal": "그라데이션 미니멀",
+      "colorPoint": "컬러 포인트"
     }
   }
 }

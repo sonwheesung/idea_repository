@@ -8,6 +8,8 @@ import { useTheme } from '@/theme/use-theme';
 
 interface ProjectCardProps {
   project: ProjectCardData;
+  /** 목록 인덱스 — 컬러 포인트 테마의 카드 포인트 컬러 순환용 */
+  index?: number;
   onPress?: () => void;
   onLongPress?: () => void;
 }
@@ -15,15 +17,18 @@ interface ProjectCardProps {
 const MAX_TAGS = 3;
 
 // 카드 = 이름 · 한 줄 요약 · 상태 · 진행률 · 우선순위 · 카테고리 · 태그 · 마지막 수정일 (PROJECT_SYSTEM §8)
-export function ProjectCard({ project, onPress, onLongPress }: ProjectCardProps) {
+export function ProjectCard({ project, index = 0, onPress, onLongPress }: ProjectCardProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const shownTags = project.tags.slice(0, MAX_TAGS);
   const extraTags = project.tags.length - shownTags.length;
   const meta = [project.categoryName, ...shownTags.map((tag) => `#${tag}`)].filter(Boolean).join(' · ');
 
+  const accent = theme.cardAccents ? theme.cardAccents[index % theme.cardAccents.length] : null;
+
   return (
-    <Card onPress={onPress} onLongPress={onLongPress}>
+    <Card onPress={onPress} onLongPress={onLongPress} style={accent ? styles.accentCard : undefined}>
+      {accent ? <View style={[styles.accentBar, { backgroundColor: accent }]} /> : null}
       <Text style={[styles.name, { color: theme.text }]} numberOfLines={1}>
         {project.name}
       </Text>
@@ -65,6 +70,8 @@ function Badge({ label, accent }: { label: string; accent?: boolean }) {
 }
 
 const styles = StyleSheet.create({
+  accentCard: { overflow: 'hidden' },
+  accentBar: { position: 'absolute', left: 0, top: 0, bottom: 0, width: 4 },
   name: { fontSize: 17, fontWeight: '600' },
   summary: { fontSize: 14 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 },

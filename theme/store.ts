@@ -2,28 +2,31 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { DEFAULT_THEME_MODE, THEME_MODES, type ThemeMode } from '@/theme/palettes';
+import { DEFAULT_THEME_SETTING, THEME_IDS, type ThemeSetting } from '@/theme/palettes';
 
 interface ThemeState {
-  /** system = 기기 설정 따르기 (기본) */
-  mode: ThemeMode;
-  setMode: (mode: ThemeMode) => void;
+  /** system = OS 라이트/다크 → Light/Dark Minimal. 그 외 = 고정 테마 */
+  setting: ThemeSetting;
+  setSetting: (setting: ThemeSetting) => void;
+}
+
+function isValid(v: unknown): v is ThemeSetting {
+  return v === 'system' || (typeof v === 'string' && (THEME_IDS as readonly string[]).includes(v));
 }
 
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      mode: DEFAULT_THEME_MODE,
-      setMode: (mode) => set({ mode }),
+      setting: DEFAULT_THEME_SETTING,
+      setSetting: (setting) => set({ setting }),
     }),
     {
       name: 'idearepository-theme',
       storage: createJSONStorage(() => AsyncStorage),
-      // 저장값이 깨진 경우 기본(system)으로 복원
+      // 저장값이 깨졌거나 테마가 사라진 경우 system으로 복원
       merge: (persisted, current) => {
         const p = persisted as Partial<ThemeState> | undefined;
-        const mode = p?.mode && THEME_MODES.includes(p.mode) ? p.mode : DEFAULT_THEME_MODE;
-        return { ...current, mode };
+        return { ...current, setting: isValid(p?.setting) ? p.setting : DEFAULT_THEME_SETTING };
       },
     },
   ),

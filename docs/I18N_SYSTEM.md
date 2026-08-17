@@ -48,7 +48,7 @@ sort.recentlyUpdated / sort.recentlyCreated / sort.name / sort.progress / sort.t
 filter.status / filter.category / filter.priority / filter.all / filter.empty / search.empty
 home.empty.title / home.empty.body                        ← 데이터 손실 안내 포함
 data.notice.local / data.notice.loss                      ← 저장 위치·손실 안내 (다른 안내와 키 분리)
-settings.language / settings.appearance(system·light·dark) / settings.categories / settings.removeAds / settings.restorePurchase / settings.notice / settings.inquiry
+settings.language / settings.theme · theme.system · theme.names.<id> / settings.categories / settings.removeAds / settings.restorePurchase / settings.notice / settings.inquiry
 ads.* / purchase.*
 ```
 

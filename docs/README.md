@@ -18,6 +18,8 @@
 | [`DATABASE.md`](./DATABASE.md) | expo-sqlite v1 스키마(6테이블)·시드·조회 패턴·마이그레이션 규약 | ✅ |
 | [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) | 광고(배너·전면형·금지 순간·UMP) + Remove Ads 일회성 구매·복원 | ✅ |
 | [`I18N_SYSTEM.md`](./I18N_SYSTEM.md) | 다국어 — en 기본·ko·키 규약·날짜 로케일·언어 추가 절차 | ✅ |
+| [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
+| [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
 | `UI_GUIDE.md` | 공통 컴포넌트·여백·타이포 사용법 | ❌ 미작성(Phase 0 토큰 확정 후) |
 | `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성(첫 빌드 시점부터) |
 
@@ -35,7 +37,7 @@
 | 영역 | 상태 | 비고 |
 |---|---|---|
 | Expo 부트(SDK 54 · expo-router · TS strict · Metro 8087) | ✅ | 2026-08-17 — expo ~54.0.35 · RN 0.81.5 · React 19.1.0(LinkMemo 조합). 템플릿 예제 미채용, 단일 메인+스택(`index`·`project/new`·`settings`) |
-| 테마 토큰(라이트/다크 2종 · 시스템 따르기 + 수동) | ✅ | 2026-08-17 — `theme/palettes.ts` 17토큰 · zustand persist · 설정 화면 **Select**로 전환(칩 → select, 사용자 지시) |
+| 테마 12종 + 시스템(자동) | ✅ | 2026-08-17 — ~~라이트/다크 2종~~ → 시안 12종. `theme/palettes.ts` · `app/theme.tsx` 미니어처 그리드 · 설정 행에 현재 테마 표시. 카드 테두리 1px [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) |
 | expo-sqlite v1 스키마 + 카테고리 시드 | ✅ | 2026-08-17 Phase 1 — [`DATABASE.md`](./DATABASE.md) |
 | 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ✅ | 2026-08-17 Phase 1 — 생성 폼 Label+input(`TextField`) + Select(카테고리·상태·우선순위), 카드(상태·우선순위·진행률 바·카테고리·태그·수정일), 길게 눌러 삭제 |
 | 카테고리 관리(추가·수정·삭제 시 선택지) | ✅ | 2026-08-17 Phase 1 — 설정 → 카테고리. 사용 수 표시, 중복 거부, 삭제 시 없음/이동 라디오 |
@@ -45,7 +47,7 @@
 | 관련 자료 CRUD + 외부 브라우저 | ❌ | Phase 2 |
 | 검색 9필드 | ❌ | Phase 3 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ❌ | Phase 3 |
-| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 63키 동기, 설정→언어 Select(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
+| 다국어 en·ko + `check:i18n` + 언어 설정 | ✅ 뼈대 | 2026-08-17 — 74키 동기, 설정→언어 Select(시스템/English/한국어). 키는 Phase 1~3에서 계속 늘어난다(Phase 4 = 완성 점검) |
 | 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
 | 하단 배너(메인·상세) | 🔨 자리만 | 2026-08-17 점선 플레이스홀더(메인) — 실배너는 Phase 6 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ❌ | Phase 6 |

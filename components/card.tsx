@@ -31,7 +31,7 @@ export function Card({ children, onPress, onLongPress, style }: CardProps) {
 const styles = StyleSheet.create({
   card: {
     borderRadius: 14,
-    borderWidth: StyleSheet.hairlineWidth,
+    borderWidth: 1, // 카드 테두리는 1px + 눈에 띄는 border 토큰 (2026-08-17 사용자 지적 '너무 희미하다')
     padding: 14,
     gap: 6,
   },

@@ -62,7 +62,9 @@ export default function HomeScreen() {
         keyExtractor={(p) => p.id}
         contentContainerStyle={projects.length === 0 ? styles.emptyContainer : styles.list}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        renderItem={({ item }) => <ProjectCard project={item} onLongPress={() => confirmDelete(item)} />}
+        renderItem={({ item, index }) => (
+          <ProjectCard project={item} index={index} onLongPress={() => confirmDelete(item)} />
+        )}
         ListEmptyComponent={
           <View style={styles.empty}>
             <Ionicons name="bulb-outline" size={40} color={theme.textMuted} />

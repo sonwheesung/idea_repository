@@ -59,14 +59,11 @@
   },
   "settings": {
     "title": "Settings",
-    "appearance": "Appearance",
-    "appearanceSystem": "System",
-    "appearanceLight": "Light",
-    "appearanceDark": "Dark",
     "language": "Language",
     "languageSystem": "System language",
     "categories": "Categories",
-    "about": "About"
+    "about": "About",
+    "theme": "Theme"
   },
   "category": {
     "name": "Category name",
@@ -82,6 +79,24 @@
     "deleteOption": {
       "clear": "Remove category from these projects",
       "move": "Move them to:"
+    }
+  },
+  "theme": {
+    "current": "Current",
+    "system": "System (auto)",
+    "names": {
+      "lightMinimal": "Light Minimal",
+      "darkMinimal": "Dark Minimal",
+      "softPurple": "Soft Purple",
+      "mintClean": "Mint Clean",
+      "oceanBlue": "Ocean Blue",
+      "warmBeige": "Warm Beige",
+      "monotone": "Monotone",
+      "lightGlass": "Light Glass",
+      "natureLight": "Nature Light",
+      "simpleNavy": "Simple Navy",
+      "gradientMinimal": "Gradient Minimal",
+      "colorPoint": "Color Point"
     }
   }
 }

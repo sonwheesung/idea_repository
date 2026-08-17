@@ -71,7 +71,7 @@
 | 18 | 광고 제거 | 스토어 IAP | **Remove Ads ₩1,500 일회성**(스토어 현지 가격) + Restore Purchases. §7.1 |
 | 19 | 공지·점검·강제업데이트 | common_server | bootstrap 1회 호출. 실패해도 앱을 막지 않는다 |
 | 20 | 문의하기 | common_server | 로그인 없음. **기기 subject 귀속**(2026-08-17 확정 — LinkMemo 방식): 문의 목록·답변·상태 확인 가능 |
-| 21 | 다크 모드 | 로컬 | **라이트/다크 2종 · 시스템 따르기 + 수동 선택**(2026-08-17 확정 — 기획서 밖 추가). 테마 10종 시스템은 안 만든다 |
+| 21 | 테마 | 로컬 | ~~라이트/다크 2종~~ → **12종 팔레트 + 시스템(자동 = Light/Dark Minimal)**(2026-08-17 사용자 시안 제공으로 정정). 전부 무료. [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
 
 하단 네비게이션: **없음 — 단일 메인 화면 + 스택**(기획서 §14 메인 화면 구성 그대로. LinkMemo와 같은 구조).
 메인 상단 = 검색바 · [＋] · [⚙ 설정]. 필터(카테고리·우선순위)·정렬은 메인의 필터/정렬 버튼 → 시트.
@@ -88,7 +88,7 @@
 
 - 로컬 백업/내보내기(기획서 §24) · 언어 추가(ja·zh·es·fr·de·pt — 기획서 §25) · 빈 항목 숨김/표시 설정.
 - 그 외(정렬 세분화·프로젝트 템플릿·태그 관리 화면 등)는 **기획서에 없다** — 필요해지면 이 문서에 먼저 적고 결정한다.
-  (다크 모드는 기획서에 없었지만 2026-08-17 MVP로 편입 — §3 #21.)
+  (테마는 기획서에 없었지만 2026-08-17 MVP로 편입 — §3 #21.)
 
 ---
 
@@ -276,7 +276,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 언어 | TypeScript ~5.9 (`strict` · `any` 금지) | ✅ typecheck·lint(any=error) 통과 |
 | 네비게이션 | expo-router ~6.0 (단일 메인 + 스택) | ✅ `index` · `project/new`(modal) · `settings` 골격 |
 | 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ✅ 테마·언어 store가 첫 사용처 |
-| 테마 | `theme/palettes.ts` 토큰 — **라이트/다크 2종**, 시스템 따르기 + 수동(LinkMemo 구조 축소 재사용) | ✅ 2026-08-17 토큰 17종 + 설정 화면 칩 |
+| 테마 | `theme/palettes.ts` 토큰 — **12종 + 시스템(자동)**(LinkMemo 구조 승계) | ✅ 2026-08-17 토큰 17종(+cardAccents) · `app/theme.tsx` 미니어처 그리드 |
 | **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ✅ 2026-08-17 v1 6테이블 + 시드 ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
 | 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ❌ |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ❌ |
@@ -302,7 +302,7 @@ idea_repository/
 ├── features/     # projects / categories / tags / notes / resources / search / ads / purchase / support
 ├── components/   # 공통 UI (Screen · Button · Card · ProgressBar · StatusBadge · PriorityBadge …)
 ├── db/           # expo-sqlite 스키마·마이그레이션 (user_version 기반)
-├── theme/        # 토큰 — 라이트/다크 2종 (palettes.ts)
+├── theme/        # 토큰 — 12종 팔레트 + system (palettes.ts · store.ts · use-theme.ts)
 ├── locales/      # en · ko
 ├── lib/          # common-server SDK 복사본 · i18n · date
 ├── scripts/      # check-i18n.mjs 등
@@ -365,7 +365,7 @@ idea_repository/
 | 3 | 문의 귀속 | **기기 subject**(SecureStore UUID → `POST /v1/devices` → 세션) — 문의 목록·답변·상태 화면 포함 | 완전 익명이면 답변을 볼 경로가 없다. 서버 이미 배포·LinkMemo E2E 실측. 계정이 아니다 |
 | 4 | 로컬 백업/내보내기 | **MVP 제외.** 출시 후 P1에서 로컬 파일 내보내기/가져오기로 재검토(서버 업로드 🚫) | 기획서 §24가 열어 둔 항목 — 필요성 확인 후 |
 | 5 | 기본 카테고리 수정·삭제 | **허용** — 일반 행과 동일 취급. 지운 기본값은 재생성하지 않는다 | 분기 최소화. Other를 지우고 싶은 사용자를 막을 이유 없음 |
-| 6 | 다크 모드 | **라이트/다크 2종 · 시스템 따르기 + 수동 선택**(설정 → Appearance). 테마 10종 시스템 🚫 | 기획서 밖 추가지만 토큰을 Phase 0에서 잡으면 비용이 낮다 — §3 #21 |
+| 6 | 테마 | ~~라이트/다크 2종 · 시스템 따르기 + 수동~~ → **12종 팔레트(시안 `docs/design/theme-mockups-12.png`) + 시스템(자동)**(2026-08-17 오후 사용자 시안 "다양하게 만들어줘"로 정정). 설정 → Theme 미니어처 그리드. 카드 테두리 1px + 진한 border(같은 날 "너무 희미하다" 지적) | LinkMemo 테마 10종 구조 재사용 — 팔레트 추가 = 테마 추가. 상세 [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
 | 7 | 출시 계정 | Vivace Games Studio(개인, `6329667596149711059`) — LinkMemo와 동일. 비공개 테스트 12명×14일 병행 | 정본 `volleyball/docs/GOOGLE_ACCOUNT_CASE.md`. Phase 6.5에서 최신 상태 재확인 |
 
 ### ⚠ 미결정
