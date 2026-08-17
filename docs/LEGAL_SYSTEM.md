@@ -13,12 +13,12 @@
 | 개인정보처리방침 KO 정본 `docs/legal/PRIVACY.ko.md` | ✅ 초안 작성 | 2026-08-17. PIPA §30 항목(목적·항목·기간·파기·위탁·국외이전·권리·자동수집·안전조치·보호책임자·구제·변경) |
 | 이용약관 EN `docs/legal/TERMS.en.md` | ✅ 초안 작성 | 2026-08-17 |
 | 이용약관·운영·환불 정책 KO `docs/legal/TERMS.ko.md` | ✅ 초안 작성 | 2026-08-17. 전자상거래법 판매자 정보·청약철회 제한 고지·종료 30일 고지 |
-| Play 데이터 보안·Apple 라벨 답안 `docs/legal/DATA_SAFETY.md` | ✅ 초안 작성 | 2026-08-17. ❌ 콘솔 미제출 |
+| Play 데이터 보안·Apple 라벨 답안 `docs/legal/DATA_SAFETY.md` | ✅ | 2026-08-17. **Play 콘솔 제출 완료**(§2 그대로 — 구매 내역 행은 Phase 7 RC 도입 시 추가) |
 | 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ | 2026-08-17. 배구 레포 `server/app/idearepository/…`로 복사·커밋(볼리볼 `3eb8929`) — **정본은 이 레포의 docs/legal**, 수정 시 재복사·재배포 |
 | 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
-| Play 데이터 보안 양식 제출 | ❌ | Phase 8 — AdMob·RC 공식 표 재확인 후 |
+| Play 데이터 보안 양식 제출 | ✅ | 2026-08-17 — 미리보기 확인 후 저장. 광고 ID 선언 예(분석·광고·사기방지). ⏳ Phase 7에서 "금융 정보 › 구매 내역" 추가 |
 | Apple 앱 개인정보 라벨 · ATT | ⏸ | iOS 출시 시 |
 | 변호사 검토 | ❌ | 사람 결정 |
 

@@ -3,7 +3,7 @@
 > Play 콘솔 "앱 콘텐츠 → 데이터 보안"과 App Store Connect "앱 개인정보 보호"에 그대로 옮겨 적기 위한 답안.
 > **처리방침(`PRIVACY.en.md`·`PRIVACY.ko.md`) ⇄ 이 양식 ⇄ 실제 트래픽이 1:1**이어야 한다(CLAUDE.md §6 정직한 표현 규칙,
 > `play-store-launch-checklist` §1.4 "SDK 자동 수집분 전수 신고"). SDK를 추가·제거하면 세 곳을 같이 고친다.
-> 작성일 2026-08-17 — 상태 **초안(❌ 미제출)**. LinkMemo 2026-08-14 선언(광고 ID·대략 위치·앱 상호작용·기기 ID = 수집/공유(광고),
+> 작성일 2026-08-17 — 상태 **✅ Play 콘솔 제출(2026-08-17, §2 그대로 — 구매 내역 행 제외, Phase 7에서 추가)**. LinkMemo 2026-08-14 선언(광고 ID·대략 위치·앱 상호작용·기기 ID = 수집/공유(광고),
 > 문의 본문 = 선택 수집)을 기준으로 Idea Repository 실태에 맞춰 작성했다.
 
 ---
@@ -31,7 +31,7 @@ IP는 문의 레이트리밋에 일시 사용 후 폐기 — Play 기준 "일시
 | 앱에서 수집한 모든 사용자 데이터는 전송 중에 암호화되나요? | **예**(HTTPS 전용) |
 | 사용자가 데이터 삭제를 요청할 방법을 제공하나요? | **예** — support@vivace-games.com(문의 기록). 계정이 없으므로 "계정 삭제 URL"은 해당 없음 |
 | 독립적인 보안 검토(MASA)를 받았나요? | 아니요 |
-| 데이터 보안 관행 페이지 URL(처리방침) | `https://vivace-games.com/idearepository/privacy` (❌ 미게시 — 게시 후 기입) |
+| 데이터 보안 관행 페이지 URL(처리방침) | `https://vivace-games.com/idearepository/privacy` (✅ 게시·콘솔 등록) |
 
 ## 2. Google Play 데이터 보안 — 데이터 유형별 답안
 

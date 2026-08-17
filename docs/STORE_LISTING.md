@@ -16,8 +16,8 @@
 | 스크린샷 플랜 · 피처 그래픽 아이디어 | ✅ 플랜 | §7 — 실촬영은 Phase 2~3 화면 완성 후 |
 | App Store 항목(subtitle·promo·keywords) | ✅ 초안 | §8 |
 | 앱 내 About 화면(정보·링크·판매자 정보) | ✅ | 2026-08-17 — `app/about.tsx` · `lib/links.ts` · 설정 → 정보 |
-| 아이콘 · 피처 그래픽 · 스크린샷 실제 파일 | ❌ | §9 체크리스트 |
-| Play 데이터 보안 선언 · IAP 상품 · 테스터 트랙 | ❌ | §9 체크리스트 |
+| 아이콘 · 피처 그래픽 · 스크린샷 실제 파일 | ✅ | 2026-08-17 `tools/store/` — 콘솔 업로드 완료 |
+| Play 데이터 보안 선언 · IAP 상품 · 테스터 트랙 | 🔨 | 데이터 보안 ✅ · 트랙 준비 ✅(AAB 대기) · IAP는 Phase 7 |
 
 🚫 = 안 하기로 결정 / ⏸ = 보류 / ❌ = 미착수 / ✅ = 완료
 
@@ -237,17 +237,17 @@ Capture your ideas. Keep them private. Build what matters.
 
 | 항목 | 상태 | 비고 |
 |---|---|---|
-| 앱 아이콘 512×512 + 앱 내 아이콘 6종 교체(현재 템플릿) | ❌ | Phase 8 — `assets/images/*` |
-| 피처 그래픽 1024×500 | ❌ | §7 아이디어 |
-| 스크린샷 휴대전화 5~6장 + 7"/10" 태블릿 | ❌ | Phase 2~3 화면 완성 후 촬영 |
-| 처리방침 실게시(`/idearepository/privacy`) | ❌ | 문서는 `docs/legal/`(별도 작업). 게시는 배구 서버 Vercel |
-| 이용약관 실게시(`/idearepository/terms`) | ❌ | 동상 |
-| Play 데이터 보안 선언(광고 SDK 수집 항목 = 처리방침 1:1) | ❌ | Phase 8 |
-| 앱 콘텐츠 선언 10종(등급·광고·타겟층·로그인 없음·광고 ID…) | ❌ | §6 답안 |
+| 앱 아이콘 512×512 + 앱 내 아이콘 6종 교체(현재 템플릿) | ✅ | 2026-08-17 `tools/make_store_assets.py`(전구 심볼) → `assets/images/*` · `tools/store/icon-512.png` 콘솔 업로드 |
+| 피처 그래픽 1024×500 | ✅ | 2026-08-17 `tools/store/feature-1024x500.png` 콘솔 업로드 |
+| 스크린샷 휴대전화 5~6장 + 7"/10" 태블릿 | ✅ | 2026-08-17 `tools/make_screenshots.py` → `tools/store/shots/store_shot_1..6.png`(1080×1920). 폰·7"·10" 슬롯 모두 같은 6장(순서: 홈→새 프로젝트→상세→검색→로컬 저장→테마) |
+| 처리방침 실게시(`/idearepository/privacy`) | ✅ | 2026-08-17 배구 서버 Vercel — 200 |
+| 이용약관 실게시(`/idearepository/terms`) | ✅ | 2026-08-17 — 200 |
+| Play 데이터 보안 선언(광고 SDK 수집 항목 = 처리방침 1:1) | ✅ | 2026-08-17 콘솔 제출 — `legal/DATA_SAFETY.md` §2 |
+| 앱 콘텐츠 선언 10종(등급·광고·타겟층·로그인 없음·광고 ID…) | ✅ | 2026-08-17 콘솔 11/11 완료(§6 답안 그대로) |
 | 한국 개발자 추가 정보(사업자번호·통신판매업 신고번호·신고기관) | ❌ | 계정 세부정보 — LinkMemo 선례 |
 | IAP 상품 `remove_ads`(비소모성) 등록 + RevenueCat attach | ❌ | Phase 7 — `store-iap-setup` 스킬 |
-| 스토어 설정(카테고리 생산성 · 이메일 · 웹사이트) | ❌ | §4·§5 값 |
-| 비공개 테스트 트랙(Alpha) + 테스터 12명 × 14일 | ❌ | Phase 6.5 |
-| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | ❌ | Phase 8 |
+| 스토어 설정(카테고리 생산성 · 이메일 · 웹사이트) | ✅ | 2026-08-17 — 앱/생산성 · support@vivace-games.com · https://vivace-games.com |
+| 비공개 테스트 트랙(Alpha) + 테스터 12명 × 14일 | 🔨 | 2026-08-17 트랙 `4700611093824576153` 국가·테스터·출시노트 준비. ⏳ AAB 업로드(사용자) → 검토 전송 → 14일 시계 |
+| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → `idearepository-vc1.aab`(65MB, gitignored). ⏳ 콘솔 업로드는 사용자(브라우저 도구 10MB 제한) |
 | `play-store-launch-checklist` 스킬 전체 점검 | ❌ | 제출 직전 |
 | 앱 내 About(정보) — 링크·판매자 정보 | ✅ | 2026-08-17 `app/about.tsx` |

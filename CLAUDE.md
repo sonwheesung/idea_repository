@@ -404,4 +404,5 @@ idea_repository/
 - 첫 실행 프라이버시 웰컴 시트 ✅(2026-08-17). 법무 문서 게시는 아래 LEGAL_SYSTEM 참조.
 - **Phase 4·5 완료**(2026-08-17): i18n 코드 키 검사 추가 · common_server 연동(등록·SDK·BootGate·공지·문의 기기 subject, 프로덕션 E2E). ⏸ 디스코드 웹훅 env(사용자 URL).
 - **Phase 6 완료**(2026-08-17): AdMob 콘솔 대행(앱·배너·App Open·GDPR) · SDK 16.0.0 · 실배너·App Open(3h)·UMP · **Expo Go 종료 → 디버그 빌드**(에뮬레이터 실측: 테스트 광고 노출·쿨타임 동작).
-- 다음 단계: Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원) → 8(출시 준비: 아이콘·AAB·비공개 테스트). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- **Phase 6.5·8 대행**(2026-08-17): 스토어 자산·키스토어·AAB vc1 · Play 콘솔(Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`) 앱 콘텐츠 11/11·데이터 보안·스토어 설정·등록정보 EN/KO·Alpha 트랙 준비. **⏳ AAB 업로드는 사용자**(65MB) → 검토 전송.
+- 다음 단계: AAB 업로드·검토 전송(사용자) → Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원, 데이터 보안에 구매 내역 추가) → 프로덕션 신청(14일 후). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
