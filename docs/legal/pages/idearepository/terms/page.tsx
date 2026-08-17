@@ -42,7 +42,7 @@ export default function IdeaRepositoryTerms() {
         </a>
         을 따릅니다. (English version below.)
       </p>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17 (2차)</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17 (3차)</p>
 
       <section style={card}>
         <h2 style={h2}>제1조 목적 · 제2조 정의</h2>
@@ -112,7 +112,7 @@ export default function IdeaRepositoryTerms() {
             (무료 = 모든 기능 + 광고, 구매 = 모든 기능 + 광고 없음).
           </li>
           <li>
-            가격: <strong>₩1,500</strong>(대한민국 기준, 부가세 포함 여부는 스토어 표시에 따름). 국외는 스토어의 국가별 현지 통화 가격이 결제 전 표시됩니다.
+            가격: <strong>₩3,300</strong>(대한민국 기준, 부가세 포함 여부는 스토어 표시에 따름). 국외는 스토어의 국가별 현지 통화 가격이 결제 전 표시됩니다.
           </li>
           <li>결제: 스토어(Google Play·App Store) 인앱결제. 회사는 결제 카드 정보를 취급하지 않습니다. 제공 시기: 스토어 결제 승인 <strong>즉시</strong> 적용.</li>
           <li>
@@ -213,7 +213,7 @@ export default function IdeaRepositoryTerms() {
         </ul>
       </section>
 
-      <p style={{ ...muted, marginTop: 24, fontSize: 13 }}>부칙 — 이 약관은 2026-08-17부터 시행합니다. 개정 이력: 2026-08-17 최초 제정.</p>
+      <p style={{ ...muted, marginTop: 24, fontSize: 13 }}>부칙 — 이 약관은 2026-08-17부터 시행합니다. 개정 이력: 2026-08-17 최초 제정 · 2차(글로벌 점검: 최소 연령·ODR 종료 반영·스토어 약관 조항) · 3차(광고 제거 기준 가격 ₩1,500 → ₩3,300, 판매 개시 전 정정).</p>
 
       <hr style={divider} />
 
@@ -262,7 +262,7 @@ export default function IdeaRepositoryTerms() {
           </li>
           <li>
             <b>Remove Ads</b>, where available in your version of the App, is a single one-time, non-consumable in-app purchase (Settings → Remove Ads). It removes all ads; it does not unlock features and
-            is not a subscription. Price is shown in the store in your local currency (reference price in Korea: ₩1,500).
+            is not a subscription. Price is shown in the store in your local currency (reference price in Korea: ₩3,300).
           </li>
           <li>Payment is processed by Google Play or the Apple App Store; we do not receive your payment details. Ads are removed <b>immediately</b> after the store confirms the purchase.</li>
           <li>Restore: Settings → Remove Ads → <b>Restore Purchases</b> (same store account; no login with us).</li>

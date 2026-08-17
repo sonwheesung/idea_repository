@@ -1,6 +1,6 @@
 # Idea Repository — Terms of Use
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 2 — global review)
+Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 3 — price ₩3,300)
 
 > Publication target: `https://vivace-games.com/idearepository/terms` (KO main + EN section, mirroring the sister-app
 > terms page). Source text for the page `docs/legal/pages/idearepository/terms/page.tsx`. Korean version (with the
@@ -49,7 +49,7 @@ purchase called **"Remove Ads"** (Settings → Remove Ads). It removes all ads i
 feature — and it is not a subscription; there are no recurring charges.
 
 - Price: shown in the store in your local currency before you confirm. In the Republic of Korea the reference price
-  is ₩1,500. Store prices may include applicable taxes.
+  is ₩3,300. Store prices may include applicable taxes.
 - Payment and delivery: the purchase is processed by Google Play or the Apple App Store under their terms; we do not
   receive your payment details. Ads are removed **immediately** after the store confirms the purchase.
 - Restore: after reinstalling or changing devices, use **Settings → Remove Ads → Restore Purchases**. Restoration relies
