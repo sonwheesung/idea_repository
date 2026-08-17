@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
+import { FlatList, KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
@@ -30,7 +30,7 @@ export default function CategoriesScreen() {
   const reload = useCallback(() => setCategories(listCategoriesWithCount()), []);
 
   return (
-    <Screen edges={[]}>
+    <Screen hasHeader>
       <FlatList
         data={categories}
         keyExtractor={(c) => c.id}
@@ -126,31 +126,34 @@ function NameDialog({
 
   return (
     <Modal transparent animationType="fade" onRequestClose={onCancel}>
-      <Pressable style={styles.backdrop} onPress={onCancel}>
-        <Pressable style={[styles.dialog, { backgroundColor: theme.card, borderColor: theme.border }]}>
-          <Text style={[styles.dialogTitle, { color: theme.text }]}>{title}</Text>
-          <TextField
-            label={t('category.name')}
-            value={name}
-            onChangeText={(v) => {
-              setName(v);
-              if (error) setError(undefined);
-            }}
-            error={error}
-            autoFocus
-            returnKeyType="done"
-            onSubmitEditing={submit}
-          />
-          <View style={styles.dialogActions}>
-            <View style={styles.flex}>
-              <Button label={t('common.cancel')} variant="ghost" onPress={onCancel} />
+      {/* 모달은 Screen 밖(별도 창)이라 키보드 회피를 직접 — 가운데 다이얼로그가 키보드에 덮이지 않게 */}
+      <KeyboardAvoidingView behavior="padding" style={styles.flex}>
+        <Pressable style={styles.backdrop} onPress={onCancel}>
+          <Pressable style={[styles.dialog, { backgroundColor: theme.card, borderColor: theme.border }]}>
+            <Text style={[styles.dialogTitle, { color: theme.text }]}>{title}</Text>
+            <TextField
+              label={t('category.name')}
+              value={name}
+              onChangeText={(v) => {
+                setName(v);
+                if (error) setError(undefined);
+              }}
+              error={error}
+              autoFocus
+              returnKeyType="done"
+              onSubmitEditing={submit}
+            />
+            <View style={styles.dialogActions}>
+              <View style={styles.flex}>
+                <Button label={t('common.cancel')} variant="ghost" onPress={onCancel} />
+              </View>
+              <View style={styles.flex}>
+                <Button label={t('common.save')} onPress={submit} />
+              </View>
             </View>
-            <View style={styles.flex}>
-              <Button label={t('common.save')} onPress={submit} />
-            </View>
-          </View>
+          </Pressable>
         </Pressable>
-      </Pressable>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }

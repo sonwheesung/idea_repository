@@ -105,6 +105,11 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-
 ## 4. 아키텍처 원칙
 
 - 의존 방향: `app/`(라우트) → `features/` → `db/`·`lib/`·`theme/`. 역방향 import 금지.
+- **모든 화면은 `components/Screen`으로 감싼다** — 화면에서 SafeAreaView·(폼의) ScrollView를 직접 쓰지 않는다.
+  Screen이 세이프에어리어(하단은 항상, 헤더 화면은 `hasHeader`로 상단만 제외)와 키보드 가림(`scroll` 화면:
+  겹침만큼 스크롤 영역 축소 + 포커스 입력창 자동 스크롤, `hooks/use-keyboard.ts`)을 한 곳에서 처리한다
+  (조각 승계 — 2026-08-17 실기기: 하단 인셋 누락·태그 입력 키보드 가림 지적으로 도입). 배너 footer는 키보드가 뜨면 숨긴다.
+- 폼의 저장 버튼은 스크롤 콘텐츠 마지막에 둔다(고정 footer는 키보드에 가리거나 숨겨야 한다 — LinkMemo 방식).
 - **사용자 데이터의 진실은 기기 로컬**이다. 서버가 죽어도 앱은 완전히 동작해야 한다.
 - **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐.
 - **공통 기능(공지·문의)은 common_server, Idea Repository 전용 서버는 없다.** 상세는 [`ARCHITECTURE.md`](./ARCHITECTURE.md).

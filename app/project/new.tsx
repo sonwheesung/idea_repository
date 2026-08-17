@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
@@ -63,87 +63,69 @@ export default function NewProjectScreen() {
   };
 
   return (
-    <Screen edges={[]}>
-      <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-        <ScrollView contentContainerStyle={styles.body} keyboardShouldPersistTaps="handled">
+    <Screen hasHeader scroll contentStyle={styles.body}>
+      <TextField
+        label={t('project.name')}
+        required
+        value={name}
+        onChangeText={(v) => {
+          setName(v);
+          if (nameError) setNameError(undefined);
+        }}
+        placeholder={t('project.namePlaceholder')}
+        error={nameError}
+        autoFocus
+        returnKeyType="done"
+        onSubmitEditing={save}
+      />
+
+      <Pressable
+        onPress={() => setShowDetails((v) => !v)}
+        accessibilityRole="button"
+        style={styles.detailsToggle}>
+        <Ionicons name={showDetails ? 'chevron-down' : 'chevron-forward'} size={16} color={theme.primary} />
+        <Text style={[styles.detailsToggleText, { color: theme.primary }]}>{t('project.addDetails')}</Text>
+      </Pressable>
+
+      {showDetails ? (
+        <View style={styles.details}>
+          <TextField label={t('project.summary')} value={summary} onChangeText={setSummary} />
           <TextField
-            label={t('project.name')}
-            required
-            value={name}
-            onChangeText={(v) => {
-              setName(v);
-              if (nameError) setNameError(undefined);
-            }}
-            placeholder={t('project.namePlaceholder')}
-            error={nameError}
-            autoFocus
-            returnKeyType="done"
-            onSubmitEditing={save}
+            label={t('project.description')}
+            value={description}
+            onChangeText={setDescription}
+            multiline
           />
-
-          <Pressable
-            onPress={() => setShowDetails((v) => !v)}
-            accessibilityRole="button"
-            style={styles.detailsToggle}>
-            <Ionicons
-              name={showDetails ? 'chevron-down' : 'chevron-forward'}
-              size={16}
-              color={theme.primary}
-            />
-            <Text style={[styles.detailsToggleText, { color: theme.primary }]}>
-              {t('project.addDetails')}
-            </Text>
-          </Pressable>
-
-          {showDetails ? (
-            <View style={styles.details}>
-              <TextField label={t('project.summary')} value={summary} onChangeText={setSummary} />
-              <TextField
-                label={t('project.description')}
-                value={description}
-                onChangeText={setDescription}
-                multiline
-              />
-              <Select
-                label={t('project.category')}
-                value={categoryId}
-                options={categoryOptions}
-                onChange={setCategoryId}
-              />
-              <TagInput
-                label={t('project.tags')}
-                value={tags}
-                onChange={setTags}
-                placeholder={t('project.tagsPlaceholder')}
-              />
-              <Select
-                label={t('project.status')}
-                value={status}
-                options={statusOptions}
-                onChange={setStatus}
-              />
-              <Select
-                label={t('project.priority')}
-                value={priority}
-                options={priorityOptions}
-                onChange={setPriority}
-              />
-            </View>
-          ) : null}
-        </ScrollView>
-        <View style={[styles.footer, { borderTopColor: theme.border, backgroundColor: theme.background }]}>
-          <Button label={t('common.save')} onPress={save} />
+          <Select
+            label={t('project.category')}
+            value={categoryId}
+            options={categoryOptions}
+            onChange={setCategoryId}
+          />
+          <TagInput
+            label={t('project.tags')}
+            value={tags}
+            onChange={setTags}
+            placeholder={t('project.tagsPlaceholder')}
+          />
+          <Select label={t('project.status')} value={status} options={statusOptions} onChange={setStatus} />
+          <Select
+            label={t('project.priority')}
+            value={priority}
+            options={priorityOptions}
+            onChange={setPriority}
+          />
         </View>
-      </KeyboardAvoidingView>
+      ) : null}
+      {/* 저장 버튼은 스크롤 콘텐츠 마지막 — 고정 footer는 키보드에 가리거나 숨겨야 한다(LinkMemo 방식) */}
+      <Button label={t('common.save')} onPress={save} />
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  flex: { flex: 1 },
   body: { padding: 16, gap: 16, paddingBottom: 24 },
   detailsToggle: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingVertical: 4 },
   detailsToggleText: { fontSize: 14, fontWeight: '500' },
   details: { gap: 16 },
-  footer: { padding: 16, borderTopWidth: StyleSheet.hairlineWidth },
 });

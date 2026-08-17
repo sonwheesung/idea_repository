@@ -40,7 +40,7 @@ export default function SettingsScreen() {
   ];
 
   return (
-    <Screen edges={[]}>
+    <Screen hasHeader>
       <View style={styles.body}>
         <Select label={t('settings.appearance')} value={mode} options={modeOptions} onChange={setMode} />
         <Select
