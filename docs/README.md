@@ -58,6 +58,7 @@
 | 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
+| 첫 실행 프라이버시 웰컴 시트 + About "Privacy at a glance" | ✅ | 2026-08-17 — `components/welcome-sheet.tsx`·`privacy-overview.tsx`, `features/onboarding/store.ts`(persist, 복원 후 표시) |
 | 정보(About) 화면 — 버전·태그라인·링크(처리방침·약관·문의·웹사이트)·판매자 정보 | ✅ | 2026-08-17 — `app/about.tsx` · 상수 `lib/links.ts` · 문안 [`STORE_LISTING.md`](./STORE_LISTING.md) |
 
 ### 서버·외부 (Idea Repository 밖 선행 작업)

@@ -2,7 +2,7 @@
 
 > 정책 원칙은 [`../CLAUDE.md`](../CLAUDE.md) §4(회원 없음)·§6(데이터 저장·정직한 표현 규칙)·§7·§7.1(광고·Remove Ads)·§10(서버 경계),
 > 실제 트래픽은 [`ARCHITECTURE.md`](./ARCHITECTURE.md)·[`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md). 여기는 **이용자 대면 법률 문서**의
-> 정본 위치·정합 규칙·게시 절차. 2026-08-17 초안 작성 — **게시 0%**. LinkMemo(배구 서버 정적 페이지 게시, 2026-08-14)의 방식을 승계한다.
+> 정본 위치·정합 규칙·게시 절차. 2026-08-17 초안 작성 → 같은 날 **처리방침·약관 게시 완료**(변호사 미검토 초안 상태로 게시 — 검토 후 갱신). LinkMemo(배구 서버 정적 페이지 게시, 2026-08-14)의 방식을 승계한다.
 > ⚠ 이 문서와 `docs/legal/*`는 **변호사 검토를 거치지 않은 초안**이다. 스토어 제출 전 사람이 읽고 확정한다.
 
 ## 구현 현황
@@ -14,9 +14,9 @@
 | 이용약관 EN `docs/legal/TERMS.en.md` | ✅ 초안 작성 | 2026-08-17 |
 | 이용약관·운영·환불 정책 KO `docs/legal/TERMS.ko.md` | ✅ 초안 작성 | 2026-08-17. 전자상거래법 판매자 정보·청약철회 제한 고지·종료 30일 고지 |
 | Play 데이터 보안·Apple 라벨 답안 `docs/legal/DATA_SAFETY.md` | ✅ 초안 작성 | 2026-08-17. ❌ 콘솔 미제출 |
-| 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ 초안 작성 | 2026-08-17. ❌ 배구 서버 레포 미복사·미배포 |
-| 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ❌ 미게시 | Phase 8 |
-| 약관 실게시 `https://vivace-games.com/idearepository/terms` | ❌ 미게시 | Phase 8 |
+| 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ | 2026-08-17. 배구 레포 `server/app/idearepository/…`로 복사·커밋(볼리볼 `3eb8929`) — **정본은 이 레포의 docs/legal**, 수정 시 재복사·재배포 |
+| 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
+| 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
 | Play 데이터 보안 양식 제출 | ❌ | Phase 8 — AdMob·RC 공식 표 재확인 후 |
 | Apple 앱 개인정보 라벨 · ATT | ⏸ | iOS 출시 시 |
@@ -130,3 +130,9 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 
 - 이 문서는 **세무·정산(AdMob 세금정보·RC 정산·부가세)과 무관**하다 — 그건 BUSINESS_INFO §5·스토어 콘솔의 영역.
 - Play "계정 삭제 URL" 요건은 계정이 없어 **해당 없음**(CLAUDE.md §4). 로그인을 붙이는 순간 처리방침·약관·삭제 URL이 세트로 바뀐다.
+
+## 게시 기록
+
+- **2026-08-17** — 배구 레포 커밋 `3eb8929`(페이지 2개만 스테이징 — 다른 세션의 미커밋 작업과 분리) → 깨끗한 git worktree(HEAD)에서
+  `npx vercel --prod --yes`(⚠ Vercel 프로젝트 Root Directory = `server`이므로 **레포 루트에서** 실행, `.vercel/project.json`은 루트 것) →
+  프로덕션 Ready → `vivace-games.com/idearepository/{privacy,terms}` 200 실측. 작업 트리에서 직접 배포하지 않은 이유: 다른 세션의 임시 파일·미커밋 변경이 함께 올라가는 것을 피하려고.
