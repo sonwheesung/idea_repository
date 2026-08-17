@@ -68,12 +68,12 @@
 |---|---|---|
 | common_server `apps`에 `idearepository` 등록 | ❌ | app_code 확정(2026-08-17). 확인: `bootstrap?app=idearepository` 200 |
 | common_server SDK 복사(`lib/common-server/`) | ❌ | SDK_VERSION 2026-08-14 |
-| 디스코드 문의 웹훅 env + 재배포 | ❌ | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` |
+| 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
 | RevenueCat 프로젝트(익명 모드) | ❌ | 웹훅·서버 연동 없음 |
 | 스토어 Remove Ads 상품 등록 | ❌ | 비소모성 1상품 |
 | 처리방침·약관 게시 | ✅ | 2026-08-17 — `vivace-games.com/idearepository/{privacy,terms}` 200(배구 서버 정적 페이지, 사용자 확인 후 배포). 정본 `docs/legal/`, 절차 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) |
-| Play 콘솔 앱 · 비공개 테스트 | 🔨 | 2026-08-17 브라우저 대행 — Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`. 앱 콘텐츠 11/11 · 데이터 보안 · 스토어 설정 · 등록정보 EN/KO+그래픽 · Alpha 트랙 준비 완료. **⏳ AAB 업로드는 사용자(65MB)** → 검토 전송 → 12명×14일 |
+| Play 콘솔 앱 · 비공개 테스트 | ✅ 검토 전송 | 2026-08-17 브라우저 대행 — Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`. 앱 콘텐츠 11/11 · 데이터 보안 · 스토어 설정 · 등록정보 EN/KO+그래픽 · AAB vc1(사용자 업로드) → **변경사항 16개 검토 전송**(2026-08-17). 검토 통과 후 테스터 12명×14일 |
 
 🚫 = 안 하기로 결정 / ⏸ = 보류 / ❌ = 미착수 / ✅ = 완료
 

@@ -128,7 +128,7 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 | 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ⏸ latest 소프트 안내 미구현 |
 | 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |
 | 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ✅ 2026-08-17 — 설정 → 문의하기 = 내역(`app/inquiries.tsx`) + 우상단 [문의 등록하기] → 폼(`app/inquiry.tsx`, 분류 Select). `features/support/server.ts`(SecureStore UUID·세션). **프로덕션 E2E**: 등록→토큰→문의 귀속→mine 200, 잘못된 deviceId 400 |
-| 디스코드 웹훅 env | ❌ — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` 사용자 웹훅 URL 필요 → common_server Vercel env + 재배포(유일한 재배포 지점) |
+| 디스코드 웹훅 env | ✅ 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` production 등록 + 재배포(common_server `964bcd9`). 문의 E2E 200 |
 
 ## 7. 열린 질문
 
