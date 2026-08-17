@@ -5,11 +5,9 @@
     "cancel": "Cancel",
     "delete": "Delete",
     "edit": "Edit",
-    "add": "Add",
     "search": "Search",
     "settings": "Settings",
     "reset": "Reset",
-    "back": "Back",
     "done": "Done",
     "clear": "Clear"
   },
@@ -60,7 +58,8 @@
     "notes": "Idea Notes",
     "resources": "Related Resources",
     "addField": "Add {{field}}",
-    "deleteDetail": "{{notes}} note(s) and {{resources}} resource(s) will be deleted too."
+    "deleteDetail": "{{notes}} note(s) and {{resources}} resource(s) will be deleted too.",
+    "createFailed": "Could not save the project."
   },
   "status": {
     "idea": "Idea",
@@ -77,12 +76,13 @@
     "none": "None"
   },
   "settings": {
-    "title": "Settings",
     "language": "Language",
     "languageSystem": "System language",
     "categories": "Categories",
     "about": "About",
-    "theme": "Theme"
+    "theme": "Theme",
+    "notice": "Notices",
+    "inquiry": "Contact Us"
   },
   "category": {
     "name": "Category name",
@@ -188,5 +188,44 @@
     },
     "readPolicy": "Read the privacy policy",
     "start": "Start"
+  },
+  "notice": {
+    "empty": "No notices yet.",
+    "pinned": "Pinned"
+  },
+  "gate": {
+    "updateTitle": "Update Required",
+    "updateBody": "Please update to the latest version to continue.",
+    "updateButton": "Open Store",
+    "updateNoStore": "Please update the app from the store."
+  },
+  "inquiry": {
+    "category": "Category",
+    "categories": {
+      "bug": "Bug",
+      "suggestion": "Suggestion",
+      "question": "Question",
+      "etc": "Other"
+    },
+    "content": "Message",
+    "placeholder": "Tell us what happened or what you'd like to see.",
+    "send": "Send",
+    "sentTitle": "Sent",
+    "sentBody": "Thank you! Your inquiry has been received.",
+    "failedTitle": "Couldn't send",
+    "failed": "Something went wrong. Please try again later.",
+    "tooShort": "Please write at least {{min}} characters.",
+    "rateLimited": "Too many inquiries for now. Please try again tomorrow.",
+    "offline": "You're offline. Please try again when connected.",
+    "privacyNote": "Only your message, the app version and platform are sent. Inquiries are linked to a random ID on this device — no email or name.",
+    "newTitle": "New Inquiry",
+    "historyEmpty": "No inquiries yet.",
+    "historyNote": "Inquiries are linked to this device. If you delete the app or change devices, past inquiries will no longer appear here.",
+    "replyLabel": "Reply",
+    "status": {
+      "open": "Received",
+      "replied": "Replied",
+      "resolved": "Resolved"
+    }
   }
 }

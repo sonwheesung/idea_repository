@@ -123,12 +123,12 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 
 | 항목 | 상태 |
 |---|---|
-| `apps`에 `idearepository` 등록 | ❌ — app_code 확정됨, Phase 5에서 seed |
-| SDK 복사 | ❌ |
-| 부팅 게이트 | ❌ |
-| 공지 화면 + 읽음 배지 | ❌ |
-| 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ❌ |
-| 디스코드 웹훅 env | ❌ |
+| `apps`에 `idearepository` 등록 | ✅ 2026-08-17 — seed 실행, **프로덕션 `bootstrap?app=idearepository` → 200 실측** |
+| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, SDK_VERSION 2026-08-14. 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
+| 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ⏸ latest 소프트 안내 미구현 |
+| 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |
+| 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ✅ 2026-08-17 — 설정 → 문의하기 = 내역(`app/inquiries.tsx`) + 우상단 [문의 등록하기] → 폼(`app/inquiry.tsx`, 분류 Select). `features/support/server.ts`(SecureStore UUID·세션). **프로덕션 E2E**: 등록→토큰→문의 귀속→mine 200, 잘못된 deviceId 400 |
+| 디스코드 웹훅 env | ❌ — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` 사용자 웹훅 URL 필요 → common_server Vercel env + 재배포(유일한 재배포 지점) |
 
 ## 7. 열린 질문
 

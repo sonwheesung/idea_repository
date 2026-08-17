@@ -7,3 +7,4 @@ docs/
 *.md
 package-lock.json
 expo-env.d.ts
+lib/common-server/

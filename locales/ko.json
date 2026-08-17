@@ -5,11 +5,9 @@
     "cancel": "취소",
     "delete": "삭제",
     "edit": "편집",
-    "add": "추가",
     "search": "검색",
     "settings": "설정",
     "reset": "초기화",
-    "back": "뒤로",
     "done": "완료",
     "clear": "지우기"
   },
@@ -60,7 +58,8 @@
     "notes": "아이디어 노트",
     "resources": "관련 자료",
     "addField": "{{field}} 추가",
-    "deleteDetail": "노트 {{notes}}개와 관련 자료 {{resources}}개도 함께 삭제됩니다."
+    "deleteDetail": "노트 {{notes}}개와 관련 자료 {{resources}}개도 함께 삭제됩니다.",
+    "createFailed": "프로젝트를 저장하지 못했습니다."
   },
   "status": {
     "idea": "아이디어",
@@ -77,12 +76,13 @@
     "none": "없음"
   },
   "settings": {
-    "title": "설정",
     "language": "언어",
     "languageSystem": "시스템 언어",
     "categories": "카테고리",
     "about": "정보",
-    "theme": "테마"
+    "theme": "테마",
+    "notice": "공지사항",
+    "inquiry": "문의하기"
   },
   "category": {
     "name": "카테고리 이름",
@@ -188,5 +188,44 @@
     },
     "readPolicy": "개인정보처리방침 보기",
     "start": "시작하기"
+  },
+  "notice": {
+    "empty": "등록된 공지가 없습니다.",
+    "pinned": "고정"
+  },
+  "gate": {
+    "updateTitle": "업데이트가 필요합니다",
+    "updateBody": "계속 사용하려면 최신 버전으로 업데이트해 주세요.",
+    "updateButton": "스토어로 이동",
+    "updateNoStore": "스토어에서 앱을 업데이트해 주세요."
+  },
+  "inquiry": {
+    "category": "분류",
+    "categories": {
+      "bug": "버그",
+      "suggestion": "제안",
+      "question": "질문",
+      "etc": "기타"
+    },
+    "content": "내용",
+    "placeholder": "어떤 문제가 있었는지, 어떤 기능을 원하는지 알려주세요.",
+    "send": "보내기",
+    "sentTitle": "전송 완료",
+    "sentBody": "문의가 접수되었습니다. 감사합니다!",
+    "failedTitle": "전송 실패",
+    "failed": "문제가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+    "tooShort": "{{min}}자 이상 적어 주세요.",
+    "rateLimited": "문의가 너무 많습니다. 내일 다시 시도해 주세요.",
+    "offline": "오프라인 상태입니다. 연결 후 다시 시도해 주세요.",
+    "privacyNote": "내용·앱 버전·플랫폼만 전송됩니다. 문의는 이 기기의 무작위 ID에 연결되며 이메일이나 이름은 수집하지 않습니다.",
+    "newTitle": "문의 등록하기",
+    "historyEmpty": "아직 보낸 문의가 없습니다.",
+    "historyNote": "문의는 이 기기에 연결됩니다. 앱을 삭제하거나 기기를 바꾸면 이전 문의는 여기에 표시되지 않습니다.",
+    "replyLabel": "답변",
+    "status": {
+      "open": "접수됨",
+      "replied": "답변 완료",
+      "resolved": "해결됨"
+    }
   }
 }

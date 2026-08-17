@@ -1,6 +1,6 @@
 // i18n 키 검사 — LinkMemo·조각 규약 승계 (docs/I18N_SYSTEM.md §4)
 // ① en 기준 키 누락·잉여 ② 비한국어 로케일의 한글 잔존 ③ {{보간}} 플레이스홀더 일치
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -51,6 +51,27 @@ for (const lang of LANGS) {
         errors.push(`[${lang}] 보간 불일치: ${k} (en: ${ref || '없음'} / ${lang}: ${cur || '없음'})`);
       }
     }
+  }
+}
+
+// ④ 코드에서 쓰는 정적 키(t('a.b') · throw new Error('a.b'))가 en에 존재하는지 (2026-08-17 추가 — Phase 4 점검에서 누락 1건 발견)
+function walk(dir, out = []) {
+  for (const name of readdirSync(dir)) {
+    const p = join(dir, name);
+    if (statSync(p).isDirectory()) walk(p, out);
+    else if (/\.(ts|tsx)$/.test(name)) out.push(p);
+  }
+  return out;
+}
+const refKeySet = new Set(refKeys);
+for (const dir of ['app', 'components', 'features', 'lib']) {
+  for (const file of walk(join(root, dir))) {
+    const src = readFileSync(file, 'utf8');
+    const found = new Set();
+    for (const m of src.matchAll(/t\(\s*'([^']+)'/g)) found.add(m[1]);
+    for (const m of src.matchAll(/new Error\('([a-z]+\.[A-Za-z.]+)'\)/g)) found.add(m[1]);
+    for (const k of found)
+      if (!refKeySet.has(k)) errors.push(`[code] 리소스에 없는 키: ${k} (${file.replace(root, '')})`);
   }
 }
 

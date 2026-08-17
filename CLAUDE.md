@@ -402,4 +402,5 @@ idea_repository/
 - **Phase 2 완료**(2026-08-17): 상세(빈 항목 "Add …" → 편집) · 편집(공용 폼 전 필드, 슬라이더·날짜 피커) · 노트 인라인 CRUD · 자료 CRUD(브라우저) · 설정 → About(처리방침·약관 링크·사업자 정보) · STORE_LISTING.md.
 - **Phase 3 완료**(2026-08-17): 검색(9필드)·상태 칩·필터 시트·정렬 6종·상태 유지. 법무 문서 초안(`docs/legal/`)·STORE_LISTING 작성(미게시).
 - 첫 실행 프라이버시 웰컴 시트 ✅(2026-08-17). 법무 문서 게시는 아래 LEGAL_SYSTEM 참조.
-- 다음 단계: Phase 4(i18n 완성 점검) → Phase 5(common_server 연동). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- **Phase 4·5 완료**(2026-08-17): i18n 코드 키 검사 추가 · common_server 연동(등록·SDK·BootGate·공지·문의 기기 subject, 프로덕션 E2E). ⏸ 디스코드 웹훅 env(사용자 URL).
+- 다음 단계: Phase 6(광고 — AdMob 발급·SDK 16.0.0·dev build·배너·App Open·UMP) → 7(Remove Ads) → 8(출시 준비). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
