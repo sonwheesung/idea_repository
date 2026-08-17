@@ -387,7 +387,7 @@ idea_repository/
 | AdMob 앱·광고단위 발급 | AdMob 콘솔 | 배너 1 + **App Open** 1. GDPR 메시지(UMP) 설정. 스토어 미출시 상태에선 "게재 제한"이 정상 |
 | 스토어 상품 등록 (Remove Ads) | Play/App Store 콘솔 | 비소모성 1상품 |
 | RevenueCat 프로젝트 생성 | RC 대시보드 | 익명 모드 — 웹훅·서버 연동 없음. `store-iap-setup` 스킬 참조 |
-| 처리방침 게시 URL | `vivace-games.com` 계열 | LinkMemo는 배구 서버 Vercel 정적 페이지로 게시했다(`server/app/linkmemo/privacy/page.tsx`) — 같은 방식 가능. 값은 `common/BUSINESS_INFO.md` |
+| 처리방침·약관 게시 URL | `vivace-games.com/idearepository/{privacy,terms}` | ✅ 2026-08-17 게시(배구 서버 Vercel 정적 페이지, LinkMemo 방식). 정본은 `docs/legal/`, 절차는 `docs/LEGAL_SYSTEM.md` |
 
 ---
 

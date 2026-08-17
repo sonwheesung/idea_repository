@@ -21,7 +21,7 @@
 | [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
 | [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
-| [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) | 법률 문서 — 처리방침(EN·KO)·약관(KO·EN)·Play 데이터 보안 답안·게시 페이지 소스(`legal/`)·정합 규칙·게시 절차 | ✅ 초안(2026-08-17) · ❌ 미게시 |
+| [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) | 법률 문서 — 처리방침(EN·KO)·약관(KO·EN)·Play 데이터 보안 답안·게시 페이지 소스(`legal/`)·정합 규칙·게시 절차 | ✅ 초안(2026-08-17) · ✅ 게시(2026-08-17) |
 | `UI_GUIDE.md` | 공통 컴포넌트·여백·타이포 사용법 | ❌ 미작성(Phase 0 토큰 확정 후) |
 | `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성(첫 빌드 시점부터) |
 
@@ -71,7 +71,7 @@
 | AdMob 앱·광고단위 + GDPR 메시지 | ❌ | 배너 1 + App Open 1 |
 | RevenueCat 프로젝트(익명 모드) | ❌ | 웹훅·서버 연동 없음 |
 | 스토어 Remove Ads 상품 등록 | ❌ | 비소모성 1상품 |
-| 처리방침·약관 게시 | ❌ | 초안 ✅ [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md)·`docs/legal/`(2026-08-17). 사업자 값은 `C:\project\common\BUSINESS_INFO.md`. 게시 = 배구 서버 레포 복사 → 사용자 확인 후 배포 |
+| 처리방침·약관 게시 | ✅ | 2026-08-17 — `vivace-games.com/idearepository/{privacy,terms}` 200(배구 서버 정적 페이지, 사용자 확인 후 배포). 정본 `docs/legal/`, 절차 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) |
 | Play 콘솔 앱 · 비공개 테스트 | ❌ | Vivace Games Studio(개인) — 12명×14일 |
 
 🚫 = 안 하기로 결정 / ⏸ = 보류 / ❌ = 미착수 / ✅ = 완료
