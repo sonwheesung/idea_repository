@@ -20,6 +20,7 @@
 | [`I18N_SYSTEM.md`](./I18N_SYSTEM.md) | 다국어 — en 기본·ko·키 규약·날짜 로케일·언어 추가 절차 | ✅ |
 | [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
 | [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) | **발상 도구(Idea Lab)** — 입구·도구 4종·단어/문장 풀·섞기 규칙·프로젝트 저장 미리 채움·`approach` 필드 | ✅ 2026-08-18 |
+| [`BUILD.md`](./BUILD.md) | **로컬 AAB 빌드·서명** — 업로드 키스토어(재생성 금지)·비밀번호 파일·build.gradle 서명 블록·`tools/build-aab.ps1`·점검·버전 이력 | ✅ 2026-08-18 |
 | [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
 | [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) | 법률 문서 — 처리방침(EN·KO)·약관(KO·EN)·Play 데이터 보안 답안·게시 페이지 소스(`legal/`)·정합 규칙·게시 절차 | ✅ 초안(2026-08-17) · ✅ 게시(2026-08-17) |

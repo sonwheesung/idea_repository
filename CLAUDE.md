@@ -293,7 +293,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko 29키 · 설정→언어 수동 변경 |
 | 날짜 | dayjs (+ locale · localizedFormat · customParseFormat) — 기기 지역 표기 | ✅ `lib/date.ts` (카드 수정일) |
 | 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ❌ |
-| 배포 | Expo EAS | ❌ |
+| 배포 | ~~Expo EAS~~ → **로컬 gradle AAB**(업로드 키 `credentials/`, 절차 [`docs/BUILD.md`](./docs/BUILD.md)) | ✅ vc1·vc2 |
 | Metro 포트 | **8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피) | ✅ scripts 반영 · :8087 번들 200 실측 |
 
 - `android/`·`ios/`는 CNG 산출물 — 커밋하지 않는다.
