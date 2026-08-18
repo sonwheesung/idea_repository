@@ -248,6 +248,35 @@ Capture your ideas. Keep them private. Build what matters.
 | IAP 상품 `remove_ads`(비소모성) 등록 + RevenueCat attach | ❌ | Phase 7 — `store-iap-setup` 스킬 |
 | 스토어 설정(카테고리 생산성 · 이메일 · 웹사이트) | ✅ | 2026-08-17 — 앱/생산성 · support@vivace-games.com · https://vivace-games.com |
 | 비공개 테스트 트랙(Alpha) + 테스터 12명 × 14일 | 🔨 | 2026-08-17 트랙 `4700611093824576153` 국가·테스터·출시노트 준비. ⏳ AAB 업로드(사용자) → 검토 전송 → 14일 시계 |
-| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → `idearepository-vc1.aab`(65MB, gitignored). ⏳ 콘솔 업로드는 사용자(브라우저 도구 10MB 제한) |
+| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → vc1(65MB, 업로드·검토 전송 완료) · **2026-08-18 vc2 · 1.0.1** — `app.json` version/versionCode → `expo prebuild --platform android`(서명 설정 유지 확인) → `gradlew bundleRelease` → `idearepository-vc2.aab`. 콘솔 업로드는 사용자(브라우저 도구 10MB 제한). 릴리스 노트 §10 |
 | `play-store-launch-checklist` 스킬 전체 점검 | ❌ | 제출 직전 |
 | 앱 내 About(정보) — 링크·판매자 정보 | ✅ | 2026-08-17 `app/about.tsx` |
+
+## 10. 릴리스 노트 (Play "이번 버전의 새로운 기능" — 언어별 500자 이내)
+
+> 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
+
+### vc2 · 1.0.1 (2026-08-18)
+
+**en-US**
+```
+• New: Idea Lab — four ways to spark ideas (Combine, Improve, From a problem, What if…) and save any of them as a project in one tap. Everything stays on your device.
+• New: "Approach" field on projects.
+• Filter: status filter moved into the filter sheet, alongside category and priority.
+• Settings: unified rows; new Privacy options (EEA/UK/Switzerland) to change your ad consent any time.
+• Fixes: sheet buttons hidden behind the navigation bar; welcome text now lists exactly what leaves your device.
+```
+
+**ko-KR**
+```
+• 새 기능: 발상 도구 — 조합·개선·불편에서·만약에… 네 가지 방법으로 아이디어를 떠올리고, 마음에 들면 한 번에 프로젝트로 저장합니다. 전부 기기 안에서 처리됩니다.
+• 새 항목: 프로젝트 "발상 방식".
+• 필터: 상태 필터를 카테고리·우선순위와 함께 필터 시트로 옮겼습니다.
+• 설정: 행 모양 통일 · 개인정보 옵션(EEA·영국·스위스) 추가 — 광고 동의를 언제든 변경.
+• 수정: 시트 버튼이 내비게이션 바에 가리던 문제, 웰컴 문구(기기를 떠나는 정보 3가지 명시).
+```
+
+### vc1 · 1.0.0 (2026-08-17)
+
+첫 비공개 테스트 빌드 — 콘솔에 입력한 출시 노트: "Initial closed test build." / "첫 비공개 테스트 빌드입니다."
+
