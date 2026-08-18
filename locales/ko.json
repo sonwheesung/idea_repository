@@ -166,6 +166,7 @@
     "title": "필터",
     "button": "필터",
     "all": "전체",
+    "status": "상태",
     "category": "카테고리",
     "priority": "우선순위",
     "empty": "조건에 맞는 프로젝트가 없습니다.",

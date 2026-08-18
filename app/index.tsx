@@ -2,10 +2,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, FlatList, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { AdBanner } from '@/components/ad-banner';
-import { Chip, FilterSheet } from '@/components/filter-sheet';
+import { FilterSheet } from '@/components/filter-sheet';
 import { OptionSheet } from '@/components/option-sheet';
 import { ProjectCard } from '@/components/project-card';
 import { Screen } from '@/components/screen';
@@ -13,12 +13,13 @@ import { listCategories, type Category } from '@/features/categories/api';
 import { deleteProject } from '@/features/projects/api';
 import { useFilterStore } from '@/features/projects/filter-store';
 import { queryProjects, SORT_KEYS, type SortKey } from '@/features/projects/query';
-import { STATUSES, type ProjectCard as ProjectCardData, type Status } from '@/features/projects/types';
+import type { ProjectCard as ProjectCardData } from '@/features/projects/types';
 import { useTheme } from '@/theme/use-theme';
 
 const SEARCH_DEBOUNCE_MS = 250;
 
-// 메인 화면 (docs/PROJECT_SYSTEM.md §8) — 검색(9필드) · 상태 칩 · 필터/정렬 시트 · 카드 목록.
+// 메인 화면 (docs/PROJECT_SYSTEM.md §8) — 검색(9필드) · 필터(상태·카테고리·우선순위 Select)/정렬 시트 · 카드 목록.
+// 상태 칩 줄은 2026-08-18 필터 시트로 이동(사용자 지시).
 export default function HomeScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -60,8 +61,8 @@ export default function HomeScreen() {
   useFocusEffect(reload);
   useEffect(reload, [reload]);
 
-  const activeFilterCount = (categoryId ? 1 : 0) + (priority ? 1 : 0);
-  const isFiltering = activeFilterCount > 0 || status !== null || q.trim().length > 0;
+  const activeFilterCount = (status ? 1 : 0) + (categoryId ? 1 : 0) + (priority ? 1 : 0);
+  const isFiltering = activeFilterCount > 0 || q.trim().length > 0;
 
   const sortOptions = useMemo(() => SORT_KEYS.map((k) => ({ value: k, label: t(`sort.${k}`) })), [t]);
 
@@ -120,16 +121,6 @@ export default function HomeScreen() {
             <Ionicons name="close-circle" size={18} color={theme.textMuted} />
           </Pressable>
         ) : null}
-      </View>
-
-      {/* 상태 칩 (All + 6) */}
-      <View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>
-          <Chip label={t('filter.all')} active={status === null} onPress={() => setStatus(null)} />
-          {STATUSES.map((s: Status) => (
-            <Chip key={s} label={t(`status.${s}`)} active={status === s} onPress={() => setStatus(s)} />
-          ))}
-        </ScrollView>
       </View>
 
       {/* 필터 · 정렬 · 개수 */}
@@ -205,11 +196,14 @@ export default function HomeScreen() {
       <FilterSheet
         visible={filterOpen}
         categories={categories}
+        status={status}
         categoryId={categoryId}
         priority={priority}
+        onStatus={setStatus}
         onCategory={setCategoryId}
         onPriority={setPriority}
         onReset={() => {
+          setStatus(null);
           setCategoryId(null);
           setPriority(null);
         }}
@@ -251,8 +245,14 @@ const styles = StyleSheet.create({
     height: 44,
   },
   searchInput: { flex: 1, fontSize: 16, paddingVertical: 0 },
-  chips: { paddingHorizontal: 16, paddingVertical: 12, gap: 8 },
-  toolbar: { flexDirection: 'row', alignItems: 'center', gap: 16, paddingHorizontal: 16, paddingBottom: 8 },
+  toolbar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 16,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
+  },
   toolButton: { flexDirection: 'row', alignItems: 'center', gap: 4, paddingVertical: 4 },
   toolText: { fontSize: 13, fontWeight: '500' },
   count: { marginLeft: 'auto', fontSize: 12 },

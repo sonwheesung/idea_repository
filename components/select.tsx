@@ -18,7 +18,7 @@ interface SelectProps<T extends string> {
 
 /**
  * 셀렉트 — 라벨 + 현재 값 행, 탭하면 옵션 목록 모달(2026-08-17 사용자 요청: 칩 대신 select).
- * 설정(언어)과 프로젝트 폼(카테고리·상태·우선순위)이 공용으로 쓴다. 색은 토큰만.
+ * 프로젝트 폼(카테고리·상태·우선순위)·문의 폼(분류)이 쓴다. 설정 화면은 행 모양 통일을 위해 OptionSheet를 직접 연다(2026-08-18). 색은 토큰만.
  */
 export function Select<T extends string>({ label, value, options, onChange, placeholder }: SelectProps<T>) {
   const theme = useTheme();

@@ -15,9 +15,9 @@
 | 태그(자유 생성 · 자동완성 · 자동 정리) | ✅ 2026-08-17 — `components/tag-input.tsx` + `features/tags/api.ts`(replaceProjectTags 트랜잭션·고아 정리) |
 | 아이디어 노트 CRUD | ✅ 2026-08-17 — 상세 인라인, 작성 순, 수정 시 '수정됨' 표기 |
 | 관련 자료 CRUD + 외부 브라우저 | ✅ 2026-08-17 — `components/resource-dialog.tsx`, `features/resources/url.ts`(LinkMemo 정규화 승계) |
-| 메인(카드 목록 · 상태 칩 · 검색 · 필터/정렬 시트) | ✅ 2026-08-17 Phase 3 |
+| 메인(카드 목록 · 검색 · 필터/정렬 시트) | ✅ 2026-08-17 Phase 3 · 2026-08-18 상태 칩 → 필터 시트 Select |
 | 검색 9필드 | ✅ 2026-08-17 — `features/projects/query.ts` |
-| 필터 3축 · 정렬 6종 | ✅ 2026-08-17 — 상태 칩 + 필터 시트(카테고리·우선순위) + 정렬 시트, `filter-store` persist |
+| 필터 3축 · 정렬 6종 | ✅ 2026-08-17 — 필터 시트(상태·카테고리·우선순위 Select — 2026-08-18) + 정렬 시트, `filter-store` persist |
 
 ---
 
@@ -208,8 +208,7 @@ This category is used by 3 projects.
 Idea Repository
 ┌ Search ─────────────────────┐  [＋] [⚙]
 └─────────────────────────────┘
-[All] [Idea] [Planned] [In Progress] [On Hold] [Cancelled] [Completed]   ← 가로 스크롤 칩
-[Filter ▾ Category · Priority]  [Sort ▾ Recently Updated]
+[Filter ▾ Status · Category · Priority]  [Sort ▾ Recently Updated]     ← 상태 칩 줄 없음(2026-08-18)
 
 ┌─────────────────────────────┐
 │ AI Game Balancer            │
@@ -237,7 +236,7 @@ Idea Repository
 - LIKE `%q%` (대소문자 무시). 250ms 디바운스(LinkMemo 승계).
 - 노트·태그는 서브쿼리 EXISTS로 — 프로젝트 행이 중복되지 않게.
 - `#`로 시작하는 질의는 `#`을 벗겨 태그명과 비교(다른 필드도 같이 본다 — 별도 모드 아님).
-- 검색은 필터·정렬과 **동시에** 적용된다(검색 중에도 상태 칩 유효).
+- 검색은 필터·정렬과 **동시에** 적용된다(검색 중에도 필터 유효).
 - 매치된 필드 힌트("in notes")는 P1 — MVP는 카드만.
 - 구현(2026-08-17): 검색어는 **세션 한정**(저장 안 함), 250ms 디바운스, 툴바에 결과 개수 표시. 검색 0건 / 필터 0건 문구를 나누고 "검색·필터 초기화" 링크를 둔다.
 
@@ -245,12 +244,13 @@ Idea Repository
 
 | 축 | 값 | 기본 |
 |---|---|---|
-| 상태 | All · Idea · Planned · In Progress · On Hold · Cancelled · Completed (단일 선택 칩) | All |
+| 상태 | All · Idea · Planned · In Progress · On Hold · Cancelled · Completed (단일 선택) | All |
 | 카테고리 | 없음 / 사용자가 등록한 모든 카테고리 (단일 선택) | 없음(전체) |
 | 우선순위 | 없음 / High · Medium · Low · None (단일 선택) | 없음(전체) |
 
-- 세 축 **AND**. 활성 필터 수를 필터 버튼에 배지로(상태 칩은 별도 줄이라 카운트에서 제외 — 2026-08-17 구현).
-- 필터 시트는 카테고리·우선순위를 **칩 그룹**으로 그린다(모달 안에서 또 Select 모달을 띄우지 않기 위해). 저장된 카테고리 필터의 카테고리가 삭제되면 자동 해제.
+- 세 축 **AND**. 활성 필터 수(상태 포함)를 필터 버튼에 배지로.
+- 필터 시트는 **상태·카테고리·우선순위 세 개의 `Select`**(라벨 + 현재 값 → 옵션 시트)로 그린다 — ~~메인의 상태 칩 줄 + 시트 안 칩 그룹~~ → 2026-08-18 사용자 지시("필터에 넣고 select로")로 통일. 시트(Modal) 위에 OptionSheet(Modal)가 겹쳐 뜨는 구조(RN 중첩 Modal — Android·iOS 모두 지원). 저장된 카테고리 필터의 카테고리가 삭제되면 자동 해제.
+- 칩(`Chip`)은 이제 어디에도 쓰지 않는다 — 태그 입력의 칩은 `TagInput` 자체 스타일.
 - 필터·정렬 상태는 zustand persist로 유지(CLAUDE.md §14 J). "Reset" 한 번으로 전부 초기화.
 
 ## 11. 정렬

@@ -166,6 +166,7 @@
     "title": "Filter",
     "button": "Filter",
     "all": "All",
+    "status": "Status",
     "category": "Category",
     "priority": "Priority",
     "empty": "No projects match these filters.",

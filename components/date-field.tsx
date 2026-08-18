@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Platform, Pressable, StyleSheet, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Button } from '@/components/button';
 import { formatDay } from '@/lib/date';
@@ -24,6 +25,7 @@ const DAY = 'YYYY-MM-DD';
 export function DateField({ label, value, onChange, placeholder, warning }: DateFieldProps) {
   const { t } = useTranslation();
   const theme = useTheme();
+  const insets = useSafeAreaInsets();
   const [iosOpen, setIosOpen] = useState(false);
   const [iosDraft, setIosDraft] = useState<Date>(new Date());
   const current = value ? dayjs(value, DAY).toDate() : new Date();
@@ -74,7 +76,9 @@ export function DateField({ label, value, onChange, placeholder, warning }: Date
 
       {Platform.OS === 'ios' ? (
         <Modal visible={iosOpen} transparent animationType="fade" onRequestClose={() => setIosOpen(false)}>
-          <Pressable style={styles.backdrop} onPress={() => setIosOpen(false)}>
+          <Pressable
+            style={[styles.backdrop, { paddingBottom: 16 + insets.bottom }]}
+            onPress={() => setIosOpen(false)}>
             <Pressable style={[styles.sheet, { backgroundColor: theme.card, borderColor: theme.border }]}>
               <DateTimePicker
                 value={iosDraft}
