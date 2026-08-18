@@ -16,6 +16,8 @@ import {
   type Priority,
   type ProjectInput,
   type Status,
+  APPROACHES,
+  type Approach,
 } from '@/features/projects/types';
 import { useTheme } from '@/theme/use-theme';
 
@@ -34,6 +36,7 @@ export interface ProjectFormValues {
   progress: number;
   status: Status;
   priority: Priority;
+  approach: Approach;
   startDate: string | null;
   targetEndDate: string | null;
 }
@@ -51,6 +54,7 @@ export const EMPTY_PROJECT_FORM: ProjectFormValues = {
   progress: 0,
   status: 'idea',
   priority: 'none',
+  approach: 'none',
   startDate: null,
   targetEndDate: null,
 };
@@ -63,6 +67,8 @@ interface ProjectFormProps {
   initial?: ProjectFormValues;
   /** create = 이름 1칸 + "Add details" 펼침(기둥 1) · edit = 전 필드 펼침 */
   mode: 'create' | 'edit';
+  /** create에서 미리 채워진 값이 있으면 펼침 상태로 시작(발상 도구 → 저장, IDEATION_SYSTEM §6) */
+  startExpanded?: boolean;
   submitLabel: string;
   onSubmit: (values: ProjectFormValues) => void;
 }
@@ -71,12 +77,18 @@ interface ProjectFormProps {
  * 프로젝트 폼 — Label + input (CLAUDE.md §14 M). 생성·편집이 같은 폼을 쓴다.
  * 필수는 이름 하나. 마감일 < 시작일은 막지 않고 경고만(PROJECT_SYSTEM §3.3).
  */
-export function ProjectForm({ initial = EMPTY_PROJECT_FORM, mode, submitLabel, onSubmit }: ProjectFormProps) {
+export function ProjectForm({
+  initial = EMPTY_PROJECT_FORM,
+  mode,
+  startExpanded = false,
+  submitLabel,
+  onSubmit,
+}: ProjectFormProps) {
   const { t } = useTranslation();
   const theme = useTheme();
   const [v, setV] = useState<ProjectFormValues>(initial);
   const [nameError, setNameError] = useState<string | undefined>();
-  const [showDetails, setShowDetails] = useState(mode === 'edit');
+  const [showDetails, setShowDetails] = useState(mode === 'edit' || startExpanded);
 
   const categories = useMemo(() => listCategories(), []);
   const categoryOptions: SelectOption<string>[] = [
@@ -87,6 +99,10 @@ export function ProjectForm({ initial = EMPTY_PROJECT_FORM, mode, submitLabel, o
   const priorityOptions: SelectOption<Priority>[] = PRIORITIES.map((p) => ({
     value: p,
     label: t(`priority.${p}`),
+  }));
+  const approachOptions: SelectOption<Approach>[] = APPROACHES.map((a) => ({
+    value: a,
+    label: t(`approach.${a}`),
   }));
 
   const set = <K extends keyof ProjectFormValues>(key: K, value: ProjectFormValues[K]) =>
@@ -115,7 +131,7 @@ export function ProjectForm({ initial = EMPTY_PROJECT_FORM, mode, submitLabel, o
         }}
         placeholder={t('project.namePlaceholder')}
         error={nameError}
-        autoFocus={mode === 'create'}
+        autoFocus={mode === 'create' && !startExpanded}
         returnKeyType="done"
         onSubmitEditing={submit}
       />
@@ -173,6 +189,12 @@ export function ProjectForm({ initial = EMPTY_PROJECT_FORM, mode, submitLabel, o
             value={v.targetUser}
             onChangeText={(x) => set('targetUser', x)}
             multiline
+          />
+          <Select
+            label={t('project.approach')}
+            value={v.approach}
+            options={approachOptions}
+            onChange={(a) => set('approach', a)}
           />
 
           <SectionTitle label={t('project.sectionProgress')} />

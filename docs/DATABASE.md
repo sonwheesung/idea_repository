@@ -9,6 +9,7 @@
 |---|---|
 | DB 오픈·마이그레이션 러너(`db/index.ts`) | ✅ 2026-08-17 — user_version 기반, FK ON, 마이그레이션은 함수(스키마 + 시드 INSERT) |
 | v1 스키마(projects·categories·tags·project_tags·notes·resources) + 카테고리 시드 | ✅ 2026-08-17 |
+| v2 `projects.approach`(발상 방식) | ✅ 2026-08-18 — 에뮬 v1→v2 실측 |
 
 ## 1. 규약 (LinkMemo 승계)
 
@@ -101,6 +102,15 @@ INSERT INTO categories (id, name, sort_order, created_at) VALUES
 
 영어 그대로 — 번역하지 않는다(CLAUDE.md §8). 시드는 v1 마이그레이션에서 1회만; 사용자가 지운 기본 카테고리를
 다시 만들어 주지 않는다.
+
+## 2.1 v2 — 발상 방식 (2026-08-18)
+
+```sql
+ALTER TABLE projects ADD COLUMN approach TEXT NOT NULL DEFAULT 'none'
+  CHECK (approach IN ('combine','improve','problem','whatif','other','none'));
+```
+
+- 기존 행은 DEFAULT로 `none`. 인덱스 없음(필터 대상 아님). 배경 [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) §7.
 
 ## 3. 조회 패턴
 

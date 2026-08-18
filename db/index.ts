@@ -3,6 +3,7 @@ import * as SQLite from 'expo-sqlite';
 
 // 마이그레이션 규약: 배열에 추가만 한다(Expand-only). 상세는 docs/DATABASE.md.
 // v1 — projects · categories · tags · project_tags · notes · resources + 기본 카테고리 7종 시드
+// v2 — projects.approach(발상 방식, 2026-08-18 — docs/IDEATION_SYSTEM.md §7)
 const V1_SCHEMA = `
 CREATE TABLE categories (
   id         TEXT PRIMARY KEY,
@@ -86,6 +87,12 @@ const MIGRATIONS: Migration[] = [
     } finally {
       stmt.finalizeSync();
     }
+  },
+  (database) => {
+    database.execSync(
+      `ALTER TABLE projects ADD COLUMN approach TEXT NOT NULL DEFAULT 'none'
+         CHECK (approach IN ('combine','improve','problem','whatif','other','none'))`,
+    );
   },
 ];
 

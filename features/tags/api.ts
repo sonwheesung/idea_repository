@@ -42,6 +42,13 @@ export function suggestTags(prefix: string, exclude: string[] = [], limit = 8): 
     .slice(0, limit);
 }
 
+/** 전체 태그 이름(발상 도구 "내 태그" 출처) */
+export function listAllTags(): string[] {
+  return getDb()
+    .getAllSync<{ name: string }>('SELECT name FROM tags ORDER BY name COLLATE NOCASE')
+    .map((r) => r.name);
+}
+
 export function listProjectTags(projectId: string): string[] {
   return getDb()
     .getAllSync<{ name: string }>(

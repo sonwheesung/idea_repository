@@ -6,6 +6,7 @@ import { getDb } from '@/db';
 import { cleanupOrphanTags, listProjectTags, replaceProjectTags } from '@/features/tags/api';
 import {
   nullIfBlank,
+  type Approach,
   type Priority,
   type Project,
   type ProjectCard,
@@ -26,6 +27,7 @@ export interface ProjectRow {
   progress: number;
   status: Status;
   priority: Priority;
+  approach: Approach;
   start_date: string | null;
   target_end_date: string | null;
   created_at: number;
@@ -47,6 +49,7 @@ export function toProject(r: ProjectRow): Project {
     progress: r.progress,
     status: r.status,
     priority: r.priority,
+    approach: r.approach,
     startDate: r.start_date,
     targetEndDate: r.target_end_date,
     createdAt: r.created_at,
@@ -117,7 +120,7 @@ export function updateProject(id: string, input: ProjectInput): Project {
     db.runSync(
       `UPDATE projects SET
         name = ?, summary = ?, description = ?, category_id = ?, problem = ?, goal = ?, core_idea = ?, target_user = ?,
-        progress = ?, status = ?, priority = ?, start_date = ?, target_end_date = ?, updated_at = ?
+        progress = ?, status = ?, priority = ?, approach = ?, start_date = ?, target_end_date = ?, updated_at = ?
        WHERE id = ?`,
       [
         name,
@@ -131,6 +134,7 @@ export function updateProject(id: string, input: ProjectInput): Project {
         Math.min(100, Math.max(0, Math.round(input.progress ?? 0))),
         input.status ?? 'idea',
         input.priority ?? 'none',
+        input.approach ?? 'none',
         input.startDate ?? null,
         input.targetEndDate ?? null,
         now,
@@ -155,8 +159,8 @@ export function createProject(input: ProjectInput): Project {
     db.runSync(
       `INSERT INTO projects
       (id, name, summary, description, category_id, problem, goal, core_idea, target_user,
-       progress, status, priority, start_date, target_end_date, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       progress, status, priority, approach, start_date, target_end_date, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         name,
@@ -170,6 +174,7 @@ export function createProject(input: ProjectInput): Project {
         input.progress ?? 0,
         input.status ?? 'idea',
         input.priority ?? 'none',
+        input.approach ?? 'none',
         input.startDate ?? null,
         input.targetEndDate ?? null,
         now,

@@ -18,6 +18,7 @@
 | 6 | 광고 — dev build 전환 · 배너 · App Open · UMP | 🔨 2026-08-17 — AdMob 콘솔 대행 ✅(앱·배너·App Open·GDPR 게시) · SDK 16.0.0 고정 · config plugin(앱 ID·delayAppMeasurementInit) · `features/ads/{store,ads,app-open}` + 실배너(메인·상세) · **Expo Go 종료 → dev build**(`npm run android`, 에뮬레이터 `volleyball` AVD에 설치). **에뮬레이터 실측 ✅**: 콜드 스타트 App Open 테스트 광고 노출 → 닫기 → 웰컴 시트 → 홈 하단 배너(Test Ad) · 재실행 시 App Open 미노출(3h 쿨타임)·웰컴 재노출 없음. ⚠ 함정 2건: ① 프로젝트에 expo-dev-client가 없어 `expo run:android`는 일반 RN 디버그 앱 → 기본 dev 서버 8081(다른 프로젝트 Metro)에 붙는다 → `debug_http_host` 공유 프리퍼런스를 `10.0.2.2:8087`로 지정해 해결 ② 광고 패키지 설치 **후** Metro `--clear` 재시작 필수(파일 맵 낡음 → AppOpenAd 모듈 해석 실패) |
 | 6.5 | 비공개 테스트 개시(개인 계정이면 12명×14일 시계 병행) | 🔨 2026-08-17 — 콘솔 대행 완료(앱 생성·앱 콘텐츠 11/11·데이터 보안·광고 ID·스토어 설정·등록정보 EN/KO+그래픽·Alpha 트랙 국가/테스터/출시노트). AAB vc1 사용자 업로드 → **검토 전송 완료(2026-08-17, 변경사항 16개)**. 검토 통과 후 테스터 12명×14일 |
 | 7 | Remove Ads — RevenueCat 익명 · 구매/복원 | ⬜ |
+| 9 | **발상 도구(Idea Lab)** — approach 필드 · 단어 풀 · 화면 4종 · 프로젝트 저장 (2026-08-18 사용자 결정으로 추가, 기획서 외) | ✅ 2026-08-18 — DB v2·단어 풀·화면 4종·미리 채움·에뮬(조합·개선 e2e). [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md). vc2 포함 여부 사용자 결정 |
 | 8 | 출시 준비 — 아이콘/스플래시 · 처리방침 · 데이터 보안 선언 · AAB · 스토어 | 🔨 2026-08-17 — 아이콘·그래픽·처리방침 게시·데이터 보안·스토어 등록정보·AAB 검토 전송 ✅ / ⏳ 검토 결과 확인·`play-store-launch-checklist` 최종 점검·프로덕션 신청(14일 후) |
 
 ⚠ = 사용자 계정 작업 포함(AdMob·Play·RC 콘솔) — 해당 Phase에 명시.
@@ -128,6 +129,18 @@
 - EAS 빌드(eas.json) → AAB, `play-store-launch-checklist` 스킬 전체 점검
 
 **완료 기준**: 비공개 테스트 트랙 게시 + 실기기 설치 확인 → (개인 계정) 14일 후 프로덕션 신청.
+
+---
+
+## Phase 9 — 발상 도구(Idea Lab) (1일) — 2026-08-18 추가
+
+- DB v2 `approach` + 폼 Select + 상세 표시
+- `features/ideation/pool.ts`(ko/en 단어 15그룹·만약에 문장 틀) · `shuffle.ts`(다른 그룹·최근 20쌍 회피)
+- 화면: `/idea-lab`(도구 목록) · combine · improve · problem · whatif · 메인 헤더 전구 + 빈 화면 링크
+- `/project/new` 미리 채움 파라미터(name·coreIdea·problem·targetUser·approach·tags·notes)
+- 검증: typecheck·lint·i18n·에뮬 실측(조합 섞기 → 저장 → 프로젝트 생성·노트)
+
+**완료 기준**: 네 도구 모두 저장까지 에뮬에서 통과. 광고 없음 확인.
 
 ---
 

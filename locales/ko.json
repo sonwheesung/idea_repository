@@ -17,7 +17,9 @@
       "title": "아직 아이디어가 없어요",
       "body": "+ 를 눌러 첫 아이디어를 기록하세요. 이름만 있으면 됩니다."
     },
-    "count": "프로젝트 {{count}}개"
+    "count": "프로젝트 {{count}}개",
+    "ideaLabPrompt": "아직 막연하다면?",
+    "ideaLabLink": "발상 도구 열기 →"
   },
   "data": {
     "notice": {
@@ -59,7 +61,8 @@
     "resources": "관련 자료",
     "addField": "{{field}} 추가",
     "deleteDetail": "노트 {{notes}}개와 관련 자료 {{resources}}개도 함께 삭제됩니다.",
-    "createFailed": "프로젝트를 저장하지 못했습니다."
+    "createFailed": "프로젝트를 저장하지 못했습니다.",
+    "approach": "발상 방식"
   },
   "status": {
     "idea": "아이디어",
@@ -229,6 +232,115 @@
       "open": "접수됨",
       "replied": "답변 완료",
       "resolved": "해결됨"
+    }
+  },
+  "approach": {
+    "combine": "조합",
+    "improve": "개선",
+    "problem": "불편에서",
+    "whatif": "만약에…",
+    "other": "기타",
+    "none": "없음"
+  },
+  "ideation": {
+    "title": "발상 도구",
+    "intro": "생각하는 방법을 고르세요. 마음에 드는 건 한 번에 프로젝트가 됩니다.",
+    "tools": {
+      "combine": {
+        "title": "조합",
+        "desc": "두 가지를 섞기 · 스포츠 × 육아"
+      },
+      "improve": {
+        "title": "개선",
+        "desc": "있는 것에서 출발 — 더하고, 빼고, 뒤집기"
+      },
+      "problem": {
+        "title": "불편에서",
+        "desc": "오늘 뭐가 불편했나요?"
+      },
+      "whatif": {
+        "title": "만약에…",
+        "desc": "무작위 질문 카드"
+      }
+    },
+    "saveProject": "프로젝트로 저장",
+    "comesToMind": "떠오르는 것",
+    "comesToMindPlaceholder": "선택 — 한 문장이면 충분해요",
+    "combine": {
+      "slotHint": "탭해서 바꾸기",
+      "shuffleBoth": "둘 다 섞기",
+      "shuffleRight": "오른쪽만 섞기",
+      "source": "단어 출처",
+      "sourceBuiltin": "내장 단어",
+      "sourceBuiltinAndMine": "내장 + 내 태그·카테고리",
+      "sourceMineOnly": "내 태그·카테고리만",
+      "question": "{{a}} × {{b}} — 무엇이 될 수 있을까?",
+      "pickerTitle": "단어 고르기",
+      "pickerSearch": "검색하거나 직접 입력",
+      "useTyped": "“{{word}}” 사용"
+    },
+    "improve": {
+      "subject": "이미 있는 것",
+      "subjectPlaceholder": "예: 카카오맵",
+      "subjectRequired": "먼저 무엇을 개선할지 적어주세요.",
+      "step": "{{n}} / {{total}}",
+      "answer": "내 답",
+      "answerPlaceholder": "선택 — 떠오르지 않으면 건너뛰기",
+      "back": "이전",
+      "next": "다음",
+      "saveAnswers": "답을 프로젝트로 저장",
+      "projectName": "{{x}} 개선",
+      "q": {
+        "add": {
+          "k": "더하기",
+          "q": "{{x}}에 무엇을 더할 수 있을까?",
+          "hint": "기능·단계·사람·장소 — 빠져 있는 것이면 무엇이든."
+        },
+        "remove": {
+          "k": "빼기",
+          "q": "{{x}}에서 기능 하나가 사라진다면, 아쉽지 않을 건?",
+          "hint": "아예 없애 보세요 — 남는 더 단순한 것은 무엇인가요?"
+        },
+        "flip": {
+          "k": "뒤집기",
+          "q": "{{x}}가 정반대로 동작한다면?",
+          "hint": "순서·역할·목표를 뒤집어 보세요."
+        },
+        "reuse": {
+          "k": "다른 용도",
+          "q": "{{x}}를 다른 곳에 쓴다면 어디일까?",
+          "hint": "다른 상황·장소·시간대."
+        },
+        "other": {
+          "k": "다른 대상",
+          "q": "{{x}}를 전혀 안 쓰는 사람은 누구이고, 왜일까?",
+          "hint": "그 사람이 쓰려면 무엇이 달라져야 할까?"
+        }
+      }
+    },
+    "problem": {
+      "firstRequired": "먼저 불편을 적어주세요.",
+      "projectNameFallback": "어떤 불편",
+      "q": {
+        "what": {
+          "k": "1 / 3",
+          "q": "오늘 뭐가 불편했나요?",
+          "hint": "사소해도 괜찮아요. 구체적으로."
+        },
+        "who": {
+          "k": "2 / 3",
+          "q": "같은 불편을 겪는 사람은 누구인가요?",
+          "hint": "어떤 사람·집단·순간."
+        },
+        "how": {
+          "k": "3 / 3",
+          "q": "지금은 어떻게 버티고 있나요?",
+          "hint": "임시방편, 다른 앱, 혹은 그냥 참기."
+        }
+      }
+    },
+    "whatif": {
+      "nextCard": "다음 카드"
     }
   }
 }

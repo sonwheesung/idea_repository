@@ -17,7 +17,9 @@
       "title": "No ideas yet",
       "body": "Tap + to capture your first idea. Only a name is required."
     },
-    "count": "{{count}} project(s)"
+    "count": "{{count}} project(s)",
+    "ideaLabPrompt": "Not sure yet?",
+    "ideaLabLink": "Try Idea Lab →"
   },
   "data": {
     "notice": {
@@ -59,7 +61,8 @@
     "resources": "Related Resources",
     "addField": "Add {{field}}",
     "deleteDetail": "{{notes}} note(s) and {{resources}} resource(s) will be deleted too.",
-    "createFailed": "Could not save the project."
+    "createFailed": "Could not save the project.",
+    "approach": "Approach"
   },
   "status": {
     "idea": "Idea",
@@ -229,6 +232,115 @@
       "open": "Received",
       "replied": "Replied",
       "resolved": "Resolved"
+    }
+  },
+  "approach": {
+    "combine": "Combine",
+    "improve": "Improve",
+    "problem": "From a problem",
+    "whatif": "What if…",
+    "other": "Other",
+    "none": "None"
+  },
+  "ideation": {
+    "title": "Idea Lab",
+    "intro": "Pick a way to think. Anything you like becomes a project in one tap.",
+    "tools": {
+      "combine": {
+        "title": "Combine",
+        "desc": "Mix two things · Sports × Parenting"
+      },
+      "improve": {
+        "title": "Improve",
+        "desc": "Start from something that exists — add, remove, flip"
+      },
+      "problem": {
+        "title": "From a problem",
+        "desc": "What annoyed you today?"
+      },
+      "whatif": {
+        "title": "What if…",
+        "desc": "Random prompt cards"
+      }
+    },
+    "saveProject": "Save as project",
+    "comesToMind": "What comes to mind",
+    "comesToMindPlaceholder": "Optional — one sentence is enough",
+    "combine": {
+      "slotHint": "Tap to change",
+      "shuffleBoth": "Shuffle both",
+      "shuffleRight": "Shuffle right",
+      "source": "Word source",
+      "sourceBuiltin": "Built-in words",
+      "sourceBuiltinAndMine": "Built-in + my tags & categories",
+      "sourceMineOnly": "My tags & categories only",
+      "question": "What could {{a}} × {{b}} be?",
+      "pickerTitle": "Pick a word",
+      "pickerSearch": "Search or type your own",
+      "useTyped": "Use “{{word}}”"
+    },
+    "improve": {
+      "subject": "Something that already exists",
+      "subjectPlaceholder": "e.g. Kakao Map",
+      "subjectRequired": "Enter something to improve first.",
+      "step": "{{n}} / {{total}}",
+      "answer": "Your answer",
+      "answerPlaceholder": "Optional — skip if nothing comes up",
+      "back": "Back",
+      "next": "Next",
+      "saveAnswers": "Save answers as project",
+      "projectName": "Improve {{x}}",
+      "q": {
+        "add": {
+          "k": "ADD",
+          "q": "What could you add to {{x}}?",
+          "hint": "A feature, a step, a person, a place — anything missing."
+        },
+        "remove": {
+          "k": "REMOVE",
+          "q": "If {{x}} lost one feature, what would you not miss?",
+          "hint": "Try removing it entirely — what simpler thing is left?"
+        },
+        "flip": {
+          "k": "FLIP",
+          "q": "What if {{x}} did the opposite?",
+          "hint": "Reverse the order, the roles, or the goal."
+        },
+        "reuse": {
+          "k": "NEW USE",
+          "q": "Where else could {{x}} be useful?",
+          "hint": "A different situation, place or time of day."
+        },
+        "other": {
+          "k": "SOMEONE ELSE",
+          "q": "Who never uses {{x}} — and why?",
+          "hint": "What would have to change for them?"
+        }
+      }
+    },
+    "problem": {
+      "firstRequired": "Write down the problem first.",
+      "projectNameFallback": "A problem",
+      "q": {
+        "what": {
+          "k": "1 / 3",
+          "q": "What annoyed you today?",
+          "hint": "Small is fine. Be specific."
+        },
+        "who": {
+          "k": "2 / 3",
+          "q": "Who else has the same problem?",
+          "hint": "A person, a group, a moment."
+        },
+        "how": {
+          "k": "3 / 3",
+          "q": "How do people cope with it right now?",
+          "hint": "Workarounds, other apps, or just putting up with it."
+        }
+      }
+    },
+    "whatif": {
+      "nextCard": "Next card"
     }
   }
 }

@@ -96,6 +96,8 @@ New Project
 
 전부 여러 줄 텍스트, 선택.
 
+- **발상 방식(approach)** — `combine · improve · problem · whatif · other · none`(기본 `none`). 표시명 i18n `approach.*`. Idea 섹션 Select. 발상 도구([`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md))가 채우거나 수동 선택. 상세엔 none이 아닐 때만 표시. 카드·필터·검색 대상 아님(2026-08-18).
+
 ### 3.3 진행 관리
 
 | 필드 | 값 | 기본 | 비고 |

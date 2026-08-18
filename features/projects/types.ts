@@ -7,6 +7,14 @@ export type Status = (typeof STATUSES)[number];
 export const PRIORITIES = ['high', 'medium', 'low', 'none'] as const;
 export type Priority = (typeof PRIORITIES)[number];
 
+// 발상 방식 — 발상 도구 4종과 1:1 + 수동 other, 기본 none (docs/IDEATION_SYSTEM.md §7)
+export const APPROACHES = ['combine', 'improve', 'problem', 'whatif', 'other', 'none'] as const;
+export type Approach = (typeof APPROACHES)[number];
+
+export function isApproach(v: unknown): v is Approach {
+  return typeof v === 'string' && (APPROACHES as readonly string[]).includes(v);
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -20,6 +28,7 @@ export interface Project {
   progress: number;
   status: Status;
   priority: Priority;
+  approach: Approach;
   startDate: string | null; // 'YYYY-MM-DD'
   targetEndDate: string | null;
   createdAt: number;
@@ -45,6 +54,7 @@ export interface ProjectInput {
   progress?: number;
   status?: Status;
   priority?: Priority;
+  approach?: Approach;
   startDate?: string | null;
   targetEndDate?: string | null;
   /** 태그 이름 배열('#' 없이) — 저장 시 tags/project_tags 교체 */

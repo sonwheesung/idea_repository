@@ -31,6 +31,7 @@ export default function EditProjectScreen() {
       progress: p.progress,
       status: p.status,
       priority: p.priority,
+      approach: p.approach,
       startDate: p.startDate,
       targetEndDate: p.targetEndDate,
     };

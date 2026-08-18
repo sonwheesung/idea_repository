@@ -85,6 +85,14 @@ export default function HomeScreen() {
       <View style={[styles.header, { borderBottomColor: theme.border }]}>
         <Text style={[styles.title, { color: theme.text }]}>{t('home.title')}</Text>
         <View style={styles.headerActions}>
+          {/* 발상 도구 입구 — 항상 보인다 (IDEATION_SYSTEM §2) */}
+          <Pressable
+            accessibilityLabel={t('ideation.title')}
+            hitSlop={8}
+            onPress={() => router.push('/idea-lab')}
+            style={styles.iconButton}>
+            <Ionicons name="bulb-outline" size={24} color={theme.icon} />
+          </Pressable>
           <Pressable
             accessibilityLabel={t('project.new')}
             hitSlop={8}
@@ -184,6 +192,16 @@ export default function HomeScreen() {
                 <Text style={[styles.emptyTitle, { color: theme.text }]}>{t('home.empty.title')}</Text>
                 <Text style={[styles.emptyBody, { color: theme.textMuted }]}>{t('home.empty.body')}</Text>
                 {/* 데이터 손실 안내 — CLAUDE.md §6 (키 분리: data.notice.*) */}
+                {/* 발상 도구 입구 2 — 아이디어가 아직 없을 때 (IDEATION_SYSTEM §2) */}
+                <Pressable
+                  onPress={() => router.push('/idea-lab')}
+                  accessibilityRole="button"
+                  style={styles.resetLink}>
+                  <Text style={[styles.emptyBody, { color: theme.textMuted }]}>
+                    {t('home.ideaLabPrompt')}{' '}
+                    <Text style={[styles.resetText, { color: theme.primary }]}>{t('home.ideaLabLink')}</Text>
+                  </Text>
+                </Pressable>
                 <Text style={[styles.notice, { color: theme.textMuted }]}>
                   {t('data.notice.local')} {t('data.notice.loss')}
                 </Text>

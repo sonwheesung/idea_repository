@@ -25,7 +25,7 @@
 ### 제품 포지션
 
 > **Capture your ideas. Keep them private. Build what matters.**
-> Capture → Organize → Develop → Build
+> ~~Capture~~ → **Ideate → Capture → Organize → Develop → Build**(2026-08-18 발상 도구 편입 — §3 #22)
 
 ---
 
@@ -72,6 +72,7 @@
 | 19 | 공지·점검·강제업데이트 | common_server | bootstrap 1회 호출. 실패해도 앱을 막지 않는다 |
 | 20 | 문의하기 | common_server | 로그인 없음. **기기 subject 귀속**(2026-08-17 확정 — LinkMemo 방식): 문의 목록·답변·상태 확인 가능 |
 | 21 | 테마 | 로컬 | ~~라이트/다크 2종~~ → **12종 팔레트 + 시스템(자동 = Light/Dark Minimal)**(2026-08-17 사용자 시안 제공으로 정정). 전부 무료. [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
+| 22 | **발상 도구(Idea Lab)** | 로컬 | **2026-08-18 편입**(기획서에 없음 — 사용자 요청 "아이디어를 만드는 과정에 필요한 툴"). 조합·개선·불편에서·만약에… 4종, 내장 단어·문장 풀(ko/en)에서 무작위, 결과는 한 탭에 프로젝트로(미리 채움). 서버·AI 없음. 광고 없음. [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md) |
 
 하단 네비게이션: **없음 — 단일 메인 화면 + 스택**(기획서 §14 메인 화면 구성 그대로. LinkMemo와 같은 구조).
 메인 상단 = 검색바 · [＋] · [⚙ 설정]. 필터(상태·카테고리·우선순위 — 전부 Select)·정렬은 메인의 필터/정렬 버튼 → 시트.
@@ -123,6 +124,7 @@ Install → Launch → Main screen → Capture ideas
 | 진행률 | 0~100 정수, **사용자가 직접 설정**. 상태와 자동 연동 없음(예: Completed로 바꿔도 100%로 강제하지 않는다) |
 | 1 프로젝트 : N 노트 · N 자료 · N 태그 | 프로젝트 삭제 시 노트·자료 연쇄 삭제, 태그 연결만 해제 |
 | 카테고리 | 프로젝트당 0 또는 1개. 삭제 시 사용 중 프로젝트는 "없음으로 변경 / 다른 카테고리로 이동 / 취소" 선택지 |
+| **발상 방식 `approach`** | `combine · improve · problem · whatif · other · none`(기본 none) — 발상 도구 4종과 1:1 + 수동 other(2026-08-18). 폼 Select·상세 표시만, 카드·필터·검색 없음 |
 | 마지막 수정일 | 프로젝트 필드 변경뿐 아니라 **노트·자료 추가/수정/삭제도 프로젝트 `updatedAt`을 갱신**한다 — "아이디어 발전 = 활동"이므로 Recently Updated 정렬에 반영돼야 한다(2026-08-17 위임 판단) |
 
 ### 데이터 구조 (기획 확정 → 2026-08-17 정리)
@@ -143,6 +145,7 @@ Project                        IdeaNote               Resource              Cate
 ├── priority    (기본 none)
 ├── startDate   ('YYYY-MM-DD', nullable)
 ├── targetEndDate
+├── approach    (기본 none — v2, 2026-08-18)
 ├── createdAt
 └── updatedAt
 ```
@@ -303,7 +306,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 ```
 idea_repository/
 ├── app/          # expo-router 라우트 (index=메인 · project/[id] · project/new · project/[id]/edit · settings · categories · notice · inquiry)
-├── features/     # projects / categories / tags / notes / resources / search / ads / purchase / support
+├── features/     # projects / categories / tags / notes / resources / search / ads / purchase / support / ideation(단어 풀·섞기)
 ├── components/   # 공통 UI (Screen · Button · Card · ProgressBar · StatusBadge · PriorityBadge …)
 ├── db/           # expo-sqlite 스키마·마이그레이션 (user_version 기반)
 ├── theme/        # 토큰 — 12종 팔레트 + system (palettes.ts · store.ts · use-theme.ts)
@@ -359,6 +362,7 @@ idea_repository/
 | K | Metro 포트 8087 | 형제 앱 충돌 회피 — §11 |
 | L | **`app_code = idearepository` · 패키지 `com.vivacegames.idearepository` · 표시명 Idea Repository** (2026-08-17 사용자 확정 — 미결정 #1 해소) | 브랜드 도메인 역순 규약(LinkMemo) 승계. 등록 후 변경 불가 |
 | M | **폼 UI 규약** — 선택형 값은 `Select`(라벨 + 현재 값 행 → 옵션 모달), 텍스트는 `TextField`(Label + input) (2026-08-17 사용자 지시 — 설정 칩 → select, 프로젝트 등록 폼 = Label + input) | 프로젝트 폼(카테고리·상태·우선순위)·문의 폼·필터 시트(상태·카테고리·우선순위 — 2026-08-18)가 같은 컴포넌트를 쓴다. 설정 화면은 모든 행을 같은 `SettingRow`(라벨·값 부제·화살표)로 그리고 언어 행은 탭 시 OptionSheet를 직접 연다(2026-08-18 사용자 지적 "언어만 라벨형" → 통일). 칩은 어디에도 없다(태그 입력 칩은 TagInput 고유) |
+| N | **발상 도구(Idea Lab) 편입**(2026-08-18 사용자 결정 "괜찮네 그걸로 진행해보자") — 입구 = 메인 헤더 전구 + 빈 화면 링크 · 도구 4종 · 무작위 = 내장 단어/문장 풀(서버·AI 없음) · 결과 → `/project/new` 미리 채움 · `approach` 필드 신설 | 기획서에 없던 항목 — 사용자 요청으로 Ideate 단계를 제품 범위에 추가. 화면 시안 아티팩트(2026-08-18) 승인. 상세 [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md). vc2 포함 여부는 사용자 결정 |
 
 ### ✅ 원 미결정 7건 — 2026-08-17 사용자 승인으로 전부 확정 (제안값 그대로)
 
@@ -406,5 +410,6 @@ idea_repository/
 - **Phase 4·5 완료**(2026-08-17): i18n 코드 키 검사 추가 · common_server 연동(등록·SDK·BootGate·공지·문의 기기 subject, 프로덕션 E2E). 디스코드 웹훅 env ✅(2026-08-17 등록·재배포).
 - **Phase 6 완료**(2026-08-17): AdMob 콘솔 대행(앱·배너·App Open·GDPR) · SDK 16.0.0 · 실배너·App Open(3h)·UMP · **Expo Go 종료 → 디버그 빌드**(에뮬레이터 실측: 테스트 광고 노출·쿨타임 동작).
 - **Phase 6.5·8 대행**(2026-08-17): 스토어 자산·키스토어·AAB vc1 · Play 콘솔(Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`) 앱 콘텐츠 11/11·데이터 보안·스토어 설정·등록정보 EN/KO·Alpha 트랙 → AAB vc1(사용자 업로드) → **검토 전송 완료**(변경사항 16개).
+- **2026-08-18**: 설정 행 통일 · 상태 칩 → 필터 시트 Select · **발상 도구(Idea Lab) 완료**(문서 → DB v2 → 단어 풀 → 화면 4종 → 에뮬 조합·개선 e2e, [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md)).
 - ⚠ **비공개 테스트 기간(2026-08-18~ 약 1~3일간 수정분 반영) 배포 규칙**(2026-08-18 사용자 지시): 수정 사항은 **AAB 재빌드·재업로드로만** 반영한다. **OTA(expo-updates) 도입·배포 금지** — 테스터가 받는 빌드와 스토어 검토 빌드가 같아야 한다.
 - 다음 단계: 검토 결과 대기 → Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원, 데이터 보안에 구매 내역 추가) → 프로덕션 신청(14일 후). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

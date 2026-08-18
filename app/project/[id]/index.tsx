@@ -185,6 +185,9 @@ export default function ProjectDetailScreen() {
       <Field label={t('project.goal')} value={project.goal} onAdd={goEdit} />
       <Field label={t('project.coreIdea')} value={project.coreIdea} onAdd={goEdit} />
       <Field label={t('project.targetUser')} value={project.targetUser} onAdd={goEdit} />
+      {project.approach !== 'none' ? (
+        <Field label={t('project.approach')} value={t(`approach.${project.approach}`)} onAdd={goEdit} />
+      ) : null}
 
       <Divider />
       <View style={styles.dates}>
