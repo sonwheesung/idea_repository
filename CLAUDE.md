@@ -412,5 +412,5 @@ idea_repository/
 - **Phase 6.5·8 대행**(2026-08-17): 스토어 자산·키스토어·AAB vc1 · Play 콘솔(Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`) 앱 콘텐츠 11/11·데이터 보안·스토어 설정·등록정보 EN/KO·Alpha 트랙 → AAB vc1(사용자 업로드) → **검토 전송 완료**(변경사항 16개).
 - **2026-08-18**: 설정 행 통일 · 상태 칩 → 필터 시트 Select · **발상 도구(Idea Lab) 완료**(문서 → DB v2 → 단어 풀 → 화면 4종 → 에뮬 조합·개선 e2e, [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md)).
 - ⚠ **비공개 테스트 기간(2026-08-18~ 약 1~3일간 수정분 반영) 배포 규칙**(2026-08-18 사용자 지시): 수정 사항은 **AAB 재빌드·재업로드로만** 반영한다. **OTA(expo-updates) 도입·배포 금지** — 테스터가 받는 빌드와 스토어 검토 빌드가 같아야 한다.
-- **2026-08-18 vc2 · 1.0.1 빌드**(설정 통일·필터 Select·개인정보 옵션·웰컴 문구·blockedPermissions·발상 도구 포함) — `idearepository-vc2.aab` 로컬 gradle. Play 콘솔 Alpha 새 버전(releases/2) 업로드 화면까지 진입, 업로드는 사용자. vc1은 검토 통과("선택한 테스터에게 제공", 8/17 19:26). 릴리스 노트 `docs/STORE_LISTING.md` §10.
-- 다음 단계: vc2 업로드·검토 전송 → Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원, 데이터 보안에 구매 내역 추가) → 프로덕션 신청(14일 후). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).
+- **2026-08-18 vc2 · 1.0.1 빌드**(설정 통일·필터 Select·개인정보 옵션·웰컴 문구·blockedPermissions·발상 도구 포함) — `idearepository-vc2.aab` 로컬 gradle. Play 콘솔 Alpha 새 버전 `2 (1.0.1)` — 사용자 업로드 → 출시명·노트(en/ko) 입력 → **검토 전송 완료**("검토 중인 변경사항", 2026-08-18). vc1은 검토 통과("선택한 테스터에게 제공", 8/17 19:26). 릴리스 노트 `docs/STORE_LISTING.md` §10.
+- 다음 단계: vc2 검토 결과 대기 → Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원, 데이터 보안에 구매 내역 추가) → 프로덕션 신청(14일 후). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

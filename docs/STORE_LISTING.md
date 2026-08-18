@@ -248,7 +248,7 @@ Capture your ideas. Keep them private. Build what matters.
 | IAP 상품 `remove_ads`(비소모성) 등록 + RevenueCat attach | ❌ | Phase 7 — `store-iap-setup` 스킬 |
 | 스토어 설정(카테고리 생산성 · 이메일 · 웹사이트) | ✅ | 2026-08-17 — 앱/생산성 · support@vivace-games.com · https://vivace-games.com |
 | 비공개 테스트 트랙(Alpha) + 테스터 12명 × 14일 | 🔨 | 2026-08-17 트랙 `4700611093824576153` 국가·테스터·출시노트 준비. ⏳ AAB 업로드(사용자) → 검토 전송 → 14일 시계 |
-| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → vc1(65MB, 업로드·검토 전송 완료) · **2026-08-18 vc2 · 1.0.1** — `app.json` version/versionCode → `expo prebuild --platform android`(서명 설정 유지 확인) → `gradlew bundleRelease` → `idearepository-vc2.aab`. 콘솔 업로드는 사용자(브라우저 도구 10MB 제한). 릴리스 노트 §10 |
+| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → vc1(65MB, 업로드·검토 전송 완료) · **2026-08-18 vc2 · 1.0.1** — `app.json` version/versionCode → `expo prebuild --platform android`(서명 설정 유지 확인) → `gradlew bundleRelease` → `idearepository-vc2.aab` → 사용자 업로드 → 출시명 `2 (1.0.1)`·노트 입력 → **검토 전송 완료**(2026-08-18). 릴리스 노트 §10 |
 | `play-store-launch-checklist` 스킬 전체 점검 | ❌ | 제출 직전 |
 | 앱 내 About(정보) — 링크·판매자 정보 | ✅ | 2026-08-17 `app/about.tsx` |
 
