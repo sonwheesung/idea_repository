@@ -19,7 +19,10 @@
     },
     "count": "{{count}} project(s)",
     "ideaLabPrompt": "Not sure yet?",
-    "ideaLabLink": "Try Idea Lab →"
+    "ideaLabLink": "Try Idea Lab →",
+    "exitTitle": "Leave Idea Repository?",
+    "exitBody": "Your ideas are saved on this device.",
+    "exit": "Exit"
   },
   "data": {
     "notice": {

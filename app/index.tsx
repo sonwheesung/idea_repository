@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Alert, BackHandler, FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import { AdBanner } from '@/components/ad-banner';
 import { FilterSheet } from '@/components/filter-sheet';
@@ -60,6 +60,21 @@ export default function HomeScreen() {
   }, [q, status, categoryId, priority, sort, setCategoryId]);
   useFocusEffect(reload);
   useEffect(reload, [reload]);
+
+  // Android 하드웨어 뒤로가기 — 메인(스택 루트)에서는 바로 닫히지 않고 종료 확인(PROJECT_SYSTEM §8, 2026-08-19).
+  // 시트·모달이 떠 있으면 RN Modal이 먼저 back을 받아 닫히므로 여기까지 오지 않는다.
+  useFocusEffect(
+    useCallback(() => {
+      const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+        Alert.alert(t('home.exitTitle'), t('home.exitBody'), [
+          { text: t('common.cancel'), style: 'cancel' },
+          { text: t('home.exit'), style: 'destructive', onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+      });
+      return () => sub.remove();
+    }, [t]),
+  );
 
   const activeFilterCount = (status ? 1 : 0) + (categoryId ? 1 : 0) + (priority ? 1 : 0);
   const isFiltering = activeFilterCount > 0 || q.trim().length > 0;

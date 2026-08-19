@@ -228,6 +228,7 @@ Idea Repository
   카테고리(없으면 생략) · 태그(최대 3개 + `+N`) · 마지막 수정일(로케일).
 - 빈 목록: 첫 실행 안내 — 데이터 손실 안내(CLAUDE.md §6) + "Add your first idea" 유도.
 - 검색 결과 0건 / 필터 결과 0건은 다른 문구(`search.empty` / `filter.empty`).
+- **하드웨어 뒤로가기(Android) = 종료 확인**(2026-08-19 사용자 지시 "뒤로가기 누르니 그냥 닫히던데 confirm 추가"): 메인이 포커스된 상태에서 뒤로가기 → Alert(`home.exitTitle`·`home.exitBody`, 취소 / 종료) → 종료는 `BackHandler.exitApp()`. 메인 위에 시트·모달이 떠 있으면 그 모달의 `onRequestClose`가 먼저 먹는다(RN Modal 기본). 다른 화면(스택 위)에서는 평소대로 pop.
 
 ---
 

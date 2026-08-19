@@ -19,7 +19,10 @@
     },
     "count": "프로젝트 {{count}}개",
     "ideaLabPrompt": "아직 막연하다면?",
-    "ideaLabLink": "발상 도구 열기 →"
+    "ideaLabLink": "발상 도구 열기 →",
+    "exitTitle": "Idea Repository를 종료할까요?",
+    "exitBody": "아이디어는 이 기기에 저장되어 있습니다.",
+    "exit": "종료"
   },
   "data": {
     "notice": {
