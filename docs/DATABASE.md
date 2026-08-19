@@ -10,6 +10,7 @@
 | DB 오픈·마이그레이션 러너(`db/index.ts`) | ✅ 2026-08-17 — user_version 기반, FK ON, 마이그레이션은 함수(스키마 + 시드 INSERT) |
 | v1 스키마(projects·categories·tags·project_tags·notes·resources) + 카테고리 시드 | ✅ 2026-08-17 |
 | v2 `projects.approach`(발상 방식) | ✅ 2026-08-18 — 에뮬 v1→v2 실측 |
+| v3 `ideation_words`(발상 단어 — 언어별 시드, 사용자 CRUD) | ✅ 2026-08-19 |
 
 ## 1. 규약 (LinkMemo 승계)
 
@@ -111,6 +112,25 @@ ALTER TABLE projects ADD COLUMN approach TEXT NOT NULL DEFAULT 'none'
 ```
 
 - 기존 행은 DEFAULT로 `none`. 인덱스 없음(필터 대상 아님). 배경 [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) §7.
+
+## 2.2 v3 — 발상 단어 (2026-08-19)
+
+```sql
+CREATE TABLE ideation_words (
+  id         TEXT PRIMARY KEY,
+  lang       TEXT NOT NULL,                 -- 'en' | 'ko' (AppLanguage)
+  group_key  TEXT NOT NULL,                 -- 풀 그룹 키 15종 + 'mine'(내 단어)
+  word       TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  UNIQUE (lang, word COLLATE NOCASE)        -- 언어 안 대소문자 무시 유일
+);
+CREATE INDEX idx_ideation_words_lang ON ideation_words(lang, group_key);
+```
+
+- 같은 마이그레이션에서 `db/ideation-pool.ts`의 **두 언어 내장 단어를 전부 시드**(언어당 15×12). 내장 단어도 일반 행 — 수정·삭제 허용, "기본 단어 복원"이 해당 언어 행을 지우고 재시드한다.
+- 그룹 순서·표시명은 DB에 없다 — 순서는 풀의 그룹 순서(코드), 표시명은 i18n `ideation.group.*`. 단어 순서는 `created_at, rowid`(시드 순서 보존).
+- 시드 데이터가 `db/`에 있는 이유: `db/` → `features/` import는 의존 방향 위반(CLAUDE.md §12). 배경 [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) §3.5·§4.
 
 ## 3. 조회 패턴
 

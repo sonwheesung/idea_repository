@@ -270,10 +270,6 @@
       "slotHint": "Tap to change",
       "shuffleBoth": "Shuffle both",
       "shuffleRight": "Shuffle right",
-      "source": "Word source",
-      "sourceBuiltin": "Built-in words",
-      "sourceBuiltinAndMine": "Built-in + my tags & categories",
-      "sourceMineOnly": "My tags & categories only",
       "question": "What could {{a}} × {{b}} be?",
       "pickerTitle": "Pick a word",
       "pickerSearch": "Search or type your own",
@@ -341,6 +337,41 @@
     },
     "whatif": {
       "nextCard": "Next card"
+    },
+    "words": {
+      "title": "Words",
+      "intro": "{{count}} words in this language. Combine and What if… draw from this list. Built-in words are regular entries — edit or delete any of them.",
+      "add": "Add word",
+      "edit": "Edit word",
+      "word": "Word",
+      "group": "Group",
+      "deleteTitle": "Delete “{{word}}”?",
+      "importMine": "Import my tags & categories",
+      "importDone": "Added {{count}} words to My words.",
+      "reset": "Restore built-in words",
+      "resetTitle": "Restore built-in words?",
+      "resetBody": "All words in this language — including the ones you added — will be replaced with the built-in list.",
+      "empty": "No words yet. Add one or restore the built-in list.",
+      "errorEmpty": "Enter a word.",
+      "errorDuplicate": "That word is already in the list."
+    },
+    "group": {
+      "daily": "Daily life",
+      "health": "Health",
+      "parenting": "Parenting",
+      "sports": "Sports",
+      "food": "Food",
+      "travel": "Travel",
+      "learning": "Learning",
+      "money": "Money",
+      "work": "Work",
+      "hobby": "Hobbies",
+      "tech": "Tech",
+      "environment": "Environment",
+      "pets": "Pets",
+      "games": "Games",
+      "local": "Neighborhood",
+      "mine": "My words"
     }
   }
 }

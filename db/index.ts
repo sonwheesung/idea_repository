@@ -1,9 +1,12 @@
 import { randomUUID } from 'expo-crypto';
 import * as SQLite from 'expo-sqlite';
 
+import { POOLS } from '@/db/ideation-pool';
+
 // 마이그레이션 규약: 배열에 추가만 한다(Expand-only). 상세는 docs/DATABASE.md.
 // v1 — projects · categories · tags · project_tags · notes · resources + 기본 카테고리 7종 시드
 // v2 — projects.approach(발상 방식, 2026-08-18 — docs/IDEATION_SYSTEM.md §7)
+// v3 — ideation_words(발상 단어, 언어별 내장 시드 + 사용자 CRUD, 2026-08-19 — docs/DATABASE.md §2.2)
 const V1_SCHEMA = `
 CREATE TABLE categories (
   id         TEXT PRIMARY KEY,
@@ -94,7 +97,41 @@ const MIGRATIONS: Migration[] = [
          CHECK (approach IN ('combine','improve','problem','whatif','other','none'))`,
     );
   },
+  (database) => {
+    database.execSync(`
+CREATE TABLE ideation_words (
+  id         TEXT PRIMARY KEY,
+  lang       TEXT NOT NULL,
+  group_key  TEXT NOT NULL,
+  word       TEXT NOT NULL,
+  created_at INTEGER NOT NULL,
+  updated_at INTEGER NOT NULL,
+  UNIQUE (lang, word COLLATE NOCASE)
+);
+CREATE INDEX idx_ideation_words_lang ON ideation_words(lang, group_key);`);
+    seedIdeationWords(database, null);
+  },
 ];
+
+/**
+ * 내장 단어 시드 — `lang`이 null이면 모든 언어(v3 마이그레이션), 아니면 그 언어만("기본 단어 복원").
+ * 내장 단어도 일반 행 — 특별 취급 없음(IDEATION_SYSTEM §3.5). 삽입 순서 = 풀 순서(rowid로 보존).
+ */
+export function seedIdeationWords(database: SQLite.SQLiteDatabase, lang: string | null): void {
+  const now = Date.now();
+  const stmt = database.prepareSync(
+    'INSERT OR IGNORE INTO ideation_words (id, lang, group_key, word, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)',
+  );
+  try {
+    for (const [poolLang, pool] of Object.entries(POOLS)) {
+      if (lang && poolLang !== lang) continue;
+      for (const g of pool.groups)
+        for (const w of g.words) stmt.executeSync([randomUUID(), poolLang, g.key, w, now, now]);
+    }
+  } finally {
+    stmt.finalizeSync();
+  }
+}
 
 let db: SQLite.SQLiteDatabase | null = null;
 

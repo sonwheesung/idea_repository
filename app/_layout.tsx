@@ -50,6 +50,7 @@ export default function RootLayout() {
         <Stack.Screen name="idea-lab/improve" options={{ title: t('ideation.tools.improve.title') }} />
         <Stack.Screen name="idea-lab/problem" options={{ title: t('ideation.tools.problem.title') }} />
         <Stack.Screen name="idea-lab/whatif" options={{ title: t('ideation.tools.whatif.title') }} />
+        <Stack.Screen name="idea-lab/words" options={{ title: t('ideation.words.title') }} />
       </Stack>
       {/* 첫 실행 1회 프라이버시 웰컴 시트 (2026-08-17 사용자 결정) */}
       <WelcomeSheet />

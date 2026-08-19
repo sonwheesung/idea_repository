@@ -1,11 +1,10 @@
 // 섞기 규칙 — docs/IDEATION_SYSTEM.md §5.
-// 1) 두 슬롯은 서로 다른 그룹 2) 최근 20쌍 회피(모듈 메모리, 순서 무관) 3) 내 태그·카테고리는 가상 그룹 mine 4) Math.random.
+// 1) 두 슬롯은 서로 다른 그룹 2) 최근 20쌍 회피(모듈 메모리, 순서 무관) 3) 사용자 단어 그룹 mine은 자기들끼리도 허용 4) Math.random.
+// 그룹 목록은 DB 단어(features/ideation/words.ts listShuffleGroups)에서 온다 — 2026-08-19 단어 출처 Select 제거.
 
-import type { WordGroup } from '@/features/ideation/pool';
+import type { WordGroup } from '@/db/ideation-pool';
 
-export type WordSource = 'builtin' | 'builtinAndMine' | 'mineOnly';
-export const WORD_SOURCES: WordSource[] = ['builtin', 'builtinAndMine', 'mineOnly'];
-
+/** 사용자 단어 그룹 키(관리 화면 "내 단어") — 손으로 고른 슬롯 단어도 이 그룹 취급 */
 export const MINE_GROUP_KEY = 'mine';
 const RECENT_LIMIT = 20;
 const MAX_TRIES = 20;
@@ -23,15 +22,6 @@ function remember(a: string, b: string): void {
 
 export function pick<T>(items: readonly T[]): T {
   return items[Math.floor(Math.random() * items.length)];
-}
-
-/** 출처에 따라 실제로 뽑을 그룹 목록. 내 것이 2개 미만이면 내장으로 보충(§3.1). */
-export function resolveGroups(source: WordSource, builtin: WordGroup[], mine: string[]): WordGroup[] {
-  const mineGroup: WordGroup | null =
-    mine.length > 0 ? { key: MINE_GROUP_KEY, words: Array.from(new Set(mine)) } : null;
-  if (source === 'builtin') return builtin;
-  if (source === 'mineOnly') return mineGroup && mineGroup.words.length >= 2 ? [mineGroup] : builtin;
-  return mineGroup ? [...builtin, mineGroup] : builtin;
 }
 
 export interface WordPick {

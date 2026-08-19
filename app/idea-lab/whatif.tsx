@@ -1,5 +1,5 @@
-import { useRouter } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 
@@ -7,24 +7,26 @@ import { Button } from '@/components/button';
 import { QuestionCard } from '@/components/question-card';
 import { Screen } from '@/components/screen';
 import { TextField } from '@/components/text-field';
-import { getPool, type IdeationPool } from '@/features/ideation/pool';
+import { getPool, type WordGroup } from '@/db/ideation-pool';
 import { toPrefillParams } from '@/features/ideation/prefill';
 import { pick, pickWord } from '@/features/ideation/shuffle';
+import { listShuffleGroups } from '@/features/ideation/words';
 
 interface Card {
   sentence: string;
   word: string;
 }
 
-function drawCard(pool: IdeationPool, previous?: Card): Card {
-  let card = makeCard(pool);
-  for (let i = 0; i < 10 && previous && card.sentence === previous.sentence; i++) card = makeCard(pool);
+function drawCard(templates: string[], groups: WordGroup[], previous?: Card): Card {
+  let card = makeCard(templates, groups);
+  for (let i = 0; i < 10 && previous && card.sentence === previous.sentence; i++)
+    card = makeCard(templates, groups);
   return card;
 }
 
-function makeCard(pool: IdeationPool): Card {
-  const { word } = pickWord(pool.groups);
-  return { sentence: pick(pool.whatIf).replace('{X}', word), word };
+function makeCard(templates: string[], groups: WordGroup[]): Card {
+  const { word } = pickWord(groups);
+  return { sentence: pick(templates).replace('{X}', word), word };
 }
 
 // 만약에… — 문장 틀 × 단어 풀 카드(docs/IDEATION_SYSTEM.md §3.4). 다음 카드 / 떠오르는 것 + 저장.
@@ -32,8 +34,11 @@ export default function WhatIfScreen() {
   const { t, i18n } = useTranslation();
   const router = useRouter();
 
-  const pool = useMemo(() => getPool(i18n.language), [i18n.language]);
-  const [card, setCard] = useState<Card>(() => drawCard(pool));
+  const templates = useMemo(() => getPool(i18n.language).whatIf, [i18n.language]);
+  // 단어는 DB(관리 화면에서 바뀔 수 있다) — 포커스마다 다시 읽는다
+  const [groups, setGroups] = useState<WordGroup[]>(() => listShuffleGroups(i18n.language));
+  useFocusEffect(useCallback(() => setGroups(listShuffleGroups(i18n.language)), [i18n.language]));
+  const [card, setCard] = useState<Card>(() => drawCard(templates, groups));
   const [idea, setIdea] = useState('');
 
   const save = () => {
@@ -55,7 +60,7 @@ export default function WhatIfScreen() {
         label={t('ideation.whatif.nextCard')}
         variant="ghost"
         onPress={() => {
-          setCard((prev) => drawCard(pool, prev));
+          setCard((prev) => drawCard(templates, groups, prev));
           setIdea('');
         }}
       />

@@ -270,10 +270,6 @@
       "slotHint": "탭해서 바꾸기",
       "shuffleBoth": "둘 다 섞기",
       "shuffleRight": "오른쪽만 섞기",
-      "source": "단어 출처",
-      "sourceBuiltin": "내장 단어",
-      "sourceBuiltinAndMine": "내장 + 내 태그·카테고리",
-      "sourceMineOnly": "내 태그·카테고리만",
       "question": "{{a}} × {{b}} — 무엇이 될 수 있을까?",
       "pickerTitle": "단어 고르기",
       "pickerSearch": "검색하거나 직접 입력",
@@ -341,6 +337,41 @@
     },
     "whatif": {
       "nextCard": "다음 카드"
+    },
+    "words": {
+      "title": "단어 관리",
+      "intro": "이 언어의 단어 {{count}}개. 조합·만약에… 도구가 이 목록에서 뽑습니다. 내장 단어도 일반 항목이라 수정·삭제할 수 있어요.",
+      "add": "단어 추가",
+      "edit": "단어 수정",
+      "word": "단어",
+      "group": "그룹",
+      "deleteTitle": "“{{word}}”을(를) 삭제할까요?",
+      "importMine": "내 태그·카테고리 가져오기",
+      "importDone": "내 단어에 {{count}}개를 추가했습니다.",
+      "reset": "기본 단어 복원",
+      "resetTitle": "기본 단어를 복원할까요?",
+      "resetBody": "이 언어의 단어 전부(직접 추가한 것 포함)가 내장 목록으로 바뀝니다.",
+      "empty": "단어가 없습니다. 추가하거나 기본 단어를 복원하세요.",
+      "errorEmpty": "단어를 입력하세요.",
+      "errorDuplicate": "이미 목록에 있는 단어예요."
+    },
+    "group": {
+      "daily": "일상",
+      "health": "건강",
+      "parenting": "육아",
+      "sports": "스포츠",
+      "food": "음식",
+      "travel": "여행",
+      "learning": "교육",
+      "money": "돈",
+      "work": "일·업무",
+      "hobby": "취미",
+      "tech": "기술",
+      "environment": "환경",
+      "pets": "반려동물",
+      "games": "게임",
+      "local": "동네·지역",
+      "mine": "내 단어"
     }
   }
 }

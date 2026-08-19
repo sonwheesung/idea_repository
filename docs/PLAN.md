@@ -135,7 +135,7 @@
 ## Phase 9 — 발상 도구(Idea Lab) (1일) — 2026-08-18 추가
 
 - DB v2 `approach` + 폼 Select + 상세 표시
-- `features/ideation/pool.ts`(ko/en 단어 15그룹·만약에 문장 틀) · `shuffle.ts`(다른 그룹·최근 20쌍 회피)
+- `db/ideation-pool.ts`(ko/en 단어 15그룹·만약에 문장 틀 — 2026-08-19 `features/ideation/pool.ts`에서 이동, DB v3 시드) · `shuffle.ts`(다른 그룹·최근 20쌍 회피) · `words.ts` + `/idea-lab/words`(단어 관리 CRUD, 2026-08-19)
 - 화면: `/idea-lab`(도구 목록) · combine · improve · problem · whatif · 메인 헤더 전구 + 빈 화면 링크
 - `/project/new` 미리 채움 파라미터(name·coreIdea·problem·targetUser·approach·tags·notes)
 - 검증: typecheck·lint·i18n·에뮬 실측(조합 섞기 → 저장 → 프로젝트 생성·노트)

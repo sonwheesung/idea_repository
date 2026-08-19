@@ -53,7 +53,7 @@ ads.* / purchase.*
 ideation.* (도구 이름·설명·버튼·질문 카드) / approach.* (발상 방식 6값 표시명) / home.ideaLab   ← 2026-08-18 발상 도구
 ```
 
-- 발상 도구의 **단어 풀·문장 틀은 JSON 리소스가 아니라 `features/ideation/pool.ts` TS 데이터**(언어별 객체) — `check:i18n` 대상 아님. 두 언어의 그룹 수·순서 동일을 코드에서 assert.
+- 발상 도구의 **단어 풀·문장 틀은 JSON 리소스가 아니라 `db/ideation-pool.ts` TS 데이터**(언어별 객체, 2026-08-19 `features/ideation/pool.ts`에서 이동 — DB v3 시드) — `check:i18n` 대상 아님. 두 언어의 그룹 수·순서 동일을 코드에서 assert. 그룹 표시명만 i18n(`ideation.group.*` 16키), 단어 관리 화면 문구는 `ideation.words.*`.
 
 - 네임스페이스 = 도메인. 상태·우선순위 표시명은 **DB 코드값(`in_progress`)과 별개의 키**로 — DB에는 코드만, 화면에는 `t()`.
 - ⚠ 성격이 다른 고지 문구는 키를 분리해 재사용을 막는다(조각·LinkMemo 규약) — 데이터 손실 안내(`data.notice.*`)를

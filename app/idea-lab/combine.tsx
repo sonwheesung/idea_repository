@@ -1,56 +1,33 @@
-import { useRouter } from 'expo-router';
-import { useMemo, useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/button';
 import { Screen } from '@/components/screen';
-import { Select, type SelectOption } from '@/components/select';
 import { TextField } from '@/components/text-field';
 import { WordPicker } from '@/components/word-picker';
-import { listCategories } from '@/features/categories/api';
-import { getPool } from '@/features/ideation/pool';
+import type { WordGroup } from '@/db/ideation-pool';
 import { toPrefillParams } from '@/features/ideation/prefill';
-import {
-  MINE_GROUP_KEY,
-  WORD_SOURCES,
-  pickPair,
-  pickPartner,
-  resolveGroups,
-  type WordPick,
-  type WordSource,
-} from '@/features/ideation/shuffle';
-import { listAllTags } from '@/features/tags/api';
+import { MINE_GROUP_KEY, pickPair, pickPartner, type WordPick } from '@/features/ideation/shuffle';
+import { listShuffleGroups } from '@/features/ideation/words';
 import { useTheme } from '@/theme/use-theme';
 
-const SOURCE_LABEL_KEY: Record<WordSource, string> = {
-  builtin: 'ideation.combine.sourceBuiltin',
-  builtinAndMine: 'ideation.combine.sourceBuiltinAndMine',
-  mineOnly: 'ideation.combine.sourceMineOnly',
-};
-
-// 조합 — 슬롯 A × B, 섞기, 단어 출처, 떠오르는 것 → 프로젝트로 저장. docs/IDEATION_SYSTEM.md §3.1
+// 조합 — 슬롯 A × B, 섞기, 떠오르는 것 → 프로젝트로 저장. 헤더 우측 = 단어 관리(/idea-lab/words). docs/IDEATION_SYSTEM.md §3.1·§3.5
 export default function CombineScreen() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const router = useRouter();
 
-  const pool = useMemo(() => getPool(i18n.language), [i18n.language]);
-  const mine = useMemo(() => [...listAllTags(), ...listCategories().map((c) => c.name)], []);
-  const [source, setSource] = useState<WordSource>('builtin');
-  const groups = useMemo(() => resolveGroups(source, pool.groups, mine), [source, pool, mine]);
+  // 단어는 DB(관리 화면에서 바뀐다) — 포커스마다 다시 읽는다. 2개 미만이면 내장 풀 대체(words.ts)
+  const [groups, setGroups] = useState<WordGroup[]>(() => listShuffleGroups(i18n.language));
+  useFocusEffect(useCallback(() => setGroups(listShuffleGroups(i18n.language)), [i18n.language]));
   const allWords = useMemo(() => groups.flatMap((g) => g.words), [groups]);
 
-  const [pair, setPair] = useState<[WordPick, WordPick]>(() =>
-    pickPair(resolveGroups('builtin', pool.groups, [])),
-  );
+  const [pair, setPair] = useState<[WordPick, WordPick]>(() => pickPair(groups));
   const [picking, setPicking] = useState<0 | 1 | null>(null);
   const [idea, setIdea] = useState('');
-
-  const sourceOptions: SelectOption<WordSource>[] = WORD_SOURCES.map((s) => ({
-    value: s,
-    label: t(SOURCE_LABEL_KEY[s]),
-  }));
 
   const shuffleBoth = () => setPair(pickPair(groups));
   const shuffleRight = () => setPair(([a]) => [a, pickPartner(groups, a)]);
@@ -76,6 +53,20 @@ export default function CombineScreen() {
 
   return (
     <Screen hasHeader scroll contentStyle={styles.body}>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => router.push('/idea-lab/words')}
+              hitSlop={8}
+              style={styles.headerButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('ideation.words.title')}>
+              <Ionicons name="library-outline" size={22} color={theme.primary} />
+            </Pressable>
+          ),
+        }}
+      />
       <View style={styles.combo}>
         <Slot word={pair[0].word} onPress={() => setPicking(0)} />
         <Text style={[styles.x, { color: theme.textMuted }]}>×</Text>
@@ -89,12 +80,6 @@ export default function CombineScreen() {
           <Button label={t('ideation.combine.shuffleRight')} variant="ghost" onPress={shuffleRight} />
         </View>
       </View>
-      <Select
-        label={t('ideation.combine.source')}
-        value={source}
-        options={sourceOptions}
-        onChange={setSource}
-      />
 
       <View style={[styles.result, { borderColor: theme.primary }]}>
         <Text style={[styles.resultQ, { color: theme.textMuted }]}>
@@ -145,6 +130,7 @@ function Slot({ word, onPress }: { word: string; onPress: () => void }) {
 
 const styles = StyleSheet.create({
   body: { padding: 16, gap: 16, paddingBottom: 24 },
+  headerButton: { padding: 4 },
   flex: { flex: 1 },
   row: { flexDirection: 'row', gap: 8 },
   combo: { flexDirection: 'row', alignItems: 'center', gap: 8 },

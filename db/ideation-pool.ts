@@ -1,6 +1,7 @@
-// 발상 도구 단어 풀·문장 틀 — 정본 (docs/IDEATION_SYSTEM.md §4).
-// 언어별 앱 리소스: 번역이 아니라 각 언어에 자연스러운 단어를 따로 쓴다. 서버·AI 없음.
-// 두 언어의 그룹 수·순서는 같아야 한다(assertPoolsAligned). check:i18n 대상 아님(TS 데이터).
+// 발상 도구 내장 단어 풀·문장 틀 — 정본 (docs/IDEATION_SYSTEM.md §4).
+// 단어는 DB v3 `ideation_words`의 시드 데이터(db/에 두는 이유: db/ → features/ import 금지). 사용자가 관리 화면에서 고친 뒤의 진실은 DB.
+// 문장 틀(만약에)은 계속 이 파일이 정본. 언어별 앱 리소스: 번역이 아니라 각 언어에 자연스러운 단어를 따로 쓴다. 서버·AI 없음.
+// 두 언어의 그룹 수·순서는 같아야 한다(assertPoolsAligned). 언어 안 중복 단어 금지(UNIQUE 시드). check:i18n 대상 아님(TS 데이터).
 
 import type { AppLanguage } from '@/lib/i18n';
 
@@ -141,7 +142,7 @@ const KO: IdeationPool = {
       key: 'money',
       words: [
         '가계부',
-        '용돈',
+        '비상금',
         '구독료',
         '중고 거래',
         '할인',
@@ -443,7 +444,7 @@ const EN: IdeationPool = {
       key: 'money',
       words: [
         'budgeting',
-        'allowance',
+        'emergency fund',
         'subscriptions',
         'second-hand deals',
         'discounts',
@@ -633,5 +634,24 @@ export function getPool(lang: string): IdeationPool {
   return lang.startsWith('ko') ? KO : EN;
 }
 
+/** 그룹 키 순서(언어 공통) — 관리 화면 섹션·정렬 기준. 사용자 단어 그룹 'mine'은 맨 뒤 */
+export const POOL_GROUP_KEYS: readonly string[] = EN.groups.map((g) => g.key);
+
+/** 언어 안 중복(대소문자 무시)이 없는지 — UNIQUE 시드가 깨지지 않게 개발 중 즉시 드러낸다 */
+export function assertPoolsUnique(): void {
+  for (const [lang, pool] of Object.entries(POOLS)) {
+    const seen = new Set<string>();
+    for (const g of pool.groups)
+      for (const w of g.words) {
+        const k = w.toLowerCase();
+        if (seen.has(k)) throw new Error(`ideation pool duplicate (${lang}): ${w}`);
+        seen.add(k);
+      }
+  }
+}
+
 // 개발 빌드에서 모듈 로드 시 즉시 검사 — 릴리스에서는 비용 0
-if (__DEV__) assertPoolsAligned();
+if (__DEV__) {
+  assertPoolsAligned();
+  assertPoolsUnique();
+}
