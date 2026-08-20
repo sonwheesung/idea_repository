@@ -2,6 +2,7 @@ import * as Localization from 'expo-localization';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+import { koJosa, koJosaPick, type JosaPair } from '@/lib/josa';
 import en from '@/locales/en.json';
 import ko from '@/locales/ko.json';
 
@@ -32,5 +33,13 @@ void i18n.use(initReactI18next).init({
   interpolation: { escapeValue: false },
   returnNull: false,
 });
+
+// 한국어 조사 포매터 — ko 리소스에서 {{x, josa(pair: 이/가)}} · “{{w}}”{{w, josaPick(pair: 을/를)}} (I18N_SYSTEM §2)
+i18n.services.formatter?.add('josa', (value, _lng, options) =>
+  koJosa(String(value), options.pair as JosaPair),
+);
+i18n.services.formatter?.add('josaPick', (value, _lng, options) =>
+  koJosaPick(String(value), options.pair as JosaPair),
+);
 
 export default i18n;

@@ -10,6 +10,7 @@ import { TextField } from '@/components/text-field';
 import { getPool, type WordGroup } from '@/db/ideation-pool';
 import { toPrefillParams } from '@/features/ideation/prefill';
 import { pick, pickWord } from '@/features/ideation/shuffle';
+import { fillTemplate } from '@/features/ideation/template';
 import { listShuffleGroups } from '@/features/ideation/words';
 
 interface Card {
@@ -26,7 +27,7 @@ function drawCard(templates: string[], groups: WordGroup[], previous?: Card): Ca
 
 function makeCard(templates: string[], groups: WordGroup[]): Card {
   const { word } = pickWord(groups);
-  return { sentence: pick(templates).replace('{X}', word), word };
+  return { sentence: fillTemplate(pick(templates), word), word };
 }
 
 // 만약에… — 문장 틀 × 단어 풀 카드(docs/IDEATION_SYSTEM.md §3.4). 다음 카드 / 떠오르는 것 + 저장.

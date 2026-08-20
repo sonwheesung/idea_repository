@@ -30,7 +30,10 @@ const errors = [];
 
 // 언어 자기표기 라벨은 코드 상수(lib/i18n.ts LANGUAGE_LABELS)라 로케일 파일에 없다 — 예외 없음
 const HANGUL = /[가-힣]/;
-const placeholdersOf = (s) => (s.match(/\{\{\s*\w+\s*\}\}/g) ?? []).sort().join(',');
+// 고유 변수명 집합만 비교 — {{x, josa(pair: 이/가)}}(ko 조사 포매터, I18N_SYSTEM §2) ↔ {{x}}(en),
+// “{{w}}”{{w, josaPick(...)}}처럼 같은 변수를 두 번 쓰는 것도 일치로 본다
+const placeholdersOf = (s) =>
+  [...new Set([...s.matchAll(/\{\{\s*(\w+)/g)].map((m) => m[1]))].sort().join(',');
 
 for (const lang of LANGS) {
   const keys = Object.keys(locales[lang]).sort();

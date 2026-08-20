@@ -60,6 +60,15 @@ ideation.* (도구 이름·설명·버튼·질문 카드) / approach.* (발상 �
   다른 화면 안내와 섞어 쓰지 않는다.
 - 보간은 i18next `{{count}}`로, 문자열 이어붙이기 금지. **복수형 접미사(`_one`/`_other`)는 쓰지 않는다**(2026-08-17) —
   Hermes의 `Intl.PluralRules` 지원이 불확실해 형제 앱(조각·LinkMemo)도 안 쓴다. 영어는 `project(s)`식 단일 키.
+- **한국어 조사(을/를·이/가…)는 `es-hangul`로 처리한다**(2026-08-20 사용자 지적 "만약에 화면 을/를 안 맞는데" — 라이브러리 도입):
+  - `lib/josa.ts` — `koJosa(word, pair)`(단어+조사) · `koJosaPick(word, pair)`(조사만). 마지막 글자가 완성형 한글이
+    아니면(영어·숫자·'…') `을(를)` 병기로 폴백 — throw 금지.
+  - i18next 포매터 `josa`/`josaPick` 등록(`lib/i18n.ts`). ko 리소스에서 `{{x, josa(pair: 이/가)}}`,
+    따옴표 뒤엔 `“{{word}}”{{word, josaPick(pair: 을/를)}}` 형태로 쓴다. en 리소스는 평문 `{{x}}` 그대로.
+  - ~~`"{{name}}" 을(를)"` 병기 표기~~ → josaPick으로 정정(project·category·ideation.words의 deleteTitle 3키).
+  - 발상 도구 문장 틀(`{X}를` 등 — JSON 아님)은 `features/ideation/template.ts` `fillTemplate`이 `{X}+조사`를
+    `koJosa`로 치환(IDEATION_SYSTEM §3.4).
+  - `check:i18n` 보간 비교는 **변수명 기준**(포매터 옵션 무시) — `{{x, josa(...)}}` ↔ `{{x}}`는 일치로 본다.
 
 ---
 

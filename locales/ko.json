@@ -44,7 +44,7 @@
     "priority": "우선순위",
     "progress": "진행률",
     "updated": "{{date}} 수정",
-    "deleteTitle": "\"{{name}}\" 을(를) 삭제할까요?",
+    "deleteTitle": "\"{{name}}\"{{name, josaPick(pair: 을/를)}} 삭제할까요?",
     "deleteBody": "아이디어 노트와 관련 자료도 함께 삭제됩니다.",
     "tags": "태그",
     "tagsPlaceholder": "태그 입력 후 스페이스 (예: AI Mobile)",
@@ -100,7 +100,7 @@
     "duplicate": "같은 이름의 카테고리가 이미 있습니다.",
     "error": "카테고리를 저장하지 못했습니다.",
     "projectCount": "프로젝트 {{count}}개",
-    "deleteTitle": "\"{{name}}\" 을(를) 삭제할까요?",
+    "deleteTitle": "\"{{name}}\"{{name, josaPick(pair: 을/를)}} 삭제할까요?",
     "deleteUsed": "이 카테고리를 사용하는 프로젝트가 {{count}}개 있습니다.",
     "deleteUnused": "이 카테고리를 사용하는 프로젝트가 없습니다.",
     "deleteOption": {
@@ -302,17 +302,17 @@
         },
         "flip": {
           "k": "뒤집기",
-          "q": "{{x}}가 정반대로 동작한다면?",
+          "q": "{{x, josa(pair: 이/가)}} 정반대로 동작한다면?",
           "hint": "순서·역할·목표를 뒤집어 보세요."
         },
         "reuse": {
           "k": "다른 용도",
-          "q": "{{x}}를 다른 곳에 쓴다면 어디일까?",
+          "q": "{{x, josa(pair: 을/를)}} 다른 곳에 쓴다면 어디일까?",
           "hint": "다른 상황·장소·시간대."
         },
         "other": {
           "k": "다른 대상",
-          "q": "{{x}}를 전혀 안 쓰는 사람은 누구이고, 왜일까?",
+          "q": "{{x, josa(pair: 을/를)}} 전혀 안 쓰는 사람은 누구이고, 왜일까?",
           "hint": "그 사람이 쓰려면 무엇이 달라져야 할까?"
         }
       }
@@ -349,7 +349,7 @@
       "edit": "단어 수정",
       "word": "단어",
       "group": "그룹",
-      "deleteTitle": "“{{word}}”을(를) 삭제할까요?",
+      "deleteTitle": "“{{word}}”{{word, josaPick(pair: 을/를)}} 삭제할까요?",
       "empty": "단어가 없습니다. 우측 상단 ＋ 버튼으로 추가하세요.",
       "errorEmpty": "단어를 입력하세요.",
       "errorDuplicate": "이미 목록에 있는 단어예요."
