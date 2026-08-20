@@ -91,3 +91,5 @@ npx eas-cli submit --platform android --profile closed --path idearepository-vc{
 |---|---|---|
 | vc1 · 1.0.0 | 2026-08-17 | 첫 비공개 테스트 — 검토 통과(테스터 제공) |
 | vc2 · 1.0.1 | 2026-08-18 | 설정 통일·필터 Select·개인정보 옵션·발상 도구·blockedPermissions — 검토 전송 |
+| vc3 · 1.0.2 | 2026-08-19 | 발상 단어 관리 화면(DB v3)·뒤로가기 종료 확인 — 검토 통과·테스터 제공(8/19 19:34, 콘솔 수동 업로드) |
+| vc4 · 1.0.3 | 2026-08-20 | 조합 헤더 "단어 관리하기" 텍스트 버튼 — **§3.5 CLI 경로 첫 실전**(eas submit draft → 콘솔 노트 → 검토 전송, 권한 켰다 끔·API 403 복귀 확인) |

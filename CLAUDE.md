@@ -414,5 +414,6 @@ idea_repository/
 - **2026-08-18**: 설정 행 통일 · 상태 칩 → 필터 시트 Select · **발상 도구(Idea Lab) 완료**(문서 → DB v2 → 단어 풀 → 화면 4종 → 에뮬 조합·개선 e2e, [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md)).
 - ⚠ **비공개 테스트 기간(2026-08-18~ 약 1~3일간 수정분 반영) 배포 규칙**(2026-08-18 사용자 지시): 수정 사항은 **AAB 재빌드·재업로드로만** 반영한다. **OTA(expo-updates) 도입·배포 금지** — 테스터가 받는 빌드와 스토어 검토 빌드가 같아야 한다.
 - **2026-08-18 vc2 · 1.0.1 빌드**(설정 통일·필터 Select·개인정보 옵션·웰컴 문구·blockedPermissions·발상 도구 포함) — `idearepository-vc2.aab` 로컬 gradle. Play 콘솔 Alpha 새 버전 `2 (1.0.1)` — 사용자 업로드 → 출시명·노트(en/ko) 입력 → **검토 전송 완료**("검토 중인 변경사항", 2026-08-18). vc1은 검토 통과("선택한 테스터에게 제공", 8/17 19:26). 릴리스 노트 `docs/STORE_LISTING.md` §10.
-- **2026-08-19**: 발상 단어 관리 화면(§14 O — DB v3 · `/idea-lab/words` · 출처 Select 제거) · 메인 하드웨어 뒤로가기 종료 확인 Alert(PROJECT_SYSTEM §8) — 다음 AAB vc3.
+- **2026-08-19**: 발상 단어 관리 화면(§14 O — DB v3 · `/idea-lab/words` · 출처 Select 제거) · 메인 하드웨어 뒤로가기 종료 확인 Alert(PROJECT_SYSTEM §8) → **vc3 · 1.0.2 업로드·검토 통과, 테스터 제공(8/19 19:34 — 업로드·전송은 사용자)**.
+- **2026-08-20**: 조합 헤더 단어 관리 = "단어 관리하기" 텍스트 버튼(아이콘 대체) · **AAB 업로드 CLI 경로 도입**(`eas submit` — BUILD.md §3.5, 정본 `common/PLAY_RELEASE_AUTOMATION.md`, 빌드는 계속 로컬 gradle) → **vc4 · 1.0.3 CLI 업로드 → 출시명·노트(en/ko) → 검토 전송 완료**("검토 중인 변경사항"). 서비스 계정 권한은 켰다 끔(API 403 복귀 확인).
 - 다음 단계: vc2 검토 결과 대기 → Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원, 데이터 보안에 구매 내역 추가) → 프로덕션 신청(14일 후). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

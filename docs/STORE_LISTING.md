@@ -256,6 +256,32 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
+### vc4 · 1.0.3 (2026-08-20)
+
+**en-US**
+```
+• Idea Lab: the word-list entry on Combine is now a clear "Manage words" text button instead of an icon.
+```
+
+**ko-KR**
+```
+• 발상 도구: 조합 화면의 단어 목록 진입을 아이콘 대신 "단어 관리하기" 텍스트 버튼으로 바꿨습니다.
+```
+
+### vc3 · 1.0.2 (2026-08-19) — ✅ 검토 통과 · 테스터 제공(8/19 19:34, 업로드·전송은 사용자)
+
+**en-US**
+```
+• Idea Lab: manage your own word list — tap the library icon on Combine to add, edit or delete any word (built-in ones too), import your tags & categories, or restore the defaults. Combine and What if… draw from this list.
+• Pressing the back button on the home screen now asks before closing the app.
+```
+
+**ko-KR**
+```
+• 발상 도구: 단어 목록을 직접 관리 — 조합 화면 우측 상단 아이콘에서 단어 추가·수정·삭제(내장 단어 포함), 내 태그·카테고리 가져오기, 기본 단어 복원. 조합·만약에… 도구가 이 목록에서 뽑습니다.
+• 메인 화면에서 뒤로가기를 누르면 바로 닫히지 않고 종료 여부를 묻습니다.
+```
+
 ### vc2 · 1.0.1 (2026-08-18)
 
 **en-US**
