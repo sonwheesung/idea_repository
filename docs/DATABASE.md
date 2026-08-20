@@ -128,7 +128,7 @@ CREATE TABLE ideation_words (
 CREATE INDEX idx_ideation_words_lang ON ideation_words(lang, group_key);
 ```
 
-- 같은 마이그레이션에서 `db/ideation-pool.ts`의 **두 언어 내장 단어를 전부 시드**(언어당 15×12). 내장 단어도 일반 행 — 수정·삭제 허용, "기본 단어 복원"이 해당 언어 행을 지우고 재시드한다.
+- 같은 마이그레이션에서 `db/ideation-pool.ts`의 **두 언어 내장 단어를 전부 시드**(언어당 15×12). 내장 단어도 일반 행 — 수정·삭제 허용. ~~"기본 단어 복원"이 해당 언어 행을 지우고 재시드한다~~ → 복원 기능 2026-08-20 제거(IDEATION_SYSTEM §3.5) — `seedIdeationWords`는 마이그레이션 시드 전용.
 - 그룹 순서·표시명은 DB에 없다 — 순서는 풀의 그룹 순서(코드), 표시명은 i18n `ideation.group.*`. 단어 순서는 `created_at, rowid`(시드 순서 보존).
 - 시드 데이터가 `db/`에 있는 이유: `db/` → `features/` import는 의존 방향 위반(CLAUDE.md §12). 배경 [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) §3.5·§4.
 

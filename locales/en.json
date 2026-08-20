@@ -350,12 +350,7 @@
       "word": "Word",
       "group": "Group",
       "deleteTitle": "Delete “{{word}}”?",
-      "importMine": "Import my tags & categories",
-      "importDone": "Added {{count}} words to My words.",
-      "reset": "Restore built-in words",
-      "resetTitle": "Restore built-in words?",
-      "resetBody": "All words in this language — including the ones you added — will be replaced with the built-in list.",
-      "empty": "No words yet. Add one or restore the built-in list.",
+      "empty": "No words yet. Tap + at the top to add one.",
       "errorEmpty": "Enter a word.",
       "errorDuplicate": "That word is already in the list."
     },

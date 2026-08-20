@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Stack } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
@@ -21,9 +22,7 @@ import {
   WORD_GROUP_KEYS,
   addWord,
   deleteWord,
-  importMineWords,
   listWordSections,
-  resetWords,
   updateWord,
   type IdeationWord,
 } from '@/features/ideation/words';
@@ -55,29 +54,24 @@ export default function WordsScreen() {
       },
     ]);
 
-  const importMine = () => {
-    const n = importMineWords(lang);
-    reload();
-    Alert.alert(t('ideation.words.importDone', { count: n }));
-  };
-
-  const confirmReset = () =>
-    Alert.alert(t('ideation.words.resetTitle'), t('ideation.words.resetBody'), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('ideation.words.reset'),
-        style: 'destructive',
-        onPress: () => {
-          resetWords(lang);
-          reload();
-        },
-      },
-    ]);
-
   const total = sections.reduce((n, s) => n + s.words.length, 0);
 
   return (
     <Screen hasHeader>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => setEditing({ mode: 'add' })}
+              hitSlop={8}
+              style={styles.headerButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('ideation.words.add')}>
+              <Ionicons name="add" size={26} color={theme.primary} />
+            </Pressable>
+          ),
+        }}
+      />
       <SectionList
         sections={sections.map((s) => ({ key: s.key, data: s.words }))}
         keyExtractor={(w) => w.id}
@@ -118,26 +112,6 @@ export default function WordsScreen() {
         ListEmptyComponent={
           <Text style={[styles.empty, { color: theme.textMuted }]}>{t('ideation.words.empty')}</Text>
         }
-        ListFooterComponent={
-          <View style={styles.footer}>
-            <FooterAction
-              icon="add-circle-outline"
-              label={t('ideation.words.add')}
-              onPress={() => setEditing({ mode: 'add' })}
-            />
-            <FooterAction
-              icon="pricetags-outline"
-              label={t('ideation.words.importMine')}
-              onPress={importMine}
-            />
-            <FooterAction
-              icon="refresh-outline"
-              label={t('ideation.words.reset')}
-              onPress={confirmReset}
-              muted
-            />
-          </View>
-        }
       />
 
       {editing ? (
@@ -160,27 +134,6 @@ export default function WordsScreen() {
         />
       ) : null}
     </Screen>
-  );
-}
-
-function FooterAction({
-  icon,
-  label,
-  onPress,
-  muted,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
-  onPress: () => void;
-  muted?: boolean;
-}) {
-  const theme = useTheme();
-  const color = muted ? theme.textMuted : theme.primary;
-  return (
-    <Pressable onPress={onPress} accessibilityRole="button" style={styles.addRow}>
-      <Ionicons name={icon} size={22} color={color} />
-      <Text style={[styles.addText, { color }]}>{label}</Text>
-    </Pressable>
   );
 }
 
@@ -271,9 +224,7 @@ const styles = StyleSheet.create({
   name: { flex: 1, fontSize: 16 },
   iconButton: { padding: 8 },
   empty: { fontSize: 14, paddingHorizontal: 16, paddingVertical: 24, textAlign: 'center' },
-  footer: { paddingTop: 12 },
-  addRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 16, paddingVertical: 12 },
-  addText: { fontSize: 16, fontWeight: '500' },
+  headerButton: { padding: 4 },
   backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', padding: 24 },
   dialog: { borderRadius: 14, borderWidth: StyleSheet.hairlineWidth, padding: 20, gap: 14 },
   dialogTitle: { fontSize: 17, fontWeight: '600' },

@@ -3,11 +3,9 @@
 
 import { randomUUID } from 'expo-crypto';
 
-import { getDb, seedIdeationWords } from '@/db';
+import { getDb } from '@/db';
 import { getPool, POOL_GROUP_KEYS, type WordGroup } from '@/db/ideation-pool';
-import { listCategories } from '@/features/categories/api';
 import { MINE_GROUP_KEY } from '@/features/ideation/shuffle';
-import { listAllTags } from '@/features/tags/api';
 import type { AppLanguage } from '@/lib/i18n';
 
 export interface IdeationWord {
@@ -120,34 +118,4 @@ export function updateWord(id: string, lang: string, rawWord: string, group: str
 
 export function deleteWord(id: string): void {
   getDb().runSync('DELETE FROM ideation_words WHERE id = ?', [id]);
-}
-
-/** 내 태그·카테고리 이름을 `mine` 그룹에 추가 — 이미 있으면 건너뜀. 추가된 개수 반환 */
-export function importMineWords(lang: string): number {
-  const l = toWordLang(lang);
-  const names = [...listAllTags(), ...listCategories().map((c) => c.name)];
-  const now = Date.now();
-  let added = 0;
-  getDb().withTransactionSync(() => {
-    for (const raw of names) {
-      const word = normalizeWord(raw);
-      if (!word || findDuplicate(l, word)) continue;
-      getDb().runSync(
-        'INSERT INTO ideation_words (id, lang, group_key, word, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)',
-        [randomUUID(), l, MINE_GROUP_KEY, word, now, now],
-      );
-      added++;
-    }
-  });
-  return added;
-}
-
-/** 기본 단어 복원 — 현재 언어 행 전부 삭제 후 내장 재시드(사용자 단어도 지워진다 — 화면에서 Alert 확인) */
-export function resetWords(lang: string): void {
-  const l = toWordLang(lang);
-  const db = getDb();
-  db.withTransactionSync(() => {
-    db.runSync('DELETE FROM ideation_words WHERE lang = ?', [l]);
-    seedIdeationWords(db, l);
-  });
 }
