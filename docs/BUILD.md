@@ -56,7 +56,28 @@ powershell -ExecutionPolicy Bypass -File tools/build-aab.ps1 -VersionCode 3 -Ver
 수동으로 하면: ① `app.json` `expo.version` / `expo.android.versionCode` 수정 → ② `npx expo prebuild --platform android --no-install`
 → ③ `cd android; .\gradlew bundleRelease` (`ANDROID_HOME`=`%LOCALAPPDATA%\Android\Sdk`, `JAVA_HOME`=jdk-19 — 없으면 "SDK location not found")
 → ④ `android/app/build/outputs/bundle/release/app-release.aab` → 루트 `idearepository-vc{N}.aab`(gitignore `*.aab`)
-→ ⑤ Play 콘솔 업로드는 사용자(브라우저 도구 10MB 제한), 출시명 `{N} ({version})`, 노트는 STORE_LISTING §10.
+→ ⑤ 업로드는 §3.5 CLI 경로(기본) 또는 사용자 수동 드롭(브라우저 도구 10MB 제한). 출시명 `{N} ({version})`, 노트는 STORE_LISTING §10.
+
+## 3.5 업로드 — CLI 경로 (`eas submit`, 2026-08-20 도입)
+
+> 정본 절차·함정: `C:\project\common\PLAY_RELEASE_AUTOMATION.md` (조각 2026-08-19 실전 검증).
+> **빌드는 계속 로컬 gradle**(§3) — EAS는 업로드(Play Developer API 호출)만 한다. CLAUDE §11과 충돌 없음.
+
+| 준비물 | 값 |
+|---|---|
+| 서비스 계정 키 | `C:\project\secrets\play-service-account.json` (저장소 밖 — 형제 앱 공용) |
+| submit 프로필 | `eas.json` → `submit.closed`(track `alpha` · releaseStatus `draft`) |
+| Play 권한 | 콘솔 → 사용자 및 권한 → 서비스 계정 → 이 앱에 **"앱을 테스트 트랙으로 출시"만** 필요할 때 켠다 |
+
+```powershell
+npx eas-cli submit --platform android --profile closed --path idearepository-vc{N}.aab --non-interactive
+```
+
+- 🔴 **권한은 켰다 끈다** — 업로드 끝나면 즉시 회수, 리로드로 개수 확인. "프로덕션으로 출시"는 절대 켜지 않는다.
+- ⚠ 콘솔 저장은 2단계("변경사항 저장" → "예") — 저장 후 리로드해서 남았는지 확인.
+- `releaseStatus: draft`인 이유: eas submit은 출시 노트를 못 넣는다 → 초안으로 올린 뒤 콘솔에서 출시명·노트(en/ko) 입력 → 검토 전송. 이 마무리는 브라우저로 가능(업로드만 CLI).
+- ⚠ 트랙 식별자 `alpha`는 기본값 가정 — 첫 제출에서 오류가 나면 콘솔의 실제 트랙 식별자로 맞춘다(기억으로 단정 금지).
+- 업로드 전 서명 지문 대조(§4)는 CLI 경로에서도 동일하게 한다.
 
 ## 4. 점검
 
