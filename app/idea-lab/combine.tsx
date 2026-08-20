@@ -1,4 +1,3 @@
-import { Ionicons } from '@expo/vector-icons';
 import { Stack, useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -61,8 +60,10 @@ export default function CombineScreen() {
               hitSlop={8}
               style={styles.headerButton}
               accessibilityRole="button"
-              accessibilityLabel={t('ideation.words.title')}>
-              <Ionicons name="library-outline" size={22} color={theme.primary} />
+              accessibilityLabel={t('ideation.words.manage')}>
+              <Text style={[styles.headerButtonText, { color: theme.primary }]}>
+                {t('ideation.words.manage')}
+              </Text>
             </Pressable>
           ),
         }}
@@ -131,6 +132,7 @@ function Slot({ word, onPress }: { word: string; onPress: () => void }) {
 const styles = StyleSheet.create({
   body: { padding: 16, gap: 16, paddingBottom: 24 },
   headerButton: { padding: 4 },
+  headerButtonText: { fontSize: 15, fontWeight: '600' },
   flex: { flex: 1 },
   row: { flexDirection: 'row', gap: 8 },
   combo: { flexDirection: 'row', alignItems: 'center', gap: 8 },

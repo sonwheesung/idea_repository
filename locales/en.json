@@ -343,6 +343,7 @@
     },
     "words": {
       "title": "Words",
+      "manage": "Manage words",
       "intro": "{{count}} words in this language. Combine and What if… draw from this list. Built-in words are regular entries — edit or delete any of them.",
       "add": "Add word",
       "edit": "Edit word",
