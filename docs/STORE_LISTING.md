@@ -256,6 +256,18 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
+### vc6 · 1.0.5 (초안 — 빌드 전)
+
+**en-US**
+```
+• New: Backup — Settings → Backup exports all your ideas to a single file on your device (via the share sheet) and imports it back later (merge or replace). No cloud, no account; the file never reaches our servers.
+```
+
+**ko-KR**
+```
+• 새 기능: 백업 — 설정 → 백업에서 모든 아이디어를 기기 안의 파일 하나로 내보내고(공유 시트), 나중에 다시 가져올 수 있습니다(병합/교체). 클라우드·계정 없음, 파일은 회사 서버로 가지 않습니다.
+```
+
 ### vc5 · 1.0.4 (2026-08-21)
 
 **en-US**

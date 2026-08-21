@@ -39,6 +39,7 @@ export default function RootLayout() {
         />
         <Stack.Screen name="settings" options={{ title: t('common.settings') }} />
         <Stack.Screen name="categories" options={{ title: t('settings.categories') }} />
+        <Stack.Screen name="backup" options={{ title: t('settings.backup') }} />
         <Stack.Screen name="theme" options={{ title: t('settings.theme') }} />
         <Stack.Screen name="notice" options={{ title: t('settings.notice') }} />
         <Stack.Screen name="inquiries" options={{ title: t('settings.inquiry') }} />

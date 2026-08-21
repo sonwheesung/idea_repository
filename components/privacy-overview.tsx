@@ -37,7 +37,9 @@ export function PrivacyOverview() {
 
       <View style={[styles.caution, { backgroundColor: theme.surface, borderColor: theme.border }]}>
         <Ionicons name="alert-circle-outline" size={18} color={theme.textMuted} />
-        <Text style={[styles.cautionText, { color: theme.textMuted }]}>{t('data.notice.loss')}</Text>
+        <Text style={[styles.cautionText, { color: theme.textMuted }]}>
+          {t('data.notice.loss')} {t('data.notice.backupHint')}
+        </Text>
       </View>
 
       <Pressable onPress={openPolicy} accessibilityRole="link" style={styles.link}>

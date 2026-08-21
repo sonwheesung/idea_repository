@@ -7,8 +7,10 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { OptionSheet, type SheetOption } from '@/components/option-sheet';
 import { Screen } from '@/components/screen';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
+import { formatDate } from '@/lib/date';
 import { useLanguageStore } from '@/lib/language';
 import { showPrivacyOptions } from '@/features/ads/ads';
+import { useBackupStore } from '@/features/backup/store';
 import { useAdsStore } from '@/features/ads/store';
 import { useUnreadNoticeCount } from '@/features/support/store';
 import { useThemeStore } from '@/theme/store';
@@ -29,6 +31,7 @@ export default function SettingsScreen() {
   const override = useLanguageStore((s) => s.override);
   const setOverride = useLanguageStore((s) => s.setOverride);
   const [languageOpen, setLanguageOpen] = useState(false);
+  const lastExportedAt = useBackupStore((s) => s.lastExportedAt);
 
   const languageOptions: SheetOption<LanguageChoice>[] = [
     { value: 'system', label: t('settings.languageSystem') },
@@ -55,6 +58,13 @@ export default function SettingsScreen() {
           onPress={() => setLanguageOpen(true)}
         />
         <SettingRow label={t('settings.categories')} onPress={() => router.push('/categories')} />
+
+        {/* 백업 — 내보내기/가져오기. 부제 = 마지막 내보내기(docs/BACKUP_SYSTEM.md §5) */}
+        <SettingRow
+          label={t('settings.backup')}
+          value={`${t('backup.lastExport')}: ${lastExportedAt ? formatDate(lastExportedAt) : t('backup.never')}`}
+          onPress={() => router.push('/backup')}
+        />
 
         {/* 공지 — 안 읽은 공지가 있으면 배지 점(푸시가 없어 이 점이 통지의 전부다 — 조각·LinkMemo 승계) */}
         <SettingRow

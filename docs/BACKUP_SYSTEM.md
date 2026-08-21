@@ -10,10 +10,10 @@
 | 영역 | 상태 |
 |---|---|
 | 문서(이 문서 · CLAUDE §3/§6/§14/§16 · README · DATABASE §4 · PLAN Phase 10 · 법무 문구) | ✅ 2026-08-21 |
-| 패키지(expo-file-system · expo-sharing · expo-document-picker) | ❌ |
-| `features/backup/{format,export,import,store}.ts` | ❌ |
-| 화면 `/backup`(설정 행 → 내보내기 · 가져오기 · 마지막 내보내기) | ❌ |
-| 에뮬레이터 실측(내보내기 → 공유 시트 · 가져오기 병합/교체 · 신규 설치 복원) | ❌ |
+| 패키지(expo-file-system ~19.0 · expo-sharing ~14.0 · expo-document-picker ~14.0) | ✅ 2026-08-21 — 네이티브 모듈 → dev APK 재빌드·AAB 재빌드 필요 |
+| `features/backup/{format,export,import,store}.ts` | ✅ 2026-08-21 — format(검증·형식 v1) · export(SELECT * 7테이블 → 캐시 File → shareAsync → 삭제) · import(DocumentPicker → File.text → parseBackup → applyBackup 한 트랜잭션, 아는 컬럼만 INSERT/UPDATE) · store(lastExportedAt persist) |
+| 화면 `/backup`(설정 행 → 내보내기 · 가져오기 · 마지막 내보내기) | ✅ 2026-08-21 — `app/backup.tsx` · 설정 행 부제 "마지막 내보내기: …" · 홈 빈 화면·About 손실 안내에 `data.notice.backupHint` 한 문장. i18n `backup.*` 21키(295키) |
+| 에뮬레이터 실측 | ✅ 2026-08-21(AVD sadojeon, Android 15, 신규 설치) — 내보내기 → 공유 시트에 `IdeaRepository-backup-20260821-0544.json`(Quick Share·Drive·Gmail) → 닫으면 "마지막 내보내기: 2026년 8월 21일" · 가져오기: 조작 파일(A 갱신 updated_at+5s·새 프로젝트 C+카테고리 Imported+태그+노트+단어, 모르는 컬럼 `future_col` 포함) → 미리보기 "프로젝트 2·노트 1·자료 0·카테고리 8·태그 1·발상 단어 1" → **병합** "추가 2·갱신 1·건너뜀 0" → 홈 A(updated from file·40%·계획됨·#restored)·B 유지·C(Imported·#restored) — DB 직접 대조 일치 · **교체** 2단계 확인 → "추가 3" → B 소멸, A·C만 · 잘못된 JSON → "백업 파일이 아니거나 손상" 거부. ⚠ 문서 피커는 `*/*`라 "최근" 탭에 이미지가 먼저 보인다 — 검색으로 찾는 동선은 되지만 Downloads 바로 가기가 없어 애매(§8 후보 메모) |
 
 ## 1. 결정 (2026-08-21 사용자)
 

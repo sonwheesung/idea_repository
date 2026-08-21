@@ -27,7 +27,8 @@
   "data": {
     "notice": {
       "local": "Your ideas are stored locally on your device and are not uploaded to our servers.",
-      "loss": "If you delete the app or change devices, your data may be lost."
+      "loss": "If you delete the app or change devices, your data may be lost.",
+      "backupHint": "You can export a backup file from Settings → Backup."
     }
   },
   "project": {
@@ -90,7 +91,8 @@
     "notice": "Notices",
     "inquiry": "Contact Us",
     "privacyOptions": "Privacy options",
-    "privacyOptionsHint": "Change your ad consent choices"
+    "privacyOptionsHint": "Change your ad consent choices",
+    "backup": "Backup"
   },
   "category": {
     "name": "Category name",
@@ -371,6 +373,29 @@
       "games": "Games",
       "local": "Neighborhood",
       "mine": "My words"
+    }
+  },
+  "backup": {
+    "title": "Backup",
+    "intro": "Your ideas are stored only on this device. Export them to a file and you can restore them after changing devices or reinstalling the app.",
+    "export": "Export to file",
+    "lastExport": "Last export",
+    "never": "Never",
+    "shareUnavailable": "Sharing is not available on this device, so the file cannot be exported.",
+    "exportFailed": "Could not create the backup file. Please try again.",
+    "caution": "The exported file contains all of your ideas as plain text (not encrypted). Keep it somewhere safe. The file is never sent to our servers.",
+    "import": {
+      "title": "Import",
+      "button": "Import from file",
+      "preview": "This file contains {{projects}} projects, {{notes}} notes, {{resources}} resources, {{categories}} categories, {{tags}} tags and {{words}} Idea Lab words (exported {{exported}}, app {{version}}).\n\nMerge keeps what is on this device and adds or updates from the file. Replace erases everything on this device first.",
+      "merge": "Merge",
+      "replace": "Replace",
+      "replaceConfirmTitle": "Replace everything?",
+      "replaceConfirmBody": "All projects, notes, resources, categories, tags and Idea Lab words on this device will be deleted and replaced with the file. This cannot be undone.",
+      "done": "Import finished — {{inserted}} added, {{updated}} updated, {{skipped}} skipped.",
+      "failed": "The import could not be completed. Nothing on this device was changed.",
+      "invalidFile": "This is not an Idea Repository backup file, or the file is damaged.",
+      "newerApp": "This file was made with a newer version of the app. Please update the app and try again."
     }
   }
 }

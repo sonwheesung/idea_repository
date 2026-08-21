@@ -218,7 +218,7 @@ export default function HomeScreen() {
                   </Text>
                 </Pressable>
                 <Text style={[styles.notice, { color: theme.textMuted }]}>
-                  {t('data.notice.local')} {t('data.notice.loss')}
+                  {t('data.notice.local')} {t('data.notice.loss')} {t('data.notice.backupHint')}
                 </Text>
               </>
             )}
