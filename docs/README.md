@@ -20,6 +20,7 @@
 | [`I18N_SYSTEM.md`](./I18N_SYSTEM.md) | 다국어 — en 기본·ko·키 규약·날짜 로케일·언어 추가 절차 | ✅ |
 | [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
 | [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) | **발상 도구(Idea Lab)** — 입구·도구 4종·단어/문장 풀·섞기 규칙·프로젝트 저장 미리 채움·`approach` 필드 | ✅ 2026-08-18 |
+| [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md) | **로컬 백업** — JSON 내보내기(OS 공유 시트)·가져오기(병합/교체)·파일 형식 v1·무료 결정·법무 문구 | ✅ 2026-08-21 문서 |
 | [`BUILD.md`](./BUILD.md) | **로컬 AAB 빌드·서명** — 업로드 키스토어(재생성 금지)·비밀번호 파일·build.gradle 서명 블록·`tools/build-aab.ps1`·점검·버전 이력 | ✅ 2026-08-18 |
 | [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
@@ -58,7 +59,8 @@
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ✅ | 2026-08-17 Phase 6 — 복귀 노출 없음, 로드 8초 타임아웃 |
 | UMP 동의 폼 | ✅ | 2026-08-17 Phase 6 — 콘솔 GDPR 메시지 게시 + AdsConsent 흐름 |
 | ⚠ **Expo Go 종료** | — | 2026-08-17 — 광고 SDK(네이티브) 설치. 이후 개발은 디버그 빌드(`npx expo run:android --device <AVD명> --no-bundler`; expo-dev-client 미포함이라 일반 RN 디버그 앱). **Metro 8087에 붙이려면** 앱의 RN 개발 메뉴 → Settings → Debug server host를 `<호스트>:8087`로(에뮬레이터는 `10.0.2.2:8087`, 폰은 Tailscale `100.91.69.45:8087`) — 기본은 8081이라 다른 프로젝트 Metro에 붙는다(2026-08-17 실증). 에뮬레이터는 `run-as`로 `debug_http_host` 프리퍼런스를 직접 써도 된다 |
-| Remove Ads 구매 + Restore | ❌ | Phase 7 — RevenueCat 익명 |
+| Remove Ads 구매 + Restore | ⏸ | Phase 7 — RevenueCat 익명. AdMob 정지 해제 후(2026-08-21) |
+| 로컬 백업(내보내기·가져오기) | ❌ | 2026-08-21 문서 선행 — [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md), Phase 10 |
 | 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |

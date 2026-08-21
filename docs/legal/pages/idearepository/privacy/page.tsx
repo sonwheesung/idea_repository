@@ -43,7 +43,7 @@ export default function IdeaRepositoryPrivacy() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — Privacy Policy</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 3)</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-21 (rev. 4 — local backup file; effective 2026-08-28)</p>
       <p style={muted}>
         Idea Repository is a personal idea and project organizer. It is built around one principle:{' '}
         <b>your ideas are stored locally on your device and are not uploaded to our servers.</b> Idea Repository has
@@ -67,7 +67,9 @@ export default function IdeaRepositoryPrivacy() {
           ideas, target users, progress, status, priority, dates, idea notes, related resources (titles, URLs,
           descriptions), categories, tags, and settings</b> — is stored only in local storage on your device. It is
           not uploaded to our servers, and we cannot read it. If you delete the app or change devices, this data may
-          be lost; there is no cloud backup.
+          be lost; there is no cloud backup. Settings → Backup can export all of this data as a single file created on your
+          device and handed to the app or location <b>you</b> choose via the system share sheet (and import it back later); we
+          never receive that file.
         </p>
         <p style={muted}>
           When you tap a related resource, the URL is opened by your device&apos;s browser. The app itself does not
@@ -290,7 +292,7 @@ export default function IdeaRepositoryPrivacy() {
       <hr style={divider} />
 
       <h1 style={{ fontSize: 24, fontWeight: 900 }}>Idea Repository — 개인정보처리방침 (한국어)</h1>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-21 (4차 — 로컬 백업 파일, 2026-08-28 시행)</p>
       <p style={muted}>
         휘성게임즈(브랜드 표기 Vivace Games, 이하 &quot;회사&quot;)는 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보
         처리방침을 수립·공개합니다. Idea Repository(이하 &quot;앱&quot;)는 회원가입·로그인·클라우드 동기화가 없는 개인용 로컬
@@ -310,7 +312,8 @@ export default function IdeaRepositoryPrivacy() {
         <p style={muted}>
           <b>기기에만 저장되는 정보(회사 미수집)</b>: 프로젝트명·요약·설명·문제점·목표·핵심 아이디어·타겟 사용자·진행률·상태·
           우선순위·시작일·마감일·아이디어 노트·관련 자료(제목·URL·설명)·카테고리·태그·설정. 이용자 기기(SQLite·앱 저장소)에만
-          저장되며 회사는 열람할 수 없고, 앱 삭제·기기 변경 시 함께 사라질 수 있습니다(클라우드 백업 없음).
+          저장되며 회사는 열람할 수 없고, 앱 삭제·기기 변경 시 함께 사라질 수 있습니다(클라우드 백업 없음). 설정 → 백업으로 이 데이터 전부를 기기에서 생성한
+          파일 하나로 내보내 이용자가 시스템 공유 시트에서 고른 앱·위치로만 전달(이후 가져오기)할 수 있으며, 회사는 그 파일을 수신하지 않습니다.
         </p>
         <p style={bullet}>
           • <b>문의하기(선택)</b>: 문의 본문·문의 유형, 플랫폼(Android/iOS)·앱 버전, 앱이 생성한 무작위 기기 식별자(UUID) — 이용자가
@@ -486,7 +489,7 @@ export default function IdeaRepositoryPrivacy() {
         <h2 style={h2}>제13조 아동 · 제14조 변경 · 처리자 정보</h2>
         <p style={muted}>
           앱은 만 14세 미만 아동(국외 만 13세 미만 또는 해당국 법령상 더 높은 연령 — 일부 EEA 회원국 만 16세)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
-          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정.
+          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행).
         </p>
         <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games) · 대표 손휘성</p>
         <p style={bullet}>• 사업자등록번호: 749-25-02260</p>

@@ -42,7 +42,7 @@ export default function IdeaRepositoryTerms() {
         </a>
         을 따릅니다. (English version below.)
       </p>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-17 (4차)</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-21 (5차 — 2026-08-28 시행)</p>
 
       <section style={card}>
         <h2 style={h2}>제1조 목적 · 제2조 정의</h2>
@@ -87,8 +87,9 @@ export default function IdeaRepositoryTerms() {
             이용자 데이터는 <strong>이용자 기기에만 저장</strong>되며 회사 서버로 전송되지 않습니다. 회사는 이를 열람·복구·복원할 수 없습니다.
           </li>
           <li>
-            <strong>앱 삭제·기기 초기화·분실·기기 변경 시 이용자 데이터가 소실될 수 있습니다.</strong> 현재 클라우드 백업·내보내기·동기화 기능은
-            제공하지 않으므로 필요한 사본의 보관 책임은 이용자에게 있습니다.
+            <strong>앱 삭제·기기 초기화·분실·기기 변경 시 이용자 데이터가 소실될 수 있습니다.</strong> 클라우드 백업·동기화 기능은 제공하지 않습니다.
+            설정 → 백업에서 모든 데이터를 기기 안의 파일 하나로 내보내고(이후 가져오기) 할 수 있으며, 그 파일의 보관 장소와 관리는 이용자가 정하고
+            회사는 파일을 수신하지 않습니다. 필요한 사본의 보관 책임은 이용자에게 있습니다.
           </li>
           <li>이용자 데이터에 대한 권리는 이용자에게 있으며, 회사는 이를 수신하지 않으므로 어떠한 이용 권한도 주장하지 않습니다.</li>
           <li>저장하는 내용·URL의 적법성은 이용자가 책임집니다. 관련 자료 URL은 기기 브라우저에서 열리며 외부 사이트는 해당 사이트 약관을 따릅니다.</li>
@@ -217,12 +218,12 @@ export default function IdeaRepositoryTerms() {
         </ul>
       </section>
 
-      <p style={{ ...muted, marginTop: 24, fontSize: 13 }}>부칙 — 이 약관은 2026-08-17부터 시행합니다. 개정 이력: 2026-08-17 최초 제정 · 2차(글로벌 점검: 최소 연령·ODR 종료 반영·스토어 약관 조항) · 3차(광고 제거 기준 가격 ₩1,500 → ₩3,300, 판매 개시 전 정정) · 4차(유사 앱 벤치마크: 구매 적용 범위, Play 판매자 지위·환불 위임, 미국 금수 확인).</p>
+      <p style={{ ...muted, marginTop: 24, fontSize: 13 }}>부칙 — 이 약관은 2026-08-17부터 시행합니다. 개정 이력: 2026-08-17 최초 제정 · 2차(글로벌 점검: 최소 연령·ODR 종료 반영·스토어 약관 조항) · 3차(광고 제거 기준 가격 ₩1,500 → ₩3,300, 판매 개시 전 정정) · 4차(유사 앱 벤치마크: 구매 적용 범위, Play 판매자 지위·환불 위임, 미국 금수 확인) · 2026-08-21 5차(제5조 — 로컬 백업 파일 내보내기·가져오기 제공 반영, 2026-08-28 시행).</p>
 
       <hr style={divider} />
 
       <h1 style={{ fontSize: 24, fontWeight: 900 }}>Idea Repository — Terms of Use (English)</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-17</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-21 (rev. 5 — local backup; effective 2026-08-28)</p>
       <p style={muted}>
         These Terms govern your use of the mobile application <b>Idea Repository</b> (the &quot;App&quot;) provided by
         Hwiseong Games (brand: Vivace Games; &quot;we&quot;, &quot;us&quot;). By installing or using the App you agree to
@@ -250,8 +251,9 @@ export default function IdeaRepositoryTerms() {
         <ul style={li}>
           <li>Everything you enter is stored only on your device. It is not uploaded to our servers, and we cannot read, restore or recover it.</li>
           <li>
-            <b>If you delete the App, reset or lose your device, or change devices, your data may be lost.</b> The App currently provides no cloud backup,
-            export or sync. You are solely responsible for keeping any copies you need.
+            <b>If you delete the App, reset or lose your device, or change devices, your data may be lost.</b> The App provides no cloud backup or sync.
+            Settings → Backup lets you export all your data to a single file on your device (and import it later); where you keep that file is up to you,
+            and we never receive it. You are solely responsible for keeping any copies you need.
           </li>
           <li>You retain all rights to your content; we claim no license to it. You are responsible for the lawfulness of what you store and for saved URLs.</li>
         </ul>

@@ -1,6 +1,6 @@
 # Idea Repository — Terms of Use
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 4 — peer benchmark)
+Effective date: 2026-08-17 · Last updated: 2026-08-21 (rev. 5 — local backup export/import; effective 2026-08-28)
 
 > Publication target: `https://vivace-games.com/idearepository/terms` (KO main + EN section, mirroring the sister-app
 > terms page). Source text for the page `docs/legal/pages/idearepository/terms/page.tsx`. Korean version (with the
@@ -32,8 +32,9 @@ licensors.
 
 - Everything you enter in the App is stored only on your device. It is not uploaded to our servers, and we cannot
   read, restore or recover it.
-- **If you delete the App, reset or lose your device, or change devices, your data may be lost.** The App currently
-  provides no cloud backup, export or sync. You are solely responsible for keeping any copies you need.
+- **If you delete the App, reset or lose your device, or change devices, your data may be lost.** The App provides
+  no cloud backup or sync. Settings → Backup lets you export all your data to a single file on your device (and import
+  it later); where you keep that file is up to you, and we never receive it. You are solely responsible for keeping any copies you need.
 - You retain all rights to your content. Because we never receive it, we claim no license to it.
 - You are responsible for the lawfulness of what you store and for any URLs you save; tapping a related resource opens
   it in your device's browser, and third-party websites are governed by their own terms.

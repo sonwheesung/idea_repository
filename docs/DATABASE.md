@@ -165,4 +165,4 @@ CREATE INDEX idx_ideation_words_lang ON ideation_words(lang, group_key);
 - **스키마 변경은 새 마이그레이션으로만.** 출시 후에는 조각·배구·LinkMemo와 같은 체인 규약(v1→vN 순차 적용, 최신 점프 금지).
 - 삭제는 즉시 삭제(휴지통 없음 — MVP). 프로젝트 삭제 확인에 "노트 N개·자료 M개도 함께 삭제"를 명시한다.
 - `CHECK` 제약이 있으므로 enum 값을 추가하려면 마이그레이션이 필요하다 — 상태·우선순위 사용자 정의는 MVP 범위 밖이라 감수.
-- 백업/내보내기(MVP 제외, P1 재검토 — CLAUDE.md §14 #4)를 하게 되면 UUID id 덕에 파일 병합이 가능하다 — 그래서 정수 id를 안 쓴다.
+- ~~백업/내보내기(MVP 제외, P1 재검토 — CLAUDE.md §14 #4)를 하게 되면~~ → **백업(2026-08-21 편입, [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md))**은 UUID id 덕에 파일 병합이 가능하다 — 그래서 정수 id를 안 쓴다. 파일 형식은 7테이블 `SELECT *` 행 그대로(snake_case) — **이 문서의 스키마가 곧 백업 파일 명세**다. 컬럼을 추가하는 마이그레이션은 가져오기의 "아는 컬럼만 골라 넣기" 규칙으로 구/신 파일 호환이 유지되지만, 컬럼을 **바꾸거나 지우면** BACKUP_SYSTEM §2 formatVersion을 올려야 한다.

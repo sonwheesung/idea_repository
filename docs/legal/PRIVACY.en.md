@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-08-17 (rev. 3 — benchmark against peer apps)
+Effective date: 2026-08-17 · Last updated: 2026-08-21 (rev. 4 — local backup file; effective 2026-08-28)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -26,7 +26,9 @@ Everything you create in Idea Repository — **projects, summaries, descriptions
 users, progress, status, priority, dates, idea notes, related resources (titles, URLs, descriptions), categories,
 tags, and settings (theme, language, filters)** — is stored only in local storage on your device (SQLite / app
 storage). It is not uploaded to our servers, and we cannot read it. If you delete the app or change devices, this
-data may be lost; there is no cloud backup. Note that your device's own backup features (Android Auto Backup /
+data may be lost; there is no cloud backup. Settings → Backup can export all of this data as a single file created on
+your device and handed to the app or location **you** choose via the system share sheet (and import it back later); we
+never receive that file. Note that your device's own backup features (Android Auto Backup /
 Google One, iCloud Backup) may copy app data to Google's or Apple's servers under **your** account and settings — that
 copy is outside our control and governed by their policies.
 
@@ -166,7 +168,8 @@ be announced in the app's notice screen.
 Revision history: 2026-08-17 first version · 2026-08-17 rev. 2 (global review: Switzerland and other-jurisdiction
 rights, minimum age by country, connection data of the start check, deletion scope, Remove Ads availability) ·
 2026-08-17 rev. 3 (peer-app benchmark: OS backup caveat, global ad controls, "what we do not use" and permissions,
-processor policy links, Data Safety mirror).
+processor policy links, Data Safety mirror) · 2026-08-21 rev. 4 (§2: local backup export/import file — created on
+device, shared only where you choose, never received by us; effective 2026-08-28).
 
 ## 9. Contact
 

@@ -181,6 +181,8 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
 
 ## 게시 기록
 
+- **2026-08-21 (처리방침 4차 · 약관 5차 — 정본·page.tsx 갱신, ⏳ 미게시)** — 로컬 백업 편입([`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md) §6): 약관 §3/제5조 "내보내기 없음" 정정 + 처리방침 §2 백업 파일 한 문장(기기 생성·이용자가 고른 곳으로만·회사 미수신). 시행 2026-08-28(7일 고지 규칙). Data Safety 변경 없음(수집·공유 항목 불변). **재게시는 §5 절차 — 배구 레포 복사 → `vercel --prod`는 사용자 확인 후.** 앱 내 공지(common_server)로 변경 고지 필요.
+
 - **2026-08-17 (2차)** — 배구 레포 `6297b52` → detached worktree에서 `vercel link --project volleyball --scope sonws` 후 `vercel --prod --yes`(복사한 `.vercel`로는 "Not authorized" — 재링크로 해결) → Ready → 라이브에서 `rev. 2`·`처리위탁(제26조)`·ODR 종료 문구 확인. worktree 삭제(link가 만든 `.env.local` 포함).
 
 - **2026-08-17** — 배구 레포 커밋 `3eb8929`(페이지 2개만 스테이징 — 다른 세션의 미커밋 작업과 분리) → 깨끗한 git worktree(HEAD)에서
