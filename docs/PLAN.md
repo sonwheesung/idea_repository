@@ -113,6 +113,8 @@
 
 ## Phase 7 — Remove Ads (1일) ⚠ 사용자 작업 포함
 
+> ⏸ **보류(2026-08-21)** — AdMob 계정 정지 중. 광고가 안 나오는 동안 "광고 0" 완료 기준을 검증할 수 없어 **정지 해제 후 착수**(MONETIZATION_SYSTEM §3.1). 광고 지면·코드는 유지.
+
 - ⚠ Play 콘솔 비소모성 상품 등록(선행: 첫 AAB), RC 대시보드 프로젝트·상품 attach — `store-iap-setup` 스킬
 - `react-native-purchases` **익명 모드**(`logIn` 안 함), entitlement `remove_ads`
 - Settings → Remove Ads: 구매(스토어 가격 표시)·**Restore Purchases**
