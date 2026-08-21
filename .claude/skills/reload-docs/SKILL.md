@@ -21,7 +21,7 @@ description: Re-read the project's design docs (CLAUDE.md spine + docs/ system d
      표준 작업 순서(§13)·결정 로그(§14)·현재 상태(§16). 자동 주입돼 있더라도 결정 직전이면 한 번 더 짚는다.
 
 1.5. **★ 공용 문서 재적재 (`C:\project\common`) — 항상** — 이 프로젝트 문서만이 아니라 **여러 프로젝트가
-   공유하는 기준 문서**를 함께 다시 읽는다. `Glob "C:/project/common/*.md"`로 목록 확인 후 전부 Read:
+   공유하는 기준 문서**를 함께 다시 읽는다. `Glob "C:/project/common/*.md"`로 목록 확인 후 전부 Read. **수정 시각도 본다**(`ls -la --time-style=long-iso C:/project/common/*.md`) — 형제 프로젝트가 같은 날 저녁에 갱신하는 일이 잦다(2026-08-20 19:17 PLAY_RELEASE_AUTOMATION §5.10~5.12 추가를 놓친 채 vc5를 올린 전례). 부분 발췌(sed 구간)로 대신하지 않는다:
    - `C:\project\common\BUSINESS_INFO.md` — 사업자·서비스 정보 단일 출처(법적 상호·사업자번호·주소·
      스토어 계정·연락처·결제/광고 ID). **커밋 금지 파일 — 내용을 리포 안 어디에도 복사하지 않는다.**
    - `C:\project\common\PLAY_RELEASE_AUTOMATION.md` — Play 출시 자동화 절차.

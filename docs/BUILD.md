@@ -48,6 +48,8 @@ buildTypes {
 
 ## 3. 빌드 절차
 
+> 🔴 `.env`·`.env*.local`이 있으면 `tools/build-aab.ps1`이 **빌드를 거부**한다(common §5.5 — prebuild가 env를 읽어 번들에 문자열로 박고, 올린 뒤엔 못 고친다). 이 프로젝트는 env 파일을 쓰지 않는다(`EXPO_PUBLIC_SERVER_URL`만 코드 기본값). 2026-08-21 게이트 추가.
+
 ```powershell
 # 다음 버전 예: versionCode 3, 1.0.2 (versionCode는 업로드마다 +1 필수)
 powershell -ExecutionPolicy Bypass -File tools/build-aab.ps1 -VersionCode 3 -VersionName 1.0.2
@@ -78,6 +80,9 @@ npx eas-cli submit --platform android --profile closed --path idearepository-vc{
 - `releaseStatus: draft`인 이유: eas submit은 출시 노트를 못 넣는다 → 초안으로 올린 뒤 콘솔에서 출시명·노트(en/ko) 입력 → 검토 전송. 이 마무리는 브라우저로 가능(업로드만 CLI).
 - ⚠ 트랙 식별자 `alpha`는 기본값 가정 — 첫 제출에서 오류가 나면 콘솔의 실제 트랙 식별자로 맞춘다(기억으로 단정 금지).
 - 업로드 전 서명 지문 대조(§4)는 CLI 경로에서도 동일하게 한다.
+- `releaseStatus: draft`의 근거 하나 더(common §5.11·§5.12, 2026-08-20 조각 실측): `completed`는 **스토어 등록정보가 완성돼야** 통과하고, 등록정보는 비공개 테스트부터 필수다. 우리는 vc1부터 충족 — 하지만 draft면 이 검사와 무관하게 번들이 먼저 올라간다.
+- 권한 진단: `npm run check:play-access`(`scripts/check-play-access.mjs` — 키·토큰 미출력, HTTP 상태만. **403 = 앱 권한 없음(회수 성공)** · 204/200 = 부여됨 · 401 = 계정 권한). ⚠ 회수 직후 수십 초는 204가 남는다(전파 지연) — 콘솔 리로드로 먼저 확인.
+- 콘솔 웹 업로드는 **이미지는 된다**(`input[type=file]` 직접 주입 — common §5.10). 스크린샷·그래픽 교체 때 쓴다. AAB는 계속 `eas submit`.
 
 ## 4. 점검
 

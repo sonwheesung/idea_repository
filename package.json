@@ -8,7 +8,8 @@
     "ios": "expo start --ios --port 8087",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
-    "check:i18n": "node scripts/check-i18n.mjs"
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:play-access": "node scripts/check-play-access.mjs"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

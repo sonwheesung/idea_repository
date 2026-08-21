@@ -15,6 +15,9 @@ Set-Location $root
 if (-not (Test-Path 'credentials/idearepository-upload.jks') -or -not (Test-Path 'credentials/keystore.pass')) {
   Write-Error 'credentials/idearepository-upload.jks 또는 keystore.pass 없음 — 백업 C:\private_key 에서 복원'
 }
+# .env 게이트 (common/PLAY_RELEASE_AUTOMATION.md §5.5) — prebuild가 .env/.env.local을 읽어 번들에 박는다. 릴리스 빌드 전에 옆으로 치운다.
+$envFiles = Get-ChildItem -Path . -Filter '.env*' -File -Force -ErrorAction SilentlyContinue | Where-Object { $_.Name -ne 'expo-env.d.ts' }
+if ($envFiles) { Write-Error ("릴리스 빌드 전 .env 파일 제거/이동 필요: " + ($envFiles.Name -join ', ')) }
 if (-not $env:ANDROID_HOME) { $env:ANDROID_HOME = "$env:LOCALAPPDATA\Android\Sdk" }
 if (-not $env:JAVA_HOME) { $env:JAVA_HOME = 'C:\Program Files\Java\jdk-19' }
 
