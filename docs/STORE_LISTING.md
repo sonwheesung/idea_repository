@@ -256,7 +256,21 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
-### vc4 · 1.0.3 (2026-08-20)
+### vc5 · 1.0.4 (2026-08-21)
+
+**en-US**
+```
+• Idea Lab: the "+" to add a word now sits at the top-right of the Manage words screen. Removed the bottom actions (import tags & categories / restore defaults) to keep the list clean.
+• Korean: particles (은/는, 이/가, 을/를) now match the word automatically in What if… cards, Improve questions and delete prompts.
+```
+
+**ko-KR**
+```
+• 발상 도구: 단어 관리 화면의 단어 추가를 우측 상단 ＋ 버튼으로 옮겼습니다. 하단의 내 태그·카테고리 가져오기 / 기본 단어 복원은 제거했습니다.
+• 한국어: 만약에… 카드, 개선 질문, 삭제 확인 문구의 조사(은/는·이/가·을/를)가 단어에 맞게 자동으로 붙습니다.
+```
+
+### vc4 · 1.0.3 (2026-08-20) — ✅ 검토 통과 · 테스터 제공(8/20 11:08)
 
 **en-US**
 ```
