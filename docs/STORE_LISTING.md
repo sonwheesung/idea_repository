@@ -256,7 +256,19 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
-### vc6 · 1.0.5 (2026-08-21) — 검토 전송
+### vc7 · 1.0.6 (2026-08-23) — 검토 전송
+
+**en-US**
+```
+• Consistent layout: Settings, Idea Lab and About now share the same row style — every settings row shows an icon and a one-line description, and all rows are the same height. Cards and dialogs use unified corners and spacing.
+```
+
+**ko-KR**
+```
+• 화면 규격 통일: 설정·발상 도구·정보 화면의 행 모양을 맞췄습니다 — 설정의 모든 행에 아이콘과 한 줄 설명이 붙고 높이가 같아졌습니다. 카드·다이얼로그의 모서리와 간격도 통일했습니다.
+```
+
+### vc6 · 1.0.5 (2026-08-21) — ✅ 검토 통과 · 테스터 제공(8/21 16:25)
 
 **en-US**
 ```
