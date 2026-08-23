@@ -1,6 +1,6 @@
 # MONETIZATION_SYSTEM — 광고 + Remove Ads
 
-> 정책 요약은 [`../CLAUDE.md`](../CLAUDE.md) §7·§7.1, 여기는 상세. 2026-08-17 기획 확정 — 구현 0%.
+> 정책 요약은 [`../CLAUDE.md`](../CLAUDE.md) §7·§7.1, 여기는 상세. 2026-08-17 기획 확정 — ~~구현 0%~~ → 구현 현황표 참조(광고 ✅ · Remove Ads ⏸).
 > LinkMemo `docs/MONETIZATION_SYSTEM.md`의 구현 규칙·함정을 승계한다.
 
 ## 구현 현황
@@ -14,8 +14,8 @@
 | **UMP 개인정보 옵션 재진입**(설정 → Privacy options) | ✅ | 2026-08-17 법무 점검 — `privacyOptionsRequirementStatus === REQUIRED`(EEA·영국·스위스)일 때만 설정에 행 노출 → `AdsConsent.showPrivacyOptionsForm()`. Google EU 사용자 동의 정책(동의 재방문 수단) + 처리방침 §5·제9조 약속의 실체 |
 | 광고 게이트 `adsEnabled()` | ✅ | 2026-08-17 — `features/ads/store.ts` 단일 출처. Phase 7에서 removeAds 연결 |
 | AdMob 앱·광고단위 발급 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — §3.1 |
-| Remove Ads 구매(RevenueCat 익명) | ❌ | |
-| Restore Purchases | ❌ | |
+| Remove Ads 구매(RevenueCat 익명) | ⏸ | Phase 7 — AdMob 계정 정지 해제 후(2026-08-21, §3.1) |
+| Restore Purchases | ⏸ | 〃 |
 
 ---
 

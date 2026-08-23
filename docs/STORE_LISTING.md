@@ -11,13 +11,13 @@
 |---|---|---|
 | 앱 이름 · 짧은 설명 · 자세한 설명(EN·KO) | ✅ 초안 | 이 문서 §2~§3. 글자 수 한도 검증(30/80/4000) — 아래 표기 |
 | 캐치프레이즈 · 키워드 · 카테고리 | ✅ | §1·§4 — CLAUDE.md §14 서비스명 결정과 동일 |
-| 연락처 · 웹사이트 · 처리방침/약관 URL | ✅ 값 확정 | §5 — URL은 **게시 예정**(vivace-games.com 하위 경로). 게시 자체는 Phase 8 |
+| 연락처 · 웹사이트 · 처리방침/약관 URL | ✅ | §5 — URL ~~게시 예정~~ → ✅ 게시 2026-08-17(4차/5차 재게시 8/21), 라이브 200 |
 | 콘텐츠 등급 · 타겟층 메모 | ✅ | §6 |
 | 스크린샷 플랜 · 피처 그래픽 아이디어 | ✅ 플랜 | §7 — 실촬영은 Phase 2~3 화면 완성 후 |
 | App Store 항목(subtitle·promo·keywords) | ✅ 초안 | §8 |
 | 앱 내 About 화면(정보·링크·판매자 정보) | ✅ | 2026-08-17 — `app/about.tsx` · `lib/links.ts` · 설정 → 정보 |
 | 아이콘 · 피처 그래픽 · 스크린샷 실제 파일 | ✅ | 2026-08-17 `tools/store/` — 콘솔 업로드 완료 |
-| Play 데이터 보안 선언 · IAP 상품 · 테스터 트랙 | 🔨 | 데이터 보안 ✅ · 트랙 준비 ✅(AAB 대기) · IAP는 Phase 7 |
+| Play 데이터 보안 선언 · IAP 상품 · 테스터 트랙 | 🔨 | 데이터 보안 ✅ · 트랙 ✅(vc1~vc6 업로드, 테스터 제공 중) · IAP ⏸ Phase 7(AdMob 정지 해제 후) |
 
 🚫 = 안 하기로 결정 / ⏸ = 보류 / ❌ = 미착수 / ✅ = 완료
 
@@ -164,8 +164,8 @@ Capture your ideas. Keep them private. Build what matters.
 | 개발자명(공개) | Vivace Games | 브랜드. 법적 상호는 아래 |
 | 이메일 | support@vivace-games.com | LinkMemo와 동일 창구 |
 | 웹사이트 | https://vivace-games.com | |
-| 개인정보처리방침 URL | https://vivace-games.com/idearepository/privacy | **게시 예정**(Phase 8) — 배구 서버 Vercel 정적 페이지 방식(LinkMemo 선례). 앱 내 About 링크와 동일 |
-| 이용약관 URL | https://vivace-games.com/idearepository/terms | **게시 예정** — 유료 상품(Remove Ads) 있으므로 준비 |
+| 개인정보처리방침 URL | https://vivace-games.com/idearepository/privacy | ~~게시 예정(Phase 8)~~ → ✅ 게시 2026-08-17 — 배구 서버 Vercel 정적 페이지 방식(LinkMemo 선례). 앱 내 About 링크와 동일 |
+| 이용약관 URL | https://vivace-games.com/idearepository/terms | ~~게시 예정~~ → ✅ 게시 2026-08-17 — 유료 상품(Remove Ads) 있으므로 준비 |
 | 계정 삭제 URL | 해당 없음 | 계정이 없다(CLAUDE.md §4) — 콘솔 "계정 생성 없음"으로 선언 |
 | 법적 상호 | 휘성게임즈 / Hwiseong Games | 앱 내 About "판매자 정보"에 표시 |
 | 대표자 | 손휘성 (Son Hwi-seong) | |
@@ -244,11 +244,11 @@ Capture your ideas. Keep them private. Build what matters.
 | 이용약관 실게시(`/idearepository/terms`) | ✅ | 2026-08-17 — 200 |
 | Play 데이터 보안 선언(광고 SDK 수집 항목 = 처리방침 1:1) | ✅ | 2026-08-17 콘솔 제출 — `legal/DATA_SAFETY.md` §2 |
 | 앱 콘텐츠 선언 10종(등급·광고·타겟층·로그인 없음·광고 ID…) | ✅ | 2026-08-17 콘솔 11/11 완료(§6 답안 그대로) |
-| 한국 개발자 추가 정보(사업자번호·통신판매업 신고번호·신고기관) | ❌ | 계정 세부정보 — LinkMemo 선례 |
-| IAP 상품 `remove_ads`(비소모성) 등록 + RevenueCat attach | ❌ | Phase 7 — `store-iap-setup` 스킬 |
+| 한국 개발자 추가 정보(사업자번호·통신판매업 신고번호·신고기관) | ❓ | **계정 단위 항목**(앱별 아님) — LinkMemo가 2026-08-14 계정 세부정보에 입력. 같은 계정(Vivace Games Studio)이면 완료 — 프로덕션 신청 전 콘솔에서 확인 |
+| IAP 상품 `remove_ads`(비소모성) 등록 + RevenueCat attach | ⏸ | Phase 7 — AdMob 정지 해제 후(2026-08-21). `store-iap-setup` 스킬 |
 | 스토어 설정(카테고리 생산성 · 이메일 · 웹사이트) | ✅ | 2026-08-17 — 앱/생산성 · support@vivace-games.com · https://vivace-games.com |
-| 비공개 테스트 트랙(Alpha) + 테스터 12명 × 14일 | 🔨 | 2026-08-17 트랙 `4700611093824576153` 국가·테스터·출시노트 준비. ⏳ AAB 업로드(사용자) → 검토 전송 → 14일 시계 |
-| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → vc1(65MB, 업로드·검토 전송 완료) · **2026-08-18 vc2 · 1.0.1** — `app.json` version/versionCode → `expo prebuild --platform android`(서명 설정 유지 확인) → `gradlew bundleRelease` → `idearepository-vc2.aab` → 사용자 업로드 → 출시명 `2 (1.0.1)`·노트 입력 → **검토 전송 완료**(2026-08-18). 릴리스 노트 §10 |
+| 비공개 테스트 트랙(Alpha) + 테스터 12명 × 14일 | ✅ 진행 중 | 2026-08-17 트랙 `4700611093824576153` → vc1 검토 통과·테스터 제공(8/17)부터 14일 시계, 프로덕션 신청 가능 ≈ 8/31. 테스터 = 업체 인원(`common/CLOSED_TESTING.md`) |
+| AAB(EAS 또는 로컬 gradle) · versionCode 동기화(CNG 주의) | 🔨 | 2026-08-17 로컬 gradle `bundleRelease` → vc1(65MB, 업로드·검토 전송 완료) · **2026-08-18 vc2 · 1.0.1** — `app.json` version/versionCode → `expo prebuild --platform android`(서명 설정 유지 확인) → `gradlew bundleRelease` → `idearepository-vc2.aab` → 사용자 업로드 → 출시명 `2 (1.0.1)`·노트 입력 → **검토 전송 완료**(2026-08-18) · 이후 vc3~vc6은 `tools/build-aab.ps1` + `eas submit`([`BUILD.md`](./BUILD.md) §3·§3.5·§5). 릴리스 노트 §10 |
 | `play-store-launch-checklist` 스킬 전체 점검 | ❌ | 제출 직전 |
 | 앱 내 About(정보) — 링크·판매자 정보 | ✅ | 2026-08-17 `app/about.tsx` |
 

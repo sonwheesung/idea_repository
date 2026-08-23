@@ -1,17 +1,17 @@
 # I18N_SYSTEM — 다국어·지역 표기
 
-> 정책은 [`../CLAUDE.md`](../CLAUDE.md) §9. 2026-08-17 기획 확정 — 구현 0%.
+> 정책은 [`../CLAUDE.md`](../CLAUDE.md) §9. 2026-08-17 기획 확정 — ~~구현 0%~~ → 구현 현황표 참조(Phase 0·4 완료).
 > **글로벌 출시가 전제**다 — 기본 언어 English. LinkMemo `docs/I18N_SYSTEM.md` 규약 승계.
 
 ## 구현 현황
 
 | 영역 | 상태 |
 |---|---|
-| i18next · react-i18next · expo-localization 세팅(`lib/i18n.ts`) | ❌ |
-| en(기본) · ko 리소스 | ❌ |
-| 언어 수동 변경(설정 → 언어: 시스템 따르기 + en + ko) | ❌ |
-| 키 검사 스크립트(`check:i18n`) — LinkMemo `scripts/check-i18n.mjs` 이식 | ❌ |
-| 날짜 로케일 표기(dayjs + 기기 지역) | ❌ |
+| i18next · react-i18next · expo-localization 세팅(`lib/i18n.ts`) | ✅ 2026-08-17 Phase 0 — josa 포매터 추가 2026-08-20 |
+| en(기본) · ko 리소스 | ✅ 2026-08-17 — 295키(2026-08-21) |
+| 언어 수동 변경(설정 → 언어: 시스템 따르기 + en + ko) | ✅ 2026-08-17 — 설정 행 탭 → OptionSheet |
+| 키 검사 스크립트(`check:i18n`) — LinkMemo `scripts/check-i18n.mjs` 이식 | ✅ 2026-08-17 — Phase 4에서 코드 사용 키 검사(④) 추가 |
+| 날짜 로케일 표기(dayjs + 기기 지역) | ✅ 2026-08-17 — `lib/date.ts`(`ll`) |
 
 ---
 

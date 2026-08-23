@@ -11,11 +11,11 @@
 | 문서 | 범위 | 상태 |
 |---|---|---|
 | [`../CLAUDE.md`](../CLAUDE.md) | 설계 정본 — 기둥·MVP 범위·회원 없음/로컬 온리 정책·BM·스택·결정 로그(미결정 0건 — 2026-08-17 전부 확정) | ✅ |
-| [`PLAN.md`](./PLAN.md) | MVP 구현 플랜 — Phase 0~8 착수 순서·완료 기준·진행 현황 | ✅ |
+| [`PLAN.md`](./PLAN.md) | MVP 구현 플랜 — Phase 0~10 착수 순서·완료 기준·진행 현황 | ✅ |
 | [`ARCHITECTURE.md`](./ARCHITECTURE.md) | 서버 경계 — common_server 연동(공지·문의)·전용 서버 없음·선행 작업 | ✅ |
 | [`DOC_DISCIPLINE.md`](./DOC_DISCIPLINE.md) | 문서 작업 규율 (LinkMemo·조각 승계) | ✅ |
 | [`PROJECT_SYSTEM.md`](./PROJECT_SYSTEM.md) | 도메인 — 프로젝트·기본/아이디어/진행 정보·카테고리·태그·노트·자료·메인·검색·필터·정렬·상세 | ✅ |
-| [`DATABASE.md`](./DATABASE.md) | expo-sqlite v1 스키마(6테이블)·시드·조회 패턴·마이그레이션 규약 | ✅ |
+| [`DATABASE.md`](./DATABASE.md) | expo-sqlite 스키마 v1(6테이블)→v2 approach→v3 ideation_words(7테이블)·시드·조회 패턴·마이그레이션 규약 | ✅ v3 2026-08-19 |
 | [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) | 광고(배너·전면형·금지 순간·UMP) + Remove Ads 일회성 구매·복원 | ✅ |
 | [`I18N_SYSTEM.md`](./I18N_SYSTEM.md) | 다국어 — en 기본·ko·키 규약·날짜 로케일·언어 추가 절차 | ✅ |
 | [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
@@ -24,9 +24,9 @@
 | [`BUILD.md`](./BUILD.md) | **로컬 AAB 빌드·서명** — 업로드 키스토어(재생성 금지)·비밀번호 파일·build.gradle 서명 블록·`tools/build-aab.ps1`·점검·버전 이력 | ✅ 2026-08-18 |
 | [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
-| [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) | 법률 문서 — 처리방침(EN·KO)·약관(KO·EN)·Play 데이터 보안 답안·게시 페이지 소스(`legal/`)·정합 규칙·게시 절차 | ✅ 초안(2026-08-17) · ✅ 게시(2026-08-17) |
+| [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) | 법률 문서 — 처리방침(EN·KO)·약관(KO·EN)·Play 데이터 보안 답안·게시 페이지 소스(`legal/`)·정합 규칙·게시 절차 | ✅ 초안(2026-08-17) · ✅ 게시(2026-08-17) · ✅ 4차/5차 재게시(2026-08-21) · 시행 고지 발행(2026-08-23) |
 | `UI_GUIDE.md` | 공통 컴포넌트·여백·타이포 사용법 | ❌ 미작성(Phase 0 토큰 확정 후) |
-| `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성(첫 빌드 시점부터) |
+| `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성 — 현재는 [`BUILD.md`](./BUILD.md) §5 버전 이력 + [`STORE_LISTING.md`](./STORE_LISTING.md) §10 릴리스 노트가 그 역할(2026-08-23 정리) |
 
 원본 기획서("Idea Vault 글로벌 MVP 기획서", 2026-08-17 — 서비스명은 같은 날 Idea Repository로 확정)는 이 문서 체계로 전부 옮겼다 — 기획서 §번호는 CLAUDE.md 곳곳에
 출처로 인용돼 있다. 기획서 자체는 레포에 두지 않는다(정본은 CLAUDE.md).
@@ -53,16 +53,16 @@
 | 관련 자료 CRUD + 외부 브라우저 | ✅ | 2026-08-17 Phase 2 — 다이얼로그(URL 필수·제목 자동 제안), 탭 = 브라우저 |
 | 검색 9필드 | ✅ | 2026-08-17 Phase 3 — 한 쿼리(LIKE + EXISTS), 디바운스, 세션 한정 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ✅ | 2026-08-17 Phase 3 — 필터 시트(상태·카테고리·우선순위 Select — 2026-08-18 상태 칩 이동) · 정렬 시트 · zustand persist |
-| 다국어 en·ko + `check:i18n`(리소스 정합 + 코드 사용 키) + 언어 설정 | ✅ | 2026-08-17 — 175키 동기, 설정→언어 행(탭 → OptionSheet: 시스템/English/한국어). Phase 4 점검 완료 |
+| 다국어 en·ko + `check:i18n`(리소스 정합 + 코드 사용 키) + 언어 설정 | ✅ | 2026-08-17 — ~~175키~~ 295키(2026-08-21 백업 키 포함) 동기, 설정→언어 행(탭 → OptionSheet: 시스템/English/한국어). Phase 4 점검 완료 |
 | 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
 | 하단 배너(메인·상세) | ✅ | 2026-08-17 Phase 6 — 실 AdMob 배너(dev=테스트 단위), 미수신 시 자리 미점유 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ✅ | 2026-08-17 Phase 6 — 복귀 노출 없음, 로드 8초 타임아웃 |
 | UMP 동의 폼 | ✅ | 2026-08-17 Phase 6 — 콘솔 GDPR 메시지 게시 + AdsConsent 흐름 |
 | ⚠ **Expo Go 종료** | — | 2026-08-17 — 광고 SDK(네이티브) 설치. 이후 개발은 디버그 빌드(`npx expo run:android --device <AVD명> --no-bundler`; expo-dev-client 미포함이라 일반 RN 디버그 앱). **Metro 8087에 붙이려면** 앱의 RN 개발 메뉴 → Settings → Debug server host를 `<호스트>:8087`로(에뮬레이터는 `10.0.2.2:8087`, 폰은 Tailscale `100.91.69.45:8087`) — 기본은 8081이라 다른 프로젝트 Metro에 붙는다(2026-08-17 실증). 에뮬레이터는 `run-as`로 `debug_http_host` 프리퍼런스를 직접 써도 된다 |
 | Remove Ads 구매 + Restore | ⏸ | Phase 7 — RevenueCat 익명. AdMob 정지 해제 후(2026-08-21) |
-| 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). vc6 예정 |
-| 공지·점검·강제업데이트(bootstrap) | ❌ | Phase 5 |
-| 문의하기 + 기기 subject + 내역/답변/상태 | ❌ | Phase 5 |
+| 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~vc6 예정~~ → vc6 · 1.0.5 검토 전송(2026-08-21) |
+| 공지·점검·강제업데이트(bootstrap) | ✅ | 2026-08-17 Phase 5 — `components/boot-gate.tsx`(실패 시 통과·차단 화면 출구) · `app/notice.tsx` + 설정 배지. ⏸ latest 소프트 안내 미구현 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §6 |
+| 문의하기 + 기기 subject + 내역/답변/상태 | ✅ | 2026-08-17 Phase 5 — `app/inquiries.tsx`·`app/inquiry.tsx`·`features/support/server.ts`(SecureStore UUID·세션). 프로덕션 E2E 실측 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
 | 첫 실행 프라이버시 웰컴 시트 + About "Privacy at a glance" | ✅ | 2026-08-17 — `components/welcome-sheet.tsx`·`privacy-overview.tsx`, `features/onboarding/store.ts`(persist, 복원 후 표시) |
 | 정보(About) 화면 — 버전·태그라인·링크(처리방침·약관·문의·웹사이트)·판매자 정보 | ✅ | 2026-08-17 — `app/about.tsx` · 상수 `lib/links.ts` · 문안 [`STORE_LISTING.md`](./STORE_LISTING.md) |
@@ -71,14 +71,14 @@
 
 | 영역 | 상태 | 비고 |
 |---|---|---|
-| common_server `apps`에 `idearepository` 등록 | ❌ | app_code 확정(2026-08-17). 확인: `bootstrap?app=idearepository` 200 |
-| common_server SDK 복사(`lib/common-server/`) | ❌ | SDK_VERSION 2026-08-14 |
+| common_server `apps`에 `idearepository` 등록 | ✅ | 2026-08-17 seed — 프로덕션 `bootstrap?app=idearepository` 200 실측 |
+| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — SDK_VERSION 2026-08-14, `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
 | 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
-| RevenueCat 프로젝트(익명 모드) | ❌ | 웹훅·서버 연동 없음 |
-| 스토어 Remove Ads 상품 등록 | ❌ | 비소모성 1상품 |
+| RevenueCat 프로젝트(익명 모드) | ⏸ | 웹훅·서버 연동 없음. Phase 7 — AdMob 정지 해제 후(2026-08-21) |
+| 스토어 Remove Ads 상품 등록 | ⏸ | 비소모성 1상품. Phase 7 — AdMob 정지 해제 후(2026-08-21) |
 | 처리방침·약관 게시 | ✅ | 2026-08-17 — `vivace-games.com/idearepository/{privacy,terms}` 200(배구 서버 정적 페이지, 사용자 확인 후 배포). 정본 `docs/legal/`, 절차 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) |
-| Play 콘솔 앱 · 비공개 테스트 | ✅ 검토 전송 | 2026-08-17 브라우저 대행 — Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`. 앱 콘텐츠 11/11 · 데이터 보안 · 스토어 설정 · 등록정보 EN/KO+그래픽 · AAB vc1(사용자 업로드) → **변경사항 16개 검토 전송**(2026-08-17). 검토 통과 후 테스터 12명×14일 |
+| Play 콘솔 앱 · 비공개 테스트 | ✅ 검토 전송 | 2026-08-17 브라우저 대행 — Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`. 앱 콘텐츠 11/11 · 데이터 보안 · 스토어 설정 · 등록정보 EN/KO+그래픽 · AAB vc1(사용자 업로드) → **변경사항 16개 검토 전송**(2026-08-17) → vc1 검토 통과·테스터 제공(8/17) → vc2~vc6 순차 업로드(vc4부터 `eas submit` CLI — [`BUILD.md`](./BUILD.md) §3.5·§5). **vc5 테스터 제공 중(8/21) · vc6 검토 중(8/21)**. 테스터 = 업체 인원(`common/CLOSED_TESTING.md`), 프로덕션 신청 가능 ≈ 2026-08-31 |
 
 🚫 = 안 하기로 결정 / ⏸ = 보류 / ❌ = 미착수 / ✅ = 완료
 

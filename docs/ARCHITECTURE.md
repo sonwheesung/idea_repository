@@ -1,7 +1,7 @@
 # ARCHITECTURE — 서버 경계와 연동
 
 > 정책 요약은 [`../CLAUDE.md`](../CLAUDE.md) §10. LinkMemo `docs/ARCHITECTURE.md`의 틀을 승계 —
-> Idea Repository도 **로그인 없음·전용 서버 없음**이라 같은 두께다. 2026-08-17 작성 — 연동 0%.
+> Idea Repository도 **로그인 없음·전용 서버 없음**이라 같은 두께다. 2026-08-17 작성 — ~~연동 0%~~ → §6 구현 현황 참조(Phase 5 완료).
 
 ---
 

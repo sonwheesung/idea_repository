@@ -286,15 +286,15 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ✅ 테마·언어 store가 첫 사용처 |
 | 테마 | `theme/palettes.ts` 토큰 — **12종 + 시스템(자동)**(LinkMemo 구조 승계) | ✅ 2026-08-17 토큰 17종(+cardAccents) · `app/theme.tsx` 미니어처 그리드 |
 | **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ✅ 2026-08-17 v1 6테이블 + 시드 ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
-| 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ❌ |
+| 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ✅ 2026-08-17 Phase 5 (`features/support/server.ts`) |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ✅ 2026-08-17 Phase 6 |
 | 개발 실행 | **dev build** (`npm run android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**(2026-08-17부터) | ✅ |
-| 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ❌ |
-| 브라우저 열기 | expo-linking (`Linking.openURL`) — 관련 자료 URL | ❌ |
-| 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko 29키 · 설정→언어 수동 변경 |
+| 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ⏸ Phase 7 — AdMob 정지 해제 후 |
+| 브라우저 열기 | expo-linking (`Linking.openURL`) — 관련 자료 URL | ✅ 2026-08-17 Phase 2 |
+| 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko ~~29키~~ 295키(2026-08-21) · 설정→언어 수동 변경 · es-hangul 조사 |
 | 날짜 | dayjs (+ locale · localizedFormat · customParseFormat) — 기기 지역 표기 | ✅ `lib/date.ts` (카드 수정일) |
-| 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ❌ |
-| 배포 | ~~Expo EAS~~ → **로컬 gradle AAB**(업로드 키 `credentials/`, 절차 [`docs/BUILD.md`](./docs/BUILD.md)) | ✅ vc1·vc2 |
+| 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ✅ 2026-08-17 Phase 5 |
+| 배포 | ~~Expo EAS~~ → **로컬 gradle AAB**(업로드 키 `credentials/`, 절차 [`docs/BUILD.md`](./docs/BUILD.md)) | ✅ vc1~vc6 (vc4부터 `eas submit` 업로드) |
 | Metro 포트 | **8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피) | ✅ scripts 반영 · :8087 번들 200 실측 |
 
 - `android/`·`ios/`는 CNG 산출물 — 커밋하지 않는다.
