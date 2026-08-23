@@ -83,6 +83,11 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 2. `DATA_SAFETY.md` §2·§3 표와 §4 대조표를 같이 고친다.
 3. `docs/legal/pages/idearepository/*/page.tsx`를 .md와 맞춘다(시행일·최종 수정일 갱신, 개정 이력 1줄 추가).
 4. 시행 전 고지: 처리방침 7일(중대 30일)·약관 7일(불리 30일) 전 앱 공지(common_server 공지) + 게시 URL.
+   **발행 방법(2026-08-23 확정)**: common_server `POST /api/admin/announcements`(Bearer `ADMIN_TOKEN` — `common_server/.env.local`을
+   `node --env-file`로 주입, 값은 출력·복사·대화 기재 금지. 로컬 토큰 = 프로덕션 토큰임을 `_dv_admin.ts` 200으로 확인). 공지는 **단일 언어 필드**
+   (title·body)라 **EN 본문 + KO 본문을 한 공지에 병기**한다(앱 기본 언어 영어, 테스터 다수 한국어). 앱은 `app/notice.tsx`가 본문을 **평문 Text**로
+   그린다 — 마크다운·링크 태그 금지, URL은 평문. `kind: notice`, `pinned: false`(Idea Repository는 pinned 팝업 미채택 — ARCHITECTURE §6),
+   `endsAt` = 시행일 + 30일(자동 종료 — 지난 고지가 목록에 남지 않게). 발행 후 `bootstrap?app=idearepository`에서 `announcements[]`로 실측.
 5. 게시(§5) → Play 콘솔 데이터 보안 양식 재제출(변경 시).
 6. 정정 이력은 취소선 + 날짜로 남긴다(DOC_DISCIPLINE §4).
 
@@ -131,6 +136,7 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 | 11 | **판매자 정보 전화번호** | 이메일만 | 전자상거래법 제10조 표시사항에 전화번호가 있다(대표번호 = 개인 휴대전화, BUSINESS_INFO §1). **형제 앱 4종 전부 미기재 확인(2026-08-17) → 이메일만 유지**(일관성) |
 | 12 | **스토어 설명의 Remove Ads 문장** | 등록정보 EN/KO에 "one-time Remove Ads purchase" 기재 | vc1에는 미구현(Phase 7). 비공개 테스트 중엔 무해하나 **프로덕션 전 Phase 7 완료 또는 문장 삭제** 중 택1 |
 | 10 | 게시 URL 경로 | `/idearepository/privacy`·`/terms` | 배구 서버 라우트와 충돌 없음(LinkMemo `/linkmemo/...` 선례). 확정 시 BUSINESS_INFO §3 갱신 |
+| 13 | **4차/5차 시행 고지가 7일 규칙에 2일 미달**(2026-08-23 발견) | 게시 2026-08-21 · 시행 2026-08-28인데 앱 내 공지는 2026-08-23 발행 → **5일 전**. 처리방침 KO 제17항 2호·§4-4가 약속한 "시행 7일 전 앱 내 공지"에 못 미친다 | 선택지: (a) 시행일 유지 + 5일 고지(변경이 이용자에게 불리하지 않은 고지성 정정 — 백업 파일 고지·"내보내기 없음" 오기 정정 — 이고, 기능은 vc6로 이미 제공 중이라 시행을 늦출수록 약관 ⇄ 실제 불일치 창이 길어진다) / (b) 시행일 2026-08-30으로 연기(md 4종·page.tsx 2종·재게시 필요). ~~**권고 (a)** — 사용자 결정 대기~~ → **해소(2026-08-23 사용자)**: 비공개 테스트 중 이용자는 사실상 사용자 본인뿐(테스터 = 업체 인원, 설치·실행만 — `common/CLOSED_TESTING.md`). 고지 기간은 **프로덕션 이용자 기준**으로 프로덕션 전에 맞추면 된다 → 시행일 8/28 유지, 재게시 없음. 다음부터는 **정본 개정 커밋과 같은 날 공지 발행** |
 
 - 이 문서는 **세무·정산(AdMob 세금정보·RC 정산·부가세)과 무관**하다 — 그건 BUSINESS_INFO §5·스토어 콘솔의 영역.
 - Play "계정 삭제 URL" 요건은 계정이 없어 **해당 없음**(CLAUDE.md §4). 로그인을 붙이는 순간 처리방침·약관·삭제 URL이 세트로 바뀐다.
@@ -180,6 +186,38 @@ Splend Apps Notepad · ClevNote(Cleveni, KR) · Joplin. **약관 비교 대상**
 GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · 약관의 미성년자·복원·30일 종료 고지·ODR 종료 반영·전상법 판매자 블록(신고번호 포함).
 
 ## 게시 기록
+
+- **2026-08-23 (4차/5차 시행 고지 — ✅ 발행)** — §4-4 방법으로 common_server 공지 1건(EN+KO 병기, `kind: notice`, `pinned: false`,
+  `endsAt: 2026-09-27T15:00:00Z` = KST 2026-09-28 00:00). `POST /api/admin/announcements` 200 → id `df35b667-8c71-4f14-a1b5-5c30e655f65a`,
+  startsAt 2026-08-23T03:19:15Z(KST 12:19). 프로덕션 `bootstrap?app=idearepository` → `announcements` 1건, 본문 1,162자 = 아래 정본과 글자 단위 일치(node 대조).
+  사용자 판단 "미리 발행" — 9/27까지 살아 있어 프로덕션 전환 후 이용자도 본다. 7일 규칙 미달은 §7 #13 해소. 발행 스크립트는 세션 스크래치(토큰 미출력, 상태·id만 출력).
+  **문안(정본 — 발행 본문과 글자 단위로 같아야 한다)**:
+
+  ```
+  title: Privacy Policy & Terms updated (effective 2026-08-28) · 개인정보처리방침·이용약관 개정 안내
+
+  We've updated the Privacy Policy (rev. 4) and the Terms of Service (rev. 5). Both take effect on 2026-08-28.
+
+  What changed
+  • Backup (Settings → Backup): the app can now export all your ideas to a single file on your device and import it back later. The Privacy Policy now states that this file is created on your device, shared only where you choose, and never received by us. The Terms no longer say "no export" and clarify that keeping the file safe is up to you.
+  • Nothing else changed — what leaves your device (ad SDK, the version check at startup, inquiries you send) stays the same.
+
+  Full text
+  Privacy Policy: https://vivace-games.com/idearepository/privacy
+  Terms of Service: https://vivace-games.com/idearepository/terms
+
+  ──
+
+  개인정보처리방침(4차)과 이용약관(5차)을 개정했습니다. 시행일은 2026-08-28입니다.
+
+  바뀐 내용
+  • 백업(설정 → 백업): 모든 아이디어를 기기 안의 파일 하나로 내보내고, 나중에 다시 가져올 수 있습니다. 처리방침에 이 파일은 기기에서 만들어져 이용자가 고른 곳으로만 전달되며 회사는 받지 않는다는 내용을 추가했습니다. 약관의 "내보내기 기능 없음" 문구를 정정하고, 파일 보관 책임은 이용자에게 있음을 명시했습니다.
+  • 그 외 변경은 없습니다 — 기기 밖으로 나가는 정보(광고 SDK · 시작 시 버전 확인 · 직접 보낸 문의)는 그대로입니다.
+
+  전문 보기
+  개인정보처리방침: https://vivace-games.com/idearepository/privacy
+  이용약관: https://vivace-games.com/idearepository/terms
+  ```
 
 - **2026-08-21 (처리방침 4차 · 약관 5차 — ✅ 게시)** — 배구 레포 `ab74543`(페이지 2개만 스테이징, 다른 세션 미커밋 작업 분리) → detached worktree에서 `vercel --prod`(복사한 `.vercel`은 "Not authorized" → `vercel link --project volleyball --scope sonws` 재링크 후 성공, 2차 게시와 동일) → `volleyball-9ovttvm8y` production Ready → 라이브 `/idearepository/privacy` "최종 수정: 2026-08-21 (4차…)" · `/terms` "(5차…)" 200 확인 → worktree 삭제(link가 만든 `.env.local` 포함). 원래 줄: — 로컬 백업 편입([`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md) §6): 약관 §3/제5조 "내보내기 없음" 정정 + 처리방침 §2 백업 파일 한 문장(기기 생성·이용자가 고른 곳으로만·회사 미수신). 시행 2026-08-28(7일 고지 규칙). Data Safety 변경 없음(수집·공유 항목 불변). **재게시는 §5 절차 — 배구 레포 복사 → `vercel --prod`는 사용자 확인 후.** 앱 내 공지(common_server)로 변경 고지 필요.
 

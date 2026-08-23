@@ -25,6 +25,8 @@ description: Re-read the project's design docs (CLAUDE.md spine + docs/ system d
    - `C:\project\common\BUSINESS_INFO.md` — 사업자·서비스 정보 단일 출처(법적 상호·사업자번호·주소·
      스토어 계정·연락처·결제/광고 ID). **커밋 금지 파일 — 내용을 리포 안 어디에도 복사하지 않는다.**
    - `C:\project\common\PLAY_RELEASE_AUTOMATION.md` — Play 출시 자동화 절차.
+   - `C:\project\common\CLOSED_TESTING.md` — **비공개 테스트 테스터 = 업체 인원(설치·실행만), 실제 테스트는 사용자 본인**(2026-08-23).
+     테스터 고지·배려·고지 기간을 이유로 작업을 넓히지 않는다 — 같은 설명을 세션마다 반복하게 만들지 말 것.
    - 그 폴더에 새 문서가 생기면 함께. `.claude/`(스킬 정의)는 도구라 제외 — 호출 시 로드된다.
    > 왜: 한 프로젝트 세션이 **크로스-프로젝트 사실**(계정 상태·법적 정보·릴리스 절차)을 낡은 기억으로
    > 오보하기 쉽다. 공용 문서가 정본이니 재적재 때 같이 읽는다.

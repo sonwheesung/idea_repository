@@ -108,6 +108,9 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
    연동 전 과정에서 유일하게 재배포가 필요한 지점. 없으면 "문의는 들어오는데 알림만 없는" 상태다(고장 아님).
    ⚠ LinkMemo 등록 때 `.env.local` 마지막 줄 무개행 + append로 `SESSION_JWT_SECRET`이 오염된 사고가 있었다 —
    env 추가 전 파일 끝 개행을 확인한다.
+6. **공지 발행(운영, 앱 변경 없음)**: `POST /api/admin/announcements`(Bearer `ADMIN_TOKEN`) — 절차·제약(단일 언어 필드 → EN+KO 병기,
+   앱은 평문 렌더, `endsAt` 자동 종료)은 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) §4-4. 첫 사용 2026-08-23(법무 4차/5차 시행 고지).
+   관리자 콘솔(`ops-4b7e21`)에 토큰을 타이핑하는 대신 API + `--env-file` 주입으로 — 토큰이 화면·로그에 남지 않게.
 
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
