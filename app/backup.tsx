@@ -1,9 +1,10 @@
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Alert, StyleSheet, Text } from 'react-native';
 
 import { Button } from '@/components/button';
+import { Card } from '@/components/card';
 import { Screen } from '@/components/screen';
 import { exportBackup } from '@/features/backup/export';
 import type { BackupFile } from '@/features/backup/format';
@@ -100,9 +101,9 @@ export default function BackupScreen() {
 
   return (
     <Screen hasHeader scroll contentStyle={styles.body}>
-      <View style={[styles.card, { backgroundColor: theme.searchBar, borderColor: theme.border }]}>
+      <Card>
         <Text style={[styles.intro, { color: theme.text }]}>{t('backup.intro')}</Text>
-      </View>
+      </Card>
 
       <Button
         label={t('backup.export')}
@@ -129,7 +130,6 @@ export default function BackupScreen() {
 
 const styles = StyleSheet.create({
   body: { padding: 16, gap: 14, paddingBottom: 24 },
-  card: { borderWidth: 1, borderRadius: 10, padding: 14 },
   intro: { fontSize: 15, lineHeight: 22 },
   meta: { fontSize: 13, marginTop: -4, marginLeft: 4 },
   caution: { fontSize: 13, lineHeight: 19, marginTop: 8 },

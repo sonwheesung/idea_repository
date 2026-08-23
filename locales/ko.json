@@ -92,7 +92,11 @@
     "inquiry": "문의하기",
     "privacyOptions": "개인정보 옵션",
     "privacyOptionsHint": "광고 동의 선택 변경",
-    "backup": "백업"
+    "backup": "백업",
+    "categoriesCount": "카테고리 {{count}}개",
+    "noticeUnread": "안 읽은 공지 {{count}}개",
+    "noticeNone": "새 공지 없음",
+    "inquiryHint": "질문 · 버그 · 제안"
   },
   "category": {
     "name": "카테고리 이름",

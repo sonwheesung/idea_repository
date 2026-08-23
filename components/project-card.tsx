@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Badge } from '@/components/badge';
 import { Card } from '@/components/card';
+import { ProgressBar } from '@/components/progress-bar';
 import type { ProjectCard as ProjectCardData } from '@/features/projects/types';
 import { formatDate } from '@/lib/date';
 import { useTheme } from '@/theme/use-theme';
@@ -43,9 +45,7 @@ export function ProjectCard({ project, index = 0, onPress, onLongPress }: Projec
         {project.priority !== 'none' ? <Badge label={t(`priority.${project.priority}`)} accent /> : null}
         <Text style={[styles.progressText, { color: theme.text }]}>{project.progress}%</Text>
       </View>
-      <View style={[styles.track, { backgroundColor: theme.progressTrack }]}>
-        <View style={[styles.fill, { backgroundColor: theme.progressFill, width: `${project.progress}%` }]} />
-      </View>
+      <ProgressBar value={project.progress} />
 
       <View style={styles.row}>
         <Text style={[styles.meta, { color: theme.textMuted }]} numberOfLines={1}>
@@ -60,25 +60,12 @@ export function ProjectCard({ project, index = 0, onPress, onLongPress }: Projec
   );
 }
 
-function Badge({ label, accent }: { label: string; accent?: boolean }) {
-  const theme = useTheme();
-  return (
-    <View style={[styles.badge, { backgroundColor: accent ? theme.primary : theme.badge }]}>
-      <Text style={[styles.badgeText, { color: accent ? theme.buttonText : theme.badgeText }]}>{label}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   accentCard: { overflow: 'hidden' },
   accentBar: { position: 'absolute', left: 0, top: 0, bottom: 0, width: 4 },
   name: { fontSize: 17, fontWeight: '600' },
   summary: { fontSize: 14 },
   row: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 },
-  badge: { borderRadius: 999, paddingHorizontal: 10, paddingVertical: 3 },
-  badgeText: { fontSize: 12, fontWeight: '500' },
   progressText: { marginLeft: 'auto', fontSize: 13, fontWeight: '600' },
-  track: { height: 6, borderRadius: 3, overflow: 'hidden' },
-  fill: { height: '100%', borderRadius: 3 },
   meta: { fontSize: 12, flexShrink: 1 },
 });

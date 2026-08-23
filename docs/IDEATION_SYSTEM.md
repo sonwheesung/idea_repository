@@ -37,7 +37,7 @@
 ## 3. 화면
 
 ```
-/idea-lab            도구 목록 — 설정 화면과 같은 행 문법(아이콘 · 제목 · 한 줄 설명). SettingRow 재사용 금지(도메인 다름) → IdeaLabRow
+/idea-lab            도구 목록 — 설정 화면과 같은 행 문법(아이콘 · 제목 · 한 줄 설명). ~~SettingRow 재사용 금지(도메인 다름) → IdeaLabRow~~ → 2026-08-23 공용 `ListRow`(UI_GUIDE §5.1)
 /idea-lab/combine    조합
 /idea-lab/improve    개선
 /idea-lab/problem    불편에서

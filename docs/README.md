@@ -25,7 +25,7 @@
 | [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
 | [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) | 법률 문서 — 처리방침(EN·KO)·약관(KO·EN)·Play 데이터 보안 답안·게시 페이지 소스(`legal/`)·정합 규칙·게시 절차 | ✅ 초안(2026-08-17) · ✅ 게시(2026-08-17) · ✅ 4차/5차 재게시(2026-08-21) · 시행 고지 발행(2026-08-23) |
-| `UI_GUIDE.md` | 공통 컴포넌트·여백·타이포 사용법 | ❌ 미작성(Phase 0 토큰 확정 후) |
+| [`UI_GUIDE.md`](./UI_GUIDE.md) | **공통 컴포넌트·표면(반경 3단계)·간격·타이포 규약** — ListRow·ListGroup·EditRow·Dialog·Badge·ProgressBar | ✅ 2026-08-23(~~❌ 미작성~~ — 설정 행 규격 통일에서 출발) |
 | `CHANGELOG.md` | 릴리스 변경 이력 | ❌ 미작성 — 현재는 [`BUILD.md`](./BUILD.md) §5 버전 이력 + [`STORE_LISTING.md`](./STORE_LISTING.md) §10 릴리스 노트가 그 역할(2026-08-23 정리) |
 
 원본 기획서("Idea Vault 글로벌 MVP 기획서", 2026-08-17 — 서비스명은 같은 날 Idea Repository로 확정)는 이 문서 체계로 전부 옮겼다 — 기획서 §번호는 CLAUDE.md 곳곳에
@@ -126,4 +126,4 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-
 - **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐.
 - **공통 기능(공지·문의)은 common_server, Idea Repository 전용 서버는 없다.** 상세는 [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 - 로그인이 없으므로 엔타이틀먼트 서버 판정도 없다. 광고 제거는 스토어 구매 이력이 진실.
-- 프로젝트명만 필수 — 나머지 필드에 필수 검증을 추가하지 않는다(기둥 1). 공통 UI는 `components/`에만. `any` 금지, `strict` 유지.
+- 프로젝트명만 필수 — 나머지 필드에 필수 검증을 추가하지 않는다(기둥 1). 공통 UI는 `components/`에만 — 탐색 행은 `ListRow`, 관리 행은 `EditRow`, 가운데 다이얼로그는 `Dialog`(2026-08-23, [`UI_GUIDE.md`](./UI_GUIDE.md)). `any` 금지, `strict` 유지.

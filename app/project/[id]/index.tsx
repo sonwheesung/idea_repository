@@ -5,8 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { AdBanner } from '@/components/ad-banner';
+import { Badge } from '@/components/badge';
 import { Button } from '@/components/button';
 import { Card } from '@/components/card';
+import { ProgressBar } from '@/components/progress-bar';
 import { ResourceDialog } from '@/components/resource-dialog';
 import { Screen } from '@/components/screen';
 import { TextField } from '@/components/text-field';
@@ -173,9 +175,7 @@ export default function ProjectDetailScreen() {
         {project.priority !== 'none' ? <Badge label={t(`priority.${project.priority}`)} accent /> : null}
         <Text style={[styles.progressText, { color: theme.text }]}>{project.progress}%</Text>
       </View>
-      <View style={[styles.track, { backgroundColor: theme.progressTrack }]}>
-        <View style={[styles.fill, { backgroundColor: theme.progressFill, width: `${project.progress}%` }]} />
-      </View>
+      <ProgressBar value={project.progress} height={8} />
 
       <Field label={t('project.summary')} value={project.summary} onAdd={goEdit} />
       <Field label={t('project.description')} value={project.description} onAdd={goEdit} />
@@ -343,15 +343,6 @@ function Divider() {
   return <View style={[styles.divider, { backgroundColor: theme.border }]} />;
 }
 
-function Badge({ label, accent }: { label: string; accent?: boolean }) {
-  const theme = useTheme();
-  return (
-    <View style={[styles.badge, { backgroundColor: accent ? theme.primary : theme.badge }]}>
-      <Text style={[styles.badgeText, { color: accent ? theme.buttonText : theme.badgeText }]}>{label}</Text>
-    </View>
-  );
-}
-
 const styles = StyleSheet.create({
   flex: { flex: 1 },
   body: { padding: 16, gap: 12, paddingBottom: 32 },
@@ -361,11 +352,7 @@ const styles = StyleSheet.create({
   name: { fontSize: 24, fontWeight: '700' },
   meta: { fontSize: 13 },
   badges: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  badge: { borderRadius: 999, paddingHorizontal: 10, paddingVertical: 4 },
-  badgeText: { fontSize: 12, fontWeight: '500' },
   progressText: { marginLeft: 'auto', fontSize: 14, fontWeight: '600' },
-  track: { height: 8, borderRadius: 4, overflow: 'hidden' },
-  fill: { height: '100%', borderRadius: 4 },
   divider: { height: StyleSheet.hairlineWidth, marginVertical: 8 },
   field: { gap: 4 },
   fieldLabel: { fontSize: 12, fontWeight: '600', textTransform: 'uppercase', letterSpacing: 0.4 },

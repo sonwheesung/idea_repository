@@ -1,29 +1,33 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { useState, type ReactNode } from 'react';
+import Constants from 'expo-constants';
+import { useFocusEffect, useRouter } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
+import { ListRow } from '@/components/list-row';
 import { OptionSheet, type SheetOption } from '@/components/option-sheet';
 import { Screen } from '@/components/screen';
-import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
-import { formatDate } from '@/lib/date';
-import { useLanguageStore } from '@/lib/language';
 import { showPrivacyOptions } from '@/features/ads/ads';
-import { useBackupStore } from '@/features/backup/store';
 import { useAdsStore } from '@/features/ads/store';
+import { useBackupStore } from '@/features/backup/store';
+import { listCategories } from '@/features/categories/api';
 import { useUnreadNoticeCount } from '@/features/support/store';
+import { formatDate } from '@/lib/date';
+import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
+import { useLanguageStore } from '@/lib/language';
 import { useThemeStore } from '@/theme/store';
 import { useResolvedThemeId, useTheme } from '@/theme/use-theme';
 
 type LanguageChoice = 'system' | AppLanguage;
 
-// 설정 — 모든 행이 같은 모양(라벨 · 현재 값 부제 · 화살표)이다(2026-08-18 사용자 지적: 언어만 라벨형이라 통일).
-// 테마·카테고리·공지·문의·About은 화면으로, 언어·개인정보 옵션은 시트/폼으로 이어지지만 행 모양은 구분하지 않는다.
-// 광고 제거(Phase 7) 행도 같은 SettingRow로 추가한다.
+// 설정 — 모든 행이 같은 규격(아이콘 · 제목 · 한 줄 설명 · 화살표)이다(2026-08-18 "언어만 라벨형" → 통일,
+// 2026-08-23 "부제 있는 행과 없는 행이 섞여 규격이 다르다" → 전 행에 설명 + ListRow minHeight — docs/UI_GUIDE.md §5.1).
+// 테마·카테고리·백업·공지·문의·About은 화면으로, 언어·개인정보 옵션은 시트/폼으로 이어지지만 행 모양은 구분하지 않는다.
+// 광고 제거(Phase 7) 행도 같은 ListRow로 추가한다.
 export default function SettingsScreen() {
   const { t } = useTranslation();
   const router = useRouter();
+  const theme = useTheme();
   const themeSetting = useThemeStore((s) => s.setting);
   const unreadNotices = useUnreadNoticeCount();
   const privacyOptionsRequired = useAdsStore((s) => s.privacyOptionsRequired);
@@ -32,6 +36,15 @@ export default function SettingsScreen() {
   const setOverride = useLanguageStore((s) => s.setOverride);
   const [languageOpen, setLanguageOpen] = useState(false);
   const lastExportedAt = useBackupStore((s) => s.lastExportedAt);
+  const [categoryCount, setCategoryCount] = useState(0);
+  const version = Constants.expoConfig?.version ?? '0.0.0';
+
+  // 카테고리 수 — 관리 화면에서 돌아오면 갱신
+  useFocusEffect(
+    useCallback(() => {
+      setCategoryCount(listCategories().length);
+    }, []),
+  );
 
   const languageOptions: SheetOption<LanguageChoice>[] = [
     { value: 'system', label: t('settings.languageSystem') },
@@ -41,55 +54,76 @@ export default function SettingsScreen() {
   const languageLabel = languageOptions.find((o) => o.value === languageValue)?.label ?? '';
 
   return (
-    <Screen hasHeader>
-      <View style={styles.body}>
-        <SettingRow
-          label={t('settings.theme')}
-          value={
-            themeSetting === 'system'
-              ? `${t('theme.system')} · ${t(`theme.names.${resolvedTheme}`)}`
-              : t(`theme.names.${resolvedTheme}`)
-          }
-          onPress={() => router.push('/theme')}
+    <Screen hasHeader scroll contentStyle={[styles.body, { backgroundColor: theme.background }]}>
+      <ListRow
+        icon="color-palette-outline"
+        title={t('settings.theme')}
+        description={
+          themeSetting === 'system'
+            ? `${t('theme.system')} · ${t(`theme.names.${resolvedTheme}`)}`
+            : t(`theme.names.${resolvedTheme}`)
+        }
+        onPress={() => router.push('/theme')}
+      />
+      <ListRow
+        icon="language-outline"
+        title={t('settings.language')}
+        description={languageLabel}
+        onPress={() => setLanguageOpen(true)}
+      />
+      <ListRow
+        icon="pricetags-outline"
+        title={t('settings.categories')}
+        description={t('settings.categoriesCount', { count: categoryCount })}
+        onPress={() => router.push('/categories')}
+      />
+
+      {/* 백업 — 내보내기/가져오기. 설명 = 마지막 내보내기(docs/BACKUP_SYSTEM.md §5) */}
+      <ListRow
+        icon="archive-outline"
+        title={t('settings.backup')}
+        description={`${t('backup.lastExport')}: ${lastExportedAt ? formatDate(lastExportedAt) : t('backup.never')}`}
+        onPress={() => router.push('/backup')}
+      />
+
+      {/* 공지 — 안 읽은 공지가 있으면 배지 점(푸시가 없어 이 점이 통지의 전부다 — 조각·LinkMemo 승계) */}
+      <ListRow
+        icon="notifications-outline"
+        title={t('settings.notice')}
+        description={
+          unreadNotices > 0 ? t('settings.noticeUnread', { count: unreadNotices }) : t('settings.noticeNone')
+        }
+        badge={unreadNotices > 0}
+        onPress={() => router.push('/notice')}
+      />
+
+      {/* 문의 — 첫 화면은 내역(상태·답변), 우상단에서 새 문의 (LinkMemo 동선) */}
+      <ListRow
+        icon="chatbubble-ellipses-outline"
+        title={t('settings.inquiry')}
+        description={t('settings.inquiryHint')}
+        onPress={() => router.push('/inquiries')}
+      />
+
+      {/* 광고 제거(Remove Ads·복원) 행 — Phase 7 에서 이 자리에 추가 */}
+
+      {/* UMP 개인정보 옵션 — EEA·영국·스위스(privacyOptionsRequirementStatus=REQUIRED)에서만 보인다.
+          Google EU 사용자 동의 정책: 동의를 다시 바꿀 수단 제공. 처리방침 §5·제9조가 이 행을 가리킨다. */}
+      {privacyOptionsRequired ? (
+        <ListRow
+          icon="shield-checkmark-outline"
+          title={t('settings.privacyOptions')}
+          description={t('settings.privacyOptionsHint')}
+          onPress={() => void showPrivacyOptions()}
         />
-        <SettingRow
-          label={t('settings.language')}
-          value={languageLabel}
-          onPress={() => setLanguageOpen(true)}
-        />
-        <SettingRow label={t('settings.categories')} onPress={() => router.push('/categories')} />
+      ) : null}
 
-        {/* 백업 — 내보내기/가져오기. 부제 = 마지막 내보내기(docs/BACKUP_SYSTEM.md §5) */}
-        <SettingRow
-          label={t('settings.backup')}
-          value={`${t('backup.lastExport')}: ${lastExportedAt ? formatDate(lastExportedAt) : t('backup.never')}`}
-          onPress={() => router.push('/backup')}
-        />
-
-        {/* 공지 — 안 읽은 공지가 있으면 배지 점(푸시가 없어 이 점이 통지의 전부다 — 조각·LinkMemo 승계) */}
-        <SettingRow
-          label={t('settings.notice')}
-          badge={unreadNotices > 0}
-          onPress={() => router.push('/notice')}
-        />
-
-        {/* 문의 — 첫 화면은 내역(상태·답변), 우상단에서 새 문의 (LinkMemo 동선) */}
-        <SettingRow label={t('settings.inquiry')} onPress={() => router.push('/inquiries')} />
-
-        {/* 광고 제거(Remove Ads·복원) 행 — Phase 7 에서 이 자리에 추가 */}
-
-        {/* UMP 개인정보 옵션 — EEA·영국·스위스(privacyOptionsRequirementStatus=REQUIRED)에서만 보인다.
-            Google EU 사용자 동의 정책: 동의를 다시 바꿀 수단 제공. 처리방침 §5·제9조가 이 행을 가리킨다. */}
-        {privacyOptionsRequired ? (
-          <SettingRow
-            label={t('settings.privacyOptions')}
-            value={t('settings.privacyOptionsHint')}
-            onPress={() => void showPrivacyOptions()}
-          />
-        ) : null}
-
-        <SettingRow label={t('settings.about')} onPress={() => router.push('/about')} />
-      </View>
+      <ListRow
+        icon="information-circle-outline"
+        title={t('settings.about')}
+        description={t('about.version', { version })}
+        onPress={() => router.push('/about')}
+      />
 
       <OptionSheet
         visible={languageOpen}
@@ -103,55 +137,6 @@ export default function SettingsScreen() {
   );
 }
 
-interface SettingRowProps {
-  label: string;
-  /** 현재 값 부제(테마·언어·힌트). 없으면 라벨만 */
-  value?: string;
-  badge?: boolean;
-  onPress: () => void;
-}
-
-/** 설정 행 — 라벨(+배지 점) · 값 부제 · chevron. 색은 토큰만. */
-function SettingRow({ label, value, badge, onPress }: SettingRowProps): ReactNode {
-  const theme = useTheme();
-  return (
-    <Pressable
-      onPress={onPress}
-      accessibilityRole="button"
-      style={({ pressed }) => [
-        styles.navRow,
-        { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
-      ]}>
-      <View style={styles.navLeft}>
-        <View style={styles.navLabelRow}>
-          <Text style={[styles.navLabel, { color: theme.text }]}>{label}</Text>
-          {badge ? <View style={[styles.badgeDot, { backgroundColor: theme.primary }]} /> : null}
-        </View>
-        {value ? (
-          <Text style={[styles.navValue, { color: theme.textMuted }]} numberOfLines={1}>
-            {value}
-          </Text>
-        ) : null}
-      </View>
-      <Ionicons name="chevron-forward" size={18} color={theme.icon} />
-    </Pressable>
-  );
-}
-
 const styles = StyleSheet.create({
-  body: { padding: 16, gap: 18 },
-  navRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-  },
-  navLeft: { flex: 1, marginRight: 8 },
-  navLabel: { fontSize: 16 },
-  navLabelRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  badgeDot: { width: 8, height: 8, borderRadius: 4 },
-  navValue: { fontSize: 12, marginTop: 2 },
+  body: { padding: 16, gap: 12, paddingBottom: 24 },
 });

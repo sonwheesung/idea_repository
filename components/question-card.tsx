@@ -22,7 +22,7 @@ export function QuestionCard({ kicker, question, hint }: QuestionCardProps) {
 }
 
 const styles = StyleSheet.create({
-  card: { borderWidth: 1, borderRadius: 12, padding: 16, gap: 6 },
+  card: { borderWidth: 1, borderRadius: 14, padding: 16, gap: 6 },
   kicker: { fontSize: 11, fontWeight: '600', letterSpacing: 0.6 },
   question: { fontSize: 18, fontWeight: '600', lineHeight: 26 },
   hint: { fontSize: 13, lineHeight: 19 },

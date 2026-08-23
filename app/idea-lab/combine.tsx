@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderRadius: 12,
+    borderRadius: 14,
     paddingVertical: 16,
     paddingHorizontal: 8,
     alignItems: 'center',
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   slotWord: { fontSize: 17, fontWeight: '600', textAlign: 'center' },
   slotHint: { fontSize: 11 },
   x: { fontSize: 20, fontWeight: '600' },
-  result: { borderWidth: 1, borderRadius: 12, padding: 14, gap: 4 },
+  result: { borderWidth: 1, borderRadius: 14, padding: 14, gap: 4 },
   resultQ: { fontSize: 13 },
   resultH: { fontSize: 18, fontWeight: '700' },
 });

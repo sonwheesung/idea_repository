@@ -92,7 +92,11 @@
     "inquiry": "Contact Us",
     "privacyOptions": "Privacy options",
     "privacyOptionsHint": "Change your ad consent choices",
-    "backup": "Backup"
+    "backup": "Backup",
+    "categoriesCount": "{{count}} categories",
+    "noticeUnread": "{{count}} unread",
+    "noticeNone": "No new notices",
+    "inquiryHint": "Questions, bugs, suggestions"
   },
   "category": {
     "name": "Category name",

@@ -308,7 +308,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 idea_repository/
 ├── app/          # expo-router 라우트 (index=메인 · project/[id] · project/new · project/[id]/edit · settings · categories · notice · inquiry)
 ├── features/     # projects / categories / tags / notes / resources / search / ads / purchase / support / ideation(단어 풀·섞기)
-├── components/   # 공통 UI (Screen · Button · Card · ProgressBar · StatusBadge · PriorityBadge …)
+├── components/   # 공통 UI (Screen · Button · Card · ListRow/ListGroup · EditRow · Dialog · Badge · ProgressBar … — docs/UI_GUIDE.md)
 ├── db/           # expo-sqlite 스키마·마이그레이션 (user_version 기반)
 ├── theme/        # 토큰 — 12종 팔레트 + system (palettes.ts · store.ts · use-theme.ts)
 ├── locales/      # en · ko
@@ -366,6 +366,7 @@ idea_repository/
 | N | **발상 도구(Idea Lab) 편입**(2026-08-18 사용자 결정 "괜찮네 그걸로 진행해보자") — 입구 = 메인 헤더 전구 + 빈 화면 링크 · 도구 4종 · 무작위 = 내장 단어/문장 풀(서버·AI 없음) · 결과 → `/project/new` 미리 채움 · `approach` 필드 신설 | 기획서에 없던 항목 — 사용자 요청으로 Ideate 단계를 제품 범위에 추가. 화면 시안 아티팩트(2026-08-18) 승인. 상세 [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md). vc2에 포함 |
 | P | **로컬 백업 = 무료, Remove Ads에 묶지 않음**(2026-08-21 사용자 결정 "무료로 가자") — JSON 한 파일 내보내기(OS 공유 시트)/가져오기(병합·교체), 평문·암호화 없음(v1), 설정 → 백업 | 기둥 6(기능 해제형 상품 없음)·포지션 "Your device. Yours"·기획서 §24와 충돌 회피. 백업은 수익원이 아니라 이탈 방지. **재검토 조건: AdMob 영구 정지로 BM을 다시 짤 때만.** 상세 [`docs/BACKUP_SYSTEM.md`](./docs/BACKUP_SYSTEM.md) §1 |
 | O | **발상 단어 관리 화면**(2026-08-19 사용자 지시 "출처 선택 말고 조합 우측 상단 단어 관리 아이콘 → 내장 단어 포함 전부 추가·수정·삭제") — 단어 출처 Select 제거 · DB v3 `ideation_words`(언어별 시드) · `/idea-lab/words`(그룹별 목록·CRUD·~~내 태그/카테고리 가져오기·기본 단어 복원~~ → 2026-08-20 제거, 추가는 헤더 ＋ 아이콘) | 내장 단어 = 일반 행(기본 카테고리와 같은 원칙). 시드 데이터는 `db/ideation-pool.ts`(의존 방향). 상세 IDEATION_SYSTEM §3.5·§4, DATABASE §2.2 |
+| Q | **행·카드 규격 통일 + 공통 컴포넌트 추출**(2026-08-23 사용자 지적 "설정 화면 카드 규격이 일정하지 않다 — 부제 있는 행과 없는 행" + "다른 화면도 통일, 같은 컴포넌트로 뺄 것 확인") — 한 목록 안 행은 전부 같은 규격(부제·아이콘 전부/전무, `minHeight`) · 탐색 행 `ListRow`(설정·발상 도구·About) · 관리 행 `EditRow`(카테고리·단어) · `Dialog`(다이얼로그 3벌 통합) · `Badge`·`ProgressBar` 추출 · 반경 3단계(14 컨테이너 / 12 컨트롤 / 10 입력) | 설정은 전 행에 아이콘 + 부제(현재 값·개수·힌트). ~~IdeaLabRow는 SettingRow와 별개~~(IDEATION §3) → 같은 `ListRow`. 상세 [`docs/UI_GUIDE.md`](./docs/UI_GUIDE.md). JS만 변경 — 다음 AAB(vc7) |
 
 ### ✅ 원 미결정 7건 — 2026-08-17 사용자 승인으로 전부 확정 (제안값 그대로)
 
@@ -425,4 +426,5 @@ idea_repository/
 - ⏸ **AdMob 계정 정지(2026-08-21 사용자 고지)**: 광고 지면·코드는 그대로 두고(실패 시 자리 미점유·즉시 진입 — 기존 규칙), 광고 후속 작업·**Phase 7 Remove Ads는 정지 해제 후 진행**. MONETIZATION_SYSTEM §3.1.
 - **2026-08-21 로컬 백업 완료**(§3 #23 · §14 P — 무료): 문서 선행([`docs/BACKUP_SYSTEM.md`](./docs/BACKUP_SYSTEM.md)) → expo-file-system/sharing/document-picker → `features/backup` → `/backup` 화면(설정 → 백업) → 약관 5차·처리방침 4차 정본 개정(2026-08-28 시행, **재게시는 사용자 확인 후**) → 에뮬 실측(내보내기 공유 시트·병합·교체·거부). → **vc6 · 1.0.5 빌드·CLI 업로드·출시명·노트·검토 전송 완료**("검토 중인 변경사항", 권한 회수). 법무 4차/5차도 같은 날 **게시 완료**(사용자 확인 후 vercel --prod, 라이브 200). vc5는 검토 통과·테스터 제공(8/21 12:04).
 - **2026-08-23 법무 4차/5차 시행 고지 ✅ 발행**: 앱 내 공지 = common_server 공지 1건(EN+KO 병기, 시행일+30일 자동 종료, id `df35b667…` — LEGAL_SYSTEM §4-4 발행 방법 확정·게시 기록에 문안 정본, bootstrap 실측 1건). 고지가 시행 5일 전(7일 규칙 2일 미달)이지만 **비공개 테스트 중 이용자는 사용자 본인뿐**(테스터 = 업체 인원, 설치·실행만 — `C:\project\common\CLOSED_TESTING.md`, 2026-08-23 작성)이라 시행일 유지 — LEGAL_SYSTEM §7 #13 해소. 앱 코드 변경 없음.
+- **2026-08-23 UI 규격 통일**(§14 Q): `docs/UI_GUIDE.md` 신설 → `ListRow`·`ListGroup`·`EditRow`·`Dialog`·`Badge`·`ProgressBar` 추출, 설정(아이콘+부제 전 행)·발상 도구·About·카테고리·단어·상세·카드 적용, 반경 3단계. 에뮬 육안 확인. **vc7 대기분**(OTA 금지).
 - 다음 단계: vc6 검토 결과 대기 → (AdMob 해제 후) Phase 7(Remove Ads: Play 상품 등록·RC 익명·구매/복원, 데이터 보안에 구매 내역 추가) → 프로덕션 신청(14일 후). 순서는 [`docs/PLAN.md`](./docs/PLAN.md).

@@ -1,9 +1,9 @@
-import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
-import { Alert, Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 
 import { Card } from '@/components/card';
+import { ListGroup, ListRow, type ListRowIcon } from '@/components/list-row';
 import { PrivacyOverview } from '@/components/privacy-overview';
 import { Screen } from '@/components/screen';
 import { BUSINESS, LINKS } from '@/lib/links';
@@ -11,6 +11,7 @@ import { useTheme } from '@/theme/use-theme';
 
 // 정보(About) — 앱 이름·버전·태그라인 · 로컬 저장 안내 · 링크(처리방침·약관·문의·웹사이트) · 판매자 정보.
 // 링크·사업자 값은 lib/links.ts 상수(단일 출처 common/BUSINESS_INFO.md), 라벨만 i18n.
+// 링크 행은 ListGroup + flat ListRow(docs/UI_GUIDE.md §5.2, 2026-08-23) — 설명 없음(목록 단위 전무).
 export default function AboutScreen() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
@@ -25,7 +26,7 @@ export default function AboutScreen() {
     }
   };
 
-  const links: { key: string; label: string; url: string; icon: keyof typeof Ionicons.glyphMap }[] = [
+  const links: { key: string; label: string; url: string; icon: ListRowIcon }[] = [
     { key: 'privacy', label: t('about.privacy'), url: LINKS.privacy, icon: 'shield-checkmark-outline' },
     { key: 'terms', label: t('about.terms'), url: LINKS.terms, icon: 'document-text-outline' },
     { key: 'contact', label: t('about.contact'), url: LINKS.supportMailto, icon: 'mail-outline' },
@@ -48,25 +49,21 @@ export default function AboutScreen() {
       </Card>
 
       {/* 링크 */}
-      <Card style={styles.linkCard}>
-        {links.map((link, index) => (
-          <Pressable
+      <ListGroup>
+        {links.map((link) => (
+          <ListRow
             key={link.key}
-            onPress={() => open(link.url)}
+            variant="flat"
+            icon={link.icon}
+            title={link.label}
+            trailing="external"
             accessibilityRole="link"
-            style={({ pressed }) => [
-              styles.linkRow,
-              index > 0 && { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: theme.border },
-              { opacity: pressed ? 0.7 : 1 },
-            ]}>
-            <Ionicons name={link.icon} size={18} color={theme.icon} />
-            <Text style={[styles.linkLabel, { color: theme.text }]}>{link.label}</Text>
-            <Ionicons name="open-outline" size={16} color={theme.textMuted} />
-          </Pressable>
+            onPress={() => void open(link.url)}
+          />
         ))}
-      </Card>
+      </ListGroup>
 
-      {/* Remove Ads(구매·복원) 행은 Phase 7에서, 공지·문의 행은 Phase 5에서 여기(또는 설정)에 추가한다. */}
+      {/* Remove Ads(구매·복원) 행은 Phase 7에서 설정 화면에 추가한다. */}
 
       {/* 판매자(사업자) 정보 — 유료 디지털 상품 판매자 표시 의무 */}
       <Card style={styles.card}>
@@ -114,22 +111,13 @@ function InfoRow({ label, value, sub }: { label: string; value: string; sub?: st
 }
 
 const styles = StyleSheet.create({
-  body: { padding: 16, gap: 18, paddingBottom: 32 },
+  body: { padding: 16, gap: 12, paddingBottom: 32 },
   hero: { alignItems: 'center', gap: 4, paddingVertical: 12 },
   appName: { fontSize: 22, fontWeight: '700' },
   version: { fontSize: 13 },
   tagline: { fontSize: 14, marginTop: 6, textAlign: 'center' },
   card: { gap: 8 },
   sectionTitle: { fontSize: 15, fontWeight: '600', marginBottom: 2 },
-  linkCard: { padding: 0, gap: 0 },
-  linkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-  },
-  linkLabel: { flex: 1, fontSize: 16 },
   infoRow: { gap: 2, paddingVertical: 4 },
   infoLabel: { fontSize: 12 },
   infoValue: { fontSize: 15 },
