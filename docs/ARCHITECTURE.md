@@ -112,6 +112,22 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
    앱은 평문 렌더, `endsAt` 자동 종료)은 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) §4-4. 첫 사용 2026-08-23(법무 4차/5차 시행 고지).
    관리자 콘솔(`ops-4b7e21`)에 토큰을 타이핑하는 대신 API + `--env-file` 주입으로 — 토큰이 화면·로그에 남지 않게.
 
+### 5.4 소프트 업데이트 안내 — Phase 11 (2026-08-23 설계, 2026-08-24 구현 예정)
+
+bootstrap `version.latest`(서버 `app_settings.latestVersion`)를 쓰는 **앱 쪽 규칙**. 서버 변경 없음.
+
+```
+부팅 성공 → App Open 종료 → 홈 포커스
+ → min ≤ 내 버전(Constants.expoConfig.version) < latest && androidUrl 있음 && 이 latest에 "나중에" 안 누름
+ → 모달 1회: "새 버전이 있습니다 (1.0.7)" [스토어 열기 → Linking.openURL(androidUrl)] [나중에 → 이 latest는 다시 안 묻는다]
+```
+
+- 차단하지 않는다(닫을 수 있다) — 강제는 `min`(BootGate)만. 스토어 URL이 비면 팝업을 띄우지 않는다(my_word 데드엔드 교훈의 반대 방향: 갈 곳 없는 안내는 소음).
+- 저장: AsyncStorage `idearepository-soft-update` = 마지막으로 "나중에"를 누른 latest 문자열. 서버에 읽음 테이블 없음(공지 읽음과 같은 원칙).
+- 버전 비교 `lib/version.ts`: `'1.0.10' > '1.0.9'`가 맞게 세그먼트 숫자 비교. 비교 불가 문자열은 "업데이트 없음"으로(throw 금지 — SDK 규약과 같은 결).
+- 운영값 설정은 `PATCH /api/admin/settings`(ADMIN_TOKEN — LEGAL_SYSTEM §4-4 방식). **검토 통과·테스터 제공을 콘솔에서 확인한 뒤에만** latest를 올린다. LinkMemo 2026-08-18 동일 구현(`components/update-popup.tsx`) 이식.
+- Idea Repository는 pinned 공지 홈 팝업이 없으므로 팝업 순서 충돌 없음(LinkMemo는 공지 팝업이 먼저).
+
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
 - bootstrap 게이트는 **서버 응답으로만** 판정 — 앱 로컬 신뢰 금지.
@@ -128,7 +144,7 @@ v1 기능(bootstrap·문의)은 이미 배포·검증 완료다(LinkMemo가 2026
 |---|---|
 | `apps`에 `idearepository` 등록 | ✅ 2026-08-17 — seed 실행, **프로덕션 `bootstrap?app=idearepository` → 200 실측** |
 | SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, SDK_VERSION 2026-08-14. 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
-| 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ⏸ latest 소프트 안내 미구현 |
+| 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ~~⏸ latest 소프트 안내 미구현~~ → Phase 11(2026-08-24 예정, 설계 §5.4) |
 | 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |
 | 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ✅ 2026-08-17 — 설정 → 문의하기 = 내역(`app/inquiries.tsx`) + 우상단 [문의 등록하기] → 폼(`app/inquiry.tsx`, 분류 Select). `features/support/server.ts`(SecureStore UUID·세션). **프로덕션 E2E**: 등록→토큰→문의 귀속→mine 200, 잘못된 deviceId 400 |
 | 디스코드 웹훅 env | ✅ 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` production 등록 + 재배포(common_server `964bcd9`). 문의 E2E 200 |

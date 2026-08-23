@@ -61,6 +61,7 @@
 | ⚠ **Expo Go 종료** | — | 2026-08-17 — 광고 SDK(네이티브) 설치. 이후 개발은 디버그 빌드(`npx expo run:android --device <AVD명> --no-bundler`; expo-dev-client 미포함이라 일반 RN 디버그 앱). **Metro 8087에 붙이려면** 앱의 RN 개발 메뉴 → Settings → Debug server host를 `<호스트>:8087`로(에뮬레이터는 `10.0.2.2:8087`, 폰은 Tailscale `100.91.69.45:8087`) — 기본은 8081이라 다른 프로젝트 Metro에 붙는다(2026-08-17 실증). 에뮬레이터는 `run-as`로 `debug_http_host` 프리퍼런스를 직접 써도 된다 |
 | Remove Ads 구매 + Restore | ⏸ | Phase 7 — RevenueCat 익명. AdMob 정지 해제 후(2026-08-21) |
 | 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~vc6 예정~~ → vc6 · 1.0.5 검토 전송(2026-08-21) |
+| 소프트 업데이트 안내(latest) · 검색 매치 힌트 | ⏳ | Phase 11 — 2026-08-24 예정 → vc8. 설계 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.4 · [`PROJECT_SYSTEM.md`](./PROJECT_SYSTEM.md) §9.1 |
 | 공지·점검·강제업데이트(bootstrap) | ✅ | 2026-08-17 Phase 5 — `components/boot-gate.tsx`(실패 시 통과·차단 화면 출구) · `app/notice.tsx` + 설정 배지. ⏸ latest 소프트 안내 미구현 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §6 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ✅ | 2026-08-17 Phase 5 — `app/inquiries.tsx`·`app/inquiry.tsx`·`features/support/server.ts`(SecureStore UUID·세션). 프로덕션 E2E 실측 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |

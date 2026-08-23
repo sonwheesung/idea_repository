@@ -240,7 +240,15 @@ Idea Repository
 - 노트·태그는 서브쿼리 EXISTS로 — 프로젝트 행이 중복되지 않게.
 - `#`로 시작하는 질의는 `#`을 벗겨 태그명과 비교(다른 필드도 같이 본다 — 별도 모드 아님).
 - 검색은 필터·정렬과 **동시에** 적용된다(검색 중에도 필터 유효).
-- 매치된 필드 힌트("in notes")는 P1 — MVP는 카드만.
+- ~~매치된 필드 힌트("in notes")는 P1 — MVP는 카드만.~~ → **§9.1 Phase 11(2026-08-24 예정)**.
+
+### 9.1 검색 매치 힌트 (2026-08-23 설계 — PLAN Phase 11)
+
+- 검색어가 있을 때만, 카드 메타 줄 아래 12px muted 한 줄: `search.matchIn` — en "Found in: {{fields}}" / ko "일치: {{fields}}". `fields`는 걸린 필드 라벨을 " · "로 이은 문자열.
+- 대상은 **카드에 안 보이는 필드만**: 설명 · 문제점 · 목표 · 핵심 아이디어 · 타겟 사용자 · 노트(6종). 이름·요약·태그·카테고리는 카드에 이미 보이므로 제외.
+- 구현: `features/projects/query.ts`가 검색 시 SELECT에 `(p.description LIKE :like ESCAPE '\\') AS m_description` 등 5개 + `EXISTS(notes …) AS m_notes` 플래그를 붙여 `ProjectCard.matchedFields: MatchField[]`로 매핑(검색어 없으면 `[]`, 추가 비용 0). LIKE 조건은 WHERE와 같은 파라미터.
+- 라벨은 기존 `project.description` … `project.notes` 키 재사용 — 새 키는 `search.matchIn` 하나.
+- 엣지: 여러 필드 동시 매치 → 순서 고정(설명 → 문제점 → 목표 → 핵심 아이디어 → 타겟 → 노트). 힌트가 길어도 한 줄(`numberOfLines 1`).
 - 구현(2026-08-17): 검색어는 **세션 한정**(저장 안 함), 250ms 디바운스, 툴바에 결과 개수 표시. 검색 0건 / 필터 0건 문구를 나누고 "검색·필터 초기화" 링크를 둔다.
 
 ## 10. 필터
