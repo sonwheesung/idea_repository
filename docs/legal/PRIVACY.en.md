@@ -14,7 +14,7 @@ rights are. (한국어 안내는 별도 페이지 하단에 있습니다.)
 
 ## 1. Who we are
 
-- Operator (data controller): Hwiseong Games (brand: Vivace Games)
+- Operator (data controller): Hwiseong Games (brand: Vivace Games Studio)
 - Representative: Son Hwi-seong
 - Business registration no.: 749-25-02260 (Republic of Korea)
 - Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea

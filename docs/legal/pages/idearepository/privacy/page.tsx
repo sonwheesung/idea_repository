@@ -53,7 +53,7 @@ export default function IdeaRepositoryPrivacy() {
 
       <section style={card}>
         <h2 style={h2}>1. Who we are</h2>
-        <p style={bullet}>• Operator (data controller): Hwiseong Games (brand: Vivace Games)</p>
+        <p style={bullet}>• Operator (data controller): Hwiseong Games (brand: Vivace Games Studio)</p>
         <p style={bullet}>• Representative: Son Hwi-seong</p>
         <p style={bullet}>• Business registration no.: 749-25-02260 (Republic of Korea)</p>
         <p style={bullet}>• Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea</p>
@@ -294,7 +294,7 @@ export default function IdeaRepositoryPrivacy() {
       <h1 style={{ fontSize: 24, fontWeight: 900 }}>Idea Repository — 개인정보처리방침 (한국어)</h1>
       <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-08-21 (4차 — 로컬 백업 파일, 2026-08-28 시행)</p>
       <p style={muted}>
-        휘성게임즈(브랜드 표기 Vivace Games, 이하 &quot;회사&quot;)는 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보
+        휘성게임즈(브랜드 표기 Vivace Games Studio, 이하 &quot;회사&quot;)는 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보
         처리방침을 수립·공개합니다. Idea Repository(이하 &quot;앱&quot;)는 회원가입·로그인·클라우드 동기화가 없는 개인용 로컬
         아이디어 보관함으로, 이용자가 작성한 아이디어는 이용자 기기에만 저장되며 회사 서버로 전송되지 않습니다.
       </p>
@@ -491,7 +491,7 @@ export default function IdeaRepositoryPrivacy() {
           앱은 만 14세 미만 아동(국외 만 13세 미만 또는 해당국 법령상 더 높은 연령 — 일부 EEA 회원국 만 16세)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
           (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행).
         </p>
-        <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games) · 대표 손휘성</p>
+        <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games Studio) · 대표 손휘성</p>
         <p style={bullet}>• 사업자등록번호: 749-25-02260</p>
         <p style={bullet}>• 주소: 울산광역시 중구 성안5길 22, 2층 204호(성안동), 우 44421</p>
         <p style={bullet}>• 문의: {SUPPORT_EMAIL}</p>

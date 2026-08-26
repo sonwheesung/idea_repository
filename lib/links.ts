@@ -17,7 +17,7 @@ export const BUSINESS = {
   /** 법적 상호(영문) */
   legalNameEn: 'Hwiseong Games',
   /** 공개 개발자명(브랜드) */
-  brand: 'Vivace Games',
+  brand: 'Vivace Games Studio',
   /** 대표자 */
   representativeKo: '손휘성',
   representativeEn: 'Son Hwi-seong',

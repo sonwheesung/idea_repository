@@ -8,7 +8,7 @@ Effective date: 2026-08-17 · Last updated: 2026-08-21 (rev. 5 — local backup 
 > `C:\project\common\BUSINESS_INFO.md` (not committed).
 
 These Terms of Use ("Terms") govern your use of the mobile application **Idea Repository** (the "App") provided by
-Hwiseong Games (brand: Vivace Games; "we", "us"). By installing or using the App you agree to these Terms. If you do
+Hwiseong Games (brand: Vivace Games Studio; "we", "us"). By installing or using the App you agree to these Terms. If you do
 not agree, do not use the App. You must be at least 13 years old (or the higher minimum age for using online
 services in your country) to use the App; if you are a minor, use it with the consent of a parent or guardian.
 
@@ -130,7 +130,7 @@ against you.
 
 ## 12. Contact and seller information
 
-- Operator: Hwiseong Games (brand: Vivace Games) — Representative: Son Hwi-seong
+- Operator: Hwiseong Games (brand: Vivace Games Studio) — Representative: Son Hwi-seong
 - Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-울산중구-0170호
 - Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea
 - Email: support@vivace-games.com (or in-app "Contact us")

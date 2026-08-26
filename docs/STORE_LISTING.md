@@ -161,7 +161,7 @@ Capture your ideas. Keep them private. Build what matters.
 
 | 항목 | 값 | 비고 |
 |---|---|---|
-| 개발자명(공개) | Vivace Games | 브랜드. 법적 상호는 아래 |
+| 개발자명(공개) | **Vivace Games Studio** | Play 콘솔 `개발자 이름` 실측값(2026-08-26). ~~Vivace Games~~ 는 구 조직 계정 이름 |
 | 이메일 | support@vivace-games.com | LinkMemo와 동일 창구 |
 | 웹사이트 | https://vivace-games.com | |
 | 개인정보처리방침 URL | https://vivace-games.com/idearepository/privacy | ~~게시 예정(Phase 8)~~ → ✅ 게시 2026-08-17 — 배구 서버 Vercel 정적 페이지 방식(LinkMemo 선례). 앱 내 About 링크와 동일 |

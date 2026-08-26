@@ -35,7 +35,7 @@ export default function IdeaRepositoryTerms() {
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — 이용약관 · 운영·환불 정책</h1>
       <p style={muted}>
-        본 약관은 휘성게임즈(브랜드 표기 Vivace Games, 이하 &quot;회사&quot;)가 제공하는 모바일 앱 &quot;Idea Repository&quot;(이하
+        본 약관은 휘성게임즈(브랜드 표기 Vivace Games Studio, 이하 &quot;회사&quot;)가 제공하는 모바일 앱 &quot;Idea Repository&quot;(이하
         &quot;앱&quot;)의 이용 조건과 유료 서비스(광고 제거)의 결제·환불 기준을 정합니다. 개인정보 처리는{' '}
         <a href={PRIVACY_URL} style={link}>
           개인정보처리방침
@@ -203,7 +203,7 @@ export default function IdeaRepositoryTerms() {
       <section style={card}>
         <h2 style={h2}>제15조 판매자 정보</h2>
         <ul style={li}>
-          <li>상호: <strong>휘성게임즈</strong> (브랜드 표기 Vivace Games)</li>
+          <li>상호: <strong>휘성게임즈</strong> (브랜드 표기 Vivace Games Studio)</li>
           <li>대표자: 손휘성</li>
           <li>사업자등록번호: 749-25-02260</li>
           <li>통신판매업 신고번호: 제2026-울산중구-0170호 (신고기관: 울산광역시 중구청)</li>
@@ -226,7 +226,7 @@ export default function IdeaRepositoryTerms() {
       <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-08-21 (rev. 5 — local backup; effective 2026-08-28)</p>
       <p style={muted}>
         These Terms govern your use of the mobile application <b>Idea Repository</b> (the &quot;App&quot;) provided by
-        Hwiseong Games (brand: Vivace Games; &quot;we&quot;, &quot;us&quot;). By installing or using the App you agree to
+        Hwiseong Games (brand: Vivace Games Studio; &quot;we&quot;, &quot;us&quot;). By installing or using the App you agree to
         these Terms. Privacy is covered by the{' '}
         <a href={PRIVACY_URL} style={link}>
           Privacy Policy
@@ -336,7 +336,7 @@ export default function IdeaRepositoryTerms() {
           prohibited-parties list; Apple and its subsidiaries are third-party beneficiaries entitled to enforce these Terms.
         </p>
         <ul style={li}>
-          <li>Operator: Hwiseong Games (brand: Vivace Games) — Representative: Son Hwi-seong</li>
+          <li>Operator: Hwiseong Games (brand: Vivace Games Studio) — Representative: Son Hwi-seong</li>
           <li>Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-울산중구-0170호</li>
           <li>Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea</li>
           <li>Email: {SUPPORT_EMAIL} (or in-app &quot;Contact us&quot;)</li>
