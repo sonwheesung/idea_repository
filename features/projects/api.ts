@@ -86,7 +86,12 @@ export function listProjects(): ProjectCard[] {
   );
   return attachTags(
     db,
-    rows.map((r) => ({ ...toProject(r), categoryName: r.category_name ?? null, tags: [] })),
+    rows.map((r) => ({
+      ...toProject(r),
+      categoryName: r.category_name ?? null,
+      tags: [],
+      matchedFields: [],
+    })),
   );
 }
 
@@ -102,7 +107,12 @@ export function getProjectCard(id: string): ProjectCard | null {
     [id],
   );
   if (!row) return null;
-  return { ...toProject(row), categoryName: row.category_name ?? null, tags: listProjectTags(id) };
+  return {
+    ...toProject(row),
+    categoryName: row.category_name ?? null,
+    tags: listProjectTags(id),
+    matchedFields: [],
+  };
 }
 
 /** 노트·자료·태그 변경 시 프로젝트 updated_at 갱신 — "아이디어 발전 = 활동" (CLAUDE.md §14 E) */

@@ -40,6 +40,23 @@ export const useNoticeReadStore = create<NoticeReadState>()(
   ),
 );
 
+// 소프트 업데이트 "나중에" — latest 값당 1회 (ARCHITECTURE §5.4). 서버에 상태를 두지 않는다(공지 읽음과 같은 원칙)
+interface SoftUpdateState {
+  /** 마지막으로 "나중에"를 누른 latest 버전 문자열 */
+  dismissedVersion: string | null;
+  dismiss: (version: string) => void;
+}
+
+export const useSoftUpdateStore = create<SoftUpdateState>()(
+  persist(
+    (set) => ({
+      dismissedVersion: null,
+      dismiss: (version) => set({ dismissedVersion: version }),
+    }),
+    { name: 'idearepository-soft-update', storage: createJSONStorage(() => AsyncStorage) },
+  ),
+);
+
 /** 안 읽은 공지 수 — 푸시가 없어 설정 행의 배지 점이 통지의 전부다 (조각·LinkMemo 승계) */
 export function useUnreadNoticeCount(): number {
   const boot = useBootStore((s) => s.boot);

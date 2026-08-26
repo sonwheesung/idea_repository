@@ -256,7 +256,21 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
-### vc7 · 1.0.6 (2026-08-23) — 검토 전송
+### vc8 · 1.0.7 (2026-08-26) — 검토 전송
+
+**en-US**
+```
+• Update notice: when a newer version is on the store, the home screen shows a one-time prompt with "Open Store" / "Later". Never blocks the app.
+• Search: results now show where the match was found ("Found in: Notes · Goal") when the term is in a field the card doesn't display — description, problem, goal, core idea, target user or idea notes.
+```
+
+**ko-KR**
+```
+• 업데이트 안내: 스토어에 새 버전이 있으면 홈 화면에서 한 번 안내합니다("스토어로 이동" / "나중에"). 앱 사용을 막지 않습니다.
+• 검색: 검색어가 카드에 안 보이는 항목(설명·문제점·목표·핵심 아이디어·타겟 사용자·아이디어 노트)에서 걸리면 카드 아래에 "일치: 노트 · 목표"처럼 어디서 찾았는지 표시합니다.
+```
+
+### vc7 · 1.0.6 (2026-08-23) — ✅ 검토 통과 · 테스터 제공(8/23 16:46)
 
 **en-US**
 ```

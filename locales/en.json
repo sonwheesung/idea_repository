@@ -172,7 +172,8 @@
   },
   "search": {
     "placeholder": "Search ideas, notes, #tags…",
-    "empty": "No projects match your search."
+    "empty": "No projects match your search.",
+    "matchIn": "Found in: {{fields}}"
   },
   "filter": {
     "title": "Filter",
@@ -401,5 +402,11 @@
       "invalidFile": "This is not an Idea Repository backup file, or the file is damaged.",
       "newerApp": "This file was made with a newer version of the app. Please update the app and try again."
     }
+  },
+  "update": {
+    "title": "Update available",
+    "body": "Version {{version}} is available on the store.",
+    "open": "Open Store",
+    "later": "Later"
   }
 }

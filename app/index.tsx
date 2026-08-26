@@ -9,6 +9,7 @@ import { FilterSheet } from '@/components/filter-sheet';
 import { OptionSheet } from '@/components/option-sheet';
 import { ProjectCard } from '@/components/project-card';
 import { Screen } from '@/components/screen';
+import { UpdatePopup } from '@/components/update-popup';
 import { listCategories, type Category } from '@/features/categories/api';
 import { deleteProject } from '@/features/projects/api';
 import { useFilterStore } from '@/features/projects/filter-store';
@@ -165,6 +166,8 @@ export default function HomeScreen() {
           {t('home.count', { count: projects.length })}
         </Text>
       </View>
+
+      <UpdatePopup />
 
       <FlatList
         data={projects}

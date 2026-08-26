@@ -172,7 +172,8 @@
   },
   "search": {
     "placeholder": "아이디어, 노트, #태그 검색…",
-    "empty": "검색 결과가 없습니다."
+    "empty": "검색 결과가 없습니다.",
+    "matchIn": "일치: {{fields}}"
   },
   "filter": {
     "title": "필터",
@@ -401,5 +402,11 @@
       "invalidFile": "Idea Repository 백업 파일이 아니거나 파일이 손상되었습니다.",
       "newerApp": "더 새로운 버전의 앱에서 만든 파일입니다. 앱을 업데이트한 뒤 다시 시도해 주세요."
     }
+  },
+  "update": {
+    "title": "새 버전이 있습니다",
+    "body": "스토어에 {{version}} 버전이 있습니다.",
+    "open": "스토어로 이동",
+    "later": "나중에"
   }
 }

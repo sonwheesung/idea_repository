@@ -20,7 +20,7 @@
 | 7 | Remove Ads — RevenueCat 익명 · 구매/복원 | ⏸ AdMob 계정 정지 해제 후(2026-08-21) |
 | 9 | **발상 도구(Idea Lab)** — approach 필드 · 단어 풀 · 화면 4종 · 프로젝트 저장 (2026-08-18 사용자 결정으로 추가, 기획서 외) | ✅ 2026-08-18 — DB v2·단어 풀·화면 4종·미리 채움·에뮬(조합·개선 e2e). [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md). ~~vc2 포함 여부 사용자 결정~~ → vc2 포함(2026-08-18) · 단어 관리 vc3(8/19) |
 | 10 | **로컬 백업(내보내기·가져오기)** — 2026-08-21 사용자 결정(무료) | ✅ 2026-08-21 — 문서 → 패키지 3종 → `features/backup` → `/backup` → 법무 5차/4차 정본 → 에뮬 실측(내보내기·병합·교체·거부). [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~⏳ 법무 재게시(사용자 확인) · vc6~~ → ✅ 법무 4차/5차 게시(8/21) · vc6 · 1.0.5 검토 전송(8/21) · 시행 고지 발행(8/23) |
-| 11 | **소프트 업데이트 안내 + 검색 매치 힌트** → vc8 (2026-08-23 사용자 결정 "내일 진행") | ⏳ 2026-08-24 예정 — 설계는 ARCHITECTURE §5.4 · PROJECT_SYSTEM §9.1. 문서 선행 완료(2026-08-23) |
+| 11 | **소프트 업데이트 안내 + 검색 매치 힌트** → vc8 (2026-08-23 사용자 결정 "내일 진행") | ✅ ~~2026-08-24 예정~~ → **2026-08-26 완료** — `update-popup`·`useSoftUpdateStore`·`query.ts` m_* 플래그·카드 힌트·i18n 5키(304키). 에뮬 실측(팝업 1회 → 나중에 → 재진입 미노출 / "일치: 설명") → **vc8 · 1.0.7 검토 전송**. ⏳ 운영값(latest) PATCH는 vc8 테스터 제공 확인 후 |
 | 8 | 출시 준비 — 아이콘/스플래시 · 처리방침 · 데이터 보안 선언 · AAB · 스토어 | 🔨 2026-08-17 — 아이콘·그래픽·처리방침 게시·데이터 보안·스토어 등록정보·AAB 검토 전송 ✅ · vc1 검토 통과(테스터 제공 중) · 2026-08-18 vc2(1.0.1) 빌드·업로드·노트 입력·검토 전송 ✅ · vc3~vc6(8/19~8/21, vc4부터 CLI 업로드 — [`BUILD.md`](./BUILD.md) §5) / ⏳ `play-store-launch-checklist` 최종 점검·프로덕션 신청(≈ 8/31) |
 
 ⚠ = 사용자 계정 작업 포함(AdMob·Play·RC 콘솔) — 해당 Phase에 명시.
@@ -158,15 +158,15 @@
 
 **완료 기준**: 기기 A에서 내보낸 파일을 새로 설치한 앱에서 가져와 프로젝트·노트·자료·태그·카테고리·단어가 그대로 복원된다. 서버 트래픽 0.
 
-## Phase 11 — 소프트 업데이트 안내 + 검색 매치 힌트 → vc8 (0.5일) — 2026-08-24 예정
+## Phase 11 — 소프트 업데이트 안내 + 검색 매치 힌트 → vc8 (0.5일) — ~~2026-08-24 예정~~ 2026-08-26 착수
 
 > 2026-08-23 사용자 결정("내일 진행"). 둘 다 JS만 변경 — 네이티브 모듈 없음, AAB는 평소대로 재빌드. 순서: 문서(✅ 2026-08-23) → 코드 → 검증 → 에뮬 → 빌드·업로드(BUILD §3·§3.5).
 
 ### 11.1 소프트 업데이트 안내 (ARCHITECTURE §5.4)
 
-- `components/update-popup.tsx` — LinkMemo `components/update-popup.tsx`(2026-08-18) 이식. 조건: bootstrap 성공 · `version.min ≤ 내 버전 < version.latest` · `androidUrl` 있음 · App Open 광고 종료 후 · 홈 포커스 중.
+- `components/update-popup.tsx` — LinkMemo `components/update-popup.tsx`(2026-08-18) 이식. 조건: bootstrap 성공 · `version.min ≤ 내 버전 < version.latest` · `androidUrl` 있음 · App Open 광고 종료 후(`startupAdSettled`) · **웰컴 시트를 본 뒤**(첫 실행에 두 모달이 겹치지 않게 — 2026-08-26) · 홈 포커스 중. 껍데기는 공용 `Dialog`(UI_GUIDE §5.4, `cancelLabel` prop 추가) — LinkMemo의 자체 Modal 스타일은 안 가져온다.
 - 모달 1회: 제목 `update.title` · 본문 `update.body`(버전 표기) · [스토어 열기](`Linking.openURL(androidUrl)`) · [나중에]. **latest 값당 1회** — "나중에"를 누른 latest 버전은 다시 묻지 않는다(AsyncStorage `idearepository-soft-update`, zustand persist).
-- 버전 비교는 `x.y.z` 숫자 비교(`lib/version.ts`, 세그먼트 부족분은 0). 스토어 URL이 없으면 팝업 자체를 띄우지 않는다(갈 곳 없는 안내는 소음).
+- 버전 비교는 `x.y.z` 숫자 비교(~~`lib/version.ts` 신설~~ → **SDK `compareVersions`**(`lib/common-server`) 재사용 — BootGate와 같은 함수, 세그먼트 부족분은 0. 2026-08-26 정정: 이미 있는 것을 다시 만들지 않는다). 스토어 URL이 없으면 팝업 자체를 띄우지 않는다(갈 곳 없는 안내는 소음).
 - 강제 업데이트(`min`)와의 관계: min 미만은 BootGate가 이미 차단 — 팝업은 그 위 구간만.
 - i18n `update.*` 4키(en·ko). 설정에는 행을 두지 않는다(홈 팝업이 전부).
 - **운영**(앱 코드와 별개, 검토 통과·테스터 제공 확인 **후**에만): `PATCH /api/admin/settings {appCode:'idearepository', latestVersion:'1.0.7', androidStoreUrl:'https://play.google.com/store/apps/details?id=com.vivacegames.idearepository'}` — ADMIN_TOKEN은 `common_server/.env.local`에서 `--env-file` 주입(LEGAL_SYSTEM §4-4와 같은 방식, 값 미출력). 비공개 테스트 중엔 테스터가 같은 스토어 URL로 업데이트를 받는다(참여 링크로 등록된 계정). ⚠ latest를 검토 중 버전으로 올리면 아직 못 받는 버전을 안내하게 된다 — 반드시 제공 중 확인 후.
@@ -185,11 +185,11 @@
 
 | 시점 | 할 일 | 누가 | 비고 |
 |---|---|---|---|
-| **2026-08-24** | **Phase 11 → vc8 · 1.0.7** 빌드·업로드·검토 전송 | 세션 | 위 §11. 권한 켰다 끄기(BUILD §3.5) |
+| ~~2026-08-24~~ **2026-08-26** | ✅ **Phase 11 → vc8 · 1.0.7** 빌드·업로드·검토 전송(완료) | 세션 | 위 §11. 권한 켰다 끄기(BUILD §3.5). ⚠ 업로드 전 **vc7 검토 완료 확인**(검토 중 업로드 = 큐 뒤로, `common/CLOSED_TESTING.md` 2026-08-25) · vc8 AAB로 target API 36·16KB 정렬 실측 → `common/GLOBAL_DATA_COMPLIANCE.md` §12 우리 줄 ❓ 해소 |
 | 수시 | vc7(1.0.6) 검토 결과 확인 → 통과 시 `latestVersion` 운영값은 **vc8 배포 후**에만 | 사용자/세션 | 콘솔 비공개 테스트 페이지 |
 | 8/28 | 처리방침 4차·약관 5차 시행 | — | 할 일 없음(게시·고지 완료). 공지 9/27 자동 종료 |
 | AdMob 정지 해제 시 | Phase 7 Remove Ads(Play 상품 등록 · RC 익명 · 구매/복원 · 데이터 보안에 구매 내역 추가 · 약관 §3 "제공되는 버전에 한함" 확인) | 사용자(콘솔) + 세션 | MONETIZATION §3.1 · `store-iap-setup` 스킬 |
-| **≈ 8/31** | **프로덕션 액세스 신청** — 콘솔에서 참여 테스터 ≥12명·14일 확인 → `play-store-launch-checklist` 전체 점검 → 신청 | 사용자(콘솔) | 선행 확인 3개: ① "한국 개발자 추가 정보" 계정 단위 입력 여부(STORE_LISTING §9 ❓) ② 판매자 주기적 재인증 Google 회신(`common/BUSINESS_INFO.md` §4) ③ **스토어 설명의 "one-time Remove Ads" 문장** — Phase 7이 프로덕션 전에 안 끝나면 문장 삭제(LEGAL_SYSTEM §7 #12, 사용자 결정) |
+| **≈ 8/31** | **프로덕션 액세스 신청** — 콘솔에서 참여 테스터 ≥12명·14일 확인 → `play-store-launch-checklist` 전체 점검 → 신청 | 사용자(콘솔) | 선행 확인 3개: ① "한국 개발자 추가 정보" 계정 단위 입력 여부(STORE_LISTING §9 ❓) ~~② 판매자 주기적 재인증 Google 회신~~ → ✅ 2026-08-24 통과(`common/BUSINESS_INFO.md` §4) ③ **스토어 설명의 "one-time Remove Ads" 문장** — Phase 7이 프로덕션 전에 안 끝나면 문장 삭제(LEGAL_SYSTEM §7 #12, 사용자 결정) |
 | 프로덕션 후 | 언어 추가(유입 국가 데이터로 순서) · 빈 항목 숨김 설정 · 백업 암호화/CSV(요청 시) · App Store(iOS) 검토 | — | CLAUDE §3 확장 후보 · BACKUP §8 · LEGAL §7 #6 |
 
 🚫 하지 않을 것(재확인): OTA · 계정/클라우드 · 전용 서버 · 구독/Pro · 테스터 대상 배려 작업(`common/CLOSED_TESTING.md`).

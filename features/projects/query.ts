@@ -1,6 +1,12 @@
 import { getDb } from '@/db';
 import { attachTags, toProject, type ProjectRow } from '@/features/projects/api';
-import type { Priority, ProjectCard, Status } from '@/features/projects/types';
+import {
+  MATCH_FIELDS,
+  type MatchField,
+  type Priority,
+  type ProjectCard,
+  type Status,
+} from '@/features/projects/types';
 
 // 정렬 6종 (PROJECT_SYSTEM §11). 기본 Recently Updated.
 export const SORT_KEYS = [
@@ -49,6 +55,9 @@ export function queryProjects(query: ProjectQuery): ProjectCard[] {
   const db = getDb();
   const where: string[] = [];
   const params: (string | number)[] = [];
+  // 매치 힌트 플래그 — 검색 중에만 SELECT에 붙는다(PROJECT_SYSTEM §9.1). 검색어 없으면 추가 비용 0
+  let matchSelect = '';
+  const matchParams: string[] = [];
 
   if (query.status) {
     where.push('p.status = ?');
@@ -75,16 +84,31 @@ export function queryProjects(query: ProjectQuery): ProjectCard[] {
                  WHERE pt.project_id = p.id AND t.name LIKE ? ESCAPE '\\')
     )`);
     params.push(like, like, like, like, like, like, like, like, tagLike);
+    matchSelect = `,
+      (p.description LIKE ? ESCAPE '\\') AS m_description, (p.problem LIKE ? ESCAPE '\\') AS m_problem,
+      (p.goal LIKE ? ESCAPE '\\') AS m_goal, (p.core_idea LIKE ? ESCAPE '\\') AS m_coreIdea,
+      (p.target_user LIKE ? ESCAPE '\\') AS m_targetUser,
+      EXISTS (SELECT 1 FROM notes n WHERE n.project_id = p.id AND n.content LIKE ? ESCAPE '\\') AS m_notes`;
+    matchParams.push(like, like, like, like, like, like);
   }
 
-  const sql = `SELECT p.*, c.name AS category_name
+  // SELECT 파라미터가 WHERE보다 먼저 바인딩된다
+  const sql = `SELECT p.*, c.name AS category_name${matchSelect}
     FROM projects p LEFT JOIN categories c ON c.id = p.category_id
     ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
     ORDER BY ${ORDER_BY[query.sort]}`;
-  const rows = db.getAllSync<ProjectRow>(sql, params);
+  const rows = db.getAllSync<ProjectRow & Partial<Record<`m_${MatchField}`, number>>>(sql, [
+    ...matchParams,
+    ...params,
+  ]);
   const cards = attachTags(
     db,
-    rows.map((r) => ({ ...toProject(r), categoryName: r.category_name ?? null, tags: [] })),
+    rows.map((r) => ({
+      ...toProject(r),
+      categoryName: r.category_name ?? null,
+      tags: [],
+      matchedFields: matchSelect ? MATCH_FIELDS.filter((f) => r[`m_${f}`] === 1) : [],
+    })),
   );
 
   // 이름 정렬은 한글·영문 혼합의 로케일 순서를 위해 JS로 한 번 더 (SQLite NOCASE는 ASCII만)

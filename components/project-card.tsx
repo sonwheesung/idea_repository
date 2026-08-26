@@ -56,6 +56,15 @@ export function ProjectCard({ project, index = 0, onPress, onLongPress }: Projec
           {t('project.updated', { date: formatDate(project.updatedAt) })}
         </Text>
       </View>
+
+      {/* 검색 매치 힌트 — 카드에 안 보이는 필드에 걸렸을 때만 (PROJECT_SYSTEM §9.1) */}
+      {project.matchedFields.length > 0 ? (
+        <Text style={[styles.match, { color: theme.textMuted }]} numberOfLines={1}>
+          {t('search.matchIn', {
+            fields: project.matchedFields.map((f) => t(`project.${f}`)).join(' · '),
+          })}
+        </Text>
+      ) : null}
     </Card>
   );
 }
@@ -68,4 +77,5 @@ const styles = StyleSheet.create({
   row: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 4 },
   progressText: { marginLeft: 'auto', fontSize: 13, fontWeight: '600' },
   meta: { fontSize: 12, flexShrink: 1 },
+  match: { fontSize: 12, marginTop: 6, fontStyle: 'italic' },
 });

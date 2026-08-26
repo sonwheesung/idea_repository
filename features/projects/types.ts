@@ -36,9 +36,15 @@ export interface Project {
 }
 
 /** 카드 표시용 — 카테고리명·태그를 함께 든다 */
+/** 검색 매치 힌트 대상 — 카드에 안 보이는 6필드만, 표시 순서 고정 (PROJECT_SYSTEM §9.1) */
+export const MATCH_FIELDS = ['description', 'problem', 'goal', 'coreIdea', 'targetUser', 'notes'] as const;
+export type MatchField = (typeof MATCH_FIELDS)[number];
+
 export interface ProjectCard extends Project {
   categoryName: string | null;
   tags: string[];
+  /** 검색어가 걸린 숨은 필드 — 검색어 없으면 빈 배열 */
+  matchedFields: MatchField[];
 }
 
 /** 생성/수정 입력 — 이름만 필수, 나머지는 선택 (기둥 1) */
