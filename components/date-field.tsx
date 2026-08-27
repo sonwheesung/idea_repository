@@ -55,7 +55,7 @@ export function DateField({ label, value, onChange, placeholder, warning }: Date
           onPress={open}
           style={({ pressed }) => [
             styles.field,
-            { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+            { backgroundColor: theme.card, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
           ]}>
           <Text style={[styles.value, { color: value ? theme.text : theme.textMuted }]}>
             {value ? formatDay(value) : (placeholder ?? '')}

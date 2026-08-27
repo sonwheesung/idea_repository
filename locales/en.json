@@ -84,7 +84,6 @@
   },
   "settings": {
     "language": "Language",
-    "languageSystem": "System language",
     "categories": "Categories",
     "about": "About",
     "theme": "Theme",
@@ -116,7 +115,6 @@
   },
   "theme": {
     "current": "Current",
-    "system": "System (auto)",
     "names": {
       "lightMinimal": "Light Minimal",
       "darkMinimal": "Dark Minimal",

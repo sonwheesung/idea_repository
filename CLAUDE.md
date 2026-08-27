@@ -71,7 +71,7 @@
 | 18 | 광고 제거 | 스토어 IAP | **Remove Ads ₩3,300 일회성**(스토어 현지 가격 — ~~₩1,500~~ → 2026-08-17 형제 앱 통일) + Restore Purchases. §7.1 |
 | 19 | 공지·점검·강제업데이트 | common_server | bootstrap 1회 호출. 실패해도 앱을 막지 않는다 |
 | 20 | 문의하기 | common_server | 로그인 없음. **기기 subject 귀속**(2026-08-17 확정 — LinkMemo 방식): 문의 목록·답변·상태 확인 가능 |
-| 21 | 테마 | 로컬 | ~~라이트/다크 2종~~ → **12종 팔레트 + 시스템(자동 = Light/Dark Minimal)**(2026-08-17 사용자 시안 제공으로 정정). 전부 무료. [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
+| 21 | 테마 | 로컬 | ~~라이트/다크 2종~~ → **12종 팔레트** ~~+ 시스템(자동 = Light/Dark Minimal)~~(2026-08-17 사용자 시안 제공으로 정정 → **2026-08-27 시스템(자동) 항목 제거** — 설정값 = 테마 id 그대로, §14 T). 전부 무료. [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
 | 23 | **로컬 백업(내보내기·가져오기)** | 로컬 + OS 공유 시트 | **2026-08-21 편입·무료**(~~MVP 제외·P1 재검토~~). JSON 한 파일 — 내보내기 = 공유 시트로 사용자가 고른 곳에, 가져오기 = 파일 선택 → 병합/교체. 서버·클라우드 없음. [`docs/BACKUP_SYSTEM.md`](./docs/BACKUP_SYSTEM.md) |
 | 22 | **발상 도구(Idea Lab)** | 로컬 | **2026-08-18 편입**(기획서에 없음 — 사용자 요청 "아이디어를 만드는 과정에 필요한 툴"). 조합·개선·불편에서·만약에… 4종, 내장 단어·문장 풀(ko/en)에서 무작위, 결과는 한 탭에 프로젝트로(미리 채움). **단어는 DB v3 행 — 조합 헤더 단어 관리 화면에서 내장 단어 포함 전부 추가·수정·삭제**(2026-08-19). 서버·AI 없음. 광고 없음. [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md) |
 
@@ -241,6 +241,7 @@ Project                        IdeaNote               Resource              Cate
 ## 9. 다국어 (기획 확정 — 글로벌 우선)
 
 - **기본 언어 English.** 초기 UI 언어: **en · ko**. 향후 후보 ja·zh·es·fr·de·pt(기획서 §25).
+  설정 → 언어는 **en·ko 둘만**(~~시스템 언어 따르기 항목~~ → 2026-08-27 제거, §14 T) — 첫 실행에 기기 언어로 한 번 정해지고 그 뒤는 사용자 선택.
 - UI 코드에 문장을 직접 쓰지 않는다 — 처음부터 번역 리소스(`common.*` `project.*` `note.*` `resource.*`
   `category.*` `settings.*` 키)로. 상세 규약은 [`docs/I18N_SYSTEM.md`](./docs/I18N_SYSTEM.md).
 - **사용자가 작성하는 프로젝트 내용은 자동 번역하지 않는다**(기획서 §25).
@@ -285,7 +286,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 언어 | TypeScript ~5.9 (`strict` · `any` 금지) | ✅ typecheck·lint(any=error) 통과 |
 | 네비게이션 | expo-router ~6.0 (단일 메인 + 스택) | ✅ `index` · `project/new`(modal) · `settings` 골격 |
 | 상태 | Zustand (+ AsyncStorage persist — 필터/정렬·테마·언어 설정) | ✅ 테마·언어 store가 첫 사용처 |
-| 테마 | `theme/palettes.ts` 토큰 — **12종 + 시스템(자동)**(LinkMemo 구조 승계) | ✅ 2026-08-17 토큰 17종(+cardAccents) · `app/theme.tsx` 미니어처 그리드 |
+| 테마 | `theme/palettes.ts` 토큰 — **12종** ~~+ 시스템(자동)~~(LinkMemo 구조 승계 · 2026-08-27 자동 제거) | ✅ 2026-08-17 토큰 17종(+cardAccents) · `app/theme.tsx` 미니어처 그리드 |
 | **로컬 DB** | **expo-sqlite** (+ expo-crypto UUID) — 9필드 검색·필터·정렬에 쿼리가 필요하다 | ✅ 2026-08-17 v1 6테이블 + 시드 ([`docs/DATABASE.md`](./docs/DATABASE.md)) |
 | 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ✅ 2026-08-17 Phase 5 (`features/support/server.ts`) |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ✅ 2026-08-17 Phase 6 |
@@ -296,7 +297,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 날짜 | dayjs (+ locale · localizedFormat · customParseFormat) — 기기 지역 표기 | ✅ `lib/date.ts` (카드 수정일) |
 | 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ✅ 2026-08-17 Phase 5 |
 | 배포 | ~~Expo EAS~~ → **로컬 gradle AAB**(업로드 키 `credentials/`, 절차 [`docs/BUILD.md`](./docs/BUILD.md)) | ✅ vc1~vc6 (vc4부터 `eas submit` 업로드) |
-| Metro 포트 | **8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피) | ✅ scripts 반영 · :8087 번들 200 실측 |
+| Metro 포트 | ~~**8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피)~~ → **8090**(2026-08-27 — Delvewarden이 8087을 쓰고 있어 `common/DEV_ALLOCATION.md` §1이 "하나를 옮겨야 한다"고 적은 충돌 해소. 정본은 그 표) | ✅ scripts 반영 · :8090 번들 200 실측 |
 
 - `android/`·`ios/`는 CNG 산출물 — 커밋하지 않는다.
 - 커밋 메시지: `YYMMDD :: [태그] 한국어 요약` (LinkMemo·조각·배구 규칙 승계).
@@ -311,7 +312,7 @@ idea_repository/
 ├── features/     # projects / categories / tags / notes / resources / search / ads / purchase / support / ideation(단어 풀·섞기)
 ├── components/   # 공통 UI (Screen · Button · Card · ListRow/ListGroup · EditRow · Dialog · Badge · ProgressBar … — docs/UI_GUIDE.md)
 ├── db/           # expo-sqlite 스키마·마이그레이션 (user_version 기반)
-├── theme/        # 토큰 — 12종 팔레트 + system (palettes.ts · store.ts · use-theme.ts)
+├── theme/        # 토큰 — 12종 팔레트 (palettes.ts · store.ts · use-theme.ts) — ~~+ system~~ 2026-08-27 제거
 ├── locales/      # en · ko
 ├── lib/          # common-server SDK 복사본 · i18n · date
 ├── scripts/      # check-i18n.mjs 등
@@ -361,7 +362,7 @@ idea_repository/
 | H | 배너 = 메인·상세만, 작성/편집 화면 없음 | 기획서 §27.1 "작성 화면에서 광고 최소화·입력 영역 가리지 않음" |
 | I | 생성 화면 = 이름 1칸 + "Add details" 펼침, 저장 후 목록 복귀 | 빠른 기록(기둥 1) 우선. 상세는 카드 탭으로 |
 | J | 필터·정렬 상태 로컬 유지 | 매번 재설정 마찰 제거 |
-| K | Metro 포트 8087 | 형제 앱 충돌 회피 — §11 |
+| K | ~~Metro 포트 8087~~ → **8090**(2026-08-27) | 형제 앱 충돌 회피 — §11. 8087은 Delvewarden과 겹쳤다(`common/DEV_ALLOCATION.md`) |
 | L | **`app_code = idearepository` · 패키지 `com.vivacegames.idearepository` · 표시명 Idea Repository** (2026-08-17 사용자 확정 — 미결정 #1 해소) | 브랜드 도메인 역순 규약(LinkMemo) 승계. 등록 후 변경 불가 |
 | M | **폼 UI 규약** — 선택형 값은 `Select`(라벨 + 현재 값 행 → 옵션 모달), 텍스트는 `TextField`(Label + input) (2026-08-17 사용자 지시 — 설정 칩 → select, 프로젝트 등록 폼 = Label + input) | 프로젝트 폼(카테고리·상태·우선순위)·문의 폼·필터 시트(상태·카테고리·우선순위 — 2026-08-18)가 같은 컴포넌트를 쓴다. 설정 화면은 모든 행을 같은 `SettingRow`(라벨·값 부제·화살표)로 그리고 언어 행은 탭 시 OptionSheet를 직접 연다(2026-08-18 사용자 지적 "언어만 라벨형" → 통일). 칩은 어디에도 없다(태그 입력 칩은 TagInput 고유) |
 | N | **발상 도구(Idea Lab) 편입**(2026-08-18 사용자 결정 "괜찮네 그걸로 진행해보자") — 입구 = 메인 헤더 전구 + 빈 화면 링크 · 도구 4종 · 무작위 = 내장 단어/문장 풀(서버·AI 없음) · 결과 → `/project/new` 미리 채움 · `approach` 필드 신설 | 기획서에 없던 항목 — 사용자 요청으로 Ideate 단계를 제품 범위에 추가. 화면 시안 아티팩트(2026-08-18) 승인. 상세 [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md). vc2에 포함 |
@@ -370,6 +371,7 @@ idea_repository/
 | Q | **행·카드 규격 통일 + 공통 컴포넌트 추출**(2026-08-23 사용자 지적 "설정 화면 카드 규격이 일정하지 않다 — 부제 있는 행과 없는 행" + "다른 화면도 통일, 같은 컴포넌트로 뺄 것 확인") — 한 목록 안 행은 전부 같은 규격(부제·아이콘 전부/전무, `minHeight`) · 탐색 행 `ListRow`(설정·발상 도구·About) · 관리 행 `EditRow`(카테고리·단어) · `Dialog`(다이얼로그 3벌 통합) · `Badge`·`ProgressBar` 추출 · 반경 3단계(14 컨테이너 / 12 컨트롤 / 10 입력) | 설정은 전 행에 아이콘 + 부제(현재 값·개수·힌트). ~~IdeaLabRow는 SettingRow와 별개~~(IDEATION §3) → 같은 `ListRow`. 상세 [`docs/UI_GUIDE.md`](./docs/UI_GUIDE.md). JS만 변경 — 다음 AAB(vc7) |
 | R | **소프트 업데이트 안내 + 검색 매치 힌트 → vc8**(2026-08-23 사용자 결정 "내일 진행" — 후보 표에서 #1·#2 채택) — 팝업은 latest 값당 1회·닫을 수 있음·스토어 URL 없으면 미노출, 운영값은 검토 통과 후에만 / 힌트는 카드에 안 보이는 6필드만 | 문서 선행 완료(PLAN Phase 11 · ARCHITECTURE §5.4 · PROJECT_SYSTEM §9.1). 빈 항목 숨김·백업 암호화·언어 추가는 계속 보류 |
 | S | **앱 잠금(PIN·생체) 미채택**(2026-08-26 사용자 질문 → 검토 결과) — 잠금은 일기·비밀 메모 카테고리(Day One·조각·Apple Notes 노트 잠금)의 기대 기능이고, 아이디어/프로젝트 도구(Milanote·Notion·Trello·Obsidian)엔 표준이 아니다. 포지션 "Your device"는 서버에 안 보낸다는 뜻이지 기기 안에서 숨긴다는 뜻이 아니며(§6 정직 규칙: 기기 공유·분실은 못 막는다), 요청 0건 | 재검토 조건: 프로덕션 후 잠금 요청 문의가 오거나 백업 암호화(BACKUP §8)를 할 때 — 그때 "보호" 설정 한 세트로. 넣게 되면 `USE_BIOMETRIC` blockedPermissions 해제·PIN 폴백·분실 시 접근 불가 고지·처리방침 문구가 딸려온다(BUILD §4) |
+| T | **테마·언어의 "시스템(자동)" 항목 제거 + 입력 필드 회색 채움 제거 + 카테고리 추가 = 헤더 ＋**(2026-08-27 사용자 지시 4건 — "필터 Select·새 프로젝트 input이 비활성처럼 회색" / "테마·언어 시스템(자동) 빼고 바로 매핑" / "카테고리 추가는 우측 상단 ＋ 아이콘") — ① `TextField`·`Select`·`DateField`·`TagInput` 배경 ~~`searchBar`~~ → `card` + `border` 1px(UI_GUIDE §2) ② `ThemeSetting = ThemeId`(기본 Light Minimal), 언어 store `override(null=시스템)` → `language`(항상 en·ko) — 구 저장값은 그 순간 보이던 테마·기기 언어로 고정(마이그레이션) ③ 카테고리 관리 헤더 ＋(단어 관리와 동일), 목록 끝 추가 행 삭제 | 자동 전환이 없어져 "OS 다크인데 Warm Beige" 류 모순이 원천 소멸(LinkMemo가 자동을 뺀 이유와 같음). i18n `settings.languageSystem`·`theme.system` 2키 삭제(302키). 스토어 설명의 "or follow the system setting" 문장은 **콘솔 등록정보 수정 필요**(STORE_LISTING §3 — 사용자 확인 후). 다음 AAB vc9 |
 
 ### ✅ 원 미결정 7건 — 2026-08-17 사용자 승인으로 전부 확정 (제안값 그대로)
 
@@ -380,7 +382,7 @@ idea_repository/
 | 3 | 문의 귀속 | **기기 subject**(SecureStore UUID → `POST /v1/devices` → 세션) — 문의 목록·답변·상태 화면 포함 | 완전 익명이면 답변을 볼 경로가 없다. 서버 이미 배포·LinkMemo E2E 실측. 계정이 아니다 |
 | 4 | 로컬 백업/내보내기 | ~~**MVP 제외.** 출시 후 P1에서 로컬 파일 내보내기/가져오기로 재검토(서버 업로드 🚫)~~ → **2026-08-21 편입·무료**(§14 P) | 기획서 §24가 열어 둔 항목 — 비공개 테스트 중 "손실 경고만 있고 대책 없음"이 가장 큰 구멍이라 판단 |
 | 5 | 기본 카테고리 수정·삭제 | **허용** — 일반 행과 동일 취급. 지운 기본값은 재생성하지 않는다 | 분기 최소화. Other를 지우고 싶은 사용자를 막을 이유 없음 |
-| 6 | 테마 | ~~라이트/다크 2종 · 시스템 따르기 + 수동~~ → **12종 팔레트(시안 `docs/design/theme-mockups-12.png`) + 시스템(자동)**(2026-08-17 오후 사용자 시안 "다양하게 만들어줘"로 정정). 설정 → Theme 미니어처 그리드. 카드 테두리 1px + 진한 border(같은 날 "너무 희미하다" 지적) | LinkMemo 테마 10종 구조 재사용 — 팔레트 추가 = 테마 추가. 상세 [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
+| 6 | 테마 | ~~라이트/다크 2종 · 시스템 따르기 + 수동~~ → **12종 팔레트(시안 `docs/design/theme-mockups-12.png`)** ~~+ 시스템(자동)~~(2026-08-17 오후 사용자 시안 "다양하게 만들어줘"로 정정 → 시스템(자동)은 **2026-08-27 제거**, §14 T). 설정 → Theme 미니어처 그리드. 카드 테두리 1px + 진한 border(같은 날 "너무 희미하다" 지적) | LinkMemo 테마 10종 구조 재사용 — 팔레트 추가 = 테마 추가. 상세 [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
 | 7 | 출시 계정 | Vivace Games Studio(개인, `6329667596149711059`) — LinkMemo와 동일. 비공개 테스트 12명×14일 병행 | 정본 `volleyball/docs/GOOGLE_ACCOUNT_CASE.md`. Phase 6.5에서 최신 상태 재확인 |
 
 ### ⚠ 미결정
@@ -431,4 +433,5 @@ idea_repository/
 - **2026-08-23 법무 4차/5차 시행 고지 ✅ 발행**: 앱 내 공지 = common_server 공지 1건(EN+KO 병기, 시행일+30일 자동 종료, id `df35b667…` — LEGAL_SYSTEM §4-4 발행 방법 확정·게시 기록에 문안 정본, bootstrap 실측 1건). 고지가 시행 5일 전(7일 규칙 2일 미달)이지만 **비공개 테스트 중 이용자는 사용자 본인뿐**(테스터 = 업체 인원, 설치·실행만 — `C:\project\common\CLOSED_TESTING.md`, 2026-08-23 작성)이라 시행일 유지 — LEGAL_SYSTEM §7 #13 해소. 앱 코드 변경 없음.
 - **2026-08-23 UI 규격 통일**(§14 Q): `docs/UI_GUIDE.md` 신설 → `ListRow`·`ListGroup`·`EditRow`·`Dialog`·`Badge`·`ProgressBar` 추출, 설정(아이콘+부제 전 행)·발상 도구·About·카테고리·단어·상세·카드 적용, 반경 3단계. 에뮬 육안 확인(사용자 직접 확인 "잘 수정된 거 같네"). → **vc7 · 1.0.6 빌드·CLI 업로드·출시명·노트·검토 전송 완료**(2026-08-23, "검토 중인 변경사항", 권한 회수). vc6는 검토 통과·테스터 제공(8/21 16:25). 구 AAB(vc6) 삭제.
 - **2026-08-26 Phase 11 완료**(§14 R): 소프트 업데이트 안내(`components/update-popup.tsx` = 공용 `Dialog` + `useSoftUpdateStore`, SDK `compareVersions` 재사용, 웰컴 → App Open → 팝업 순) · 검색 매치 힌트(`query.ts` m_* 플래그 6개 → `ProjectCard.matchedFields` → 카드 "일치: 설명"). 에뮬 실측(dev 임시 latest 주입 → 팝업 → 나중에 → 재진입 미노출 / 설명에만 있는 단어 검색 → 힌트). → **vc8 · 1.0.7 빌드·CLI 업로드·노트·검토 전송 완료**(권한 회수). vc7은 검토 통과·테스터 제공(8/23 16:46). AAB 실측 targetSdk 36 · 16KB 정렬 46/46 → `common/GLOBAL_DATA_COMPLIANCE.md` §12 갱신. 앱 잠금은 미채택(§14 S).
+- **2026-08-27 사용자 지시 4건**(§14 T): 입력 필드 회색 채움 제거(배경 `card`) · 테마/언어 시스템(자동) 제거(마이그레이션 포함) · 카테고리 추가 헤더 ＋ · **Metro 8090으로 이동**(§14 K, DEV_ALLOCATION 충돌 해소) · **전용 AVD `idea_repository`(5572) 생성**(사도전·배구 AVD 빌려 쓰던 것 종료). 에뮬 실측 → 다음 AAB **vc9**(vc8 검토 통과 확인 후).
 - 다음 단계: vc8 검토 통과·테스터 제공 확인 → **운영값 PATCH**(`latestVersion 1.0.7` + 스토어 URL, PLAN §11.1) → (AdMob 해제 후) Phase 7(Remove Ads) → ≈8/31 프로덕션 신청(선행 확인: 한국 개발자 추가 정보 · "one-time Remove Ads" 문장). 전체 로드맵은 [`docs/PLAN.md`](./docs/PLAN.md) "남은 작업 로드맵".

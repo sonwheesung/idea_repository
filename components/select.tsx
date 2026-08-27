@@ -34,7 +34,7 @@ export function Select<T extends string>({ label, value, options, onChange, plac
         onPress={() => setOpen(true)}
         style={({ pressed }) => [
           styles.field,
-          { backgroundColor: theme.searchBar, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
+          { backgroundColor: theme.card, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
         ]}>
         <Text style={[styles.value, { color: current ? theme.text : theme.textMuted }]} numberOfLines={1}>
           {current?.label ?? placeholder ?? ''}

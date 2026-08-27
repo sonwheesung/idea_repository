@@ -48,7 +48,7 @@ export function TagInput({ label, value, onChange, placeholder }: TagInputProps)
   return (
     <View style={styles.wrap}>
       <Text style={[styles.label, { color: theme.textMuted }]}>{label}</Text>
-      <View style={[styles.field, { backgroundColor: theme.searchBar, borderColor: theme.border }]}>
+      <View style={[styles.field, { backgroundColor: theme.card, borderColor: theme.border }]}>
         {value.map((tag) => (
           <View key={tag} style={[styles.chip, { backgroundColor: theme.badge }]}>
             <Text style={[styles.chipText, { color: theme.badgeText }]}>#{tag}</Text>

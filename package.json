@@ -3,9 +3,9 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --port 8087",
-    "android": "expo run:android --port 8087",
-    "ios": "expo start --ios --port 8087",
+    "start": "expo start --port 8090",
+    "android": "expo run:android --port 8090",
+    "ios": "expo start --ios --port 8090",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
     "check:i18n": "node scripts/check-i18n.mjs",

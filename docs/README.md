@@ -18,7 +18,7 @@
 | [`DATABASE.md`](./DATABASE.md) | expo-sqlite 스키마 v1(6테이블)→v2 approach→v3 ideation_words(7테이블)·시드·조회 패턴·마이그레이션 규약 | ✅ v3 2026-08-19 |
 | [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) | 광고(배너·전면형·금지 순간·UMP) + Remove Ads 일회성 구매·복원 | ✅ |
 | [`I18N_SYSTEM.md`](./I18N_SYSTEM.md) | 다국어 — en 기본·ko·키 규약·날짜 로케일·언어 추가 절차 | ✅ |
-| [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종 + 시스템 자동 — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
+| [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종(~~+ 시스템 자동~~ 2026-08-27 제거) — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
 | [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) | **발상 도구(Idea Lab)** — 입구·도구 4종·단어/문장 풀·섞기 규칙·프로젝트 저장 미리 채움·`approach` 필드 | ✅ 2026-08-18 |
 | [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md) | **로컬 백업** — JSON 내보내기(OS 공유 시트)·가져오기(병합/교체)·파일 형식 v1·무료 결정·법무 문구 | ✅ 2026-08-21 구현·에뮬 실측 |
 | [`BUILD.md`](./BUILD.md) | **로컬 AAB 빌드·서명** — 업로드 키스토어(재생성 금지)·비밀번호 파일·build.gradle 서명 블록·`tools/build-aab.ps1`·점검·버전 이력 | ✅ 2026-08-18 |
@@ -41,9 +41,9 @@
 
 | 영역 | 상태 | 비고 |
 |---|---|---|
-| Expo 부트(SDK 54 · expo-router · TS strict · Metro 8087) | ✅ | 2026-08-17 — expo ~54.0.35 · RN 0.81.5 · React 19.1.0(LinkMemo 조합). 템플릿 예제 미채용, 단일 메인+스택(`index`·`project/new`·`settings`) |
+| Expo 부트(SDK 54 · expo-router · TS strict · Metro ~~8087~~ → **8090** 2026-08-27) | ✅ | 2026-08-17 — expo ~54.0.35 · RN 0.81.5 · React 19.1.0(LinkMemo 조합). 템플릿 예제 미채용, 단일 메인+스택(`index`·`project/new`·`settings`) |
 | 발상 도구(Idea Lab) — 조합·개선·불편에서·만약에 + approach 필드 | ✅ | 2026-08-18 — 메인 헤더 전구·빈 화면 링크 → `/idea-lab` 4도구 → `/project/new` 미리 채움. 에뮬: 조합·개선 e2e [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) |
-| 테마 12종 + 시스템(자동) | ✅ | 2026-08-17 — ~~라이트/다크 2종~~ → 시안 12종. `theme/palettes.ts` · `app/theme.tsx` 미니어처 그리드 · 설정 행에 현재 테마 표시. 카드 테두리 1px [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) |
+| 테마 12종 ~~+ 시스템(자동)~~ | ✅ | 2026-08-17 — ~~라이트/다크 2종~~ → 시안 12종. **시스템(자동) 항목 2026-08-27 제거**(구 저장값 마이그레이션). `theme/palettes.ts` · `app/theme.tsx` 미니어처 그리드 · 설정 행에 현재 테마 표시. 카드 테두리 1px [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) |
 | expo-sqlite v1 스키마 + 카테고리 시드 | ✅ | 2026-08-17 Phase 1 — [`DATABASE.md`](./DATABASE.md) |
 | 프로젝트 생성(이름만) · 카드 목록 · 삭제 | ✅ | 2026-08-17 Phase 1 — 생성 폼 Label+input(`TextField`) + Select(카테고리·상태·우선순위), 카드(상태·우선순위·진행률 바·카테고리·태그·수정일), 길게 눌러 삭제 |
 | 카테고리 관리(추가·수정·삭제 시 선택지) | ✅ | 2026-08-17 Phase 1 — 설정 → 카테고리. 사용 수 표시, 중복 거부, 삭제 시 없음/이동 라디오 |
@@ -53,7 +53,7 @@
 | 관련 자료 CRUD + 외부 브라우저 | ✅ | 2026-08-17 Phase 2 — 다이얼로그(URL 필수·제목 자동 제안), 탭 = 브라우저 |
 | 검색 9필드 | ✅ | 2026-08-17 Phase 3 — 한 쿼리(LIKE + EXISTS), 디바운스, 세션 한정 |
 | 필터 3축 · 정렬 6종 · 상태 유지 | ✅ | 2026-08-17 Phase 3 — 필터 시트(상태·카테고리·우선순위 Select — 2026-08-18 상태 칩 이동) · 정렬 시트 · zustand persist |
-| 다국어 en·ko + `check:i18n`(리소스 정합 + 코드 사용 키) + 언어 설정 | ✅ | 2026-08-17 — ~~175키~~ 295키(2026-08-21 백업 키 포함) 동기, 설정→언어 행(탭 → OptionSheet: 시스템/English/한국어). Phase 4 점검 완료 |
+| 다국어 en·ko + `check:i18n`(리소스 정합 + 코드 사용 키) + 언어 설정 | ✅ | 2026-08-17 — ~~175키~~ 295키(2026-08-21 백업 키 포함) 동기, 설정→언어 행(탭 → OptionSheet: ~~시스템/~~English/한국어 — 시스템 항목 2026-08-27 제거, 302키). Phase 4 점검 완료 |
 | 날짜 로케일 표기 | ✅ 기본 | 2026-08-17 — `lib/date.ts`(dayjs `ll`, ko/en 로케일, customParseFormat). 카드 수정일에 사용 |
 | 하단 배너(메인·상세) | ✅ | 2026-08-17 Phase 6 — 실 AdMob 배너(dev=테스트 단위), 미수신 시 자리 미점유 |
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ✅ | 2026-08-17 Phase 6 — 복귀 노출 없음, 로드 8초 타임아웃 |
@@ -100,13 +100,15 @@ npm run check:i18n             # en·ko 키 누락·잉여·보간 일치·비�
 **번들 컴파일 확인**(구현 완료 선언 전 필수): Metro 기동 상태에서
 
 ```bash
-curl -s -o /dev/null -w "%{http_code}" "http://localhost:8087/node_modules/expo-router/entry.bundle?platform=android&dev=true"
+curl -s -o /dev/null -w "%{http_code}" "http://localhost:8090/node_modules/expo-router/entry.bundle?platform=android&dev=true"
 # 200이면 런타임 모듈 에러 없이 번들 생성. 패키지 설치·파일 삭제 후에는 Metro를 --clear로 재시작
 ```
 
 - ⚠ **Metro 재시작은 PowerShell `Stop-Process`로**(LinkMemo 실증) — git-bash `kill`은 Windows 프로세스에 조용히 실패한다.
   재시작 검증은 ① 포트 소유 PID 변경(`netstat -ano`) ② 콜드 번들이 전체 모듈 수로 도는지("1 module"은 캐시 리셋 실패 신호).
-- **Metro 포트 8087 고정**(`package.json` scripts): `npm start` = `expo start --port 8087`, `npm run android` = `expo run:android --port 8087`.
+- **Metro 포트 ~~8087~~ → 8090 고정**(2026-08-27 — Delvewarden과 8087 충돌, `common/DEV_ALLOCATION.md` §1이 정본. `package.json` scripts): `npm start` = `expo start --port 8090`, `npm run android` = `expo run:android --port 8090`. 에뮬레이터 `debug_http_host`도 `10.0.2.2:8090`.
+- **전용 AVD `idea_repository`(포트 5572, `emulator-5572`, pixel_6 android-35 google_apis)** — 2026-08-27 생성. 형제 AVD(volleyball·sadojeon)를 빌려 쓰지 않는다(DEV_ALLOCATION §3).
+  접속: `adb -s emulator-5572 reverse tcp:8090 tcp:8090` + `debug_http_host=localhost:8090`(run-as로 프리퍼런스 기록). `10.0.2.2:8090`은 이 AVD에서 안 붙었다(UI_GUIDE §7 2026-08-27). 형제 Metro가 떠 있을 때 `--clear` 금지(공유 metro-cache ENOTEMPTY).
   2026-08-17 실측: `CI=1 npx expo start --port 8087` → 콜드 번들 200 · 1537 모듈 · 45초. sqlite·crypto 추가 후 `--clear` 재시작 1566 모듈.
 - **외부 실기기(Tailscale)**: `REACT_NATIVE_PACKAGER_HOSTNAME=100.91.69.45 npx expo start --port 8087` → 폰 Expo Go에서 `exp://100.91.69.45:8087`.
   2026-08-17 실측: manifest launchAsset이 Tailscale IP로 광고됨, 사용자 실기기 확인 완료. 폰 `s24`에 Tailscale이 켜져 있어야 붙는다.

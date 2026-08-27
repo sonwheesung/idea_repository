@@ -16,9 +16,7 @@ import { formatDate } from '@/lib/date';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
 import { useLanguageStore } from '@/lib/language';
 import { useThemeStore } from '@/theme/store';
-import { useResolvedThemeId, useTheme } from '@/theme/use-theme';
-
-type LanguageChoice = 'system' | AppLanguage;
+import { useTheme } from '@/theme/use-theme';
 
 // 설정 — 모든 행이 같은 규격(아이콘 · 제목 · 한 줄 설명 · 화살표)이다(2026-08-18 "언어만 라벨형" → 통일,
 // 2026-08-23 "부제 있는 행과 없는 행이 섞여 규격이 다르다" → 전 행에 설명 + ListRow minHeight — docs/UI_GUIDE.md §5.1).
@@ -31,9 +29,8 @@ export default function SettingsScreen() {
   const themeSetting = useThemeStore((s) => s.setting);
   const unreadNotices = useUnreadNoticeCount();
   const privacyOptionsRequired = useAdsStore((s) => s.privacyOptionsRequired);
-  const resolvedTheme = useResolvedThemeId();
-  const override = useLanguageStore((s) => s.override);
-  const setOverride = useLanguageStore((s) => s.setOverride);
+  const language = useLanguageStore((s) => s.language);
+  const setLanguage = useLanguageStore((s) => s.setLanguage);
   const [languageOpen, setLanguageOpen] = useState(false);
   const lastExportedAt = useBackupStore((s) => s.lastExportedAt);
   const [categoryCount, setCategoryCount] = useState(0);
@@ -46,29 +43,24 @@ export default function SettingsScreen() {
     }, []),
   );
 
-  const languageOptions: SheetOption<LanguageChoice>[] = [
-    { value: 'system', label: t('settings.languageSystem') },
-    ...SUPPORTED_LANGUAGES.map((lang) => ({ value: lang, label: LANGUAGE_LABELS[lang] })),
-  ];
-  const languageValue: LanguageChoice = override ?? 'system';
-  const languageLabel = languageOptions.find((o) => o.value === languageValue)?.label ?? '';
+  // ~~시스템 언어 항목~~ → en·ko만(2026-08-27 사용자 지시 "시스템(자동) 제거 — 바로 매핑")
+  const languageOptions: SheetOption<AppLanguage>[] = SUPPORTED_LANGUAGES.map((lang) => ({
+    value: lang,
+    label: LANGUAGE_LABELS[lang],
+  }));
 
   return (
     <Screen hasHeader scroll contentStyle={[styles.body, { backgroundColor: theme.background }]}>
       <ListRow
         icon="color-palette-outline"
         title={t('settings.theme')}
-        description={
-          themeSetting === 'system'
-            ? `${t('theme.system')} · ${t(`theme.names.${resolvedTheme}`)}`
-            : t(`theme.names.${resolvedTheme}`)
-        }
+        description={t(`theme.names.${themeSetting}`)}
         onPress={() => router.push('/theme')}
       />
       <ListRow
         icon="language-outline"
         title={t('settings.language')}
-        description={languageLabel}
+        description={LANGUAGE_LABELS[language]}
         onPress={() => setLanguageOpen(true)}
       />
       <ListRow
@@ -128,9 +120,9 @@ export default function SettingsScreen() {
       <OptionSheet
         visible={languageOpen}
         title={t('settings.language')}
-        value={languageValue}
+        value={language}
         options={languageOptions}
-        onSelect={(v) => setOverride(v === 'system' ? null : v)}
+        onSelect={setLanguage}
         onClose={() => setLanguageOpen(false)}
       />
     </Screen>

@@ -14,6 +14,7 @@
 | `components/badge.tsx` · `components/progress-bar.tsx` | ✅ 2026-08-23 — 카드·상세에 중복돼 있던 Badge·진행 바 추출 |
 | 반경·간격·타이포 스케일(§2~§4) 적용 | ✅ 2026-08-23 — 설정 행 10→14 · 발상 행 12→14 · 백업 안내 ad-hoc 박스 → `Card` |
 | 에뮬레이터 육안 확인(설정 · 발상 도구 · About · 카테고리 · 상세) | ✅ 2026-08-23 — 아래 §7 |
+| 입력 필드 배경 `searchBar` → `card`(테두리형) · 카테고리 추가 헤더 ＋ | ✅ 2026-08-27 — 사용자 지적 "회색이라 비활성/입력 불가처럼 보인다"(§2 정정) |
 
 ---
 
@@ -34,11 +35,12 @@
 |---|---|---|---|
 | **컨테이너** — 카드·탐색 행·다이얼로그·옵션 시트·테마 타일·질문 카드 | **14** | `card` / `border` 1px(다이얼로그·시트는 hairline) | `Card` · `ListRow` · `Dialog` · `OptionSheet` · `QuestionCard` |
 | **컨트롤** — 버튼·검색바 | **12** | `button` / `searchBar` | `Button` · 홈 검색바 |
-| **입력·내부 박스** — TextField·Select·DateField·TagInput·행 아이콘 박스·카드 안 보조 박스(답변·주의) | **10** | `searchBar` / `border` 1px(내부 박스는 `surface` + hairline) | `TextField` · `Select` · `DateField` · `TagInput` · `ListRow` icon box |
+| **입력·내부 박스** — TextField·Select·DateField·TagInput·행 아이콘 박스·카드 안 보조 박스(답변·주의) | **10** | 입력 4종 = ~~`searchBar`~~ → **`card` / `border` 1px**(2026-08-27 — 회색 채움이 비활성 필드로 읽혔다. 라이트 테마에서 흰 바탕 + 테두리, 다크 테마는 card=searchBar라 변화 없음) · 행 아이콘 박스는 `searchBar` 유지 · 내부 박스는 `surface` + hairline | `TextField` · `Select` · `DateField` · `TagInput` · `ListRow` icon box |
 | 알약(배지·태그 칩) | 999 | `badge` / `primary` | `Badge` · `TagInput` 칩 |
 | 하단 시트(필터) | 상단 18 | `card` | `FilterSheet` — 예외(화면 가장자리에 붙는 시트) |
 
 - 카드 테두리는 **1px + 진한 `border`**(2026-08-17 사용자 지적 "너무 희미하다") — hairline은 다이얼로그·시트·내부 박스에만.
+- **회색 채움(`searchBar`)은 홈 검색바·단어 검색·행 아이콘 박스 같은 "컨트롤"에만** — 사용자가 글을 쓰는 입력 필드는 채우지 않는다(2026-08-27). 채운 입력은 Android 관습상 비활성으로 읽힌다.
 - 2026-08-23 정정: 설정 행 ~~10~~ → 14, 발상 도구 행 ~~12~~ → 14, 질문 카드·조합 결과 ~~12~~ → 14, 백업 안내 ~~ad-hoc 10~~ → `Card`.
 
 ## 3. 간격
@@ -86,7 +88,7 @@
 
 ### 5.3 `EditRow` — 관리 목록 행 (카테고리 · 단어)
 
-이름 16/600 · 부제 13(선택 — 카테고리는 "N개 프로젝트", 단어는 없음) · 연필 · 휴지통(danger). `paddingVertical 12 · minHeight 56`,
+이름 16/600 · 부제 13(선택 — 카테고리는 "N개 프로젝트", 단어는 없음) · 연필 · 휴지통(danger). **추가는 두 화면 모두 헤더 우상단 ＋ 아이콘**(단어 2026-08-20 · 카테고리 2026-08-27 — ~~목록 끝 "+ 추가" 행~~ 제거). `paddingVertical 12 · minHeight 56`,
 카드 없이 hairline 구분선(`marginLeft 16`). 연필·휴지통은 `hitSlop 8` + padding 8(탭 영역 ≥ 36+16).
 
 ### 5.4 `Dialog` — 가운데 다이얼로그
@@ -121,3 +123,6 @@
   ⚠ 함정: 에뮬레이터에 남아 있던 구 디버그 APK(백업 네이티브 모듈 없음)로는 `Cannot find native module 'ExpoSharing'` — 디버그 APK도 네이티브 모듈 추가 뒤엔
   재설치가 먼저다. 같은 에뮬레이터를 형제 프로젝트 세션이 동시에 쓰고 있었다(조각·LinkMemo 전면 전환·ANR 다이얼로그) — 스크린샷이 섞이면 `topResumedActivity`로 확인.
   JS만 바뀐 변경이라 AAB 재빌드는 불필요했지만, 비공개 테스트 반영은 **다음 AAB(vc7)** 로만(OTA 금지 — CLAUDE §16).
+- 2026-08-27 (전용 AVD `idea_repository` · `emulator-5572` 첫 사용, 디버그 APK 8/21 빌드 재설치 + Metro **8090**, 번들 1794모듈): 필터 시트 Select 3개·새 프로젝트 폼(이름·Add details 펼침: Select·태그·다중행 4개) — 흰 바탕 + `border` 1px로 바뀜 ·
+  설정(테마 "Light Minimal" 단독 · 언어 "English") · 언어 시트 = English/한국어 2항목 · 테마 그리드 = 12종(시스템 항목 없음, Current · Light Minimal) · 카테고리 헤더 ＋ → "Add category" 다이얼로그(목록 끝 추가 행 없음).
+  ⚠ 함정: 새 AVD에서 `debug_http_host=10.0.2.2:8090`은 Metro에 요청이 아예 안 닿았다(원인 미확인 — 방화벽 추정) → **`adb reverse tcp:8090 tcp:8090` + 프리퍼런스 `localhost:8090`**으로 해결(DEV_ALLOCATION §3 "에뮬레이터는 adb reverse"와 일치). `expo start --clear`는 형제 Metro와 공유하는 `%TEMP%\metro-cache`를 지우다 ENOTEMPTY로 죽는다 — 동시 실행 중엔 `--clear` 금지.

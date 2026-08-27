@@ -84,7 +84,6 @@
   },
   "settings": {
     "language": "언어",
-    "languageSystem": "시스템 언어",
     "categories": "카테고리",
     "about": "정보",
     "theme": "테마",
@@ -116,7 +115,6 @@
   },
   "theme": {
     "current": "현재",
-    "system": "시스템 (자동)",
     "names": {
       "lightMinimal": "라이트 미니멀",
       "darkMinimal": "다크 미니멀",

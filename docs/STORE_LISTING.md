@@ -72,7 +72,7 @@ FIND IT AGAIN
 ORGANIZE YOUR WAY
 • Categories — App, Game, Web, Service, Business, Content, Other, or add your own
 • Tags — free-form tags with autocomplete
-• 12 themes — light, dark, and colorful palettes, or follow the system setting
+• 12 themes — light, dark, and colorful palettes ~~, or follow the system setting~~ ← ⚠ 2026-08-27 앱에서 시스템(자동) 제거 — **콘솔 등록정보도 이 문장 삭제 필요(사용자 확인 후)**
 
 PRIVATE BY DESIGN
 • No account, no sign-up, no login. Install and start.
@@ -127,7 +127,7 @@ Idea Repository는 "내가 만들고 싶은 것들"을 모아 두는 개인용 �
 내 방식대로 정리
 • 카테고리 — App, Game, Web, Service, Business, Content, Other 기본 제공 + 직접 추가
 • 태그 — 자유롭게 만들고 자동완성으로 재사용
-• 테마 12종 — 라이트 · 다크 · 컬러 팔레트, 또는 시스템 설정 따르기
+• 테마 12종 — 라이트 · 다크 · 컬러 팔레트 ~~, 또는 시스템 설정 따르기~~ ← ⚠ 2026-08-27 동일(콘솔 반영 대기)
 
 처음부터 프라이빗하게
 • 회원가입 · 로그인 · 계정이 없습니다. 설치하고 바로 시작하세요.

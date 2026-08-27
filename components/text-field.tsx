@@ -9,7 +9,8 @@ interface TextFieldProps extends TextInputProps {
   required?: boolean;
 }
 
-/** 라벨 + 입력 (2026-08-17 사용자 요청: 폼은 Label + input 형태). LinkMemo text-field 승계. */
+/** 라벨 + 입력 (2026-08-17 사용자 요청: 폼은 Label + input 형태). LinkMemo text-field 승계.
+ *  배경은 ~~searchBar~~ → card + border 1px(2026-08-27 "회색이라 입력 못 하는 것처럼 보인다" — UI_GUIDE §2). */
 export function TextField({ label, error, required, style, ...inputProps }: TextFieldProps) {
   const theme = useTheme();
 
@@ -25,7 +26,7 @@ export function TextField({ label, error, required, style, ...inputProps }: Text
         style={[
           styles.input,
           {
-            backgroundColor: theme.searchBar,
+            backgroundColor: theme.card,
             borderColor: error ? theme.danger : theme.border,
             color: theme.text,
           },

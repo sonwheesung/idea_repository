@@ -9,7 +9,7 @@
 |---|---|
 | i18next · react-i18next · expo-localization 세팅(`lib/i18n.ts`) | ✅ 2026-08-17 Phase 0 — josa 포매터 추가 2026-08-20 |
 | en(기본) · ko 리소스 | ✅ 2026-08-17 — 295키(2026-08-21) |
-| 언어 수동 변경(설정 → 언어: 시스템 따르기 + en + ko) | ✅ 2026-08-17 — 설정 행 탭 → OptionSheet |
+| 언어 수동 변경(설정 → 언어: ~~시스템 따르기 +~~ en + ko) | ✅ 2026-08-17 — 설정 행 탭 → OptionSheet. **시스템 항목 2026-08-27 제거**(§1) |
 | 키 검사 스크립트(`check:i18n`) — LinkMemo `scripts/check-i18n.mjs` 이식 | ✅ 2026-08-17 — Phase 4에서 코드 사용 키 검사(④) 추가 |
 | 날짜 로케일 표기(dayjs + 기기 지역) | ✅ 2026-08-17 — `lib/date.ts`(`ll`) |
 
@@ -23,6 +23,7 @@
 | 이후 후보 | ja · zh · es · fr · de · pt | **유입 국가 데이터로 순서 결정** — 미리 확정하지 않는다. zh는 간체·번체 별개(LinkMemo 실증) |
 
 - 기기 언어 자동 감지, 미지원 언어는 영어 폴백. 설정에서 수동 변경 가능.
+  ~~설정 → 언어에 "시스템 언어" 항목(override null)~~ → **en·ko 둘만**(2026-08-27 사용자 지시 "시스템(자동) 제거 — 바로 매핑"): `lib/language.ts` store가 `language`(항상 en|ko)를 들고, 첫 실행 초기값 = `detectDeviceLanguage()`. 그 뒤로 기기 언어가 바뀌어도 따라가지 않는다(사용자 선택 우선). 구 저장값 `{ override: null }`은 지금 기기 언어로 고정. `settings.languageSystem`·`theme.system` 키 삭제(302키).
 - **사용자가 작성하는 프로젝트 내용은 자동 번역하지 않는다**(기획서 §25). 기본 카테고리 7종도 영어 데이터 행이지
   번역 리소스가 아니다(CLAUDE.md §8).
 
@@ -48,7 +49,7 @@ sort.recentlyUpdated / sort.recentlyCreated / sort.name / sort.progress / sort.t
 filter.status / filter.category / filter.priority / filter.all / filter.empty / search.empty
 home.empty.title / home.empty.body                        ← 데이터 손실 안내 포함
 data.notice.local / data.notice.loss                      ← 저장 위치·손실 안내 (다른 안내와 키 분리)
-settings.language / settings.theme · theme.system · theme.names.<id> / settings.categories / settings.removeAds / settings.restorePurchase / settings.notice / settings.inquiry
+settings.language / settings.theme · ~~theme.system~~(2026-08-27 삭제) · theme.names.<id> / settings.categories / settings.removeAds / settings.restorePurchase / settings.notice / settings.inquiry
 ads.* / purchase.*
 ideation.* (도구 이름·설명·버튼·질문 카드) / approach.* (발상 방식 6값 표시명) / home.ideaLab   ← 2026-08-18 발상 도구
 ```

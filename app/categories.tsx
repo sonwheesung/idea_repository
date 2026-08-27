@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { Stack } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList, Pressable, StyleSheet, Text } from 'react-native';
@@ -21,6 +22,7 @@ type DeleteChoice = { kind: 'clear' } | { kind: 'move'; targetId: string };
 
 // 카테고리 관리 — 추가·이름 변경·삭제(사용 중이면 "없음으로 / 다른 카테고리로 이동 / 취소") (PROJECT_SYSTEM §4).
 // 기본 카테고리도 일반 행 — 수정·삭제 가능(CLAUDE.md §14 #5). 행·다이얼로그는 공용 EditRow·Dialog(UI_GUIDE §5.3·§5.4).
+// 추가는 ~~목록 끝 "+ 카테고리 추가" 행~~ → 헤더 우상단 ＋ 아이콘(2026-08-27 사용자 지시 — 단어 관리 화면과 동일).
 export default function CategoriesScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -32,6 +34,20 @@ export default function CategoriesScreen() {
 
   return (
     <Screen hasHeader>
+      <Stack.Screen
+        options={{
+          headerRight: () => (
+            <Pressable
+              onPress={() => setEditing({ mode: 'add' })}
+              hitSlop={8}
+              style={styles.headerButton}
+              accessibilityRole="button"
+              accessibilityLabel={t('category.add')}>
+              <Ionicons name="add" size={26} color={theme.primary} />
+            </Pressable>
+          ),
+        }}
+      />
       <FlatList
         data={categories}
         keyExtractor={(c) => c.id}
@@ -45,12 +61,6 @@ export default function CategoriesScreen() {
             onDelete={() => setDeleting(item)}
           />
         )}
-        ListFooterComponent={
-          <Pressable onPress={() => setEditing({ mode: 'add' })} style={styles.addRow}>
-            <Ionicons name="add-circle-outline" size={22} color={theme.primary} />
-            <Text style={[styles.addText, { color: theme.primary }]}>{t('category.add')}</Text>
-          </Pressable>
-        }
       />
 
       {editing ? (
@@ -208,8 +218,7 @@ function RadioRow({
 
 const styles = StyleSheet.create({
   list: { paddingVertical: 8 },
-  addRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingHorizontal: 16, paddingVertical: 16 },
-  addText: { fontSize: 16, fontWeight: '500' },
+  headerButton: { padding: 4 },
   dialogBody: { fontSize: 14, lineHeight: 20 },
   optionGroup: { fontSize: 13, fontWeight: '500', marginTop: 4 },
   radioRow: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 8 },

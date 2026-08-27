@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Screen } from '@/components/screen';
-import { THEMES, THEME_IDS, type ThemeId, type ThemePalette, type ThemeSetting } from '@/theme/palettes';
+import { THEMES, THEME_IDS, type ThemeId, type ThemePalette } from '@/theme/palettes';
 import { useThemeStore } from '@/theme/store';
-import { useResolvedThemeId, useTheme } from '@/theme/use-theme';
+import { useTheme } from '@/theme/use-theme';
 
 // 미리보기는 이미지가 아니라 토큰으로 그린 홈 미니어처 — 팔레트를 추가하면 미리보기도 따라온다 (THEME_SYSTEM §3)
 function ThemePreview({ palette }: { palette: ThemePalette }) {
@@ -56,23 +56,21 @@ function ThemePreview({ palette }: { palette: ThemePalette }) {
 export default function ThemeScreen() {
   const { t } = useTranslation();
   const theme = useTheme();
-  const resolved = useResolvedThemeId();
   const setting = useThemeStore((s) => s.setting);
   const setSetting = useThemeStore((s) => s.setSetting);
 
-  const items: ThemeSetting[] = ['system', ...THEME_IDS];
-  const nameOf = (s: ThemeSetting) => (s === 'system' ? t('theme.system') : t(`theme.names.${s}`));
+  // ~~['system', ...THEME_IDS]~~ → 12종만(2026-08-27 사용자 지시 "시스템(자동) 제거 — 바로 매핑")
+  const nameOf = (s: ThemeId) => t(`theme.names.${s}`);
 
   return (
     <Screen hasHeader scroll contentStyle={styles.list}>
       <Text style={[styles.current, { color: theme.textMuted }]}>
         {t('theme.current')} · {nameOf(setting)}
-        {setting === 'system' ? ` (${t(`theme.names.${resolved}`)})` : ''}
       </Text>
       <View style={styles.grid}>
-        {items.map((id) => {
+        {THEME_IDS.map((id) => {
           const selected = id === setting;
-          const paletteId: ThemeId = id === 'system' ? resolved : id;
+          const paletteId: ThemeId = id;
           return (
             <Pressable
               key={id}

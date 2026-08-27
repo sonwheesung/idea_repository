@@ -129,12 +129,12 @@ Cancelled=진행하지 않기로 결정 · Completed=완료.
 ### 4.2 관리 화면 (Settings → Categories)
 
 ```
-Categories
-  App        ⋮
-  Game       ⋮
+Categories                          [＋]   ← 헤더 우상단(2026-08-27 — 단어 관리와 동일)
+  App        ✎ 🗑
+  Game       ✎ 🗑
   …
-  Other      ⋮
-+ Add Category
+  Other      ✎ 🗑
+~~+ Add Category~~                          ← 목록 끝 추가 행은 2026-08-27 제거
 ```
 
 - 추가: 이름 1칸. 대소문자 무시 중복 거부(`category.duplicate`).

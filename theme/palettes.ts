@@ -19,11 +19,12 @@ export const THEME_IDS = [
 
 export type ThemeId = (typeof THEME_IDS)[number];
 
-/** 설정값 — system이면 OS 라이트/다크에 따라 Light/Dark Minimal (THEME_SYSTEM 결정 이력) */
-export type ThemeSetting = 'system' | ThemeId;
-export const DEFAULT_THEME_SETTING: ThemeSetting = 'system';
-export const SYSTEM_LIGHT: ThemeId = 'lightMinimal';
-export const SYSTEM_DARK: ThemeId = 'darkMinimal';
+/** 설정값 = 테마 id 그대로. ~~'system'(OS 라이트/다크 → Light/Dark Minimal)~~ → 2026-08-27 제거(THEME_SYSTEM 결정 이력) */
+export type ThemeSetting = ThemeId;
+export const DEFAULT_THEME_SETTING: ThemeSetting = 'lightMinimal';
+/** 구 'system' 저장값 마이그레이션용 — 마지막으로 보이던 테마로 고정한다 */
+export const LEGACY_SYSTEM_LIGHT: ThemeId = 'lightMinimal';
+export const LEGACY_SYSTEM_DARK: ThemeId = 'darkMinimal';
 
 export interface ThemePalette {
   id: ThemeId;
