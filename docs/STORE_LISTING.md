@@ -256,7 +256,23 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
-### vc8 · 1.0.7 (2026-08-26) — 검토 전송
+### vc9 · 1.0.8 (2026-08-31) — 검토 전송
+
+**en-US**
+```
+• Clearer forms: text fields and selectors in the filter sheet and the new-project form now use a white background with a border — the gray fill made them look disabled.
+• Theme & language: removed the "System (auto)" option — pick your theme and language directly. Your current setting carries over.
+• Categories: adding a category moved to the + button at the top right of the Manage categories screen.
+```
+
+**ko-KR**
+```
+• 입력 필드 개선: 필터 시트·새 프로젝트 화면의 입력 칸과 선택 칸이 회색 채움 탓에 비활성처럼 보이던 것을 흰 배경 + 테두리로 바꿨습니다.
+• 테마·언어: "시스템(자동)" 항목을 제거하고 바로 선택하도록 했습니다. 기존 설정은 그대로 유지됩니다.
+• 카테고리: 카테고리 추가를 관리 화면 우측 상단 ＋ 버튼으로 옮겼습니다.
+```
+
+### vc8 · 1.0.7 (2026-08-26) — ✅ 검토 통과 · 테스터 제공(8/26 12:47)
 
 **en-US**
 ```

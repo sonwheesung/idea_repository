@@ -131,6 +131,7 @@ bootstrap `version.latest`(서버 `app_settings.latestVersion`)를 쓰는 **앱 
 - 버전 비교는 ~~`lib/version.ts`~~ → SDK `compareVersions`(BootGate와 동일, 2026-08-26 정정): `'1.0.10' > '1.0.9'`가 맞게 세그먼트 숫자 비교, 숫자 아닌 세그먼트는 0(throw 없음).
 - 노출 순서: 웰컴 시트(첫 실행) → App Open 광고 → 업데이트 팝업. 앞의 둘이 끝나야 뜬다(`welcomeSeen`·`startupAdSettled`).
 - 운영값 설정은 `PATCH /api/admin/settings`(ADMIN_TOKEN — LEGAL_SYSTEM §4-4 방식). **검토 통과·테스터 제공을 콘솔에서 확인한 뒤에만** latest를 올린다. LinkMemo 2026-08-18 동일 구현(`components/update-popup.tsx`) 이식.
+  → ✅ **운영 개시(2026-08-31)**: vc8 제공 확인(8/26 12:47) 후 `latestVersion '1.0.7'` + `androidStoreUrl`(Play 상세 페이지) PATCH — `bootstrap.version {latest:'1.0.7', androidUrl:…}` 실측. 다음 갱신은 vc9(1.0.8) 제공 확인 후 같은 방식.
 - Idea Repository는 pinned 공지 홈 팝업이 없으므로 팝업 순서 충돌 없음(LinkMemo는 공지 팝업이 먼저).
 
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
