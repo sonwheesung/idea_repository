@@ -14,8 +14,8 @@ Idea Repository 앱 (Expo RN)
  │     ← 프로젝트·노트·자료·카테고리·태그·필터/정렬 상태·설정 = 전부 여기. 진실의 전부
  │
  ├── HTTPS ──▶ common_server (https://common-server.vercel.app)
- │              ├─ GET  /api/v1/bootstrap?app=idearepository   ← 부팅 1회: 점검·강제업데이트·공지
- │              ├─ POST /api/v1/devices                    ← 최초 문의 진입 시 1회: 기기 subject 등록 → 세션 토큰
+ │              ├─ GET  /api/v1/bootstrap?app=idearepository   ← 부팅 1회: 점검·강제업데이트·공지 (+ 세션 있으면 동봉 → 활성 일자 1행, §5.5)
+ │              ├─ POST /api/v1/devices                    ← ~~최초 문의 진입 시 1회~~ → **첫 실행 1회**(2026-09-01, §5.5): 기기 subject 등록 → 세션 토큰
  │              ├─ POST /api/v1/tickets                    ← 문의(기기 귀속 · 세션 실패 시 익명 폴백)
  │              └─ GET  /api/v1/tickets/mine               ← 내 문의 목록·답변·상태
  │
@@ -27,6 +27,7 @@ Idea Repository 전용 서버: 없음 (만들지 않는다)
 ```
 
 **우리 서버(common_server)로 나가는 사용자 입력은 문의 본문뿐이다.** 프로젝트·노트·자료는 어떤 요청에도 실리지 않는다.
+사용자 입력이 아닌 것으로는 **무작위 기기 식별자(UUID) 세션**이 첫 실행 등록과 매 부팅 조회에 실린다(2026-09-01 — 활성 사용자 집계, §5.5).
 관련 자료 URL은 사용자가 탭할 때 **OS 브라우저가** 열 뿐, 앱이 fetch하지 않는다(favicon도 안 가져온다 — PROJECT_SYSTEM §7).
 
 ---
@@ -52,7 +53,8 @@ common-server·volleyball은 **Pro 조직 소속이고 Pro는 프로젝트 개�
 |---|---|---|
 | 프로젝트·노트·자료·카테고리·태그 | 기기 로컬(expo-sqlite) | 유일본. 손실 안내 필수(CLAUDE.md §6) |
 | 필터/정렬 상태·언어·다크 모드 설정 | 기기 로컬(AsyncStorage via zustand persist) | |
-| 기기 subject deviceId · 세션 토큰 | 기기 로컬(SecureStore) | 무작위 UUID — 개인정보 아님 |
+| 기기 subject deviceId · 세션 토큰 | 기기 로컬(SecureStore) | 무작위 UUID — 이름·이메일 없음. ~~최초 문의 시 생성~~ → **첫 실행 시 생성**(2026-09-01) |
+| 활성 일자 `(app_code, subject_id, day)` | common_server DB | **앱은 쓰지 않는다** — 서버가 등록·부팅 조회 수신 시 1일 1행(KST) 기록, 400일 보관 후 파기(common_server `lib/retention.ts`). §5.5 |
 | 광고 제거 구매 상태 | 스토어(진실) + 로컬 캐시 | 조회 실패에 캐시를 지우지 않는다 |
 | 공지·점검·버전 게이트 | common_server DB | 앱은 읽기만 |
 | 공지 읽음 여부 | 기기 로컬(AsyncStorage) | 서버에 읽음 테이블을 두지 않는다(common 규약) |
@@ -76,7 +78,7 @@ common-server·volleyball은 **Pro 조직 소속이고 Pro는 프로젝트 개�
 
 ```
 설정 → 문의하기(= 내역 화면) → [문의 등록하기]
- → deviceId 없으면 UUID 생성(SecureStore) → registerDevice() → 세션 저장
+ → deviceId 없으면 UUID 생성(SecureStore) → registerDevice() → 세션 저장   ← 2026-09-01부터는 보통 부팅 때 이미 끝나 있다(§5.5). 여기 호출은 오프라인 부팅의 복구 지점
  → sendInquiry() 자동 귀속 → 내역 화면에서 fetchMyInquiries()로 상태·답변
  (등록 실패 시 익명으로 전송 — 문의 자체를 막지 않는다)
 ```
@@ -102,7 +104,7 @@ common-server·volleyball은 **Pro 조직 소속이고 Pro는 프로젝트 개�
    확인: `curl "https://common-server.vercel.app/api/v1/bootstrap?app=idearepository&platform=android&appVersion=0.1.0"` **200**
    (404 = 미등록/비활성. "했다"가 아니라 출력을 남긴다)
 2. **SDK 복사(앱)**: `common_server/client/{index,types}.ts` → `lib/common-server/`. 복사본 상단에 `SDK_VERSION` 주석
-   (현재 `2026-08-14`). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
+   (~~현재 `2026-08-14`~~ → **`2026-09-01`** 2026-09-01 재복사 — §5.5). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
 3. **부팅 게이트(앱)**: `fetchBootstrap()` 1회. **실패해도 앱을 막지 않는다** — 로컬 앱이 서버 때문에 못 열리면
    기둥 2 위반. 성공 시에만: 점검 화면 / min 미만 강제 업데이트 / latest 미만 소프트 안내 / 공지 배지.
    ⚠ **차단 화면에 반드시 출구를 둔다** — 스토어 URL이 비어 있으면 안내문이라도(my_word 실제 사고).
@@ -134,6 +136,30 @@ bootstrap `version.latest`(서버 `app_settings.latestVersion`)를 쓰는 **앱 
   → ✅ **운영 개시(2026-08-31)**: vc8 제공 확인(8/26 12:47) 후 `latestVersion '1.0.7'` + `androidStoreUrl`(Play 상세 페이지) PATCH — `bootstrap.version {latest:'1.0.7', androidUrl:…}` 실측. 다음 갱신은 vc9(1.0.8) 제공 확인 후 같은 방식.
 - Idea Repository는 pinned 공지 홈 팝업이 없으므로 팝업 순서 충돌 없음(LinkMemo는 공지 팝업이 먼저).
 
+### 5.5 부팅 활성 하트비트 — SDK 2026-09-01 (2026-09-01 결정 · 구현)
+
+common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 붙였다(common_server `8167c23`, PLAN Phase 12). 서버는 **`POST /v1/devices` · `bootstrap`(토큰 있을 때)** 수신 시
+`(app_code, subject_id, KST day)` 1행을 넣는다 — PK가 멱등키라 하루에 몇 번 와도 1행. 앱이 해야 할 일은 둘뿐이다:
+
+1. **SDK 재복사** — `fetchBootstrap()`이 저장된 세션 토큰을 동봉한다(2026-09-01판부터). **bootstrap에서만 토큰이 선택**이다: 무효·만료 토큰을 서버가 401이 아니라 조용히 무시한다(진입 게이트라 세션 문제가 점검·강제업데이트 판정을 막으면 안 된다).
+2. **부팅 시 세션 확보** — `useBootStore.fetchOnce()`(앱 실행당 1회 게이트)에서 `ensureDeviceSession()`을 `fetchBootstrap()`과 **병렬**로 호출. 직렬로 만들지 않는다 — 서버가 양쪽에서 기록하고 멱등이라 순서를 맞춰 얻는 게 없고 부팅만 느려진다. 첫 실행엔 bootstrap에 토큰이 없어도 devices가 그날을 기록한다.
+
+```
+부팅 → fetchOnce()
+ ├─ ensureDeviceSession()   isSignedIn()이면 즉시 반환(SecureStore 세션 복원) · 없으면 UUID 생성 → registerDevice → 세션 저장
+ └─ fetchBootstrap()        토큰 있으면 Authorization 동봉 → 서버가 활성 일자 기록
+```
+
+- **문의 화면의 `ensureDeviceSession()` 호출은 그대로 둔다**(`app/inquiry.tsx`·`app/inquiries.tsx`) — 부팅이 오프라인이었을 때의 복구 지점. 멱등이라 중복 호출 무해.
+- **오프라인·서버 다운에서 오류가 나면 안 된다**(2026-09-01 사용자 조건, 기둥 2): SDK는 throw 하지 않고 `ensureDeviceSession`은 try/catch로 `false`만 돌려준다. 결과를 UI에 쓰지 않는다 — `void`로 버린다. 실패하면 다음 부팅(또는 문의 진입)에 다시 시도할 뿐, 알림·토스트·재시도 루프 없음.
+- **재등록 폭주 금지**: `isSignedIn()` 가드가 SecureStore 세션을 복원하면 `registerDevice`를 부르지 않는다. 서버 `device` 레이트리밋은 IP당 10회/600초 — 정상 앱은 설치당 1회.
+- 왜: 이전엔 `ensureDeviceSession()`이 문의 화면에서만 불려 **문의를 열어본 기기만** subject가 됐다(2026-09-01 서버 실측: subjects 7 · DAU 0 · `activity_uncollected`). 활성 지표는 전체 사용자여야 의미가 있다.
+- 개인정보 영향(LEGAL_SYSTEM §2 정합 규칙): 모든 사용자가 첫 실행에 UUID를 발급받고 매 부팅에 보내며, 서버에 **활성 일자가 400일 저장**된다 → 이용 목적에 "서비스 이용 통계(활성 사용자 집계)" 추가 — 처리방침 **EN rev. 5 · KO 5차**(2026-09-01 게시, 2026-09-08 시행). 웰컴 시트 "앱 버전만" 문구 정정. Play 데이터 보안 양식은 변경 없음(기기 ID = 수집·공유·분석 목적으로 이미 선언 — `legal/DATA_SAFETY.md` §2). 광고 ID(GAID)와 별개 — 광고·추적에 쓰지 않는다.
+- SDK 부수 변경: `MyInquiry.status`에 `'reviewing'` 추가(관리자 "확인 중") → i18n `inquiry.status.reviewing` en/ko 추가. **서버는 이미 배포돼 있어** 구 앱(≤ vc9)은 관리자가 확인 중으로 바꾸면 키 이름이 그대로 보인다(`check:i18n`이 템플릿 키를 못 잡는 사각 — 값 4종을 스크립트가 알 수 없어 리뷰로 잡는다). `fetchEntitlements({fresh?})` 선택 인자는 미사용.
+- 확인: 관리자 `GET /api/admin/stats?app=idearepository`(ADMIN_TOKEN `--env-file` 주입) → `activity.dau ≥ 1` · `alerts`에 `activity_uncollected` 없음. 재부팅 시 `POST /v1/devices` 재호출 없음(에뮬 로그).
+  → ✅ **에뮬 실측(2026-09-01, 공용 `common_2` 디버그 빌드 + Metro `adb reverse`)**: ① **오프라인**(`svc wifi/data disable`, ping 실패 확인) 첫 실행 → 웰컴 시트(새 문구) → Start → 홈 정상, ReactNativeJS 오류 0, 서버 subjects 7 그대로(아무것도 안 나감) ② 네트워크 켜고 콜드 스타트 → 로그 "no session → registerDevice" → 서버 **subjects 8 · DAU 1 · WAU 1 · coverageDays 1 · `activity_uncollected` 소멸** ③ 재실행 → 로그 "signed-in → skip register"(SecureStore 세션 복원), subjects 8 유지. 임시 `console.log`는 검증 후 제거(커밋 미포함).
+  ⚠ 디버그 빌드 함정: RN 에뮬레이터 기본 dev 호스트가 `10.0.2.2:8081`이라 오프라인에선 번들 자체를 못 받는다("Unable to load script" — 앱 문제 아님). `debug_http_host=localhost:8081` 프리퍼런스(run-as) + `adb reverse tcp:8081 tcp:8090`으로 adb 소켓 경로를 쓰면 네트워크를 꺼도 번들이 온다.
+
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
 - bootstrap 게이트는 **서버 응답으로만** 판정 — 앱 로컬 신뢰 금지.
@@ -149,8 +175,9 @@ bootstrap `version.latest`(서버 `app_settings.latestVersion`)를 쓰는 **앱 
 | 항목 | 상태 |
 |---|---|
 | `apps`에 `idearepository` 등록 | ✅ 2026-08-17 — seed 실행, **프로덕션 `bootstrap?app=idearepository` → 200 실측** |
-| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, SDK_VERSION 2026-08-14. 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
+| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → **2026-09-01 재복사**(bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
 | 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ~~⏸ latest 소프트 안내 미구현~~ → ✅ 2026-08-26 `components/update-popup.tsx` + `useSoftUpdateStore`(설계 §5.4, vc8) |
+| 부팅 활성 하트비트 | ✅ 2026-09-01 — `useBootStore.fetchOnce()`에서 `ensureDeviceSession()` 병렬 호출(§5.5). 처리방침 rev.5/5차 · 웰컴 문구 · `inquiry.status.reviewing` 동반. vc10 |
 | 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |
 | 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ✅ 2026-08-17 — 설정 → 문의하기 = 내역(`app/inquiries.tsx`) + 우상단 [문의 등록하기] → 폼(`app/inquiry.tsx`, 분류 Select). `features/support/server.ts`(SecureStore UUID·세션). **프로덕션 E2E**: 등록→토큰→문의 귀속→mine 200, 잘못된 deviceId 400 |
 | 디스코드 웹훅 env | ✅ 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` production 등록 + 재배포(common_server `964bcd9`). 문의 E2E 200 |

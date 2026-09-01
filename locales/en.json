@@ -198,7 +198,7 @@
     "point": {
       "noAccount": "No account, no sign-in. Nothing to register.",
       "noCloud": "No cloud sync. Your ideas never go to our servers.",
-      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob), a start-up check for notices and updates (app version only), and any support inquiry you choose to send."
+      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob), a start-up check for notices and updates (app version plus a random device ID used only to count active users — never for ads), and any support inquiry you choose to send."
     },
     "readPolicy": "Read the privacy policy",
     "start": "Start"
@@ -238,6 +238,7 @@
     "replyLabel": "Reply",
     "status": {
       "open": "Received",
+      "reviewing": "Reviewing",
       "replied": "Replied",
       "resolved": "Resolved"
     }

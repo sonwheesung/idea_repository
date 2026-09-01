@@ -63,7 +63,7 @@
 | 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~vc6 예정~~ → vc6 · 1.0.5 검토 전송(2026-08-21) |
 | 소프트 업데이트 안내(latest) · 검색 매치 힌트 | ✅ | Phase 11 — 2026-08-26 구현 → vc8 · 1.0.7. **운영값 latest `1.0.7` + 스토어 URL PATCH(2026-08-31, bootstrap 실측 — 팝업 운영 개시)**. 설계 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.4 · [`PROJECT_SYSTEM.md`](./PROJECT_SYSTEM.md) §9.1 |
 | 공지·점검·강제업데이트(bootstrap) | ✅ | 2026-08-17 Phase 5 — `components/boot-gate.tsx`(실패 시 통과·차단 화면 출구) · `app/notice.tsx` + 설정 배지. ~~⏸ latest 소프트 안내 미구현~~ → ✅ Phase 11(vc8, 위 행) [`ARCHITECTURE.md`](./ARCHITECTURE.md) §6 |
-| 문의하기 + 기기 subject + 내역/답변/상태 | ✅ | 2026-08-17 Phase 5 — `app/inquiries.tsx`·`app/inquiry.tsx`·`features/support/server.ts`(SecureStore UUID·세션). 프로덕션 E2E 실측 |
+| 문의하기 + 기기 subject + 내역/답변/상태 | ✅ | 2026-08-17 Phase 5 — `app/inquiries.tsx`·`app/inquiry.tsx`·`features/support/server.ts`(SecureStore UUID·세션). 프로덕션 E2E 실측. **2026-09-01**: 세션 확보를 부팅(`fetchOnce`)으로 앞당김 — 활성 사용자 집계(§5.5), 상태 `reviewing` 키 추가 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
 | 첫 실행 프라이버시 웰컴 시트 + About "Privacy at a glance" | ✅ | 2026-08-17 — `components/welcome-sheet.tsx`·`privacy-overview.tsx`, `features/onboarding/store.ts`(persist, 복원 후 표시) |
 | 정보(About) 화면 — 버전·태그라인·링크(처리방침·약관·문의·웹사이트)·판매자 정보 | ✅ | 2026-08-17 — `app/about.tsx` · 상수 `lib/links.ts` · 문안 [`STORE_LISTING.md`](./STORE_LISTING.md) |
@@ -73,7 +73,7 @@
 | 영역 | 상태 | 비고 |
 |---|---|---|
 | common_server `apps`에 `idearepository` 등록 | ✅ | 2026-08-17 seed — 프로덕션 `bootstrap?app=idearepository` 200 실측 |
-| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — SDK_VERSION 2026-08-14, `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
+| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → **2026-09-01 재복사**(bootstrap 세션 동봉 → 활성 하트비트, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
 | 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
 | RevenueCat 프로젝트(익명 모드) | ⏸ | 웹훅·서버 연동 없음. Phase 7 — AdMob 정지 해제 후(2026-08-21) |
@@ -107,8 +107,8 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8090/node_modules/expo-
 - ⚠ **Metro 재시작은 PowerShell `Stop-Process`로**(LinkMemo 실증) — git-bash `kill`은 Windows 프로세스에 조용히 실패한다.
   재시작 검증은 ① 포트 소유 PID 변경(`netstat -ano`) ② 콜드 번들이 전체 모듈 수로 도는지("1 module"은 캐시 리셋 실패 신호).
 - **Metro 포트 ~~8087~~ → 8090 고정**(2026-08-27 — Delvewarden과 8087 충돌, `common/DEV_ALLOCATION.md` §1이 정본. `package.json` scripts): `npm start` = `expo start --port 8090`, `npm run android` = `expo run:android --port 8090`. 에뮬레이터 `debug_http_host`도 `10.0.2.2:8090`.
-- **전용 AVD `idea_repository`(포트 5572, `emulator-5572`, pixel_6 android-35 google_apis)** — 2026-08-27 생성. 형제 AVD(volleyball·sadojeon)를 빌려 쓰지 않는다(DEV_ALLOCATION §3).
-  접속: `adb -s emulator-5572 reverse tcp:8090 tcp:8090` + `debug_http_host=localhost:8090`(run-as로 프리퍼런스 기록). `10.0.2.2:8090`은 이 AVD에서 안 붙었다(UI_GUIDE §7 2026-08-27). 형제 Metro가 떠 있을 때 `--clear` 금지(공유 metro-cache ENOTEMPTY).
+- ~~**전용 AVD `idea_repository`(포트 5572)** — 2026-08-27 생성~~ → **2026-09-01 삭제, 공용 풀로 전환**: 에뮬레이터는 `C:\project\common\EMULATOR_POOL.md`의 공용 2대(`common_1` 5580 · `common_2` 5582)를 **클레임 파일로 선점**해 빌려 쓴다(둘 다 사용 중이면 사용자에게 묻는다 — §3). 끝나면 우리 앱 삭제·`emu kill`·클레임 해제.
+  접속: `adb -s emulator-55xx reverse tcp:8081 tcp:8090` + `debug_http_host=localhost:8081`(run-as로 `shared_prefs/<pkg>_preferences.xml` 기록 — git-bash에선 `MSYS_NO_PATHCONV=1`). RN 기본값 `10.0.2.2:8081`은 오프라인 테스트에서 번들을 못 받는다(ARCHITECTURE §5.5). 형제 Metro가 떠 있을 때 `--clear` 금지(공유 metro-cache ENOTEMPTY). 디버그 APK는 `android/`에서 `ANDROID_HOME` 지정 후 `./gradlew assembleDebug`.
   2026-08-17 실측: `CI=1 npx expo start --port 8087` → 콜드 번들 200 · 1537 모듈 · 45초. sqlite·crypto 추가 후 `--clear` 재시작 1566 모듈.
 - **외부 실기기(Tailscale)**: `REACT_NATIVE_PACKAGER_HOSTNAME=100.91.69.45 npx expo start --port 8087` → 폰 Expo Go에서 `exp://100.91.69.45:8087`.
   2026-08-17 실측: manifest launchAsset이 Tailscale IP로 광고됨, 사용자 실기기 확인 완료. 폰 `s24`에 Tailscale이 켜져 있어야 붙는다.
@@ -126,7 +126,7 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8090/node_modules/expo-
   (조각 승계 — 2026-08-17 실기기: 하단 인셋 누락·태그 입력 키보드 가림 지적으로 도입). 배너 footer는 키보드가 뜨면 숨긴다.
 - 폼의 저장 버튼은 스크롤 콘텐츠 마지막에 둔다(고정 footer는 키보드에 가리거나 숨겨야 한다 — LinkMemo 방식).
 - **사용자 데이터의 진실은 기기 로컬**이다. 서버가 죽어도 앱은 완전히 동작해야 한다.
-- **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐.
+- **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐(둘 다 무작위 기기 식별자 세션이 붙는다 — 활성 집계, 2026-09-01 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5).
 - **공통 기능(공지·문의)은 common_server, Idea Repository 전용 서버는 없다.** 상세는 [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 - 로그인이 없으므로 엔타이틀먼트 서버 판정도 없다. 광고 제거는 스토어 구매 이력이 진실.
 - 프로젝트명만 필수 — 나머지 필드에 필수 검증을 추가하지 않는다(기둥 1). 공통 UI는 `components/`에만 — 탐색 행은 `ListRow`, 관리 행은 `EditRow`, 가운데 다이얼로그는 `Dialog`(2026-08-23, [`UI_GUIDE.md`](./UI_GUIDE.md)). `any` 금지, `strict` 유지.

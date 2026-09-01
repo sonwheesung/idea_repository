@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
-import { commonServer } from '@/features/support/server';
+import { commonServer, ensureDeviceSession } from '@/features/support/server';
 import type { Bootstrap } from '@/lib/common-server';
 
 // 부팅 조회는 앱 실행당 1회. 실패해도 앱을 막지 않는다 — 게이트는 성공 응답에만 적용 (ARCHITECTURE §5.2)
@@ -18,6 +18,9 @@ export const useBootStore = create<BootState>()((set, get) => ({
   fetchOnce: () => {
     if (get().fetched) return;
     set({ fetched: true });
+    // 기기 세션 확보 — 활성 사용자 집계(ARCHITECTURE §5.5). bootstrap과 **병렬**: 서버가 양쪽에서 활성 일자를 멱등 기록하므로
+    // 직렬로 맞출 이유가 없다. 실패(오프라인 등)는 false로 끝나고 UI에 쓰지 않는다 — 다음 부팅·문의 진입에 다시 시도할 뿐.
+    void ensureDeviceSession();
     void commonServer.fetchBootstrap().then((r) => {
       if (r.ok) set({ boot: r.data });
     });

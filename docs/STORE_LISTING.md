@@ -256,7 +256,23 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
-### vc9 · 1.0.8 (2026-08-31) — 검토 전송
+### vc10 · 1.0.9 (2026-09-01) — 검토 전송
+
+**en-US**
+```
+• Support: an inquiry now shows "Reviewing" while we are looking into it.
+• Under the hood: the app registers an anonymous device ID at first launch so we can count active users. No name, email or advertising ID is involved — see the updated Privacy Policy (effective 2026-09-08).
+• Welcome screen wording updated to match.
+```
+
+**ko-KR**
+```
+• 문의: 확인 중인 문의에 "확인 중" 상태가 표시됩니다.
+• 내부 개선: 활성 사용자 수를 집계할 수 있도록 첫 실행 시 익명 기기 ID를 등록합니다. 이름·이메일·광고 ID는 쓰지 않습니다 — 개정된 개인정보처리방침(2026-09-08 시행)을 참고하세요.
+• 시작 화면 문구를 이에 맞게 고쳤습니다.
+```
+
+### vc9 · 1.0.8 (2026-08-31) — ✅ 검토 통과 · 테스터 제공(8/31 11:37)
 
 **en-US**
 ```
