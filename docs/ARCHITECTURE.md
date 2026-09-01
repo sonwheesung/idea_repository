@@ -104,7 +104,7 @@ common-server·volleyball은 **Pro 조직 소속이고 Pro는 프로젝트 개�
    확인: `curl "https://common-server.vercel.app/api/v1/bootstrap?app=idearepository&platform=android&appVersion=0.1.0"` **200**
    (404 = 미등록/비활성. "했다"가 아니라 출력을 남긴다)
 2. **SDK 복사(앱)**: `common_server/client/{index,types}.ts` → `lib/common-server/`. 복사본 상단에 `SDK_VERSION` 주석
-   (~~현재 `2026-08-14`~~ → **`2026-09-01`** 2026-09-01 재복사 — §5.5). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
+   (~~현재 `2026-08-14`~~ → ~~`2026-09-01`~~ → **`2026-09-01.2`** 2026-09-01 두 번 재복사 — §5.5·§5.6). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
 3. **부팅 게이트(앱)**: `fetchBootstrap()` 1회. **실패해도 앱을 막지 않는다** — 로컬 앱이 서버 때문에 못 열리면
    기둥 2 위반. 성공 시에만: 점검 화면 / min 미만 강제 업데이트 / latest 미만 소프트 안내 / 공지 배지.
    ⚠ **차단 화면에 반드시 출구를 둔다** — 스토어 URL이 비어 있으면 안내문이라도(my_word 실제 사고).
@@ -160,6 +160,16 @@ common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 
   → ✅ **에뮬 실측(2026-09-01, 공용 `common_2` 디버그 빌드 + Metro `adb reverse`)**: ① **오프라인**(`svc wifi/data disable`, ping 실패 확인) 첫 실행 → 웰컴 시트(새 문구) → Start → 홈 정상, ReactNativeJS 오류 0, 서버 subjects 7 그대로(아무것도 안 나감) ② 네트워크 켜고 콜드 스타트 → 로그 "no session → registerDevice" → 서버 **subjects 8 · DAU 1 · WAU 1 · coverageDays 1 · `activity_uncollected` 소멸** ③ 재실행 → 로그 "signed-in → skip register"(SecureStore 세션 복원), subjects 8 유지. 임시 `console.log`는 검증 후 제거(커밋 미포함).
   ⚠ 디버그 빌드 함정: RN 에뮬레이터 기본 dev 호스트가 `10.0.2.2:8081`이라 오프라인에선 번들 자체를 못 받는다("Unable to load script" — 앱 문제 아님). `debug_http_host=localhost:8081` 프리퍼런스(run-as) + `adb reverse tcp:8081 tcp:8090`으로 adb 소켓 경로를 쓰면 네트워크를 꺼도 번들이 온다.
 
+### 5.6 세션 토큰 만료·슬라이딩 갱신 — SDK 2026-09-01.2 (2026-09-01 저녁 재복사)
+
+같은 날 오후 재복사(§5.5) 뒤 원본에 common_server `060aaa1`("세션 토큰 슬라이딩 갱신")이 한 번 더 들어왔다 — **vc10에는 이 판이 빠진 채로 나갔다.**
+
+- **무엇이 문제였나**: 토큰 발급 경로가 로그인·기기등록 둘뿐이라 `iat + 180일`(`TOKEN_TTL_MS`)이 **고정 카운트다운**이었다. 만료 후 bootstrap은 무효 토큰을 401 없이 조용히 무시하므로(진입 게이트) 그 기기는 **DAU에서 영구히 사라지고**, 구 SDK의 `isSignedIn()`은 "저장소에 문자열이 있나"만 봐서 `ensureDeviceSession()`이 재등록을 영원히 건너뛴다. 문의를 보내야만(401 → 세션 폐기) 되살아난다.
+- **서버(배포 완료)**: bootstrap이 발급 30일 지난 유효 토큰을 재발급해 `session.token`으로 응답에 싣는다(`TOKEN_RENEW_AFTER_MS` = TTL의 1/6, 갱신 때만 subject 생존 DB 확인).
+- **SDK `.2`**: `fetchBootstrap()`이 `session.token`을 `replaceToken()`으로 조용히 교체(호출부에 노출 없음) · `isSignedIn()` = `tokenAlive()`(payload `iat` + `SESSION_TTL_DAYS = 180`, 파싱 실패 = 죽은 것으로 fail-closed). **`SESSION_TTL_DAYS`는 서버 `TOKEN_TTL_MS`의 사본 — 손대지 않는다**(서버 TTL 상향안은 공통 서버 세션이 검토 후 철회: 앱 상수와 갈라지는 부채 > 잔여 리스크 "OTA도 못 받고 180일간 문의 0건인 사용자의 DAU 한 줄").
+- **서버만으로는 안 된다** — 구 SDK는 `session` 필드를 버린다. 앱 재복사가 필수. 호출부(`features/support/server.ts`·`store.ts`) 변경 없음, `tsc` 통과. 우리 앱의 가장 이른 subject는 2026-08-17(봇·에뮬) → 만료 2027-02-13. 실사용자 노출은 프로덕션 출시 + 180일. 만료돼도 손실은 없다 — deviceId가 SecureStore에 남아 재등록하면 같은 subject.
+- ⏳ **사용자에게 닿는 것은 다음 AAB(vc11)부터.** 교훈: 재복사 직후에도 `git -C C:/project/common_server log --oneline -3 -- client/`로 원본이 더 앞서지 않았는지 본다(my_word는 같은 날 오전 빌드에 구판이 실려 심사 중 — 우리는 빌드 전에 잡았다).
+
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
 - bootstrap 게이트는 **서버 응답으로만** 판정 — 앱 로컬 신뢰 금지.
@@ -175,7 +185,7 @@ common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 
 | 항목 | 상태 |
 |---|---|
 | `apps`에 `idearepository` 등록 | ✅ 2026-08-17 — seed 실행, **프로덕션 `bootstrap?app=idearepository` → 200 실측** |
-| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → **2026-09-01 재복사**(bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
+| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → **2026-09-01.2 재복사**(§5.6 슬라이딩 갱신 · vc11부터)(bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
 | 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ~~⏸ latest 소프트 안내 미구현~~ → ✅ 2026-08-26 `components/update-popup.tsx` + `useSoftUpdateStore`(설계 §5.4, vc8) |
 | 부팅 활성 하트비트 | ✅ 2026-09-01 — `useBootStore.fetchOnce()`에서 `ensureDeviceSession()` 병렬 호출(§5.5). 처리방침 rev.5/5차 · 웰컴 문구 · `inquiry.status.reviewing` 동반. vc10 |
 | 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |

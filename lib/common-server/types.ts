@@ -1,4 +1,3 @@
-// common_server/client/ 에서 복사 — SDK_VERSION 2026-09-01 (수정 금지, 갱신은 재복사)
 // 공통 서버 클라이언트 SDK — 타입.
 //
 // 이 폴더는 각 앱의 `src/services/commonServer/`로 **복사해서** 쓴다(앱 4~5개 규모에선 monorepo·npm 패키지
