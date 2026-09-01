@@ -17,7 +17,7 @@
 | 게시용 페이지 `docs/legal/pages/idearepository/{privacy,terms}/page.tsx` | ✅ | 2026-08-17. 배구 레포 `server/app/idearepository/…`로 복사·커밋(볼리볼 `3eb8929` → 2차 `6297b52`) — **정본은 이 레포의 docs/legal**, 수정 시 재복사·재배포 |
 | **2차 글로벌 점검(2026-08-17)** | ✅ | 아래 §8. md 4종·page.tsx 2종·앱 코드(UMP 개인정보 옵션·웰컴 문구) 동시 갱신, 재배포 |
 | **3·4차 타 앱 벤치마크(2026-08-17)** | ✅ | 아래 §9. 처리방침 rev.3 · 약관 4차 재배포 |
-| **처리방침 EN rev.5 · KO 5차(2026-09-01)** — 기기 식별자 첫 실행 생성 + 활성 사용자 통계 | ✅ 정본·page.tsx 개정 | 2026-09-08 시행. 근거 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5. Data Safety 양식 변경 없음. 게시·공지는 아래 게시 기록 |
+| **처리방침 EN rev.5 · KO 5차(2026-09-01)** — 기기 식별자 첫 실행 생성 + 활성 사용자 통계 | ✅ 정본·page.tsx 개정 | 2026-09-01 시행. 근거 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5. Data Safety 양식 변경 없음. 게시·공지는 아래 게시 기록 |
 | 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
@@ -137,6 +137,7 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 | 9 | 아동 연령 기준 표기 | 13세 + 거주국 상향 연령(한국 14 · 일부 EEA 16) 병기(2차) | 해소 — 미동의 사용자에게 맞춤 광고 없음 문장 추가 |
 | 11 | **판매자 정보 전화번호** | 이메일만 | 전자상거래법 제10조 표시사항에 전화번호가 있다(대표번호 = 개인 휴대전화, BUSINESS_INFO §1). **형제 앱 4종 전부 미기재 확인(2026-08-17) → 이메일만 유지**(일관성) |
 | 12 | **스토어 설명의 Remove Ads 문장** | 등록정보 EN/KO에 "one-time Remove Ads purchase" 기재 | vc1에는 미구현(Phase 7). 비공개 테스트 중엔 무해하나 **프로덕션 전 Phase 7 완료 또는 문장 삭제** 중 택1 |
+| 14 | **5차 시행일 = 게시 당일(2026-09-01)** — KO 제14조 "시행 7일 전 게시"에 미달 | 처음 9/8로 잡았다가 같은 날 사용자 지시("아직 개시 안 해서 처리방침은 오늘로")로 당일 시행. 근거 = #13과 동일: 비공개 테스트 중 이용자는 사용자 본인뿐(테스터 = 업체 인원 설치·실행만, `common/CLOSED_TESTING.md` §3 "고지 기간은 프로덕션 이용자 기준"). 재게시·공지 PATCH 완료. ⚠ Play 콘솔 vc10 출시 노트에는 "effective 2026-09-08"이 그대로 남아 있다(검토 중 릴리스는 수정 불가 — 고치려면 검토 취소). 다음 릴리스 노트에서 언급하지 않으면 자연 소멸 | 해소 — 프로덕션 전환 뒤 개정부터는 7일 규칙을 지킨다 |
 | 10 | 게시 URL 경로 | `/idearepository/privacy`·`/terms` | 배구 서버 라우트와 충돌 없음(LinkMemo `/linkmemo/...` 선례). 확정 시 BUSINESS_INFO §3 갱신 |
 | 13 | **4차/5차 시행 고지가 7일 규칙에 2일 미달**(2026-08-23 발견) | 게시 2026-08-21 · 시행 2026-08-28인데 앱 내 공지는 2026-08-23 발행 → **5일 전**. 처리방침 KO 제17항 2호·§4-4가 약속한 "시행 7일 전 앱 내 공지"에 못 미친다 | 선택지: (a) 시행일 유지 + 5일 고지(변경이 이용자에게 불리하지 않은 고지성 정정 — 백업 파일 고지·"내보내기 없음" 오기 정정 — 이고, 기능은 vc6로 이미 제공 중이라 시행을 늦출수록 약관 ⇄ 실제 불일치 창이 길어진다) / (b) 시행일 2026-08-30으로 연기(md 4종·page.tsx 2종·재게시 필요). ~~**권고 (a)** — 사용자 결정 대기~~ → **해소(2026-08-23 사용자)**: 비공개 테스트 중 이용자는 사실상 사용자 본인뿐(테스터 = 업체 인원, 설치·실행만 — `common/CLOSED_TESTING.md`). 고지 기간은 **프로덕션 이용자 기준**으로 프로덕션 전에 맞추면 된다 → 시행일 8/28 유지, 재게시 없음. 다음부터는 **정본 개정 커밋과 같은 날 공지 발행** |
 
@@ -192,16 +193,16 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
 - **2026-09-01 (처리방침 EN rev.5 · KO 5차 — ✅ 게시 + ✅ 시행 고지 발행, 같은 날)** — 부팅 활성 하트비트([`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5, CLAUDE §14 U)로
   기기 식별자가 첫 실행에 생성·등록되고 부팅 조회에 실려 활성 일자(400일)가 서버에 남게 된 것을 반영. 사용자 승인("동의하고 전부 다 진행") 후:
   배구 레포 `4559131`(idearepository 페이지 1개만 스테이징 — 다른 세션의 linkmemo 페이지 미커밋 변경 미포함) → detached worktree `vercel link --project volleyball --scope sonws` →
-  `vercel --prod` → `volleyball-19bb6adus` Ready(29s) → 라이브 `/idearepository/privacy`에 "rev. 5 … effective 2026-09-08" · "5차 … 2026-09-08 시행" 실측, `/terms` 200 → worktree 삭제(`.env.local` 포함).
+  `vercel --prod` → `volleyball-19bb6adus` Ready(29s) → 라이브 `/idearepository/privacy`에 "rev. 5 … effective 2026-09-01" · "5차 … 2026-09-01 시행" 실측, `/terms` 200 → worktree 삭제(`.env.local` 포함).
   Data Safety 양식 변경 없음(기기 ID 기선언 — [`legal/DATA_SAFETY.md`](./legal/DATA_SAFETY.md) §0). 약관은 변경 없음(제·§ "무작위 기기 식별자를 생성" 서술은 여전히 참).
-  **시행 고지**: `POST /api/admin/announcements` 200 → id `13dc2524-9d3d-4e75-ae4b-18d163851af7`, `kind: notice`, `pinned: false`, `endsAt: 2026-10-07T15:00:00Z`(= KST 10-08 00:00, 시행 + 30일).
-  bootstrap 실측 `announcements` 2건(8/28 고지 병존, 9/27 종료), 본문 1,164자 정본과 글자 단위 일치. 시행 7일 전 규칙 충족(9/1 → 9/8). §7 #13 교훈대로 정본 개정과 같은 날 발행.
+  **시행 고지**: `POST /api/admin/announcements` 200 → id `13dc2524-9d3d-4e75-ae4b-18d163851af7`, `kind: notice`, `pinned: false`, ~~`endsAt: 2026-10-07T15:00:00Z`~~ → `2026-09-30T15:00:00Z`(= KST 10-01 00:00, 시행 + 30일).
+  bootstrap 실측 `announcements` 2건(8/28 고지 병존, 9/27 종료), 본문 1,164자 정본과 글자 단위 일치. ~~시행 7일 전 규칙 충족(9/1 → 9/8)~~ → **같은 날 사용자 지시 "아직 개시 안 해서 처리방침은 오늘로" → 시행일 2026-09-01(당일)로 정정**(§7 #14): 정본·page.tsx 재게시(배구 `115495e` → `volleyball-435idnr98` Ready, 라이브 "2026-09-01 시행" 실측) + 공지 `PATCH`(제목·본문 날짜·endsAt, bootstrap 본문 글자 일치). §7 #13 교훈대로 정본 개정과 같은 날 발행.
   **문안(정본)**:
 
   ```
-  title: Privacy Policy updated (effective 2026-09-08) · 개인정보처리방침 개정 안내
+  title: Privacy Policy updated (effective 2026-09-01) · 개인정보처리방침 개정 안내
 
-  We've updated the Privacy Policy (rev. 5). It takes effect on 2026-09-08.
+  We've updated the Privacy Policy (rev. 5). It takes effect on 2026-09-01.
 
   What changed
   • Device identifier: the app already used a random device ID (not your advertising ID) so that you can see replies to your inquiries. From this version it is created at first launch, not only when you send an inquiry, and the start-up check carries it so that we can count how many devices were active each day. We keep one row per device per day (app code, device ID, date) for 400 days. It contains no name or email, is never shared, and is not used for advertising.
@@ -212,7 +213,7 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
 
   ──
 
-  개인정보처리방침(5차)을 개정했습니다. 시행일은 2026-09-08입니다.
+  개인정보처리방침(5차)을 개정했습니다. 시행일은 2026-09-01입니다.
 
   바뀐 내용
   • 기기 식별자: 앱은 문의 답변을 보여 드리기 위해 무작위 기기 ID(광고 ID가 아닙니다)를 이미 쓰고 있었습니다. 이번 버전부터는 문의를 보낼 때만이 아니라 앱을 처음 실행할 때 생성되고, 시작 시 확인 요청에 함께 실려 하루에 몇 대의 기기가 활성이었는지 집계하는 데 쓰입니다. 기기당 하루 1건(앱 코드·기기 ID·날짜)을 400일 보관합니다. 이름·이메일을 담지 않고, 제3자에게 제공하지 않으며, 광고에 쓰지 않습니다.

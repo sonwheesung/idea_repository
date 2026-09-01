@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 5 — device identifier at first launch and active-user statistics; effective 2026-09-08)
+Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 5 — device identifier at first launch and active-user statistics; effective 2026-09-01)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -185,7 +185,7 @@ processor policy links, Data Safety mirror) · 2026-08-21 rev. 4 (§2: local bac
 device, shared only where you choose, never received by us; effective 2026-08-28) · 2026-09-01 rev. 5 (§3.b–c, §4, §5:
 the random device identifier is now generated at first launch, not only when you send an inquiry, and the start check
 carries it so that we can count active users — one row per device per day, kept 400 days; not the advertising ID,
-not shared, not used for ads; effective 2026-09-08).
+not shared, not used for ads; effective 2026-09-01).
 
 ## 9. Contact
 

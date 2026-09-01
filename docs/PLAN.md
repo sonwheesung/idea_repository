@@ -190,7 +190,7 @@
 | 수시 | vc7(1.0.6) 검토 결과 확인 → 통과 시 `latestVersion` 운영값은 **vc8 배포 후**에만 | 사용자/세션 | 콘솔 비공개 테스트 페이지 → ✅ vc8 제공 확인(8/26 12:47)·운영값 PATCH(8/31) |
 | **2026-08-31** | ✅ **vc9 · 1.0.8 빌드·업로드·검토 전송**(완료) — §14 T 4건 + 브랜드명 통일 반영. 같은 날 운영값 PATCH(latest 1.0.7) | 세션 | [`BUILD.md`](./BUILD.md) §5. ⏸ 스토어 설명 "follow the system setting" 문장 삭제는 사용자 확인 후(STORE_LISTING §2.2·§3.2) |
 | 8/28 | 처리방침 4차·약관 5차 시행 | — | 할 일 없음(게시·고지 완료). 공지 9/27 자동 종료 |
-| **2026-09-01** | **Phase 12 활성 하트비트** → 처리방침 rev.5/5차 게시(9/8 시행)·공지 → vc10 · 1.0.9(vc9 게시 확인 후 업로드) | 세션 | ARCHITECTURE §5.5. 확인: 관리자 stats `activity.dau ≥ 1`·`activity_uncollected` 소멸 |
+| **2026-09-01** | **Phase 12 활성 하트비트** → 처리방침 rev.5/5차 게시(9/1 시행)·공지 → vc10 · 1.0.9(vc9 게시 확인 후 업로드) | 세션 | ARCHITECTURE §5.5. 확인: 관리자 stats `activity.dau ≥ 1`·`activity_uncollected` 소멸 |
 | AdMob 정지 해제 시 | Phase 7 Remove Ads(Play 상품 등록 · RC 익명 · 구매/복원 · 데이터 보안에 구매 내역 추가 · 약관 §3 "제공되는 버전에 한함" 확인) | 사용자(콘솔) + 세션 | MONETIZATION §3.1 · `store-iap-setup` 스킬 |
 | **≈ 8/31** | **프로덕션 액세스 신청** — 콘솔에서 참여 테스터 ≥12명·14일 확인 → `play-store-launch-checklist` 전체 점검 → 신청 | 사용자(콘솔) | 선행 확인 3개: ① "한국 개발자 추가 정보" 계정 단위 입력 여부(STORE_LISTING §9 ❓) ~~② 판매자 주기적 재인증 Google 회신~~ → ✅ 2026-08-24 통과(`common/BUSINESS_INFO.md` §4) ③ **스토어 설명의 "one-time Remove Ads" 문장** — Phase 7이 프로덕션 전에 안 끝나면 문장 삭제(LEGAL_SYSTEM §7 #12, 사용자 결정) |
 | 프로덕션 후 | 언어 추가(유입 국가 데이터로 순서) · 빈 항목 숨김 설정 · 백업 암호화/CSV(요청 시) · App Store(iOS) 검토 | — | CLAUDE §3 확장 후보 · BACKUP §8 · LEGAL §7 #6 |

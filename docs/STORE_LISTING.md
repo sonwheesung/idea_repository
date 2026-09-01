@@ -258,6 +258,8 @@ Capture your ideas. Keep them private. Build what matters.
 
 ### vc10 · 1.0.9 (2026-09-01) — 검토 전송
 
+> ⚠ 아래 노트의 "effective 2026-09-08 / 2026-09-08 시행"은 콘솔에 **입력된 그대로**다. 전송 직후 사용자 지시로 처리방침 시행일이 **2026-09-01(당일)**로 정정됐지만(LEGAL_SYSTEM §7 #14) 검토 중 릴리스의 노트는 고칠 수 없어 그대로 둔다.
+
 **en-US**
 ```
 • Support: an inquiry now shows "Reviewing" while we are looking into it.
