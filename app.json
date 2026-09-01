@@ -3,6 +3,14 @@
     "name": "Idea Repository",
     "slug": "idearepository",
     "version": "1.0.9",
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/6518e63b-54a0-432a-b9a5-56292cf4a523",
+      "checkAutomatically": "ON_LOAD",
+      "requestHeaders": {
+        "expo-channel-name": "production"
+      }
+    },
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "idearepository",

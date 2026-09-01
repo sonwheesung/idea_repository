@@ -2,7 +2,7 @@
 
 > 작성 2026-08-18. vc1·vc2 모두 이 절차로 만들었다. EAS 무료 플랜 소진과 무관하게 **처음부터 로컬 gradle**이다.
 > 스크립트: [`../tools/build-aab.ps1`](../tools/build-aab.ps1). 릴리스 노트·업로드 기록: [`STORE_LISTING.md`](./STORE_LISTING.md) §9·§10.
-> ⚠ 비공개 테스트 기간 수정분은 **AAB 재업로드로만** — OTA(expo-updates) 절대 금지(CLAUDE.md §16).
+> ~~⚠ 비공개 테스트 기간 수정분은 **AAB 재업로드로만** — OTA(expo-updates) 절대 금지(CLAUDE.md §16).~~ → **2026-09-01 OTA 도입**(CLAUDE §14 V, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)): 네이티브 변경은 여전히 AAB, JS만 바뀐 수정은 OTA 가능(vc11부터). **OTA 게시도 사용자 지시 때만.**
 
 ## 1. 키스토어 — 이미 있다. 다시 만들지 말 것
 
@@ -25,7 +25,7 @@
 ## 2. 서명 설정 (android/app/build.gradle — CNG 산출물, gitignore)
 
 `expo prebuild --platform android`(--clean 없이)는 기존 `android/`를 유지하고 버전·매니페스트만 갱신한다 — 2026-08-18 실측: 아래 블록 보존됨.
-`--clean`이나 `android/` 삭제 후에는 **이 블록을 다시 넣어야** 한다(스크립트가 없으면 중단시킨다):
+`--clean`이나 `android/` 삭제 후에는 **이 블록을 다시 넣어야** 한다 — ~~스크립트가 없으면 중단시킨다~~ → **2026-09-01부터 `tools/build-aab.ps1 -CleanNative`가 `android/`를 지우고 prebuild한 뒤 아래 블록을 자동 주입**한다(BOM 없이 기록, 주입 뒤에도 없으면 중단). 네이티브 모듈을 추가·변경한 빌드(vc11 expo-updates)에서 쓴다:
 
 ```groovy
 signingConfigs {
@@ -53,6 +53,8 @@ buildTypes {
 ```powershell
 # 다음 버전 예: versionCode 3, 1.0.2 (versionCode는 업로드마다 +1 필수)
 powershell -ExecutionPolicy Bypass -File tools/build-aab.ps1 -VersionCode 3 -VersionName 1.0.2
+# 네이티브 모듈 추가·변경 빌드(예: vc11 expo-updates) — android/ 재생성 + 서명 블록 자동 주입(§2)
+powershell -ExecutionPolicy Bypass -File tools/build-aab.ps1 -VersionCode 11 -VersionName 1.0.10 -CleanNative
 ```
 
 수동으로 하면: ① `app.json` `expo.version` / `expo.android.versionCode` 수정 → ② `npx expo prebuild --platform android --no-install`
@@ -86,7 +88,7 @@ npx eas-cli submit --platform android --profile closed --path idearepository-vc{
 
 ## 4. 점검
 
-- 스크립트 마지막 출력: `versionName true · READ_EXTERNAL_STORAGE false · USE_BIOMETRIC false · AD_ID true` (blockedPermissions 반영 확인).
+- 스크립트 마지막 출력: `versionName true · READ_EXTERNAL_STORAGE false · USE_BIOMETRIC false · AD_ID true` (blockedPermissions 반영 확인) **· `expo-channel-name true · EXPO_RUNTIME_VERSION true · u.expo.dev true`**(2026-09-01 OTA — 채널 미전달 잠복 함정 방어, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) §3. 하나라도 false면 올리지 않는다).
 - 서명 확인: `keytool -printcert -jarfile idearepository-vc{N}.aab` — Play 콘솔 앱 서명 페이지의 **업로드 키 인증서 SHA-1**과 일치해야 한다.
 - 콘솔 검토 페이지의 "R8 가독화 파일 없음" 경고는 비차단(vc1·vc2 동일).
 

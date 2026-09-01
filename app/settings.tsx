@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import { useAdsStore } from '@/features/ads/store';
 import { useBackupStore } from '@/features/backup/store';
 import { listCategories } from '@/features/categories/api';
 import { useUnreadNoticeCount } from '@/features/support/store';
+import { APP_VERSION } from '@/lib/app-version';
 import { formatDate } from '@/lib/date';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
 import { useLanguageStore } from '@/lib/language';
@@ -34,7 +34,7 @@ export default function SettingsScreen() {
   const [languageOpen, setLanguageOpen] = useState(false);
   const lastExportedAt = useBackupStore((s) => s.lastExportedAt);
   const [categoryCount, setCategoryCount] = useState(0);
-  const version = Constants.expoConfig?.version ?? '0.0.0';
+  const version = APP_VERSION;
 
   // 카테고리 수 — 관리 화면에서 돌아오면 갱신
   useFocusEffect(

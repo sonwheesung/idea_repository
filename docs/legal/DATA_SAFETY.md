@@ -17,11 +17,13 @@
 | 기기 등록(자동, 첫 실행 1회 — ~~최초 문의 시~~ 2026-09-01 §14 U) | 기기 UUID, app_code, platform, appVersion | ✅ subject 행(삭제 요청 시 파기) |
 | 부팅 조회(bootstrap) | app_code, platform, appVersion + **세션(UUID 귀속)**(2026-09-01) | ❌ 요청은 폐기 · ✅ **활성 일자 `(app_code, subject_id, day)` 1일 1행, 400일**(활성 사용자 집계) |
 | Remove Ads(선택) | 스토어 결제 → RevenueCat 영수증 검증(익명 ID·구매 이력) | ❌ RC·스토어가 보유. 서버 웹훅 없음 |
+| **앱 코드 업데이트 확인(Expo EAS Update, 자동, 1.0.10~ — 2026-09-01 OTA_SYSTEM)** | 기기 OS 종류, 런타임 버전, 플랫폼, 채널, 무작위 업데이트 토큰(+ 접속 IP 일시) | ❌ Expo가 처리(회사는 기기별 정보 미수신). 우리 서버 무관 |
 | 프로젝트·노트·자료·카테고리·태그·설정 | — | **전송 자체가 없다**(로컬 SQLite/AsyncStorage) |
 
 ⚠ 부팅 조회의 platform·appVersion은 Play 데이터 유형 목록에 해당 항목이 없고 저장하지 않으므로 선언하지 않는다(LinkMemo 동일).
 ✅ 2026-09-01 활성 하트비트(ARCHITECTURE §5.5) 후에도 **Play 양식은 변경 없음**: 기기 UUID는 "기기 또는 기타 ID"로 이미 수집·공유·**분석** 목적·필수로 선언돼 있고(§2), 활성 일자(날짜 1개)는 별도 데이터 유형이 아니다. 처리방침 EN rev.5 / KO 5차만 개정.
 IP는 문의 레이트리밋에 일시 사용 후 폐기 — Play 기준 "일시적 처리"로 선언 제외.
+⚠ **2026-09-01 OTA(expo-updates) 도입 후 Play 양식**: Expo의 무작위 업데이트 토큰은 "기기 또는 기타 ID" 유형에 해당할 수 있는데, 그 유형은 이미 **수집·공유 예 · 목적에 앱 기능 포함**으로 선언돼 있어(§2) 3단계(데이터 유형)는 변경 없음으로 본다(my_word·linkmemo 같은 날 실측 — 기존 선언 상태를 먼저 열어보고 판단, common_server `docs/ONBOARDING.md`). 처리방침 EN rev.6 / KO 6차만 개정. **사람 확인**: 프로덕션 제출 전 콘솔 양식에서 "기기 또는 기타 ID" 공유 대상·목적을 다시 열어 본다(LEGAL_SYSTEM §7 #15).
 
 ---
 
@@ -77,6 +79,7 @@ RevenueCat = 공유 아님. AdMob은 Google이 자체 목적(광고)으로 쓰�
 | 문의 본문·유형·platform·appVersion·UUID, 3년 | §3.b, §5 | 제2조 2항·제3조·제4조 | 기타 사용자 제작 콘텐츠·기기 ID(선택·삭제 가능) | `lib/common-server/` `sendInquiry` (Phase 5) |
 | 부팅 조회 = 요청 미저장 + ~~—~~ **활성 일자 400일**(세션 동봉, 2026-09-01) | §3.c, §5 | 제1조·제2조 2항·제3조·제8조 | 기기 ID(기선언, 변경 없음) | `fetchBootstrap` + `useBootStore.fetchOnce`의 `ensureDeviceSession` |
 | RC 익명 ID·구매 이력 | §3.d, §4 | 제2조 3항·제6조·제7조 | 구매 내역·기기 ID | `features/purchase/*` (Phase 7) |
+| Expo EAS Update — 기기 OS·런타임 버전·플랫폼·채널·무작위 업데이트 토큰(2026-09-01, 1.0.10~) | §3.e, §4 | 제1조·제2조 3항·제3조·제6조·제7조 | 기기 ID(기선언, 변경 없음 — 위 ⚠) | `expo-updates` 네이티브(`app.json` `updates`), JS 코드 없음 |
 | 이용자 콘텐츠 = 로컬 전용 | §2 | 제2조 1항 | 선언 없음 | expo-sqlite / AsyncStorage |
 | 삭제 요청 경로 = 이메일 | §5, §9 | 제8조·제11조 | 개요 "삭제 요청 방법 제공 = 예" | — |
 

@@ -21,6 +21,7 @@
 | [`THEME_SYSTEM.md`](./THEME_SYSTEM.md) | 테마 12종(~~+ 시스템 자동~~ 2026-08-27 제거) — 토큰·팔레트·미니어처 선택 UX·결정 이력 | ✅ |
 | [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) | **발상 도구(Idea Lab)** — 입구·도구 4종·단어/문장 풀·섞기 규칙·프로젝트 저장 미리 채움·`approach` 필드 | ✅ 2026-08-18 |
 | [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md) | **로컬 백업** — JSON 내보내기(OS 공유 시트)·가져오기(병합/교체)·파일 형식 v1·무료 결정·법무 문구 | ✅ 2026-08-21 구현·에뮬 실측 |
+| [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) | **OTA(expo-updates · EAS Update)** — 고정 runtimeVersion·채널 헤더·콜드 스타트 적용·게시 규율·버전 오염 방지(`lib/app-version.ts`)·개인정보(Expo) | ✅ 2026-09-01 구조 · ⏳ vc11부터 동작 |
 | [`BUILD.md`](./BUILD.md) | **로컬 AAB 빌드·서명** — 업로드 키스토어(재생성 금지)·비밀번호 파일·build.gradle 서명 블록·`tools/build-aab.ps1`·점검·버전 이력 | ✅ 2026-08-18 |
 | [`STORE_LISTING.md`](./STORE_LISTING.md) | 스토어 등록정보 정본 — Play/App Store 문안(EN·KO)·키워드·URL·판매자 정보·등급 메모·스크린샷 플랜·제출 체크리스트 | ✅ |
 | [`design/theme-mockups-12.png`](./design/theme-mockups-12.png) | **테마 12종 화면 시안 정본**(2026-08-17 사용자 제공) — 팔레트 추출 기준 | ✅ |
@@ -62,6 +63,7 @@
 | Remove Ads 구매 + Restore | ⏸ | Phase 7 — RevenueCat 익명. AdMob 정지 해제 후(2026-08-21) |
 | 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~vc6 예정~~ → vc6 · 1.0.5 검토 전송(2026-08-21) |
 | 소프트 업데이트 안내(latest) · 검색 매치 힌트 | ✅ | Phase 11 — 2026-08-26 구현 → vc8 · 1.0.7. **운영값 latest `1.0.7` + 스토어 URL PATCH(2026-08-31, bootstrap 실측 — 팝업 운영 개시)**. 설계 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.4 · [`PROJECT_SYSTEM.md`](./PROJECT_SYSTEM.md) §9.1 |
+| OTA 업데이트(expo-updates · EAS Update) | ✅ 구조 · ⏳ vc11부터 | 2026-09-01 — `app.json` `runtimeVersion "1.0.0"` + `updates`(url = projectId · ON_LOAD · `expo-channel-name: production`) · `lib/app-version.ts`(네이티브 버전) · `npm run check:ota`. 게시는 사용자 지시 때만, 첫 게시 전 처리방침 rev.6 게시. [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) |
 | 공지·점검·강제업데이트(bootstrap) | ✅ | 2026-08-17 Phase 5 — `components/boot-gate.tsx`(실패 시 통과·차단 화면 출구) · `app/notice.tsx` + 설정 배지. ~~⏸ latest 소프트 안내 미구현~~ → ✅ Phase 11(vc8, 위 행) [`ARCHITECTURE.md`](./ARCHITECTURE.md) §6 |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ✅ | 2026-08-17 Phase 5 — `app/inquiries.tsx`·`app/inquiry.tsx`·`features/support/server.ts`(SecureStore UUID·세션). 프로덕션 E2E 실측. **2026-09-01**: 세션 확보를 부팅(`fetchOnce`)으로 앞당김 — 활성 사용자 집계(§5.5), 상태 `reviewing` 키 추가 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
@@ -95,6 +97,7 @@ npm run typecheck              # tsc --noEmit
 npm run lint                   # expo lint
 npx prettier --check .         # 포맷(.prettierrc — 조각 승계, printWidth 110)
 npm run check:i18n             # en·ko 키 누락·잉여·보간 일치·비한국어 파일 한글 잔존
+npm run check:ota              # OTA 설정 드리프트(채널 헤더·URL=projectId·runtimeVersion 고정·expoConfig.version 직접 읽기 금지) — 2026-09-01
 ```
 
 **번들 컴파일 확인**(구현 완료 선언 전 필수): Metro 기동 상태에서
@@ -126,7 +129,7 @@ curl -s -o /dev/null -w "%{http_code}" "http://localhost:8090/node_modules/expo-
   (조각 승계 — 2026-08-17 실기기: 하단 인셋 누락·태그 입력 키보드 가림 지적으로 도입). 배너 footer는 키보드가 뜨면 숨긴다.
 - 폼의 저장 버튼은 스크롤 콘텐츠 마지막에 둔다(고정 footer는 키보드에 가리거나 숨겨야 한다 — LinkMemo 방식).
 - **사용자 데이터의 진실은 기기 로컬**이다. 서버가 죽어도 앱은 완전히 동작해야 한다.
-- **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐(둘 다 무작위 기기 식별자 세션이 붙는다 — 활성 집계, 2026-09-01 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5).
+- **어떤 서버에도 프로젝트·노트·자료를 보내지 않는다.** 나가는 것은 bootstrap 조회와 문의 본문뿐(둘 다 무작위 기기 식별자 세션이 붙는다 — 활성 집계, 2026-09-01 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5). 우리 서버 밖으로는 AdMob과 **Expo EAS Update(OTA 확인 — 기기 OS·무작위 토큰, 사용자 데이터 없음, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) §8)**.
 - **공통 기능(공지·문의)은 common_server, Idea Repository 전용 서버는 없다.** 상세는 [`ARCHITECTURE.md`](./ARCHITECTURE.md).
 - 로그인이 없으므로 엔타이틀먼트 서버 판정도 없다. 광고 제거는 스토어 구매 이력이 진실.
 - 프로젝트명만 필수 — 나머지 필드에 필수 검증을 추가하지 않는다(기둥 1). 공통 UI는 `components/`에만 — 탐색 행은 `ListRow`, 관리 행은 `EditRow`, 가운데 다이얼로그는 `Dialog`(2026-08-23, [`UI_GUIDE.md`](./UI_GUIDE.md)). `any` 금지, `strict` 유지.

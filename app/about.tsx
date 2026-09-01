@@ -1,4 +1,3 @@
-import Constants from 'expo-constants';
 import { useTranslation } from 'react-i18next';
 import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 
@@ -6,6 +5,7 @@ import { Card } from '@/components/card';
 import { ListGroup, ListRow, type ListRowIcon } from '@/components/list-row';
 import { PrivacyOverview } from '@/components/privacy-overview';
 import { Screen } from '@/components/screen';
+import { APP_VERSION } from '@/lib/app-version';
 import { BUSINESS, LINKS } from '@/lib/links';
 import { useTheme } from '@/theme/use-theme';
 
@@ -15,7 +15,7 @@ import { useTheme } from '@/theme/use-theme';
 export default function AboutScreen() {
   const { t, i18n } = useTranslation();
   const theme = useTheme();
-  const version = Constants.expoConfig?.version ?? '0.0.0';
+  const version = APP_VERSION;
   const ko = i18n.language.startsWith('ko');
 
   const open = async (url: string) => {

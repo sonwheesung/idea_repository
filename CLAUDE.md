@@ -73,6 +73,7 @@
 | 20 | 문의하기 | common_server | 로그인 없음. **기기 subject 귀속**(2026-08-17 확정 — LinkMemo 방식): 문의 목록·답변·상태 확인 가능 |
 | 21 | 테마 | 로컬 | ~~라이트/다크 2종~~ → **12종 팔레트** ~~+ 시스템(자동 = Light/Dark Minimal)~~(2026-08-17 사용자 시안 제공으로 정정 → **2026-08-27 시스템(자동) 항목 제거** — 설정값 = 테마 id 그대로, §14 T). 전부 무료. [`docs/THEME_SYSTEM.md`](./docs/THEME_SYSTEM.md) |
 | 23 | **로컬 백업(내보내기·가져오기)** | 로컬 + OS 공유 시트 | **2026-08-21 편입·무료**(~~MVP 제외·P1 재검토~~). JSON 한 파일 — 내보내기 = 공유 시트로 사용자가 고른 곳에, 가져오기 = 파일 선택 → 병합/교체. 서버·클라우드 없음. [`docs/BACKUP_SYSTEM.md`](./docs/BACKUP_SYSTEM.md) |
+| 24 | **OTA 업데이트(expo-updates)** | Expo EAS Update | **2026-09-01 편입**(사용자 지시 "ota 배포 가능하게 구조 설정"). JS 번들·에셋만, 부팅 시 조용히 받아 다음 콜드 스타트에 적용, 강제 재시작 UI 없음. `runtimeVersion` 고정 문자열·채널은 `requestHeaders`. **게시는 사용자 지시 때만.** 네이티브 변경은 여전히 AAB. vc11 · 1.0.10부터 동작. [`docs/OTA_SYSTEM.md`](./docs/OTA_SYSTEM.md) |
 | 22 | **발상 도구(Idea Lab)** | 로컬 | **2026-08-18 편입**(기획서에 없음 — 사용자 요청 "아이디어를 만드는 과정에 필요한 툴"). 조합·개선·불편에서·만약에… 4종, 내장 단어·문장 풀(ko/en)에서 무작위, 결과는 한 탭에 프로젝트로(미리 채움). **단어는 DB v3 행 — 조합 헤더 단어 관리 화면에서 내장 단어 포함 전부 추가·수정·삭제**(2026-08-19). 서버·AI 없음. 광고 없음. [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md) |
 
 하단 네비게이션: **없음 — 단일 메인 화면 + 스택**(기획서 §14 메인 화면 구성 그대로. LinkMemo와 같은 구조).
@@ -165,7 +166,7 @@ Project                        IdeaNote               Resource              Cate
 클라우드 동기화도 없다.
 
 - **첫 실행 1회 프라이버시 웰컴 시트**(2026-08-17 사용자 결정 — 한 장, 버튼 하나 "Start", 다시 안 뜸): 제목 "Your ideas stay on your device." +
-  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK · 시작 시 공지/업데이트 확인(~~앱 버전만~~ → 앱 버전 + 활성 사용자 집계에만 쓰는 무작위 기기 ID, 2026-09-01 §14 U) · 사용자가 보낸 문의**) + 손실 안내 + 처리방침 링크.
+  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK · 시작 시 공지/업데이트 확인(~~앱 버전만~~ → 앱 버전 + 활성 사용자 집계에만 쓰는 무작위 기기 ID, 2026-09-01 §14 U) · 사용자가 보낸 문의 · 앱 코드 업데이트 확인(Expo EAS Update — 기기 OS·무작위 토큰, 2026-09-01 §14 V, vc11부터)**) + 손실 안내 + 처리방침 링크.
   (2026-08-17 법무 점검: bootstrap 조회도 기기를 떠나므로 "그 외에는 없다"는 표현은 §6 정직 규칙 위반 — 세 가지로 정정.)
   같은 내용을 설정 → About "Privacy at a glance"에서 다시 볼 수 있다(`components/privacy-overview.tsx`). 온보딩 여러 장·매 실행 팝업 🚫.
 - **데이터 손실 안내를 앱 내에 명시한다**(빈 화면·웰컴 시트·설정):
@@ -260,6 +261,7 @@ Project                        IdeaNote               Resource              Cate
 
 - 프로젝트·노트·자료는 어떤 서버에도 보내지 않는다. common_server로 가는 것은
   **bootstrap 조회와 문의 본문(platform·appVersion 포함)뿐**이다 — 둘 다에 **무작위 기기 식별자(UUID) 세션**이 붙는다(2026-09-01 §14 U: 첫 실행 등록 + 매 부팅 동봉 → 서버가 활성 일자만 기록, 400일 보관. `docs/ARCHITECTURE.md` §5.5).
+- **Expo(EAS Update, `u.expo.dev`)**로는 OTA 업데이트 확인 요청만 간다(기기 OS·런타임 버전·채널·무작위 업데이트 토큰 — 사용자 데이터 없음, 2026-09-01 §14 V). 우리 서버가 아니고 코드만 받아온다 — [`docs/OTA_SYSTEM.md`](./docs/OTA_SYSTEM.md) §8.
 - 엔타이틀먼트 서버 판정은 쓰지 않는다 — 광고 제거는 스토어 구매 이력이 진실(§7.1).
 - 연동 계약·확인 명령·선행 작업은 [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)와
   `common_server/docs/ONBOARDING.md`("새 앱 붙이기")를 따른다.
@@ -296,7 +298,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko ~~29키~~ 295키(2026-08-21) · 설정→언어 수동 변경 · es-hangul 조사 |
 | 날짜 | dayjs (+ locale · localizedFormat · customParseFormat) — 기기 지역 표기 | ✅ `lib/date.ts` (카드 수정일) |
 | 백엔드 | **없음.** 공지·문의만 common_server SDK 복사(`lib/common-server/`) | ✅ 2026-08-17 Phase 5 |
-| 배포 | ~~Expo EAS~~ → **로컬 gradle AAB**(업로드 키 `credentials/`, 절차 [`docs/BUILD.md`](./docs/BUILD.md)) | ✅ vc1~vc6 (vc4부터 `eas submit` 업로드) |
+| 배포 | ~~Expo EAS~~ → **로컬 gradle AAB**(업로드 키 `credentials/`, 절차 [`docs/BUILD.md`](./docs/BUILD.md)) + **OTA = expo-updates ~29.0.20 · EAS Update**(JS만, 2026-09-01 §14 V — [`docs/OTA_SYSTEM.md`](./docs/OTA_SYSTEM.md)) | ✅ vc1~vc10 (vc4부터 `eas submit` 업로드) · OTA 구조 vc11부터 |
 | Metro 포트 | ~~**8087 고정**(LinkMemo 8086·조각 8081과 충돌 회피)~~ → **8090**(2026-08-27 — Delvewarden이 8087을 쓰고 있어 `common/DEV_ALLOCATION.md` §1이 "하나를 옮겨야 한다"고 적은 충돌 해소. 정본은 그 표) | ✅ scripts 반영 · :8090 번들 200 실측 |
 
 - `android/`·`ios/`는 CNG 산출물 — 커밋하지 않는다.
@@ -373,6 +375,7 @@ idea_repository/
 | S | **앱 잠금(PIN·생체) 미채택**(2026-08-26 사용자 질문 → 검토 결과) — 잠금은 일기·비밀 메모 카테고리(Day One·조각·Apple Notes 노트 잠금)의 기대 기능이고, 아이디어/프로젝트 도구(Milanote·Notion·Trello·Obsidian)엔 표준이 아니다. 포지션 "Your device"는 서버에 안 보낸다는 뜻이지 기기 안에서 숨긴다는 뜻이 아니며(§6 정직 규칙: 기기 공유·분실은 못 막는다), 요청 0건 | 재검토 조건: 프로덕션 후 잠금 요청 문의가 오거나 백업 암호화(BACKUP §8)를 할 때 — 그때 "보호" 설정 한 세트로. 넣게 되면 `USE_BIOMETRIC` blockedPermissions 해제·PIN 폴백·분실 시 접근 불가 고지·처리방침 문구가 딸려온다(BUILD §4) |
 | U | **부팅 활성 하트비트 — SDK 2026-09-01 재복사 + 부팅 시 기기 세션 확보**(2026-09-01 사용자 승인 "동의하고 전부 다 진행" + 조건 "인터넷 연결 없이 접속했을 때 오류가 발생하면 안 된다") — common_server 활성 지표(DAU/WAU/MAU) 수집이 붙었는데 이 앱은 ①SDK가 2026-08-14판이라 bootstrap에 세션을 안 싣고 ②`ensureDeviceSession()`이 문의 화면에서만 불려 문의를 연 기기(7)만 subject였다 → `fetchOnce()`에서 `fetchBootstrap()`과 **병렬** 호출(직렬 금지), 문의 화면 호출 유지(오프라인 복구 지점). **오프라인 무오류**: SDK 무throw + try/catch, 결과는 `void`, 실패 시 다음 부팅에 재시도만 | 개인정보: 모든 사용자에게 첫 실행 UUID 발급 + 활성 일자 400일 서버 보관 → 이용 목적 "서비스 이용 통계" 추가, **처리방침 EN rev.5 · KO 5차**(9/1 게시·9/1 시행·앱 내 공지), 웰컴 시트 "앱 버전만" 정정. Play 데이터 보안 양식은 변경 없음(기기 ID 수집·공유·분석 기선언). GAID와 별개·광고 미사용. 부수: `inquiry.status.reviewing` 키(서버 기배포). `docs/ARCHITECTURE.md` §5.5. vc10 · 1.0.9 |
 | T | **테마·언어의 "시스템(자동)" 항목 제거 + 입력 필드 회색 채움 제거 + 카테고리 추가 = 헤더 ＋**(2026-08-27 사용자 지시 4건 — "필터 Select·새 프로젝트 input이 비활성처럼 회색" / "테마·언어 시스템(자동) 빼고 바로 매핑" / "카테고리 추가는 우측 상단 ＋ 아이콘") — ① `TextField`·`Select`·`DateField`·`TagInput` 배경 ~~`searchBar`~~ → `card` + `border` 1px(UI_GUIDE §2) ② `ThemeSetting = ThemeId`(기본 Light Minimal), 언어 store `override(null=시스템)` → `language`(항상 en·ko) — 구 저장값은 그 순간 보이던 테마·기기 언어로 고정(마이그레이션) ③ 카테고리 관리 헤더 ＋(단어 관리와 동일), 목록 끝 추가 행 삭제 | 자동 전환이 없어져 "OS 다크인데 Warm Beige" 류 모순이 원천 소멸(LinkMemo가 자동을 뺀 이유와 같음). i18n `settings.languageSystem`·`theme.system` 2키 삭제(302키). 스토어 설명의 "or follow the system setting" 문장은 **콘솔 등록정보 수정 필요**(STORE_LISTING §3 — 사용자 확인 후). 다음 AAB vc9 |
+| V | **OTA(expo-updates · EAS Update) 구조 편입 — ~~비공개 테스트 중 OTA 금지(2026-08-18)~~ 해제**(2026-09-01 사용자 지시 "ota 배포 가능하게 구조 설정해줄래" → "전부 다 완료 됐으면 커밋 및 aab 빌드까지") — LinkMemo `OTA_UPDATE.md`(같은 날) 승계: `runtimeVersion` **고정 문자열 `"1.0.0"`**(fingerprint·appVersion 정책 🚫 — 로컬 gradle 드리프트) · 채널은 `updates.requestHeaders["expo-channel-name"]`(eas.json channel은 EAS Build 전용) · `ON_LOAD` 조용히 받아 다음 콜드 스타트 적용, JS 강제 재시작 UI 없음(기둥 5) · **게시는 사용자 지시 때만** · 버전 읽기는 `lib/app-version.ts`(`nativeApplicationVersion` — OTA 매니페스트가 `expoConfig.version`을 덮어쓰는 오염 원천 차단, LinkMemo보다 한 걸음 더) · `check:ota` 스크립트 · 빌드 스크립트 `-CleanNative` + 서명 블록 자동 주입 + 매니페스트 채널 검사 | 왜: SDK `.2` 누락 같은 JS 전용 사고를 스토어 심사 없이 하루에 덮을 수 있다(같은 날 my_word가 그 경로로 구제). 첫 OTA 가능 빌드 = **vc11 · 1.0.10**(expo-updates는 네이티브 — vc10 이하는 못 받음). 개인정보: 기기가 Expo(미국)와 통신 → **처리방침 EN rev.6 · KO 6차**(정본 개정, **게시는 사용자 확인 후 · vc11 업로드 전 필수**, LEGAL_SYSTEM §7 #15) + 웰컴 문구. Play 데이터 보안 양식 변경 없음(기기 ID 기선언). 상세 [`docs/OTA_SYSTEM.md`](./docs/OTA_SYSTEM.md) |
 
 ### ✅ 원 미결정 7건 — 2026-08-17 사용자 승인으로 전부 확정 (제안값 그대로)
 
@@ -404,6 +407,7 @@ idea_repository/
 | AdMob 앱·광고단위 발급 | AdMob 콘솔 | 배너 1 + **App Open** 1. GDPR 메시지(UMP) 설정. 스토어 미출시 상태에선 "게재 제한"이 정상 |
 | 스토어 상품 등록 (Remove Ads) | Play/App Store 콘솔 | 비소모성 1상품 |
 | RevenueCat 프로젝트 생성 | RC 대시보드 | 익명 모드 — 웹훅·서버 연동 없음. `store-iap-setup` 스킬 참조 |
+| EAS Update 프로젝트·채널 | Expo 대시보드(계정 `shs00925`, projectId `6518e63b-54a0-432a-b9a5-56292cf4a523` = `updates.url`) | 프로젝트는 `eas submit` 도입 때 이미 존재. 채널·브랜치 `production`은 첫 `eas update` 때 자동 생성(2026-09-01 미실행). 무료 플랜 1K MAU |
 | 처리방침·약관 게시 URL | `vivace-games.com/idearepository/{privacy,terms}` | ✅ 2026-08-17 게시(배구 서버 Vercel 정적 페이지, LinkMemo 방식). 정본은 `docs/legal/`, 절차는 `docs/LEGAL_SYSTEM.md` |
 
 ---
@@ -423,7 +427,7 @@ idea_repository/
 - **Phase 6 완료**(2026-08-17): AdMob 콘솔 대행(앱·배너·App Open·GDPR) · SDK 16.0.0 · 실배너·App Open(3h)·UMP · **Expo Go 종료 → 디버그 빌드**(에뮬레이터 실측: 테스트 광고 노출·쿨타임 동작).
 - **Phase 6.5·8 대행**(2026-08-17): 스토어 자산·키스토어·AAB vc1 · Play 콘솔(Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`) 앱 콘텐츠 11/11·데이터 보안·스토어 설정·등록정보 EN/KO·Alpha 트랙 → AAB vc1(사용자 업로드) → **검토 전송 완료**(변경사항 16개).
 - **2026-08-18**: 설정 행 통일 · 상태 칩 → 필터 시트 Select · **발상 도구(Idea Lab) 완료**(문서 → DB v2 → 단어 풀 → 화면 4종 → 에뮬 조합·개선 e2e, [`docs/IDEATION_SYSTEM.md`](./docs/IDEATION_SYSTEM.md)).
-- ⚠ **비공개 테스트 기간(2026-08-18~ 약 1~3일간 수정분 반영) 배포 규칙**(2026-08-18 사용자 지시): 수정 사항은 **AAB 재빌드·재업로드로만** 반영한다. **OTA(expo-updates) 도입·배포 금지** — 테스터가 받는 빌드와 스토어 검토 빌드가 같아야 한다.
+- ~~⚠ **비공개 테스트 기간(2026-08-18~ 약 1~3일간 수정분 반영) 배포 규칙**(2026-08-18 사용자 지시): 수정 사항은 **AAB 재빌드·재업로드로만** 반영한다. **OTA(expo-updates) 도입·배포 금지** — 테스터가 받는 빌드와 스토어 검토 빌드가 같아야 한다.~~ → **2026-09-01 해제(§14 V)**: OTA 구조 편입. 단 게시는 사용자 지시 때만이라 "테스터 빌드 = 검토 빌드"는 게시 전까지 그대로 성립한다.
 - **2026-08-18 vc2 · 1.0.1 빌드**(설정 통일·필터 Select·개인정보 옵션·웰컴 문구·blockedPermissions·발상 도구 포함) — `idearepository-vc2.aab` 로컬 gradle. Play 콘솔 Alpha 새 버전 `2 (1.0.1)` — 사용자 업로드 → 출시명·노트(en/ko) 입력 → **검토 전송 완료**("검토 중인 변경사항", 2026-08-18). vc1은 검토 통과("선택한 테스터에게 제공", 8/17 19:26). 릴리스 노트 `docs/STORE_LISTING.md` §10.
 - **2026-08-19**: 발상 단어 관리 화면(§14 O — DB v3 · `/idea-lab/words` · 출처 Select 제거) · 메인 하드웨어 뒤로가기 종료 확인 Alert(PROJECT_SYSTEM §8) → **vc3 · 1.0.2 업로드·검토 통과, 테스터 제공(8/19 19:34 — 업로드·전송은 사용자)**.
 - **2026-08-20**: 조합 헤더 단어 관리 = "단어 관리하기" 텍스트 버튼(아이콘 대체) · **AAB 업로드 CLI 경로 도입**(`eas submit` — BUILD.md §3.5, 정본 `common/PLAY_RELEASE_AUTOMATION.md`, 빌드는 계속 로컬 gradle) → **vc4 · 1.0.3 CLI 업로드 → 출시명·노트(en/ko) → 검토 전송 완료**("검토 중인 변경사항"). 서비스 계정 권한은 켰다 끔(API 403 복귀 확인).
@@ -437,4 +441,5 @@ idea_repository/
 - **2026-08-27 사용자 지시 4건**(§14 T): 입력 필드 회색 채움 제거(배경 `card`) · 테마/언어 시스템(자동) 제거(마이그레이션 포함) · 카테고리 추가 헤더 ＋ · **Metro 8090으로 이동**(§14 K, DEV_ALLOCATION 충돌 해소) · **전용 AVD `idea_repository`(5572) 생성**(사도전·배구 AVD 빌려 쓰던 것 종료). 에뮬 실측 → 다음 AAB **vc9**(vc8 검토 통과 확인 후).
 - **2026-08-31 vc9 · 1.0.8 출시 사이클**: vc8 검토 통과·테스터 제공 확인(8/26 12:47) → **운영값 PATCH**(`latestVersion 1.0.7` + 스토어 URL — bootstrap 실측, 업데이트 팝업 운영 개시) → vc9 빌드(§14 T 4건 + 브랜드명 `lib/links.ts` 포함, SHA1 대조·versionCode 9 확인) → CLI 업로드 → 출시명 `9 (1.0.8)`·노트 en/ko → **검토 전송 완료**("검토 중인 변경사항") → 권한 회수(리로드 4개·API 403) · 구 AAB vc8 삭제.
 - **2026-09-01 부팅 활성 하트비트 완료**(§14 U): SDK 2026-09-01 재복사(→ 같은 날 저녁 **`.2` 재복사** — 토큰 슬라이딩 갱신·`isSignedIn` 만료 판정, ARCHITECTURE §5.6. vc10엔 없음, vc11부터) · `fetchOnce()`에 `ensureDeviceSession()` 병렬 · `inquiry.status.reviewing` 키 · 웰컴 문구 정정 · 처리방침 EN rev.5/KO 5차(정본·page.tsx·DATA_SAFETY) → 정적 검증·번들 200 → **에뮬 실측**(공용 `common_2`: 오프라인 첫 실행 무오류·서버 미전송 / 온라인 콜드 스타트 등록 → 서버 DAU 1·`activity_uncollected` 소멸 / 재실행 재등록 없음) → **처리방침 게시**(배구 `4559131`, 라이브 rev.5) · **시행 고지 발행**(id `13dc2524…`, 9/1 시행) → vc9 제공 확인(8/31 11:37) → **latest `1.0.8` PATCH** → **vc10 · 1.0.9** 빌드·업로드 → 검토 통과·테스터 제공(9/1 14:23) → latest `1.0.9` PATCH(BUILD §5). 전용 AVD `idea_repository` 삭제 → 공용 풀(EMULATOR_POOL §4 ✅).
-- 다음 단계: (사용자 확인 후) 스토어 설명 "follow the system setting" 문장 삭제(STORE_LISTING §2.2·§3.2) → (AdMob 해제 후) Phase 7(Remove Ads) → 프로덕션 신청(콘솔에서 테스터 ≥12명·14일 확인 — 시계상 8/31 도달, 선행 확인: 한국 개발자 추가 정보 · "one-time Remove Ads" 문장). 전체 로드맵은 [`docs/PLAN.md`](./docs/PLAN.md) "남은 작업 로드맵".
+- **2026-09-01 저녁 — SDK `.2` 재복사 + OTA 구조(§14 V) + vc11 빌드**: 공통 서버 세션 알림으로 `lib/common-server/` `2026-09-01.2` 재복사(`0930a4c`, 슬라이딩 갱신 — ARCHITECTURE §5.6) → 사용자 지시로 OTA 편입: `expo-updates ~29.0.20`·`expo-application ~7.0.8` · `app.json` `runtimeVersion "1.0.0"` + `updates`(url·ON_LOAD·채널 헤더) · `lib/app-version.ts`(네이티브 버전 단일화 — server·about·settings·backup) · `scripts/check-ota.mjs`(`npm run check:ota`) · 웰컴 문구 en/ko · 처리방침 **EN rev.6 · KO 6차 정본·page.tsx 개정(미게시 — 사용자 확인 후, vc11 업로드 전 필수)** · `docs/OTA_SYSTEM.md` 신설 · `tools/build-aab.ps1` `-CleanNative`(서명 블록 자동 주입·매니페스트 채널 검사) → 정적 검증 전부 통과 → **vc11 · 1.0.10 AAB 빌드**(BUILD §5 — 업로드는 하지 않음, 구 AAB vc10 삭제).
+- 다음 단계: **① 처리방침 rev.6 게시(시행일을 게시 당일로 재설정 → `vercel --prod` 사용자 확인 → 시행 고지) → ② vc11 업로드(사용자 지시 — 트랙은 사용자 결정: 알파 재검토 또는 프로덕션 첫 빌드) → ③ vc11이 사용자 손에 간 뒤에만 첫 `eas update`(사용자 지시)** → (사용자 확인 후) 스토어 설명 "follow the system setting" 문장 삭제(STORE_LISTING §2.2·§3.2) → (AdMob 해제 후) Phase 7(Remove Ads) → 프로덕션 신청(콘솔에서 테스터 ≥12명·14일 확인 — 시계상 8/31 도달, 선행 확인: 한국 개발자 추가 정보 · "one-time Remove Ads" 문장). 전체 로드맵은 [`docs/PLAN.md`](./docs/PLAN.md) "남은 작업 로드맵".

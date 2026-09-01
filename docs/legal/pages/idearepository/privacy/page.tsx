@@ -43,7 +43,7 @@ export default function IdeaRepositoryPrivacy() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — Privacy Policy</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 5 — device identifier at first launch and active-user statistics; effective 2026-09-01)</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10; effective 2026-09-02)</p>
       <p style={muted}>
         Idea Repository is a personal idea and project organizer. It is built around one principle:{' '}
         <b>your ideas are stored locally on your device and are not uploaded to our servers.</b> Idea Repository has
@@ -103,8 +103,8 @@ export default function IdeaRepositoryPrivacy() {
         </p>
         <p style={muted}>
           <b>What we do not use.</b> No analytics, crash-reporting or attribution SDK (no Firebase, no Google Analytics), no
-          social login, no push notifications. Beyond the AdMob SDK and the requests in 3.b / 3.c (inquiries, the
-          one-time device registration and the start check) the App makes no network requests. Android permissions: Internet, advertising ID (AD_ID) and the store billing library — no camera,
+          social login, no push notifications. Beyond the AdMob SDK, the requests in 3.b / 3.c (inquiries, the
+          one-time device registration and the start check) and the update check in 3.e, the App makes no network requests. Android permissions: Internet, advertising ID (AD_ID) and the store billing library — no camera,
           contacts, location, microphone, storage or notification permissions.
         </p>
         <p style={bullet}>• Purpose: ad serving, ad measurement, fraud prevention.</p>
@@ -167,6 +167,23 @@ export default function IdeaRepositoryPrivacy() {
           • Purpose: delivering and restoring the purchase. Legal basis (GDPR): performance of a contract. Retention: by
           the store and RevenueCat under their policies.
         </p>
+
+        <p style={h3}>e. In-app code updates (Expo EAS Update) — from version 1.0.10</p>
+        <p style={muted}>
+          From version 1.0.10 the App can receive updates to its own JavaScript code and assets without a new store
+          release, so that we can ship bug fixes faster. On launch the App asks Expo&apos;s update service (Expo, Inc., US
+          — &quot;EAS Update&quot;) whether a newer bundle exists for this app version and, if so, downloads it in the
+          background; it is applied the next time the App is fully restarted. The request carries the App&apos;s runtime
+          version, platform, update channel and a <b>random update token</b> that Expo uses to tell whether a device has
+          already downloaded a given update — no name, account, advertising ID and none of your ideas. Expo&apos;s privacy
+          policy states that it may collect the end user&apos;s device operating system and these randomized tokens. We
+          use this service to deliver code only; it is not an analytics tool and we receive no per-device information
+          from it.
+        </p>
+        <p style={bullet}>
+          • Purpose: keeping the App you already installed working (bug fixes and improvements). Legal basis (GDPR):
+          legitimate interest in maintaining and securing the App. Retention: by Expo under its policy; we store nothing.
+        </p>
       </section>
 
       <section style={card}>
@@ -217,6 +234,12 @@ export default function IdeaRepositoryPrivacy() {
               <td style={td}>Inquiry text summary</td>
               <td style={td}>US</td>
             </tr>
+            <tr>
+              <td style={td}>Expo (EAS Update)</td>
+              <td style={td}>Delivery of in-app code updates (from 1.0.10)</td>
+              <td style={td}>Device OS, runtime version, platform, update channel, randomized update token; connection data (IP) transiently</td>
+              <td style={td}>US</td>
+            </tr>
           </tbody>
         </table>
         <p style={muted}>
@@ -227,7 +250,8 @@ export default function IdeaRepositoryPrivacy() {
           <a href="https://www.revenuecat.com/privacy" style={link}>RevenueCat</a> ·{' '}
           <a href="https://vercel.com/legal/privacy-policy" style={link}>Vercel</a> ·{' '}
           <a href="https://supabase.com/privacy" style={link}>Supabase</a> ·{' '}
-          <a href="https://discord.com/privacy" style={link}>Discord</a>. Our Google Play Data Safety form and (on iOS) App
+          <a href="https://discord.com/privacy" style={link}>Discord</a> ·{' '}
+          <a href="https://expo.dev/privacy" style={link}>Expo</a>. Our Google Play Data Safety form and (on iOS) App
           Store privacy label mirror this policy.
         </p>
       </section>
@@ -308,7 +332,7 @@ export default function IdeaRepositoryPrivacy() {
       <hr style={divider} />
 
       <h1 style={{ fontSize: 24, fontWeight: 900 }}>Idea Repository — 개인정보처리방침 (한국어)</h1>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-09-01 (5차 — 첫 실행 시 기기 식별자 생성·활성 사용자 통계, 2026-09-01 시행)</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-09-01 (6차 — 1.0.10 버전부터 Expo EAS Update를 통한 앱 코드 업데이트 제공, 2026-09-02 시행)</p>
       <p style={muted}>
         휘성게임즈(브랜드 표기 Vivace Games Studio, 이하 &quot;회사&quot;)는 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보
         처리방침을 수립·공개합니다. Idea Repository(이하 &quot;앱&quot;)는 회원가입·로그인·클라우드 동기화가 없는 개인용 로컬
@@ -322,6 +346,7 @@ export default function IdeaRepositoryPrivacy() {
         <p style={bullet}>• 서비스 이용 통계: 기기 식별자 단위의 일별 활성 여부를 집계해 일간·주간·월간 활성 사용자 수 파악. 광고·추적에 쓰지 않음</p>
         <p style={bullet}>• 광고 게재: Google AdMob을 통한 배너·앱 오픈 광고 게재·측정(제3자 수집 — 제9조)</p>
         <p style={bullet}>• 유료 결제: &quot;광고 제거(Remove Ads)&quot; 일회성 구매의 제공 및 구매 복원</p>
+        <p style={bullet}>• 앱 업데이트 제공: 앱 실행 시 Expo 업데이트 서버에 이 앱 버전용 새 코드 번들이 있는지 확인·다운로드해 다음 실행에 적용(1.0.10 버전부터 — 제2조 3항)</p>
       </section>
 
       <section style={card}>
@@ -348,11 +373,12 @@ export default function IdeaRepositoryPrivacy() {
         <p style={bullet}>• <b>접속 정보</b>: IP 주소 — 문의 전송 요청 제한에 일시 사용 후 저장하지 않음.</p>
         <p style={bullet}>
           • <b>제3자(SDK) 자동 수집</b>: Google AdMob — 광고 식별자(ADID/IDFA), IP 기반 대략적 위치, 광고 상호작용, 기기·진단 정보(광고
-          게재·측정) / RevenueCat — 익명 구매 식별자, 구매 이력(구매 검증·복원) / 스토어 — 결제 정보(스토어가 직접 처리).
+          게재·측정) / RevenueCat — 익명 구매 식별자, 구매 이력(구매 검증·복원) / 스토어 — 결제 정보(스토어가 직접 처리) / <b>Expo, Inc.(EAS Update, 1.0.10 버전부터)</b> —
+          기기 OS 종류, 앱 런타임 버전·플랫폼·업데이트 채널, 업데이트 수신 확인용 무작위 토큰(앱 코드·에셋 업데이트 전달. 이름·계정·광고 식별자·이용자 콘텐츠 없음, 광고·분석 목적 아님).
         </p>
         <p style={bullet}>
           • <b>사용하지 않는 것</b>: 분석·비정상 종료 보고·어트리뷰션 SDK(Firebase·Google Analytics 등), 소셜 로그인, 푸시 알림 없음. AdMob SDK와 위
-          요청(문의·기기 등록·부팅 조회) 외 네트워크 요청 없음. Android 권한은 인터넷·광고 ID(AD_ID)·스토어 결제 라이브러리뿐(카메라·연락처·위치·마이크·저장소·알림
+          요청(문의·기기 등록·부팅 조회), 앱 업데이트 확인(Expo) 외 네트워크 요청 없음. Android 권한은 인터넷·광고 ID(AD_ID)·스토어 결제 라이브러리뿐(카메라·연락처·위치·마이크·저장소·알림
           권한 없음).
         </p>
         <p style={bullet}>
@@ -373,7 +399,7 @@ export default function IdeaRepositoryPrivacy() {
           • 활성 기록(앱 코드·기기 식별자·날짜): <b>기록일로부터 400일</b> 후 파기(전년 동기 비교가 가능한 최소 기간). 기기 식별자(등록 정보)는 이용자
           삭제 요청 시 지체 없이 파기.
         </p>
-        <p style={bullet}>• 광고·결제 SDK 수집 정보: 각 사업자 정책에 따름(회사 미보유).</p>
+        <p style={bullet}>• 광고·결제 SDK 수집 정보 · 앱 업데이트 확인 정보(Expo): 각 사업자 정책에 따름(회사 미보유).</p>
         <p style={bullet}>• 파기 방법: 전자적 파일은 복구 불가능한 방법으로 데이터베이스에서 영구 삭제. 종이 문서 없음.</p>
       </section>
 
@@ -414,6 +440,11 @@ export default function IdeaRepositoryPrivacy() {
               <td style={td}>Discord Inc.</td>
               <td style={td}>신규 문의 접수 시 운영자 내부 알림</td>
               <td style={td}>문의 본문 요약</td>
+            </tr>
+            <tr>
+              <td style={td}>Expo, Inc.</td>
+              <td style={td}>앱 코드 업데이트(OTA) 배포 서버 운영(1.0.10 버전부터)</td>
+              <td style={td}>기기 OS 종류, 런타임 버전·플랫폼·채널, 업데이트 수신 확인용 무작위 토큰</td>
             </tr>
           </tbody>
         </table>
@@ -463,11 +494,19 @@ export default function IdeaRepositoryPrivacy() {
               <td style={td}>문의 본문 요약</td>
               <td style={td}>운영자 알림(위탁) · 회사 삭제 시까지</td>
             </tr>
+            <tr>
+              <td style={td}>Expo, Inc. — privacy@expo.dev</td>
+              <td style={td}>미국</td>
+              <td style={td}>앱 실행 시 SDK 전송(1.0.10 버전부터)</td>
+              <td style={td}>기기 OS 종류, 런타임 버전·플랫폼·채널, 업데이트 수신 확인용 무작위 토큰</td>
+              <td style={td}>앱 코드 업데이트 전달(위탁) · Expo 정책</td>
+            </tr>
           </tbody>
         </table>
         <p style={muted}>
           문의 데이터베이스 호스팅은 Supabase, Inc.(위탁)의 대한민국 서울(ap-northeast-2) 리전에 보관됩니다. 이용자는 국외 이전을 거부할 수
-          있으며(제8조 연락처), 거부 시 문의하기 이용이 제한될 수 있고 광고는 기기 설정·앱 내 동의 철회로 거부할 수 있습니다.
+          있으며(제8조 연락처), 거부 시 문의하기 이용이 제한될 수 있고 광고는 기기 설정·앱 내 동의 철회로 거부할 수 있습니다. 앱 코드 업데이트 확인(Expo)은 앱 실행 동작의
+          일부로 개별 거부 수단이 없으며 개인정보를 담지 않습니다.
         </p>
       </section>
 
@@ -519,7 +558,7 @@ export default function IdeaRepositoryPrivacy() {
         <h2 style={h2}>제13조 아동 · 제14조 변경 · 처리자 정보</h2>
         <p style={muted}>
           앱은 만 14세 미만 아동(국외 만 13세 미만 또는 해당국 법령상 더 높은 연령 — 일부 EEA 회원국 만 16세)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
-          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행) · 2026-09-01 5차(제1·2·3·6·8조 — 기기 식별자를 최초 실행 시 생성·등록하고 부팅 조회에 실어 기기당 하루 1건의 활성 기록으로 활성 사용자 수 집계, 400일 보관, 광고 식별자와 별개·미제공·광고 미사용 — 2026-09-01 시행).
+          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행) · 2026-09-01 5차(제1·2·3·6·8조 — 기기 식별자를 최초 실행 시 생성·등록하고 부팅 조회에 실어 기기당 하루 1건의 활성 기록으로 활성 사용자 수 집계, 400일 보관, 광고 식별자와 별개·미제공·광고 미사용 — 2026-09-01 시행) · 2026-09-01 6차(제1·2·3·6·7조 — 1.0.10 버전부터 앱 실행 시 Expo, Inc.(미국)의 EAS Update 서버에 앱 코드 업데이트를 확인·다운로드. 기기 OS 종류·런타임 버전·플랫폼·채널·업데이트 수신 확인용 무작위 토큰 전송, 개인정보·이용자 콘텐츠 미포함 — 2026-09-02 시행).
         </p>
         <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games Studio) · 대표 손휘성</p>
         <p style={bullet}>• 사업자등록번호: 749-25-02260</p>

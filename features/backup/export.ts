@@ -1,12 +1,12 @@
 // 내보내기 — 7테이블 SELECT * → JSON → 캐시 파일 → OS 공유 시트 → 임시 파일 삭제 (docs/BACKUP_SYSTEM.md §3).
 // 서버로 가는 것은 없다. 파일이 어디에 저장되는지는 공유 시트(사용자 선택)가 정하고 앱은 모른다.
 
-import Constants from 'expo-constants';
 import { File, Paths } from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { Platform } from 'react-native';
 
 import { getDb } from '@/db';
+import { APP_VERSION } from '@/lib/app-version';
 import {
   BACKUP_FORMAT,
   BACKUP_FORMAT_VERSION,
@@ -51,7 +51,7 @@ export function buildBackup(now: Date = new Date()): BackupFile {
     format: BACKUP_FORMAT,
     formatVersion: BACKUP_FORMAT_VERSION,
     dbVersion: readUserVersion(),
-    app: { version: Constants.expoConfig?.version ?? '0.0.0', platform: Platform.OS },
+    app: { version: APP_VERSION, platform: Platform.OS },
     exportedAt: now.toISOString(),
     counts: countsOf(data),
     data,

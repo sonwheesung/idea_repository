@@ -1,8 +1,8 @@
-import Constants from 'expo-constants';
 import { randomUUID } from 'expo-crypto';
 import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
+import { APP_VERSION } from '@/lib/app-version';
 import { createCommonServer } from '@/lib/common-server';
 
 // 기기 토큰(device subject)으로 문의를 귀속한다 — 로그인이 아니다 (CLAUDE.md §4 · §14 #3, LinkMemo 승계).
@@ -10,7 +10,7 @@ import { createCommonServer } from '@/lib/common-server';
 export const commonServer = createCommonServer({
   baseUrl: process.env.EXPO_PUBLIC_SERVER_URL ?? 'https://common-server.vercel.app',
   appCode: 'idearepository',
-  appVersion: Constants.expoConfig?.version ?? '0.0.0',
+  appVersion: APP_VERSION, // 네이티브 버전(lib/app-version) — OTA 매니페스트가 덮어쓰는 expoConfig 값이 아니다(OTA_SYSTEM §6)
   platform: Platform.OS,
   storage: {
     getItem: (key) => SecureStore.getItemAsync(key),
@@ -19,7 +19,7 @@ export const commonServer = createCommonServer({
   },
 });
 
-export const APP_VERSION = Constants.expoConfig?.version ?? '0.0.0';
+export { APP_VERSION }; // 기존 import 경로(boot-gate·update-popup) 유지
 
 const DEVICE_ID_KEY = 'idearepository_device_id';
 

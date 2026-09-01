@@ -254,7 +254,24 @@ Capture your ideas. Keep them private. Build what matters.
 
 ## 10. 릴리스 노트 (Play "이번 버전의 새로운 기능" — 언어별 500자 이내)
 
-> 규칙: 비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
+> 규칙: ~~비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16).~~ → 2026-09-01 OTA 도입(vc11부터, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) — 네이티브 변경은 AAB, JS 수정은 OTA 가능(게시는 사용자 지시). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
+
+### vc11 · 1.0.10 (2026-09-01) — 🔨 빌드 완료 · ⏳ 업로드 대기(사용자 지시 · **처리방침 rev.6 게시 후**)
+
+> 첫 OTA 가능 빌드(expo-updates) + SDK `2026-09-01.2`(세션 슬라이딩 갱신) + 웰컴 문구. 트랙(알파 재검토 / 프로덕션 첫 릴리스)은 사용자 결정. 노트의 `YYYY-MM-DD`는 rev.6 실제 시행일(= 게시일)로 채운 뒤 입력. 프로덕션 노트라면 vc10 알파 노트의 "effective 2026-09-08" 오기를 여기서 정정한다(rev. 5 = 2026-09-01 시행, LEGAL §7 #14).
+
+```
+<en-US>
+• In-app updates: small fixes can now reach you without a store update (applied the next time you fully restart the app).
+• Reliability: fixed a session-renewal issue that could quietly stop a device from being counted as active.
+• Privacy Policy updated — rev. 5 (device identifier at first launch, effective 2026-09-01) and rev. 6 (in-app update checks go to Expo, effective YYYY-MM-DD). See Settings › About.
+</en-US>
+<ko-KR>
+• 앱 내 업데이트: 작은 수정은 스토어 업데이트 없이도 반영됩니다(앱을 완전히 종료한 뒤 다시 실행하면 적용).
+• 안정성: 세션 갱신 문제로 기기가 활성 집계에서 조용히 빠질 수 있던 점을 고쳤습니다.
+• 개인정보처리방침 개정 — 5차(첫 실행 시 기기 식별자, 2026-09-01 시행)·6차(앱 업데이트 확인이 Expo 서버로 감, YYYY-MM-DD 시행). 설정 › 정보 참고.
+</ko-KR>
+```
 
 ### vc10 · 1.0.9 (2026-09-01) — ✅ 검토 통과 · 테스터 제공(9/1 14:23)
 

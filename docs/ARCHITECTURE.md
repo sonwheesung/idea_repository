@@ -21,6 +21,7 @@ Idea Repository 앱 (Expo RN)
  │
  ├── OS 기본 브라우저 ← 관련 자료 URL 열기 (Linking.openURL)
  ├── AdMob SDK ← 광고 (테스트 단위로 개발 · EEA는 UMP 동의 폼)
+ ├── Expo EAS Update (u.expo.dev) ← 부팅 시 JS 번들 업데이트 확인·백그라운드 다운로드 (기기 OS·런타임 버전·채널·무작위 토큰 — 사용자 데이터 없음, vc11부터, OTA_SYSTEM §8)
  └── RevenueCat(익명) + 스토어 인앱결제 ← Remove Ads (서버 웹훅·미러 없음)
 
 Idea Repository 전용 서버: 없음 (만들지 않는다)
@@ -29,6 +30,7 @@ Idea Repository 전용 서버: 없음 (만들지 않는다)
 **우리 서버(common_server)로 나가는 사용자 입력은 문의 본문뿐이다.** 프로젝트·노트·자료는 어떤 요청에도 실리지 않는다.
 사용자 입력이 아닌 것으로는 **무작위 기기 식별자(UUID) 세션**이 첫 실행 등록과 매 부팅 조회에 실린다(2026-09-01 — 활성 사용자 집계, §5.5).
 관련 자료 URL은 사용자가 탭할 때 **OS 브라우저가** 열 뿐, 앱이 fetch하지 않는다(favicon도 안 가져온다 — PROJECT_SYSTEM §7).
+우리 서버 밖 통신은 AdMob(광고)과 **Expo EAS Update**(2026-09-01, JS 번들 OTA — 코드만 받아오고 사용자 데이터는 실리지 않는다, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) 둘이다.
 
 ---
 

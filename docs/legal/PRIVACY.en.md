@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 5 — device identifier at first launch and active-user statistics; effective 2026-09-01)
+Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10; effective 2026-09-02)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -59,8 +59,8 @@ Apple Advertising → Personalized Ads. EEA / UK / Switzerland: the in-app conse
 Any region: the one-time "Remove Ads" purchase, where available, stops ad requests entirely.
 
 **What we do not use.** The App contains no analytics, crash-reporting or attribution SDK (no Firebase, no Google
-Analytics), no social login and no push notifications. Beyond the AdMob SDK and the requests described in 3.b and
-3.c (inquiries, the one-time device registration and the start check), the App makes no network requests. Android permissions requested: Internet, advertising ID (`AD_ID`), and the
+Analytics), no social login and no push notifications. Beyond the AdMob SDK, the requests described in 3.b and
+3.c (inquiries, the one-time device registration and the start check) and the update check in 3.e, the App makes no network requests. Android permissions requested: Internet, advertising ID (`AD_ID`), and the
 store billing library — no camera, contacts, location, microphone, storage or notification permissions.
 
 ### b. Support inquiries (optional, user-initiated)
@@ -108,6 +108,21 @@ link purchases to any account (there are none).
 - Legal basis (GDPR): performance of a contract.
 - Retention: by the store and RevenueCat under their policies.
 
+### e. In-app code updates (Expo EAS Update) — from version 1.0.10
+
+From version 1.0.10 the App can receive updates to its own JavaScript code and assets without a new store release, so
+that we can ship bug fixes faster. On launch the App asks Expo's update service (Expo, Inc., US — "EAS Update") whether
+a newer bundle exists for this app version and, if so, downloads it in the background; it is applied the next time the
+App is fully restarted. The request carries the App's runtime version, platform, update channel and a **random update
+token** that Expo uses to tell whether a device has already downloaded a given update — no name, account, advertising
+ID and none of your ideas. Expo's privacy policy states that it may collect the end user's device operating system and
+these randomized tokens. We use this service to deliver code only; it is not an analytics tool and we receive no
+per-device information from it.
+
+- Purpose: keeping the App you already installed working (bug fixes and improvements).
+- Legal basis (GDPR): legitimate interest in maintaining and securing the App.
+- Retention: by Expo under its policy; we store nothing.
+
 ## 4. Processors and international transfers
 
 | Recipient | Role | Data | Location |
@@ -118,12 +133,13 @@ link purchases to any account (there are none).
 | Vercel | Application server hosting (inquiries, start check) | Inquiry data in transit; transient request logs | US / global |
 | Supabase | Inquiry and statistics database hosting | Inquiry text, category, platform, app version, device UUID; active-day rows (device UUID + date) | Seoul, Republic of Korea |
 | Discord | Internal notification of new inquiries to the operator | Inquiry text summary | US |
+| Expo (EAS Update) | Delivery of in-app code updates (from 1.0.10) | Device OS, runtime version, platform, update channel, randomized update token; connection data (IP) transiently | US |
 
 Where data is transferred outside your jurisdiction, we rely on the recipient's standard contractual clauses or
 equivalent safeguards. Their own privacy policies apply to their processing: [Google](https://policies.google.com/privacy)
 · [Apple](https://www.apple.com/legal/privacy/) · [RevenueCat](https://www.revenuecat.com/privacy) ·
 [Vercel](https://vercel.com/legal/privacy-policy) · [Supabase](https://supabase.com/privacy) ·
-[Discord](https://discord.com/privacy). Our Google Play Data Safety form and (on iOS) App Store privacy label mirror
+[Discord](https://discord.com/privacy) · [Expo](https://expo.dev/privacy). Our Google Play Data Safety form and (on iOS) App Store privacy label mirror
 this policy.
 
 ## 5. Your rights
@@ -185,7 +201,9 @@ processor policy links, Data Safety mirror) · 2026-08-21 rev. 4 (§2: local bac
 device, shared only where you choose, never received by us; effective 2026-08-28) · 2026-09-01 rev. 5 (§3.b–c, §4, §5:
 the random device identifier is now generated at first launch, not only when you send an inquiry, and the start check
 carries it so that we can count active users — one row per device per day, kept 400 days; not the advertising ID,
-not shared, not used for ads; effective 2026-09-01).
+not shared, not used for ads; effective 2026-09-01) · 2026-09-01 rev. 6 (§3.e, §4: from version 1.0.10 the App checks Expo's EAS Update
+service at launch for updates to its own code — device OS, runtime version, platform, channel and a random update token
+go to Expo, Inc. (US); nothing of yours; effective 2026-09-02).
 
 ## 9. Contact
 

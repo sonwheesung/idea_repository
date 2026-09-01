@@ -182,6 +182,13 @@
 
 ---
 
+## Phase 13 — OTA 구조(expo-updates · EAS Update) (0.5일) — 2026-09-01 추가 ✅
+
+> 사용자 지시(2026-09-01 "ota 배포 가능하게 구조 설정해줄래" → "전부 다 완료 됐으면 커밋 및 aab 빌드까지"). ~~OTA 금지(2026-08-18)~~ 해제 — CLAUDE §14 V. 설계 [`OTA_SYSTEM.md`](./OTA_SYSTEM.md).
+
+- `expo-updates ~29.0.20` + `expo-application ~7.0.8` · `app.json` `runtimeVersion "1.0.0"`(고정) + `updates`(url = projectId · ON_LOAD · `expo-channel-name: production`) · `lib/app-version.ts`(네이티브 버전 단일화) · `scripts/check-ota.mjs` · 웰컴 문구 · 처리방침 rev.6/6차(미게시) · `tools/build-aab.ps1 -CleanNative`.
+- **완료 기준**: `check:ota`·typecheck·lint·i18n 통과 → vc11 · 1.0.10 AAB 매니페스트에 `expo-channel-name`·`EXPO_RUNTIME_VERSION`·`u.expo.dev` 실측 → (사용자 지시) rev.6 게시 → vc11 업로드 → 실기기에서 첫 `eas update` 전달 확인(콜드 2회). 디버그 빌드로는 검증 불가(`__DEV__`에서 꺼짐).
+
 ## 남은 작업 로드맵 (2026-08-23 기준)
 
 | 시점 | 할 일 | 누가 | 비고 |
@@ -191,11 +198,12 @@
 | **2026-08-31** | ✅ **vc9 · 1.0.8 빌드·업로드·검토 전송**(완료) — §14 T 4건 + 브랜드명 통일 반영. 같은 날 운영값 PATCH(latest 1.0.7) | 세션 | [`BUILD.md`](./BUILD.md) §5. ⏸ 스토어 설명 "follow the system setting" 문장 삭제는 사용자 확인 후(STORE_LISTING §2.2·§3.2) |
 | 8/28 | 처리방침 4차·약관 5차 시행 | — | 할 일 없음(게시·고지 완료). 공지 9/27 자동 종료 |
 | **2026-09-01** | **Phase 12 활성 하트비트** → 처리방침 rev.5/5차 게시(9/1 시행)·공지 → vc10 · 1.0.9(vc9 게시 확인 후 업로드) | 세션 | ARCHITECTURE §5.5. 확인: 관리자 stats `activity.dau ≥ 1`·`activity_uncollected` 소멸 |
+| **2026-09-01 저녁** | ✅ SDK `.2` 재복사(`0930a4c`) · ✅ **Phase 13 OTA 구조** · ✅ 처리방침 rev.6 정본(미게시) · ✅ **vc11 · 1.0.10 빌드**(업로드 ✗ — 사용자 지시 대기, 구 AAB vc10 삭제) | 세션 | 다음: rev.6 게시(사용자 확인, 시행일 = 게시일) → vc11 업로드(트랙 사용자 결정) → 첫 `eas update`는 vc11 제공 후·사용자 지시 |
 | AdMob 정지 해제 시 | Phase 7 Remove Ads(Play 상품 등록 · RC 익명 · 구매/복원 · 데이터 보안에 구매 내역 추가 · 약관 §3 "제공되는 버전에 한함" 확인) | 사용자(콘솔) + 세션 | MONETIZATION §3.1 · `store-iap-setup` 스킬 |
 | **≈ 8/31** | **프로덕션 액세스 신청** — 콘솔에서 참여 테스터 ≥12명·14일 확인 → `play-store-launch-checklist` 전체 점검 → 신청 | 사용자(콘솔) | 선행 확인 3개: ① "한국 개발자 추가 정보" 계정 단위 입력 여부(STORE_LISTING §9 ❓) ~~② 판매자 주기적 재인증 Google 회신~~ → ✅ 2026-08-24 통과(`common/BUSINESS_INFO.md` §4) ③ **스토어 설명의 "one-time Remove Ads" 문장** — Phase 7이 프로덕션 전에 안 끝나면 문장 삭제(LEGAL_SYSTEM §7 #12, 사용자 결정) |
 | 프로덕션 후 | 언어 추가(유입 국가 데이터로 순서) · 빈 항목 숨김 설정 · 백업 암호화/CSV(요청 시) · App Store(iOS) 검토 | — | CLAUDE §3 확장 후보 · BACKUP §8 · LEGAL §7 #6 |
 
-🚫 하지 않을 것(재확인): OTA · 계정/클라우드 · 전용 서버 · 구독/Pro · 테스터 대상 배려 작업(`common/CLOSED_TESTING.md`).
+🚫 하지 않을 것(재확인): ~~OTA~~(→ 2026-09-01 편입, Phase 13) · 계정/클라우드 · 전용 서버 · 구독/Pro · 테스터 대상 배려 작업(`common/CLOSED_TESTING.md`).
 
 ## 순서에 대한 근거
 
