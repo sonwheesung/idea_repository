@@ -67,7 +67,7 @@ if ($gradle -notmatch 'idearepository-upload.jks') {
   $gradle = Get-Content $gradlePath -Raw
 }
 if ($gradle -notmatch 'idearepository-upload.jks') { throw 'build.gradle release 서명 설정이 없음 — docs/BUILD.md §2 대로 복원' }
-if (($gradle -split 'signingConfig signingConfigs.release').Count -lt 3) { throw 'buildTypes.release가 signingConfigs.release를 쓰지 않음 — docs/BUILD.md §2' }
+if ($gradle -notmatch 'signingConfig signingConfigs\.release') { throw 'buildTypes.release가 signingConfigs.release를 쓰지 않음 — docs/BUILD.md §2' }  # 2026-09-01 첫 실행: split Count 오판(-lt 3)으로 정상 주입을 실패 처리했던 것 수정
 
 Write-Host '== gradlew bundleRelease'
 Push-Location android
