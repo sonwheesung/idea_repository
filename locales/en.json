@@ -146,7 +146,8 @@
       "ecommerceNo": "E-commerce registration no.",
       "address": "Address",
       "contact": "Contact"
-    }
+    },
+    "licenses": "Open-source licenses"
   },
   "note": {
     "title": "Idea Note",
@@ -407,5 +408,8 @@
     "body": "Version {{version}} is available on the store.",
     "open": "Open Store",
     "later": "Later"
+  },
+  "licenses": {
+    "intro": "This app is built with the open-source packages below. Each is used under its license; copyright lines are shown as found in each package."
   }
 }

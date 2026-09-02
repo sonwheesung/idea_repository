@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 
@@ -61,6 +62,13 @@ export default function AboutScreen() {
             onPress={() => void open(link.url)}
           />
         ))}
+        {/* 오픈소스 라이선스 고지 — MIT/Apache 동봉 조건(docs/LEGAL_SYSTEM.md §10). 내부 화면이라 chevron */}
+        <ListRow
+          variant="flat"
+          icon="code-slash-outline"
+          title={t('about.licenses')}
+          onPress={() => router.push('/licenses')}
+        />
       </ListGroup>
 
       {/* Remove Ads(구매·복원) 행은 Phase 7에서 설정 화면에 추가한다. */}

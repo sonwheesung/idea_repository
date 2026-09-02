@@ -45,6 +45,7 @@ export default function RootLayout() {
         <Stack.Screen name="inquiries" options={{ title: t('settings.inquiry') }} />
         <Stack.Screen name="inquiry" options={{ title: t('inquiry.newTitle') }} />
         <Stack.Screen name="about" options={{ title: t('settings.about') }} />
+        <Stack.Screen name="licenses" options={{ title: t('about.licenses') }} />
         {/* 발상 도구 — 광고 없음(작성 흐름). docs/IDEATION_SYSTEM.md */}
         <Stack.Screen name="idea-lab/index" options={{ title: t('ideation.title') }} />
         <Stack.Screen name="idea-lab/combine" options={{ title: t('ideation.tools.combine.title') }} />

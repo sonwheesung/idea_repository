@@ -10,6 +10,8 @@
     "lint": "expo lint",
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:ota": "node scripts/check-ota.mjs",
+    "licenses:build": "node scripts/make-licenses.mjs",
+    "check:licenses": "node scripts/check-licenses.mjs",
     "check:play-access": "node scripts/check-play-access.mjs"
   },
   "dependencies": {

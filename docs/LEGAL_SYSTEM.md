@@ -23,6 +23,7 @@
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
 | Play 데이터 보안 양식 제출 | ✅ | 2026-08-17 — 미리보기 확인 후 저장. 광고 ID 선언 예(분석·광고·사기방지). ⏳ Phase 7에서 "금융 정보 › 구매 내역" 추가 |
+| **오픈소스 라이선스 고지**(About → `app/licenses.tsx` · 생성 `lib/oss-packages.ts` · 가드 `check:licenses`) | ✅ 2026-09-02 | §10 — 프로덕션 첫 출시 준비 중 고지 0건 발견 → 조각 이식. 패키지 43(MIT 42·Apache-2.0 1·카피레프트 0). vc11부터 |
 | Apple 앱 개인정보 라벨 · ATT | ⏸ | iOS 출시 시 |
 | 변호사 검토 | ❌ | 사람 결정 |
 
@@ -190,6 +191,23 @@ Splend Apps Notepad · ClevNote(Cleveni, KR) · Joplin. **약관 비교 대상**
 
 **우리가 피어보다 앞서는 것(유지)**: 나가는 요청 전수 열거(Joplin 수준) · 흐름별 법적 근거 · UMP 재진입 경로 · 처리자/국외이전 표 · 국가별 연령 3단 ·
 GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · 약관의 미성년자·복원·30일 종료 고지·ODR 종료 반영·전상법 판매자 블록(신고번호 포함).
+
+## 10. 오픈소스 라이선스 고지 (2026-09-02 — 프로덕션 첫 출시 결정으로 발견·구현)
+
+> **왜**: RN·Expo 번들의 npm 패키지는 거의 전부 MIT/Apache-2.0이고, 둘 다 *"저작권 고지와 허가 문구를 사본에 동봉하라"*를
+> **라이선스 조건**으로 단다 — 고지가 없으면 위반이다(`common/PRE_LAUNCH_CHECK.md` §2 · `common/GAME_ASSET_SOURCING.md` §3.3).
+> 2026-09-02 프로덕션 첫 출시 준비 중 **앱에 고지가 0건**임을 확인(형제 앱도 전부 뒤늦게 닫은 항목 — LinkMemo는 프로덕션 출시 다음 날 추가).
+> vc11 미업로드 상태라 첫 출시부터 싣는다.
+
+| 항목 | 값 |
+|---|---|
+| 생성기 | `scripts/make-licenses.mjs`(`npm run licenses:build`) — `package.json` `dependencies`(런타임만, devDependencies 제외) × `node_modules`의 package.json·LICENSE에서 라이선스명·저작권 줄 추출 → `lib/oss-packages.ts` **생성 파일**(손 편집 금지). 라이선스를 못 읽으면 exit 1 — 조용히 빠뜨리는 것이 정확히 위반. 저작권 줄이 없으면 비운다(지어내지 않는다 — Expo 계열은 LICENSE 미동봉이 흔함) |
+| 드리프트 가드 | `scripts/check-licenses.mjs`(`npm run check:licenses`) — ① 생성 파일 ⇄ 현재 설치본 값 대조(의존성 추가 후 재생성 안 하면 실패) ② 화면이 목록·저작권을 실제로 그리나 ③ About에 입구가 있나. **검증 루틴 편입**(README §3) |
+| 화면 | `app/licenses.tsx` — 설정 → 정보(About) → "Open-source licenses" 행. 🚫 패키지명·라이선스명·저작권 줄은 번역하지 않는다(고유명사·원문 유지가 고지 요건). `t()`는 제목·인트로뿐 |
+| 폰트 | **해당 없음** — 커스텀 폰트 미사용(시스템 폰트, `assets/fonts/` 없음). 폰트를 넣는 날 조각 `FONT_NOTICES` 모양(파일 `name` 테이블 실측 — 형제 고지 복사 금지, GAME_ASSET_SOURCING §3.2)을 따른다 |
+| 이식 출처 | 조각 `diary/scripts/{make,check}-licenses.mjs` + `app/licenses.tsx`(2026-08-31) — 폰트 절만 제거 |
+
+- 웹 게시 불요(앱 내 고지로 충족 — 형제 앱 동일). 처리방침·Data Safety 변경 없음(네트워크·수집 무관).
 
 ## 게시 기록
 

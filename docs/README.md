@@ -69,6 +69,7 @@
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
 | 첫 실행 프라이버시 웰컴 시트 + About "Privacy at a glance" | ✅ | 2026-08-17 — `components/welcome-sheet.tsx`·`privacy-overview.tsx`, `features/onboarding/store.ts`(persist, 복원 후 표시) |
 | 정보(About) 화면 — 버전·태그라인·링크(처리방침·약관·문의·웹사이트)·판매자 정보 | ✅ | 2026-08-17 — `app/about.tsx` · 상수 `lib/links.ts` · 문안 [`STORE_LISTING.md`](./STORE_LISTING.md) |
+| 오픈소스 라이선스 고지 | ✅ | 2026-09-02 — About → `app/licenses.tsx`(패키지 43 — 세는 법: `npm run check:licenses`). 생성 `licenses:build` → `lib/oss-packages.ts` · 가드 `check:licenses`(변이 주입으로 이빨 확인) · 카피레프트 0(MIT 42·Apache-2.0 1). 폰트 없음(시스템 폰트). [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) §10. vc11부터 |
 
 ### 서버·외부 (Idea Repository 밖 선행 작업)
 
@@ -98,6 +99,7 @@ npm run lint                   # expo lint
 npx prettier --check .         # 포맷(.prettierrc — 조각 승계, printWidth 110)
 npm run check:i18n             # en·ko 키 누락·잉여·보간 일치·비한국어 파일 한글 잔존
 npm run check:ota              # OTA 설정 드리프트(채널 헤더·URL=projectId·runtimeVersion 고정·expoConfig.version 직접 읽기 금지) — 2026-09-01
+npm run check:licenses         # 오픈소스 고지 드리프트(생성 파일 ⇄ 설치본 값 대조·화면·입구) — 의존성 추가 시 licenses:build 후 통과해야 함(2026-09-02, LEGAL_SYSTEM §10)
 ```
 
 **번들 컴파일 확인**(구현 완료 선언 전 필수): Metro 기동 상태에서
