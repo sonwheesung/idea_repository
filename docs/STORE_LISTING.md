@@ -216,6 +216,37 @@ Capture your ideas. Keep them private. Build what matters.
   같은 투톤 스타일. PIL 제작 스크립트는 LinkMemo `tools/` 재사용.
 - 7인치·10인치 태블릿 슬롯은 같은 장면을 태블릿 프레임으로(Play 요구사항 충족용).
 
+### 7.1 한국어 그래픽 (2026-09-02 사용자 지시 "에뮬레이터 켜서 영어처럼 디자인해서 만들어줘 — 다른 언어도 있으면 다")
+
+프로덕션 게시 후 ko-KR 등록정보가 en-US 그래픽을 상속 중인 것을 발견(§9) → **한국어 한 벌 제작**.
+등록정보 언어는 en-US·ko-KR 둘뿐(콘솔 실측)이라 다른 언어는 대상 없음. 디자인·구도는 영어판과 동일(같은 스크립트).
+
+- **앱 화면**: 공용 에뮬레이터에서 기기 로케일 ko-KR + 한국어 시드 데이터(`seed_emulator.py` ko 데이터)로 재촬영 →
+  `tools/store/shots/shot_*_ko.png`. 캡션 폰트는 Malgun Gothic(`malgunbd/malgun.ttf` — Segoe UI엔 한글 없음).
+- **캡션(실제 사용본 — 위 §7 표는 초기 플랜)**:
+
+| # | 장면 | EN(게시본) | KO |
+|---|---|---|---|
+| 1 | 홈 | All your ideas, one place | 모든 아이디어를 한곳에 / 상태·진행률·우선순위·태그를 한눈에 |
+| 2 | 상세 | Turn ideas into projects | 아이디어를 프로젝트로 / 문제점·목표·핵심 아이디어·노트·자료까지 |
+| 3 | 새 프로젝트 | Capture in seconds | 몇 초면 기록됩니다 / 이름만 입력하면 저장 — 세부 정보는 나중에 |
+| 4 | 검색 | Find it instantly | 바로 다시 찾기 / 노트와 #태그 검색, 필터·정렬 |
+| 5 | 테마 | 12 themes, all free | 테마 12종, 전부 무료 / 라이트·다크·파스텔 — 취향대로 |
+| 6 | 프라이버시 | Your ideas stay on your device | 아이디어는 기기에만 저장 / 계정 없음 · 클라우드 없음 — 서버로 보내지 않아요 |
+
+- **피처 그래픽 KO**(`feature-ko-1024x500.png`): 구도 동일, 제목 "Idea Repository"(브랜드 라틴 유지) +
+  태그라인만 한국어 "내 아이디어. 내 기기. 내가 만든다."(§3.2 설명 도입부와 동일 문구). 생성은 `tools/make_store_assets_ko.py`
+  (make_store_assets.py에서 피처 블록만 분리 복제 — 원본 재실행은 앱 아이콘 assets까지 다시 쓰므로 피함).
+- **업로드**: ko-KR 등록정보의 폰·7"·10" 슬롯 + 그래픽 이미지. en-US는 손대지 않는다. 등록정보 변경이라 다시 검토를 거친다(앱 게시 상태 무관).
+- ✅ **2026-09-02 밤 제작·업로드·검토 전송 완료** — 공용 에뮬 `common_2`(클레임→반납) · 디버그 빌드 + Metro 8090 ·
+  기기 로케일 ko(`settings put system system_locales ko-KR` + zygote 재시작 — `persist.sys.locale`만으론 안 먹음, 단 앱 표기는
+  결국 **앱 언어 설정**을 따름: 날짜 포함 `lib/date.ts`가 i18n.language 기준) · ko 시드 5프로젝트 · 한글 입력은 adb 불가(NPE) →
+  **새 프로젝트 = 딥링크 프리필**(`idearepository://project/new?name=…`) · **검색어 = `app/index.tsx` useState 임시 주입 후 원복**(vc8 기법) ·
+  합성 `make_screenshots.py ko`(Malgun · fit_font 자동 축소) → 콘솔 ko-KR 4슬롯(폰 순서 = EN과 동일: 홈→새→상세→검색→프라이버시→테마,
+  드래그 2회로 정렬) → 저장 → **"검토를 위해 변경사항 4개 제출" → "검토 중인 변경사항"**. 콘솔 함정: ①애셋 추가 → 사이드 패널
+  → 업로드 버튼이 `input.click()` — `HTMLInputElement.prototype.click` 패치로 네이티브 창 억제 후 file_upload ②라이브러리 행 선택은
+  **호버 → 썸네일 원형 체크 클릭**(줄 클릭·JS click 무효) ③적용 순서는 선택 순서 무관 — 슬롯 드래그로 정렬.
+
 ---
 
 ## 8. App Store (후속 — 값만 미리 확정)

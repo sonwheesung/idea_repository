@@ -1,5 +1,5 @@
 # 에뮬레이터 앱 DB에 스크린샷용 샘플 데이터 삽입 (dev 전용 — 배포 산출물과 무관)
-# 사용: python tools/seed_emulator.py [emulator-5554]
+# 사용: python tools/seed_emulator.py [emulator-5554] [en|ko]  — ko는 한국어 스토어 스크린샷용(2026-09-02, STORE_LISTING §7.1)
 import os
 import subprocess
 import sys
@@ -7,6 +7,7 @@ import time
 import uuid
 
 SERIAL = sys.argv[1] if len(sys.argv) > 1 else 'emulator-5554'
+LANG = sys.argv[2] if len(sys.argv) > 2 else 'en'
 PKG = 'com.vivacegames.idearepository'
 ADB = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Android', 'Sdk', 'platform-tools', 'adb.exe')
 DB = 'files/SQLite/idearepository.db'
@@ -59,6 +60,46 @@ projects = [
          notes=[('Delivered. Client wants online payments next — separate project.', now - 6 * day)],
          resources=[('Vercel', 'https://vercel.com', 'Hosting')]),
 ]
+
+projects_ko = [  # EN 데이터의 한국어판 — 카테고리명은 시드 그대로 영어(§8: 기본 카테고리 = 영어 데이터 행)
+    dict(name='AI 게임 밸런서', summary='매치 데이터를 분석해 밸런스 문제를 유저보다 먼저 찾아내기',
+         description='매치 로그를 읽어 과성능 유닛·맵·아이템 조합을 짚어 주는 데스크톱 + 모바일 컴패니언.',
+         category='Game', tags=['AI', '게임', '데이터분석'], status='in_progress', progress=35, priority='high',
+         problem='감으로 하는 대전 게임 밸런싱은 느리고 편향된다. 데이터는 아무도 안 읽는 로그에 잠들어 있다.',
+         goal='패치마다 상위 5개 밸런스 이상치를 근거와 함께 보여주는 v1 출시.',
+         core_idea='조합별로 매치를 묶어 승률 차이를 계산하고, 쉬운 말로 설명해 준다.',
+         target_user='라이브 대전 게임을 운영하는 인디·중소 스튜디오.',
+         start='2026-08-01', end='2026-12-31', updated=now - 1 * 3600000,
+         notes=[('MVP에는 LLM을 쓰지 않는다 — 통계 먼저, 설명은 나중에.', now - 3 * day),
+                ('표본이 작을 때를 알 수 있게 "신뢰도" 배지를 붙이자.', now - 1 * day)],
+         resources=[('Google Trends', 'https://trends.google.com', '시장 조사'),
+                    ('밸런싱 강연 (GDC)', 'https://www.gdcvault.com', '라이브 밸런싱 참고 강연')]),
+    dict(name='습관 트래커', summary='매일 습관을 잊기 어렵게 만드는 아주 작은 앱',
+         description=None, category='App', tags=['모바일', '건강'], status='planned', progress=20, priority='medium',
+         problem='습관 앱 대부분이 무겁다. 사용자는 일주일이면 떠난다.', goal='설정 없는 원탭 체크인.',
+         core_idea='위젯 우선 설계. 앱은 옵션이고 위젯이 곧 제품이다.', target_user='한 번에 습관 1~3개를 만드는 사람.',
+         start='2026-09-01', end=None, updated=now - 5 * 3600000,
+         notes=[('Duolingo의 스트릭 표현을 보되 — 더 덜어내자.', now - 2 * day)],
+         resources=[]),
+    dict(name='아이디어 마켓', summary='끝내 만들지 못할 아이디어를 파는 곳',
+         description=None, category='Web', tags=['SaaS', '마켓플레이스'], status='idea', progress=10, priority='low',
+         problem='좋은 아이디어가 노트 속에서 죽는다.', goal=None, core_idea=None, target_user='시간보다 아이디어가 많은 메이커.',
+         start=None, end=None, updated=now - 1 * day,
+         notes=[], resources=[]),
+    dict(name='독서 기록 & 리뷰', summary='책 메모와 리뷰를 한곳에 모으기',
+         description=None, category='Content', tags=['책'], status='idea', progress=0, priority='none',
+         problem=None, goal=None, core_idea=None, target_user=None, start=None, end=None, updated=now - 2 * day,
+         notes=[], resources=[]),
+    dict(name='동네 빵집 웹사이트', summary='메뉴·영업시간·예약 주문이 있는 간단한 사이트',
+         description=None, category='Business', tags=['웹', '외주'], status='completed', progress=100, priority='none',
+         problem=None, goal='여름 시즌 전에 오픈하기.', core_idea=None, target_user='동네 빵집 사장님.',
+         start='2026-05-10', end='2026-06-30', updated=now - 6 * day,
+         notes=[('납품 완료. 다음엔 온라인 결제를 원하심 — 별도 프로젝트로.', now - 6 * day)],
+         resources=[('Vercel', 'https://vercel.com', '호스팅')]),
+]
+
+if LANG == 'ko':
+    projects = projects_ko
 
 sql = ['PRAGMA foreign_keys = ON;', 'BEGIN;']
 for p in projects:
