@@ -171,6 +171,7 @@ common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 
 - **SDK `.2`**: `fetchBootstrap()`이 `session.token`을 `replaceToken()`으로 조용히 교체(호출부에 노출 없음) · `isSignedIn()` = `tokenAlive()`(payload `iat` + `SESSION_TTL_DAYS = 180`, 파싱 실패 = 죽은 것으로 fail-closed). **`SESSION_TTL_DAYS`는 서버 `TOKEN_TTL_MS`의 사본 — 손대지 않는다**(서버 TTL 상향안은 공통 서버 세션이 검토 후 철회: 앱 상수와 갈라지는 부채 > 잔여 리스크 "OTA도 못 받고 180일간 문의 0건인 사용자의 DAU 한 줄").
 - **서버만으로는 안 된다** — 구 SDK는 `session` 필드를 버린다. 앱 재복사가 필수. 호출부(`features/support/server.ts`·`store.ts`) 변경 없음, `tsc` 통과. 우리 앱의 가장 이른 subject는 2026-08-17(봇·에뮬) → 만료 2027-02-13. 실사용자 노출은 프로덕션 출시 + 180일. 만료돼도 손실은 없다 — deviceId가 SecureStore에 남아 재등록하면 같은 subject.
 - ⏳ **사용자에게 닿는 것은 다음 AAB(vc11)부터.** 교훈: 재복사 직후에도 `git -C C:/project/common_server log --oneline -3 -- client/`로 원본이 더 앞서지 않았는지 본다(my_word는 같은 날 오전 빌드에 구판이 실려 심사 중 — 우리는 빌드 전에 잡았다).
+- ⏳ **SDK `.3` 예고(2026-09-02, 공통 서버 세션 통보)**: `exp` 클레임 이관 + **웜 스타트 하트비트**(`AppState → active`에서 `POST /v1/heartbeat`)를 한 판으로 묶어 낼 예정. ⚠ 후자는 **재복사만으로 안 끝난다** — 지금까지의 SDK 갱신과 달리 앱 쪽 호출부(`AppState` 리스너 1곳)가 처음으로 늘어난다. **확정 통보가 오기 전에는 재복사하지 않는다**(그쪽 지시). 통보가 오면: 재복사 → 리스너 배선 → 오프라인 무오류(§5.5 조건) 재검증 → 개인정보 영향 검토(부팅 외 포그라운드 복귀에도 하트비트가 나가면 처리방침 서술과 대조).
 
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
