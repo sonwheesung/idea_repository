@@ -211,9 +211,14 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
 
 ## 게시 기록
 
+- **2026-09-02 밤 (앱 내 시행 고지 3건 전부 삭제 — 사용자 지시)** — 프로덕션 게시(vc11 · 177개국) 직후 사용자 지시 "공지사항 글 전부 다 제거해줄래 — 이제 게시했는데".
+  `DELETE /api/admin/announcements?id=` 3건 전부 200: `9ecde8ec…`(rev.6 고지) · `13dc2524…`(rev.5 고지) · `df35b667…`(4차/5차 고지) → bootstrap 실측 `announcements` **0건**.
+  근거: 시행 고지의 대상은 **구 정책 하의 기존 이용자**인데, 그 시점 이용자는 사용자 본인 + doply 테스터(설치·실행만 — `common/CLOSED_TESTING.md`)뿐이고, 프로덕션 신규 사용자는 현행 rev.6 정책으로 시작하므로 개정 고지 대상이 아니다 — 신규 사용자에겐 노이즈만 된다.
+  삭제는 하드 삭제(복구 불가)지만 문안 정본은 아래 기록에 그대로 남아 있어 재발행 가능. **다음 개정부터는 프로덕션 이용자가 있으므로 7일(중대 30일) 전 고지 + 시행 후 30일 유지 규칙을 지킨다**(§7 #14의 예외 근거가 소멸).
+
 - **2026-09-02 (처리방침 EN rev.6 · KO 6차 — ✅ 게시 + ✅ 시행 고지 발행, 당일 시행)** — 사용자 승인("전부 다 진행" 전언 + 세션 확인 게이트 "전부 진행 — 단계적 출시") 후:
   배구 레포 `e51b4f8`(idearepository 페이지 1개만 스테이징) → detached worktree `vercel link --project volleyball --scope sonws` → `vercel --prod` → `volleyball-oixey0yqu` Ready(28s)·`vivace-games.com` 앨리어스 → 라이브 실측 "Last updated: 2026-09-02 (rev. 6 …)" · "6차 … 2026-09-02 시행" · "activity signal" 존재 · `/terms` 200 → worktree 삭제(`.env.local` 포함). ⚠ 같은 시각 LinkMemo 세션이 자기 4차 게시를 위해 배구 레포를 푸시하며 `e51b4f8`이 함께 나감 — 사전에 물어와 "게시 승인됨"으로 답했고(사용자 승인 직후였음), 내용 동일이라 무해.
-  **시행 고지**: `POST /api/admin/announcements` 200 → id `9ecde8ec-09a1-4f28-9473-c5c9c96cf1f2`, `kind: notice`, `pinned: false`, `endsAt: 2026-10-01T15:00:00Z`(= KST 10-02 00:00, 시행 + 30일). bootstrap 실측 `announcements` 3건(8/28·9/1 고지 병존), 본문 1,299자 발행 스크립트 정본과 일치. 시행일 = 게시일(비공개 테스트 중 — §7 #14와 같은 근거, 다음 개정부터 프로덕션 7일 규칙).
+  **시행 고지**: `POST /api/admin/announcements` 200 → id `9ecde8ec-09a1-4f28-9473-c5c9c96cf1f2`(→ 2026-09-02 밤 삭제 — 위 기록), `kind: notice`, `pinned: false`, `endsAt: 2026-10-01T15:00:00Z`(= KST 10-02 00:00, 시행 + 30일). bootstrap 실측 `announcements` 3건(8/28·9/1 고지 병존), 본문 1,299자 발행 스크립트 정본과 일치. 시행일 = 게시일(비공개 테스트 중 — §7 #14와 같은 근거, 다음 개정부터 프로덕션 7일 규칙).
   **문안(정본)**: 발행 스크립트 = 세션 스크래치 `announce-rev6.mjs`(토큰 미출력) — What changed: ① In-app code updates(Expo, 1.0.10부터, 기기 OS·런타임·플랫폼·채널·무작위 토큰, 개인정보·콘텐츠 없음) ② Activity signal(실행 시 + 복귀 시 최소 5분 간격, 저장 불변 — 기기당 하루 1건·400일) ③ 그 외 변경 없음 + 전문 URL. EN/KO 병기.
 
 - **2026-09-01 (처리방침 EN rev.6 · KO 6차 — 정본 개정 기록)** — OTA(expo-updates · Expo EAS Update, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) §8, CLAUDE §14 V) 도입으로 기기가 Expo, Inc.(미국)와 통신하게 되는 것을 반영:
@@ -225,7 +230,7 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
   배구 레포 `4559131`(idearepository 페이지 1개만 스테이징 — 다른 세션의 linkmemo 페이지 미커밋 변경 미포함) → detached worktree `vercel link --project volleyball --scope sonws` →
   `vercel --prod` → `volleyball-19bb6adus` Ready(29s) → 라이브 `/idearepository/privacy`에 "rev. 5 … effective 2026-09-01" · "5차 … 2026-09-01 시행" 실측, `/terms` 200 → worktree 삭제(`.env.local` 포함).
   Data Safety 양식 변경 없음(기기 ID 기선언 — [`legal/DATA_SAFETY.md`](./legal/DATA_SAFETY.md) §0). 약관은 변경 없음(제·§ "무작위 기기 식별자를 생성" 서술은 여전히 참).
-  **시행 고지**: `POST /api/admin/announcements` 200 → id `13dc2524-9d3d-4e75-ae4b-18d163851af7`, `kind: notice`, `pinned: false`, ~~`endsAt: 2026-10-07T15:00:00Z`~~ → `2026-09-30T15:00:00Z`(= KST 10-01 00:00, 시행 + 30일).
+  **시행 고지**: `POST /api/admin/announcements` 200 → id `13dc2524-9d3d-4e75-ae4b-18d163851af7`(→ 2026-09-02 밤 삭제), `kind: notice`, `pinned: false`, ~~`endsAt: 2026-10-07T15:00:00Z`~~ → `2026-09-30T15:00:00Z`(= KST 10-01 00:00, 시행 + 30일).
   bootstrap 실측 `announcements` 2건(8/28 고지 병존, 9/27 종료), 본문 1,164자 정본과 글자 단위 일치. ~~시행 7일 전 규칙 충족(9/1 → 9/8)~~ → **같은 날 사용자 지시 "아직 개시 안 해서 처리방침은 오늘로" → 시행일 2026-09-01(당일)로 정정**(§7 #14): 정본·page.tsx 재게시(배구 `115495e` → `volleyball-435idnr98` Ready, 라이브 "2026-09-01 시행" 실측) + 공지 `PATCH`(제목·본문 날짜·endsAt, bootstrap 본문 글자 일치). §7 #13 교훈대로 정본 개정과 같은 날 발행.
   **문안(정본)**:
 
@@ -254,7 +259,7 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
   ```
 
 - **2026-08-23 (4차/5차 시행 고지 — ✅ 발행)** — §4-4 방법으로 common_server 공지 1건(EN+KO 병기, `kind: notice`, `pinned: false`,
-  `endsAt: 2026-09-27T15:00:00Z` = KST 2026-09-28 00:00). `POST /api/admin/announcements` 200 → id `df35b667-8c71-4f14-a1b5-5c30e655f65a`,
+  `endsAt: 2026-09-27T15:00:00Z` = KST 2026-09-28 00:00). `POST /api/admin/announcements` 200 → id `df35b667-8c71-4f14-a1b5-5c30e655f65a`(→ 2026-09-02 밤 삭제),
   startsAt 2026-08-23T03:19:15Z(KST 12:19). 프로덕션 `bootstrap?app=idearepository` → `announcements` 1건, 본문 1,162자 = 아래 정본과 글자 단위 일치(node 대조).
   사용자 판단 "미리 발행" — 9/27까지 살아 있어 프로덕션 전환 후 이용자도 본다. 7일 규칙 미달은 §7 #13 해소. 발행 스크립트는 세션 스크래치(토큰 미출력, 상태·id만 출력).
   **문안(정본 — 발행 본문과 글자 단위로 같아야 한다)**:
