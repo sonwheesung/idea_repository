@@ -25,7 +25,9 @@
 
 ## 1. 포지셔닝 · 캐치프레이즈
 
-- 앱 이름: **Idea Repository** (16자 / 30자 한도)
+- 앱 이름: ~~**Idea Repository** (16자 / 30자 한도)~~ → **언어별 부제 추가**(2026-09-02 사용자 결정 — 프로덕션 첫 출시 때 검색 유입용. "아이디어 노트·메모 + 우리가 만든 발상 도구도 반영"):
+  - en-US: **`Idea Repository - Idea Notes`** (28자) — 30자 한도에 brainstorm까지 안 들어가 검색량 큰 "idea notes" 우선
+  - ko-KR: **`Idea Repository: 아이디어 노트·메모·발상`** (정확히 30자 — 콜론+공백. 초과 판정 시 폴백: em-dash 무공백 29자 → `아이디어 노트·발상` 28자)
 - 태그라인 1: **Your ideas. Your device. Yours to build.**
 - 태그라인 2: **Capture your ideas. Keep them private. Build what matters.**
 - 흐름: Capture → Organize → Develop → Build
@@ -72,7 +74,7 @@ FIND IT AGAIN
 ORGANIZE YOUR WAY
 • Categories — App, Game, Web, Service, Business, Content, Other, or add your own
 • Tags — free-form tags with autocomplete
-• 12 themes — light, dark, and colorful palettes ~~, or follow the system setting~~ ← ⚠ 2026-08-27 앱에서 시스템(자동) 제거 — **콘솔 등록정보도 이 문장 삭제 필요(사용자 확인 후)**
+• 12 themes — light, dark, and colorful palettes ~~, or follow the system setting~~ ← ~~⚠ 콘솔 반영 대기~~ → ✅ **2026-09-02 콘솔 삭제 반영**(사용자 확인 "시스템 설정 문장만 삭제" — one-time Remove Ads 문장은 유지, LEGAL §7 #12는 계속 열림)
 
 PRIVATE BY DESIGN
 • No account, no sign-up, no login. Install and start.
@@ -127,7 +129,7 @@ Idea Repository는 "내가 만들고 싶은 것들"을 모아 두는 개인용 �
 내 방식대로 정리
 • 카테고리 — App, Game, Web, Service, Business, Content, Other 기본 제공 + 직접 추가
 • 태그 — 자유롭게 만들고 자동완성으로 재사용
-• 테마 12종 — 라이트 · 다크 · 컬러 팔레트 ~~, 또는 시스템 설정 따르기~~ ← ⚠ 2026-08-27 동일(콘솔 반영 대기)
+• 테마 12종 — 라이트 · 다크 · 컬러 팔레트 ~~, 또는 시스템 설정 따르기~~ ← ~~⚠ 콘솔 반영 대기~~ → ✅ **2026-09-02 콘솔 삭제 반영**(en과 동일)
 
 처음부터 프라이빗하게
 • 회원가입 · 로그인 · 계정이 없습니다. 설치하고 바로 시작하세요.
@@ -256,9 +258,22 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: ~~비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16).~~ → 2026-09-01 OTA 도입(vc11부터, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) — 네이티브 변경은 AAB, JS 수정은 OTA 가능(게시는 사용자 지시). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
-### vc11 · 1.0.10 (2026-09-01) — 🔨 빌드 완료 · ⏳ 업로드 대기(사용자 지시 · **처리방침 rev.6 게시 후**)
+### vc11 · 1.0.10 (2026-09-01 → 2026-09-02 프로덕션 첫 출시) — ✅ **검토 전송 완료**("검토 중인 변경사항" 7개: 릴리스 · 국가 177 · 부제/설명 en+ko)
 
-> 첫 OTA 가능 빌드(expo-updates) + SDK `2026-09-01.2`(세션 슬라이딩 갱신) + 웰컴 문구. 트랙(알파 재검토 / 프로덕션 첫 릴리스)은 사용자 결정. 노트의 `YYYY-MM-DD`는 rev.6 실제 시행일(= 게시일)로 채운 뒤 입력. 프로덕션 노트라면 vc10 알파 노트의 "effective 2026-09-08" 오기를 여기서 정정한다(rev. 5 = 2026-09-01 시행, LEGAL §7 #14).
+> 첫 OTA 가능 빌드(expo-updates) + SDK `2026-09-02`(웜 스타트 하트비트·슬라이딩 갱신) + 오픈소스 고지 + 웰컴 문구. ~~트랙은 사용자 결정~~ → **프로덕션 첫 릴리스**(2026-09-02 사용자 승인 "전부 진행 — 단계적 출시"). ~~아래 changelog형 초안~~ → **폐기(2026-09-02 사용자 지적 "첫 출시인데 그렇게 작성 안 했으면")** — 프로덕션 첫 사용자는 이전 버전을 본 적 없으니 소개 한 줄로. vc10 알파 노트의 "effective 2026-09-08" 오기 정정(§7 #14)은 노트 대신 **처리방침 개정 이력·앱 내 공지가 정본으로 이미 수행**(알파 노트는 테스터만 봤다).
+
+**최종 입력(첫 출시 소개형)**:
+
+```
+<en-US>
+Welcome to Idea Repository — capture your ideas as projects and grow them over time. Everything is stored on your device.
+</en-US>
+<ko-KR>
+Idea Repository 첫 출시입니다 — 아이디어를 프로젝트로 기록하고 발전시켜 보세요. 모든 데이터는 기기에만 저장됩니다.
+</ko-KR>
+```
+
+<details><summary>폐기된 changelog형 초안(이력)</summary>
 
 ```
 <en-US>
@@ -272,6 +287,8 @@ Capture your ideas. Keep them private. Build what matters.
 • 개인정보처리방침 개정 — 5차(첫 실행 시 기기 식별자, 2026-09-01 시행)·6차(앱 업데이트 확인이 Expo 서버로 감, YYYY-MM-DD 시행). 설정 › 정보 참고.
 </ko-KR>
 ```
+
+</details>
 
 ### vc10 · 1.0.9 (2026-09-01) — ✅ 검토 통과 · 테스터 제공(9/1 14:23)
 
