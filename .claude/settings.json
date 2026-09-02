@@ -9,7 +9,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'COMPACTION COMPLETE: the detailed docs/ design context is gone from context. Run the reload-docs skill to re-read docs/README.md (index) and the relevant docs/ system documents before continuing, so design/exclusion decisions (OTA ban during closed testing, keystore reuse, local-only data) are not overwritten by guesswork.'"
+            "command": "echo 'COMPACTION COMPLETE: the detailed docs/ design context is gone from context. Run the reload-docs skill to re-read docs/README.md (index) and the relevant docs/ system documents before continuing, so design/exclusion decisions (OTA publish only on user instruction, keystore reuse, local-only data) are not overwritten by guesswork.'"
           }
         ]
       }

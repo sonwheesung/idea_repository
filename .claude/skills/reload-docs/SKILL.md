@@ -58,8 +58,11 @@ description: Re-read the project's design docs (CLAUDE.md spine + docs/ system d
 
 컴팩트 요약에서 자주 탈락하지만 어기면 되돌릴 수 없는 것들:
 
-- **비공개 테스트 중 OTA(expo-updates) 절대 금지** — 수정분은 **AAB 재빌드·재업로드로만** 반영
-  (CLAUDE §16, 2026-08-18 사용자 지시). 테스터 빌드 = 스토어 검토 빌드여야 한다.
+- ~~**비공개 테스트 중 OTA(expo-updates) 절대 금지** — 수정분은 **AAB 재빌드·재업로드로만** 반영
+  (CLAUDE §16, 2026-08-18 사용자 지시). 테스터 빌드 = 스토어 검토 빌드여야 한다.~~
+  → **2026-09-01 해제(CLAUDE §14 V, 사용자 지시)**: OTA 구조 편입(vc11 · 1.0.10부터, `docs/OTA_SYSTEM.md`).
+  남는 규칙: **네이티브 변경은 여전히 AAB** · **OTA 게시(`eas update`)는 사용자가 지시할 때만** ·
+  첫 게시 전 처리방침 rev.6 게시 + vc11이 사용자 손에 있어야 한다(OTA_SYSTEM §5).
 - **새 키스토어 생성 절대 금지** — 업로드 키는 `credentials/idearepository-upload.jks`(백업
   `C:\private_key\`) 재사용. 잃으면 앱을 다시 못 올린다(`docs/BUILD.md`). `credentials/` 커밋 금지,
   키스토어 비밀번호를 대화·리포 파일에 쓰지 않는다.
