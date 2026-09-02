@@ -15,6 +15,7 @@ Idea Repository 앱 (Expo RN)
  │
  ├── HTTPS ──▶ common_server (https://common-server.vercel.app)
  │              ├─ GET  /api/v1/bootstrap?app=idearepository   ← 부팅 1회: 점검·강제업데이트·공지 (+ 세션 있으면 동봉 → 활성 일자 1행, §5.5)
+ │              ├─ POST /api/v1/heartbeat                  ← **포그라운드 복귀 시**(2026-09-02, §5.7): 활성 일자 1행. 쿨다운 5분 SDK 내장
  │              ├─ POST /api/v1/devices                    ← ~~최초 문의 진입 시 1회~~ → **첫 실행 1회**(2026-09-01, §5.5): 기기 subject 등록 → 세션 토큰
  │              ├─ POST /api/v1/tickets                    ← 문의(기기 귀속 · 세션 실패 시 익명 폴백)
  │              └─ GET  /api/v1/tickets/mine               ← 내 문의 목록·답변·상태
@@ -28,7 +29,7 @@ Idea Repository 전용 서버: 없음 (만들지 않는다)
 ```
 
 **우리 서버(common_server)로 나가는 사용자 입력은 문의 본문뿐이다.** 프로젝트·노트·자료는 어떤 요청에도 실리지 않는다.
-사용자 입력이 아닌 것으로는 **무작위 기기 식별자(UUID) 세션**이 첫 실행 등록과 매 부팅 조회에 실린다(2026-09-01 — 활성 사용자 집계, §5.5).
+사용자 입력이 아닌 것으로는 **무작위 기기 식별자(UUID) 세션**이 첫 실행 등록·매 부팅 조회·**포그라운드 복귀 하트비트**(2026-09-02, §5.7)에 실린다(활성 사용자 집계, §5.5).
 관련 자료 URL은 사용자가 탭할 때 **OS 브라우저가** 열 뿐, 앱이 fetch하지 않는다(favicon도 안 가져온다 — PROJECT_SYSTEM §7).
 우리 서버 밖 통신은 AdMob(광고)과 **Expo EAS Update**(2026-09-01, JS 번들 OTA — 코드만 받아오고 사용자 데이터는 실리지 않는다, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) 둘이다.
 
@@ -106,7 +107,7 @@ common-server·volleyball은 **Pro 조직 소속이고 Pro는 프로젝트 개�
    확인: `curl "https://common-server.vercel.app/api/v1/bootstrap?app=idearepository&platform=android&appVersion=0.1.0"` **200**
    (404 = 미등록/비활성. "했다"가 아니라 출력을 남긴다)
 2. **SDK 복사(앱)**: `common_server/client/{index,types}.ts` → `lib/common-server/`. 복사본 상단에 `SDK_VERSION` 주석
-   (~~현재 `2026-08-14`~~ → ~~`2026-09-01`~~ → **`2026-09-01.2`** 2026-09-01 두 번 재복사 — §5.5·§5.6). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
+   (~~현재 `2026-08-14`~~ → ~~`2026-09-01`~~ → ~~`2026-09-01.2`~~ → **`2026-09-02`** 2026-09-02 재복사 — §5.5·§5.6·§5.7). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
 3. **부팅 게이트(앱)**: `fetchBootstrap()` 1회. **실패해도 앱을 막지 않는다** — 로컬 앱이 서버 때문에 못 열리면
    기둥 2 위반. 성공 시에만: 점검 화면 / min 미만 강제 업데이트 / latest 미만 소프트 안내 / 공지 배지.
    ⚠ **차단 화면에 반드시 출구를 둔다** — 스토어 URL이 비어 있으면 안내문이라도(my_word 실제 사고).
@@ -171,7 +172,17 @@ common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 
 - **SDK `.2`**: `fetchBootstrap()`이 `session.token`을 `replaceToken()`으로 조용히 교체(호출부에 노출 없음) · `isSignedIn()` = `tokenAlive()`(payload `iat` + `SESSION_TTL_DAYS = 180`, 파싱 실패 = 죽은 것으로 fail-closed). **`SESSION_TTL_DAYS`는 서버 `TOKEN_TTL_MS`의 사본 — 손대지 않는다**(서버 TTL 상향안은 공통 서버 세션이 검토 후 철회: 앱 상수와 갈라지는 부채 > 잔여 리스크 "OTA도 못 받고 180일간 문의 0건인 사용자의 DAU 한 줄").
 - **서버만으로는 안 된다** — 구 SDK는 `session` 필드를 버린다. 앱 재복사가 필수. 호출부(`features/support/server.ts`·`store.ts`) 변경 없음, `tsc` 통과. 우리 앱의 가장 이른 subject는 2026-08-17(봇·에뮬) → 만료 2027-02-13. 실사용자 노출은 프로덕션 출시 + 180일. 만료돼도 손실은 없다 — deviceId가 SecureStore에 남아 재등록하면 같은 subject.
 - ⏳ **사용자에게 닿는 것은 다음 AAB(vc11)부터.** 교훈: 재복사 직후에도 `git -C C:/project/common_server log --oneline -3 -- client/`로 원본이 더 앞서지 않았는지 본다(my_word는 같은 날 오전 빌드에 구판이 실려 심사 중 — 우리는 빌드 전에 잡았다).
-- ⏳ **SDK `.3` 예고(2026-09-02, 공통 서버 세션 통보)**: `exp` 클레임 이관 + **웜 스타트 하트비트**(`AppState → active`에서 `POST /v1/heartbeat`)를 한 판으로 묶어 낼 예정. ⚠ 후자는 **재복사만으로 안 끝난다** — 지금까지의 SDK 갱신과 달리 앱 쪽 호출부(`AppState` 리스너 1곳)가 처음으로 늘어난다. **확정 통보가 오기 전에는 재복사하지 않는다**(그쪽 지시). 통보가 오면: 재복사 → 리스너 배선 → 오프라인 무오류(§5.5 조건) 재검증 → 개인정보 영향 검토(부팅 외 포그라운드 복귀에도 하트비트가 나가면 처리방침 서술과 대조).
+- ~~⏳ **SDK `.3` 예고(2026-09-02, 공통 서버 세션 통보)**: `exp` 클레임 이관 + **웜 스타트 하트비트**(`AppState → active`에서 `POST /v1/heartbeat`)를 한 판으로 묶어 낼 예정. ⚠ 후자는 **재복사만으로 안 끝난다** — 지금까지의 SDK 갱신과 달리 앱 쪽 호출부(`AppState` 리스너 1곳)가 처음으로 늘어난다.~~ → **같은 날 확정 배포(`2026-09-02` — `.3`이 아니라 날짜 판번)·반영 완료** — §5.7.
+
+### 5.7 웜 스타트 하트비트 — SDK 2026-09-02 (2026-09-02 재복사·배선)
+
+common_server `f418c0f`("웜 스타트 하트비트")이 `heartbeat()`를 추가했다. **왜**: 활성 신호가 `fetchBootstrap()`에만 얹혀 있었는데 그건 JS 프로세스당 1회다 — RN에서 홈 버튼은 프로세스를 안 죽이므로 **포그라운드 복귀에는 신호가 한 번도 안 나갔고**, 앱을 자주 쓰는(안 죽이는) 사용자일수록 DAU에서 덜 잡히는 거꾸로 된 오차였다. 우리 앱은 알파 테스터 DAU가 실제로 잡히는 중이라(9/2 기준 15) 영향이 가장 컸다.
+
+- **배선**: `components/boot-gate.tsx` — `AppState` 리스너 1곳, `active`가 되면 `commonServer.heartbeat()`. cleanup(`sub.remove()`) 필수(리스너 누적 방지). `fetchOnce()`(프로세스당 1회 부팅 조회)는 그대로 — 하트비트가 그 `fetched` 플래그의 사각을 메우는 것이다.
+- **계약(SDK 내장 — 앱에서 재구현 금지)**: `heartbeat()`는 **절대 reject 하지 않는다**(오프라인·타임아웃·세션 없음·쿨다운·파싱 실패 전부 내부에서 삼킴, 반환값 없음) → 리스너 콜백에 `.catch()` **붙이지 않는다**(붙이면 다음 사람이 "필요하구나"로 읽는다). 쿨다운 5분 SDK 내장 — 앱 디바운스 금지. 401이면 세션 폐기 → 다음 부팅 `ensureDeviceSession()`이 재등록(자가 치유). 오프라인 무오류 조건(§5.5, 2026-09-01 사용자 조건)이 계약 수준에서 성립한다.
+- **`exp` 클레임**: 토큰이 `exp`를 들고 다닌다 — 앱 할 일 없음(재복사에 포함). 기발급 토큰은 `iat` 폴백으로 그대로 산다(알파 테스터 로그아웃 없음).
+- **개인정보**: 서버에 남는 것은 §5.5와 동일한 활성 일자 1행뿐(새 항목 없음). 다만 전송 시점이 "앱 실행 시 1회"에서 **"실행 시 + 앱으로 돌아올 때(최소 5분 간격)"**로 넓어져 처리방침 서술과 어긋난다 → **rev.6(미게시)에 문안 반영**(제2조 2항 수집 방법·EN §3.c, LEGAL_SYSTEM §7 #15 — 게시 전이라 앱 동작 ⇄ 방침 불일치 창 없음). 웰컴 시트 `welcome.point.whatLeaves`도 동반 수정. Play 데이터 보안 양식 변경 없음(기기 ID 기선언·항목 불변).
+- ⏳ **사용자에게 닿는 것은 vc11부터**(업로드 대기 중이라 vc11에 내장 — 별도 빌드 불요, 단 AAB 재빌드 필요). vc11 배포 후의 SDK 갱신은 JS 전용이면 OTA로 받는다(OTA_SYSTEM §5).
 
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
@@ -188,9 +199,10 @@ common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 
 | 항목 | 상태 |
 |---|---|
 | `apps`에 `idearepository` 등록 | ✅ 2026-08-17 — seed 실행, **프로덕션 `bootstrap?app=idearepository` → 200 실측** |
-| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → **2026-09-01.2 재복사**(§5.6 슬라이딩 갱신 · vc11부터)(bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
+| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → **2026-09-02 재복사**(§5.7 웜 스타트 하트비트·`exp` 클레임 · vc11부터)(슬라이딩 갱신 §5.6 · bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
 | 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ~~⏸ latest 소프트 안내 미구현~~ → ✅ 2026-08-26 `components/update-popup.tsx` + `useSoftUpdateStore`(설계 §5.4, vc8) |
 | 부팅 활성 하트비트 | ✅ 2026-09-01 — `useBootStore.fetchOnce()`에서 `ensureDeviceSession()` 병렬 호출(§5.5). 처리방침 rev.5/5차 · 웰컴 문구 · `inquiry.status.reviewing` 동반. vc10 |
+| 웜 스타트 하트비트 | ✅ 2026-09-02 — `boot-gate.tsx` `AppState` 리스너 → `commonServer.heartbeat()`(§5.7). 처리방침 rev.6 문안·웰컴 문구 동반. vc11부터 |
 | 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |
 | 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ✅ 2026-08-17 — 설정 → 문의하기 = 내역(`app/inquiries.tsx`) + 우상단 [문의 등록하기] → 폼(`app/inquiry.tsx`, 분류 Select). `features/support/server.ts`(SecureStore UUID·세션). **프로덕션 E2E**: 등록→토큰→문의 귀속→mine 200, 잘못된 deviceId 400 |
 | 디스코드 웹훅 env | ✅ 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` production 등록 + 재배포(common_server `964bcd9`). 문의 E2E 200 |

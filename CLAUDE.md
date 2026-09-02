@@ -166,7 +166,7 @@ Project                        IdeaNote               Resource              Cate
 클라우드 동기화도 없다.
 
 - **첫 실행 1회 프라이버시 웰컴 시트**(2026-08-17 사용자 결정 — 한 장, 버튼 하나 "Start", 다시 안 뜸): 제목 "Your ideas stay on your device." +
-  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK · 시작 시 공지/업데이트 확인(~~앱 버전만~~ → 앱 버전 + 활성 사용자 집계에만 쓰는 무작위 기기 ID, 2026-09-01 §14 U) · 사용자가 보낸 문의 · 앱 코드 업데이트 확인(Expo EAS Update — 기기 OS·무작위 토큰, 2026-09-01 §14 V, vc11부터)**) + 손실 안내 + 처리방침 링크.
+  3줄(계정 없음 · 클라우드 없음 · **기기를 떠나는 것 = 광고 SDK · ~~시작 시~~ 시작·앱 복귀 시 공지/업데이트·활성 확인(~~앱 버전만~~ → 앱 버전 + 활성 사용자 집계에만 쓰는 무작위 기기 ID, 2026-09-01 §14 U · 복귀 하트비트는 2026-09-02 ARCHITECTURE §5.7, vc11부터) · 사용자가 보낸 문의 · 앱 코드 업데이트 확인(Expo EAS Update — 기기 OS·무작위 토큰, 2026-09-01 §14 V, vc11부터)**) + 손실 안내 + 처리방침 링크.
   (2026-08-17 법무 점검: bootstrap 조회도 기기를 떠나므로 "그 외에는 없다"는 표현은 §6 정직 규칙 위반 — 세 가지로 정정.)
   같은 내용을 설정 → About "Privacy at a glance"에서 다시 볼 수 있다(`components/privacy-overview.tsx`). 온보딩 여러 장·매 실행 팝업 🚫.
 - **데이터 손실 안내를 앱 내에 명시한다**(빈 화면·웰컴 시트·설정):
@@ -260,7 +260,7 @@ Project                        IdeaNote               Resource              Cate
 | 사용자 데이터 | **가지 않는다** (기둥 2) | — |
 
 - 프로젝트·노트·자료는 어떤 서버에도 보내지 않는다. common_server로 가는 것은
-  **bootstrap 조회와 문의 본문(platform·appVersion 포함)뿐**이다 — 둘 다에 **무작위 기기 식별자(UUID) 세션**이 붙는다(2026-09-01 §14 U: 첫 실행 등록 + 매 부팅 동봉 → 서버가 활성 일자만 기록, 400일 보관. `docs/ARCHITECTURE.md` §5.5).
+  **bootstrap 조회·문의 본문(platform·appVersion 포함)·포그라운드 복귀 하트비트(2026-09-02, vc11부터)뿐**이다 — 전부에 **무작위 기기 식별자(UUID) 세션**이 붙는다(2026-09-01 §14 U: 첫 실행 등록 + 매 부팅 동봉 + 복귀 시(쿨다운 5분) → 서버가 활성 일자만 기록, 400일 보관. `docs/ARCHITECTURE.md` §5.5·§5.7).
 - **Expo(EAS Update, `u.expo.dev`)**로는 OTA 업데이트 확인 요청만 간다(기기 OS·런타임 버전·채널·무작위 업데이트 토큰 — 사용자 데이터 없음, 2026-09-01 §14 V). 우리 서버가 아니고 코드만 받아온다 — [`docs/OTA_SYSTEM.md`](./docs/OTA_SYSTEM.md) §8.
 - 엔타이틀먼트 서버 판정은 쓰지 않는다 — 광고 제거는 스토어 구매 이력이 진실(§7.1).
 - 연동 계약·확인 명령·선행 작업은 [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md)와
@@ -403,7 +403,7 @@ idea_repository/
 |---|---|---|
 | `apps`에 `idearepository` 등록 | common_server (`tools/seed.ts`) | 확인: `bootstrap?app=idearepository` **200** |
 | 디스코드 문의 웹훅 env | common_server Vercel | `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` — **유일하게 재배포 필요한 지점** |
-| SDK 복사 | `common_server/client/` → `lib/common-server/` | 복사본 상단에 SDK_VERSION 주석(~~현재 2026-08-14 — `registerDevice` 포함~~ → ~~2026-09-01~~ → **2026-09-01.2**(같은 날 저녁 — 토큰 슬라이딩 갱신, ARCHITECTURE §5.6, vc11부터) — bootstrap 세션 동봉, §14 U) |
+| SDK 복사 | `common_server/client/` → `lib/common-server/` | 복사본 상단에 SDK_VERSION 주석(~~현재 2026-08-14 — `registerDevice` 포함~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → **2026-09-02**(웜 스타트 하트비트 + `exp` 클레임, ARCHITECTURE §5.7, vc11부터 — 첫 호출부 증가: `boot-gate` AppState 리스너) — bootstrap 세션 동봉, §14 U) |
 | AdMob 앱·광고단위 발급 | AdMob 콘솔 | 배너 1 + **App Open** 1. GDPR 메시지(UMP) 설정. 스토어 미출시 상태에선 "게재 제한"이 정상 |
 | 스토어 상품 등록 (Remove Ads) | Play/App Store 콘솔 | 비소모성 1상품 |
 | RevenueCat 프로젝트 생성 | RC 대시보드 | 익명 모드 — 웹훅·서버 연동 없음. `store-iap-setup` 스킬 참조 |
@@ -442,4 +442,5 @@ idea_repository/
 - **2026-08-31 vc9 · 1.0.8 출시 사이클**: vc8 검토 통과·테스터 제공 확인(8/26 12:47) → **운영값 PATCH**(`latestVersion 1.0.7` + 스토어 URL — bootstrap 실측, 업데이트 팝업 운영 개시) → vc9 빌드(§14 T 4건 + 브랜드명 `lib/links.ts` 포함, SHA1 대조·versionCode 9 확인) → CLI 업로드 → 출시명 `9 (1.0.8)`·노트 en/ko → **검토 전송 완료**("검토 중인 변경사항") → 권한 회수(리로드 4개·API 403) · 구 AAB vc8 삭제.
 - **2026-09-01 부팅 활성 하트비트 완료**(§14 U): SDK 2026-09-01 재복사(→ 같은 날 저녁 **`.2` 재복사** — 토큰 슬라이딩 갱신·`isSignedIn` 만료 판정, ARCHITECTURE §5.6. vc10엔 없음, vc11부터) · `fetchOnce()`에 `ensureDeviceSession()` 병렬 · `inquiry.status.reviewing` 키 · 웰컴 문구 정정 · 처리방침 EN rev.5/KO 5차(정본·page.tsx·DATA_SAFETY) → 정적 검증·번들 200 → **에뮬 실측**(공용 `common_2`: 오프라인 첫 실행 무오류·서버 미전송 / 온라인 콜드 스타트 등록 → 서버 DAU 1·`activity_uncollected` 소멸 / 재실행 재등록 없음) → **처리방침 게시**(배구 `4559131`, 라이브 rev.5) · **시행 고지 발행**(id `13dc2524…`, 9/1 시행) → vc9 제공 확인(8/31 11:37) → **latest `1.0.8` PATCH** → **vc10 · 1.0.9** 빌드·업로드 → 검토 통과·테스터 제공(9/1 14:23) → latest `1.0.9` PATCH(BUILD §5). 전용 AVD `idea_repository` 삭제 → 공용 풀(EMULATOR_POOL §4 ✅).
 - **2026-09-01 저녁 — SDK `.2` 재복사 + OTA 구조(§14 V) + vc11 빌드**: 공통 서버 세션 알림으로 `lib/common-server/` `2026-09-01.2` 재복사(`0930a4c`, 슬라이딩 갱신 — ARCHITECTURE §5.6) → 사용자 지시로 OTA 편입: `expo-updates ~29.0.20`·`expo-application ~7.0.8` · `app.json` `runtimeVersion "1.0.0"` + `updates`(url·ON_LOAD·채널 헤더) · `lib/app-version.ts`(네이티브 버전 단일화 — server·about·settings·backup) · `scripts/check-ota.mjs`(`npm run check:ota`) · 웰컴 문구 en/ko · 처리방침 **EN rev.6 · KO 6차 정본·page.tsx 개정(미게시 — 사용자 확인 후, vc11 업로드 전 필수)** · `docs/OTA_SYSTEM.md` 신설 · `tools/build-aab.ps1` `-CleanNative`(서명 블록 자동 주입·매니페스트 채널 검사) → 정적 검증 전부 통과 → **vc11 · 1.0.10 AAB 빌드**(BUILD §5 — 업로드는 하지 않음, 구 AAB vc10 삭제).
+- **2026-09-02 웜 스타트 하트비트**(공통 서버 세션 통보 → SDK `2026-09-02` 재복사 + 첫 호출부 증가): `boot-gate.tsx`에 `AppState` 리스너 → `commonServer.heartbeat()`(포그라운드 복귀 시 활성 신호 — 쿨다운 5분·무reject 계약은 SDK 내장, ARCHITECTURE §5.7). 처리방침 rev.6(미게시) 문안에 "앱으로 돌아올 때" 전송 시점 반영 + 웰컴 `welcome.point.whatLeaves` en/ko 수정. vc11 AAB 재빌드(같은 versionCode 11 — 미업로드라 가능).
 - 다음 단계: **① 처리방침 rev.6 게시(시행일을 게시 당일로 재설정 → `vercel --prod` 사용자 확인 → 시행 고지) → ② vc11 업로드(사용자 지시 — 트랙은 사용자 결정: 알파 재검토 또는 프로덕션 첫 빌드) → ③ vc11이 사용자 손에 간 뒤에만 첫 `eas update`(사용자 지시)** → (사용자 확인 후) 스토어 설명 "follow the system setting" 문장 삭제(STORE_LISTING §2.2·§3.2) → (AdMob 해제 후) Phase 7(Remove Ads) → 프로덕션 신청(콘솔에서 테스터 ≥12명·14일 확인 — 시계상 8/31 도달, 선행 확인: 한국 개발자 추가 정보 · "one-time Remove Ads" 문장). 전체 로드맵은 [`docs/PLAN.md`](./docs/PLAN.md) "남은 작업 로드맵".

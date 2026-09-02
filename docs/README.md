@@ -75,7 +75,7 @@
 | 영역 | 상태 | 비고 |
 |---|---|---|
 | common_server `apps`에 `idearepository` 등록 | ✅ | 2026-08-17 seed — 프로덕션 `bootstrap?app=idearepository` 200 실측 |
-| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → **2026-09-01.2 재복사**(같은 날 두 번 — 토큰 슬라이딩 갱신 §5.6, vc11부터)(bootstrap 세션 동봉 → 활성 하트비트, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
+| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → **2026-09-02 재복사**(웜 스타트 하트비트 + `exp` — 첫 호출부 증가: `boot-gate` AppState 리스너, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.7, vc11부터)(슬라이딩 갱신 §5.6 · bootstrap 세션 동봉 → 활성 하트비트 §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
 | 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
 | RevenueCat 프로젝트(익명 모드) | ⏸ | 웹훅·서버 연동 없음. Phase 7 — AdMob 정지 해제 후(2026-08-21) |

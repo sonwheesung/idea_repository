@@ -1,9 +1,9 @@
 import { useEffect, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Linking, StyleSheet, Text, View } from 'react-native';
+import { AppState, Linking, StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '@/components/button';
-import { APP_VERSION } from '@/features/support/server';
+import { APP_VERSION, commonServer } from '@/features/support/server';
 import { useBootStore } from '@/features/support/store';
 import { compareVersions } from '@/lib/common-server';
 import { useTheme } from '@/theme/use-theme';
@@ -19,6 +19,15 @@ export function BootGate({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchOnce();
   }, [fetchOnce]);
+
+  // 포그라운드 복귀 활성 신호 — 부팅 조회(fetchOnce)는 JS 프로세스당 1회뿐이라 웜 스타트가 안 잡혔다
+  // (ARCHITECTURE §5.7). 쿨다운 5분·무reject 계약은 SDK 내장 — .catch()·디바운스를 붙이지 않는다.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (st) => {
+      if (st === 'active') void commonServer.heartbeat();
+    });
+    return () => sub.remove();
+  }, []);
 
   if (boot?.maintenance.active) {
     return (

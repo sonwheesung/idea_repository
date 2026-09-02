@@ -43,7 +43,7 @@ export default function IdeaRepositoryPrivacy() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — Privacy Policy</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10; effective 2026-09-02)</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-09-02 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10, and the activity signal is also sent when you return to the app; effective 2026-09-02)</p>
       <p style={muted}>
         Idea Repository is a personal idea and project organizer. It is built around one principle:{' '}
         <b>your ideas are stored locally on your device and are not uploaded to our servers.</b> Idea Repository has
@@ -104,7 +104,7 @@ export default function IdeaRepositoryPrivacy() {
         <p style={muted}>
           <b>What we do not use.</b> No analytics, crash-reporting or attribution SDK (no Firebase, no Google Analytics), no
           social login, no push notifications. Beyond the AdMob SDK, the requests in 3.b / 3.c (inquiries, the
-          one-time device registration and the start check) and the update check in 3.e, the App makes no network requests. Android permissions: Internet, advertising ID (AD_ID) and the store billing library — no camera,
+          one-time device registration, the start check and the activity signal) and the update check in 3.e, the App makes no network requests. Android permissions: Internet, advertising ID (AD_ID) and the store billing library — no camera,
           contacts, location, microphone, storage or notification permissions.
         </p>
         <p style={bullet}>• Purpose: ad serving, ad measurement, fraud prevention.</p>
@@ -143,7 +143,9 @@ export default function IdeaRepositoryPrivacy() {
         <p style={muted}>
           <b>Device identifier.</b> On first launch the app generates a <b>random device identifier (UUID)</b>, stores
           it in secure storage on your device and registers it with our server once. From then on the start check
-          carries a session tied to that identifier, and our server records <b>that this device was active on that
+          carries a session tied to that identifier, and — from version 1.0.10 — the app also sends a short activity
+          signal with the same session when you return to it (at most once every 5 minutes; it carries nothing else).
+          In both cases our server records <b>that this device was active on that
           day</b> — one row per device per day (app code, device identifier, date), nothing else. We use these rows only
           to count daily, weekly and monthly active users. The identifier contains no name, email or other personal
           details, is not the advertising ID, is not shared with anyone and is not used for advertising or tracking.
@@ -332,7 +334,7 @@ export default function IdeaRepositoryPrivacy() {
       <hr style={divider} />
 
       <h1 style={{ fontSize: 24, fontWeight: 900 }}>Idea Repository — 개인정보처리방침 (한국어)</h1>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-09-01 (6차 — 1.0.10 버전부터 Expo EAS Update를 통한 앱 코드 업데이트 제공, 2026-09-02 시행)</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-09-02 (6차 — 1.0.10 버전부터 Expo EAS Update를 통한 앱 코드 업데이트 제공 + 활성 신호를 앱 복귀 시에도 전송, 2026-09-02 시행)</p>
       <p style={muted}>
         휘성게임즈(브랜드 표기 Vivace Games Studio, 이하 &quot;회사&quot;)는 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보
         처리방침을 수립·공개합니다. Idea Repository(이하 &quot;앱&quot;)는 회원가입·로그인·클라우드 동기화가 없는 개인용 로컬
@@ -367,7 +369,8 @@ export default function IdeaRepositoryPrivacy() {
           답변 확인과 활성 사용자 수 집계뿐입니다. 앱을 삭제하면 연결이 끊기고 재설치 시 새 식별자가 생성됩니다.
         </p>
         <p style={bullet}>
-          • <b>부팅 조회(자동)</b>: 앱 코드·플랫폼·앱 버전, 기기 식별자 세션 — 요청 내용은 저장하지 않되, <b>그 기기가 그날 활성이었다는
+          • <b>부팅 조회·활성 신호(자동)</b>: 앱 코드·플랫폼·앱 버전, 기기 식별자 세션 — 앱 실행 시 1회, 그리고 1.0.10 버전부터는 앱으로
+          돌아올 때에도(최소 5분 간격) 전송. 요청 내용은 저장하지 않되, <b>그 기기가 그날 활성이었다는
           기록</b>(앱 코드·기기 식별자·날짜, 기기당 하루 1건)만 저장.
         </p>
         <p style={bullet}>• <b>접속 정보</b>: IP 주소 — 문의 전송 요청 제한에 일시 사용 후 저장하지 않음.</p>
@@ -558,7 +561,7 @@ export default function IdeaRepositoryPrivacy() {
         <h2 style={h2}>제13조 아동 · 제14조 변경 · 처리자 정보</h2>
         <p style={muted}>
           앱은 만 14세 미만 아동(국외 만 13세 미만 또는 해당국 법령상 더 높은 연령 — 일부 EEA 회원국 만 16세)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
-          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행) · 2026-09-01 5차(제1·2·3·6·8조 — 기기 식별자를 최초 실행 시 생성·등록하고 부팅 조회에 실어 기기당 하루 1건의 활성 기록으로 활성 사용자 수 집계, 400일 보관, 광고 식별자와 별개·미제공·광고 미사용 — 2026-09-01 시행) · 2026-09-01 6차(제1·2·3·6·7조 — 1.0.10 버전부터 앱 실행 시 Expo, Inc.(미국)의 EAS Update 서버에 앱 코드 업데이트를 확인·다운로드. 기기 OS 종류·런타임 버전·플랫폼·채널·업데이트 수신 확인용 무작위 토큰 전송, 개인정보·이용자 콘텐츠 미포함 — 2026-09-02 시행).
+          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행) · 2026-09-01 5차(제1·2·3·6·8조 — 기기 식별자를 최초 실행 시 생성·등록하고 부팅 조회에 실어 기기당 하루 1건의 활성 기록으로 활성 사용자 수 집계, 400일 보관, 광고 식별자와 별개·미제공·광고 미사용 — 2026-09-01 시행) · 2026-09-01 6차(제1·2·3·6·7조 — 1.0.10 버전부터 앱 실행 시 Expo, Inc.(미국)의 EAS Update 서버에 앱 코드 업데이트를 확인·다운로드. 기기 OS 종류·런타임 버전·플랫폼·채널·업데이트 수신 확인용 무작위 토큰 전송, 개인정보·이용자 콘텐츠 미포함. 2026-09-02 추가분(제2조 2항): 1.0.10 버전부터 활성 신호를 앱 실행 시뿐 아니라 앱으로 돌아올 때에도 전송(최소 5분 간격) — 저장 기록은 종전과 같은 기기당 하루 1건, 새 항목 없음 — 2026-09-02 시행).
         </p>
         <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games Studio) · 대표 손휘성</p>
         <p style={bullet}>• 사업자등록번호: 749-25-02260</p>

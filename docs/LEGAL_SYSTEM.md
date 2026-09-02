@@ -18,7 +18,7 @@
 | **2차 글로벌 점검(2026-08-17)** | ✅ | 아래 §8. md 4종·page.tsx 2종·앱 코드(UMP 개인정보 옵션·웰컴 문구) 동시 갱신, 재배포 |
 | **3·4차 타 앱 벤치마크(2026-08-17)** | ✅ | 아래 §9. 처리방침 rev.3 · 약관 4차 재배포 |
 | **처리방침 EN rev.5 · KO 5차(2026-09-01)** — 기기 식별자 첫 실행 생성 + 활성 사용자 통계 | ✅ 정본·page.tsx 개정 | 2026-09-01 시행. 근거 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5. Data Safety 양식 변경 없음. 게시·공지는 아래 게시 기록 |
-| **처리방침 EN rev.6 · KO 6차(2026-09-01)** — Expo EAS Update(OTA) 수탁·국외 이전·수집 항목 | ✅ 정본·page.tsx 개정 · ⏳ **미게시** | 시행 2026-09-02(게시일에 맞춰 재설정). 근거 [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) §8. **게시(`vercel --prod`)는 사용자 확인 후 · vc11 업로드 전 필수**(vc11이 첫 OTA 가능 빌드 = Expo 통신 시작). Data Safety 양식 변경 없음(기기 ID 기선언) — §7 #15 |
+| **처리방침 EN rev.6 · KO 6차(2026-09-01 → 2026-09-02 확장)** — Expo EAS Update(OTA) 수탁·국외 이전·수집 항목 + **웜 스타트 하트비트 전송 시점**("앱 실행 시 1회" → "실행 시 + 앱으로 돌아올 때", SDK 2026-09-02) | ✅ 정본·page.tsx 개정 · ⏳ **미게시** | 시행 2026-09-02(게시일에 맞춰 재설정). 근거 [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) §8 · [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.7. **게시(`vercel --prod`)는 사용자 확인 후 · vc11 업로드 전 필수**(vc11이 첫 OTA 가능 빌드 = Expo 통신 시작 + 하트비트 시작). Data Safety 양식 변경 없음(기기 ID 기선언·항목 불변) — §7 #15 |
 | 처리방침 실게시 `https://vivace-games.com/idearepository/privacy` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
@@ -58,7 +58,7 @@ CLAUDE.md §6 "정직한 표현 규칙"의 실행 규칙. **세 곳이 같은 �
 | AdMob: 광고 ID·대략 위치·앱 상호작용·진단 → Google 수집·공유 | `features/ads/*` (Phase 6) | EN §3.a·§4 / KO 제2조 3항·제7조·제9조 | 위치·앱 활동·진단·기기 ID = 수집/공유(광고) |
 | 문의: 본문·유형·platform·appVersion·UUID → common_server, 3년 | `lib/common-server/` `sendInquiry`·`registerDevice` (Phase 5) | EN §3.b·§5 / KO 제2조 2항·제3조·제4조·제8조 | 기타 사용자 제작 콘텐츠·기기 ID = 선택 수집·삭제 가능 |
 | bootstrap: app_code·platform·appVersion, 미저장 | `fetchBootstrap` (Phase 5) | EN §3.c / KO 제2조 2항 | 선언 없음 |
-| **기기 식별자 첫 실행 등록 + 부팅 세션 → 활성 일자 400일**(2026-09-01, 서비스 이용 통계) | `features/support/store.ts` `fetchOnce` → `ensureDeviceSession` ∥ `fetchBootstrap`(SDK 2026-09-01) | EN §3.b·c·§4·§5 / KO 제1·2·3·6·7·8조 | 기기 ID(기선언 — 변경 없음) |
+| **기기 식별자 첫 실행 등록 + 부팅 세션 → 활성 일자 400일**(2026-09-01, 서비스 이용 통계) + **포그라운드 복귀 하트비트**(2026-09-02, 쿨다운 5분 — 같은 활성 일자 1행, 새 항목 없음, 1.0.10~) | `features/support/store.ts` `fetchOnce` → `ensureDeviceSession` ∥ `fetchBootstrap` · `components/boot-gate.tsx` AppState → `heartbeat()`(SDK 2026-09-02, ARCHITECTURE §5.7) | EN §3.b·c·§4·§5 / KO 제1·2·3·6·7·8조 | 기기 ID(기선언 — 변경 없음) |
 | Remove Ads: 스토어 결제 + RC 익명 ID·구매 이력 | `features/purchase/*` (Phase 7) | EN §3.d·§4 / KO 제2조 3항·제6조·제7조 | 구매 내역·기기 ID |
 | **OTA 업데이트 확인: 기기 OS·런타임 버전·플랫폼·채널·무작위 토큰 → Expo(미국)**(2026-09-01, 1.0.10~) | `expo-updates` 네이티브 · `app.json` `updates`(OTA_SYSTEM §3) | EN §3.e·§4 / KO 제1·2조 3항·3·6·7조 | 기기 ID(기선언 — 변경 없음, DATA_SAFETY §0 ⚠) |
 | 프로젝트·노트·자료·카테고리·태그·설정 = 로컬 전용 | expo-sqlite·AsyncStorage | EN §2 / KO 제2조 1항 | 선언 없음 |
@@ -195,6 +195,7 @@ GDPR/CCPA/PIPA/기타국 권리 · 정직한 보안 한계 · 개정 이력 · �
 
 - **2026-09-01 (처리방침 EN rev.6 · KO 6차 — ⏳ 미게시, 사용자 확인 대기)** — OTA(expo-updates · Expo EAS Update, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) §8, CLAUDE §14 V) 도입으로 기기가 Expo, Inc.(미국)와 통신하게 되는 것을 반영:
   EN §3.e 신설·§4 수탁자 행·"no network requests" 문장·개정 이력 / KO 제1조 목적·제2조 3항 SDK 표·"사용하지 않는 것"·제3조·제6조 위탁·제7조 국외 이전·제14조 이력. 임시 시행일 2026-09-02 — **게시 당일로 재설정 후** 배구 레포 복사 → `vercel --prod`(§5, 사용자 확인) → 시행 고지(§4-4). vc11 업로드 전 필수(§7 #15).
+  **2026-09-02 확장(게시 전 동일 rev.6에 편입)**: 웜 스타트 하트비트(SDK 2026-09-02, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.7)로 활성 신호 전송 시점이 "앱 실행 시 1회"에서 "실행 시 + 앱으로 돌아올 때(최소 5분 간격)"로 넓어진 것을 EN §3.c·이력 / KO 제2조 2항 수집 방법·제14조 이력에 반영. 저장 항목·보관 기간은 불변(활성 일자 1행·400일) — 미게시 상태라 rev 번호는 그대로 6이고 앱 동작 ⇄ 방침 불일치 창이 생기지 않는다.
 
 - **2026-09-01 (처리방침 EN rev.5 · KO 5차 — ✅ 게시 + ✅ 시행 고지 발행, 같은 날)** — 부팅 활성 하트비트([`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.5, CLAUDE §14 U)로
   기기 식별자가 첫 실행에 생성·등록되고 부팅 조회에 실려 활성 일자(400일)가 서버에 남게 된 것을 반영. 사용자 승인("동의하고 전부 다 진행") 후:

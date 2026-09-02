@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-09-01 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10; effective 2026-09-02)
+Effective date: 2026-08-17 · Last updated: 2026-09-02 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10, and the activity signal is also sent when you return to the app; effective 2026-09-02)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -60,7 +60,7 @@ Any region: the one-time "Remove Ads" purchase, where available, stops ad reques
 
 **What we do not use.** The App contains no analytics, crash-reporting or attribution SDK (no Firebase, no Google
 Analytics), no social login and no push notifications. Beyond the AdMob SDK, the requests described in 3.b and
-3.c (inquiries, the one-time device registration and the start check) and the update check in 3.e, the App makes no network requests. Android permissions requested: Internet, advertising ID (`AD_ID`), and the
+3.c (inquiries, the one-time device registration, the start check and the activity signal) and the update check in 3.e, the App makes no network requests. Android permissions requested: Internet, advertising ID (`AD_ID`), and the
 store billing library — no camera, contacts, location, microphone, storage or notification permissions.
 
 ### b. Support inquiries (optional, user-initiated)
@@ -83,7 +83,9 @@ such as your IP address, which our hosting provider processes transiently). None
 
 **Device identifier.** On first launch the app generates a **random device identifier (UUID)**, stores it in secure
 storage on your device and registers it with our server once. From then on the start check carries a session tied to
-that identifier, and our server records **that this device was active on that day** — one row per device per day
+that identifier, and — from version 1.0.10 — the app also sends a short **activity signal** with the same session
+when you return to it (at most once every 5 minutes; it carries nothing else). In both cases our server records
+**that this device was active on that day** — one row per device per day
 (app code, device identifier, date), nothing else. We use these rows only to count daily, weekly and monthly active
 users so that we know whether the service is being used. The identifier contains no name, email or other personal
 details, is not the advertising ID, is not shared with anyone and is not used for advertising or tracking. Deleting
@@ -203,7 +205,9 @@ the random device identifier is now generated at first launch, not only when you
 carries it so that we can count active users — one row per device per day, kept 400 days; not the advertising ID,
 not shared, not used for ads; effective 2026-09-01) · 2026-09-01 rev. 6 (§3.e, §4: from version 1.0.10 the App checks Expo's EAS Update
 service at launch for updates to its own code — device OS, runtime version, platform, channel and a random update token
-go to Expo, Inc. (US); nothing of yours; effective 2026-09-02).
+go to Expo, Inc. (US); nothing of yours. Also §3.c, added 2026-09-02: from version 1.0.10 the activity signal is sent
+not only at launch but also when you return to the app, at most once every 5 minutes — same one-row-per-day record,
+nothing new stored; effective 2026-09-02).
 
 ## 9. Contact
 
