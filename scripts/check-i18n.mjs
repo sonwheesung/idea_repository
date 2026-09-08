@@ -58,6 +58,17 @@ for (const lang of LANGS) {
 }
 
 // ④ 코드에서 쓰는 정적 키(t('a.b') · throw new Error('a.b'))가 en에 존재하는지 (2026-08-17 추가 — Phase 4 점검에서 누락 1건 발견)
+// ⚠ 자가 검증(2026-09-08): 아래 \b가 이스케이프 계층을 거치며 0x08(백스페이스) 바이트로 파일에 박혀
+// 2026-08-20(ca47065)부터 19일간 t() 수집이 0건 매치로 헛돌았다(화면·git diff에 안 보임 — 공통서버 세션 발견).
+// 정규식이 "실제로 본다"를 매 실행 증명한다. 이 줄 수정 시 heredoc·sed 경유 금지 — 같은 방식으로 또 망가진다.
+const T_CALL = /\bt\(\s*'([^']+)'/g;
+{
+  const probe = [...`x t('a.b') y.split('-')`.matchAll(T_CALL)].map((m) => m[1]).join(',');
+  if (probe !== 'a.b') {
+    console.error(`check:i18n SELF-TEST FAIL — t() 수집 정규식이 망가졌다 (매치: "${probe}")`);
+    process.exit(1);
+  }
+}
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {
     const p = join(dir, name);
@@ -71,7 +82,7 @@ for (const dir of ['app', 'components', 'features', 'lib']) {
   for (const file of walk(join(root, dir))) {
     const src = readFileSync(file, 'utf8');
     const found = new Set();
-    for (const m of src.matchAll(/t\(\s*'([^']+)'/g)) found.add(m[1]);
+    for (const m of src.matchAll(T_CALL)) found.add(m[1]);
     for (const m of src.matchAll(/new Error\('([a-z]+\.[A-Za-z.]+)'\)/g)) found.add(m[1]);
     for (const k of found)
       if (!refKeySet.has(k)) errors.push(`[code] 리소스에 없는 키: ${k} (${file.replace(root, '')})`);
