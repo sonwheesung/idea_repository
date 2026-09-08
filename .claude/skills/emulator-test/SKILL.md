@@ -28,7 +28,10 @@ Claude가 안드로이드 에뮬레이터로 앱을 **실제 띄우고, 스크�
 ```bash
 ADB="$LOCALAPPDATA/Android/Sdk/platform-tools/adb.exe"      # Windows. macOS/Linux: ~/Library/Android/sdk · ~/Android/Sdk
 EMU="$LOCALAPPDATA/Android/Sdk/emulator/emulator.exe"
-SER=emulator-5572          # 🔴 Idea Repository 배정 — 모든 adb 명령에 -s "$SER". 안 붙이면 붙어 있는 아무 기기(사용자 폰 포함)로 간다
+SER=emulator-5572          # 🔴 Idea Repository 배정 — 모든 adb 명령에 -s "$SER".
+# 왜(영구 사실 — 정책 아님): AVD가 프로젝트 전용이어도 adb 서버는 이 머신에 한 대뿐이라,
+# bare adb는 붙어 있는 아무 기기로 간다 — 이 머신은 사용자 실기기가 붙어 있는 것이 기본 상태다.
+# 허용 예외는 기기를 안 고르는 명령뿐(devices·pair·connect). 그 외는 전부 -s.
 "$ADB" devices             # $SER 가 이미 떠 있으면 부팅 스킵. 다른 serial 은 남의 것 — 절대 건드리지 않는다
 "$EMU" -list-avds          # AVD 없으면 EMULATOR_POOL §1 절차로 생성(🔴 ANDROID_AVD_HOME='D:\emulators\idea_repository' 필수 — 빼먹으면 C:에 생긴다)
 ```
@@ -60,7 +63,7 @@ JAVA_HOME="<jdk-path>" ANDROID_HOME="$LOCALAPPDATA/Android/Sdk" npx expo run:and
 ### ⚠ 좌표 환산 (가장 자주 틀림)
 
 - screencap PNG는 기기 네이티브 해상도(예 1080×W). Read로 열면 harness가 축소 표시하고 **"× N.NN" 배율 안내**를 붙인다.
-- **내가 본 좌표 × (안내 배율) = 기기 좌표.** `adb shell input tap` 은 **기기 좌표**를 받는다 → 항상 본 좌표에 그 배율을 곱해 탭한다(안 곱하면 빗나감).
+- **내가 본 좌표 × (안내 배율) = 기기 좌표.** `input tap` 은 **기기 좌표**를 받는다 → 항상 본 좌표에 그 배율을 곱해 탭한다(안 곱하면 빗나감).
 
 ```bash
 "$ADB" -s "$SER" shell input tap <devX> <devY>            # 기기 좌표(= 본 좌표 × 배율)

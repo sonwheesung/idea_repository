@@ -125,4 +125,4 @@
   JS만 바뀐 변경이라 AAB 재빌드는 불필요했지만, 비공개 테스트 반영은 **다음 AAB(vc7)** 로만(OTA 금지 — CLAUDE §16).
 - 2026-08-27 (전용 AVD `idea_repository` · `emulator-5572` 첫 사용, 디버그 APK 8/21 빌드 재설치 + Metro **8090**, 번들 1794모듈): 필터 시트 Select 3개·새 프로젝트 폼(이름·Add details 펼침: Select·태그·다중행 4개) — 흰 바탕 + `border` 1px로 바뀜 ·
   설정(테마 "Light Minimal" 단독 · 언어 "English") · 언어 시트 = English/한국어 2항목 · 테마 그리드 = 12종(시스템 항목 없음, Current · Light Minimal) · 카테고리 헤더 ＋ → "Add category" 다이얼로그(목록 끝 추가 행 없음).
-  ⚠ 함정: 새 AVD에서 `debug_http_host=10.0.2.2:8090`은 Metro에 요청이 아예 안 닿았다(원인 미확인 — 방화벽 추정) → **`adb reverse tcp:8090 tcp:8090` + 프리퍼런스 `localhost:8090`**으로 해결(DEV_ALLOCATION §3 "에뮬레이터는 adb reverse"와 일치). `expo start --clear`는 형제 Metro와 공유하는 `%TEMP%\metro-cache`를 지우다 ENOTEMPTY로 죽는다 — 동시 실행 중엔 `--clear` 금지.
+  ⚠ 함정: 새 AVD에서 `debug_http_host=10.0.2.2:8090`은 Metro에 요청이 아예 안 닿았다(원인 미확인 — 방화벽 추정) → **`adb -s <serial> reverse tcp:8090 tcp:8090` + 프리퍼런스 `localhost:8090`**으로 해결(DEV_ALLOCATION §3 "에뮬레이터는 adb reverse"와 일치). `expo start --clear`는 형제 Metro와 공유하는 `%TEMP%\metro-cache`를 지우다 ENOTEMPTY로 죽는다 — 동시 실행 중엔 `--clear` 금지.

@@ -161,7 +161,7 @@ common_server가 2026-09-01 활성 지표(DAU/WAU/MAU, `subject_active_day`)를 
 - SDK 부수 변경: `MyInquiry.status`에 `'reviewing'` 추가(관리자 "확인 중") → i18n `inquiry.status.reviewing` en/ko 추가. **서버는 이미 배포돼 있어** 구 앱(≤ vc9)은 관리자가 확인 중으로 바꾸면 키 이름이 그대로 보인다(`check:i18n`이 템플릿 키를 못 잡는 사각 — 값 4종을 스크립트가 알 수 없어 리뷰로 잡는다). `fetchEntitlements({fresh?})` 선택 인자는 미사용.
 - 확인: 관리자 `GET /api/admin/stats?app=idearepository`(ADMIN_TOKEN `--env-file` 주입) → `activity.dau ≥ 1` · `alerts`에 `activity_uncollected` 없음. 재부팅 시 `POST /v1/devices` 재호출 없음(에뮬 로그).
   → ✅ **에뮬 실측(2026-09-01, 공용 `common_2` 디버그 빌드 + Metro `adb reverse`)**: ① **오프라인**(`svc wifi/data disable`, ping 실패 확인) 첫 실행 → 웰컴 시트(새 문구) → Start → 홈 정상, ReactNativeJS 오류 0, 서버 subjects 7 그대로(아무것도 안 나감) ② 네트워크 켜고 콜드 스타트 → 로그 "no session → registerDevice" → 서버 **subjects 8 · DAU 1 · WAU 1 · coverageDays 1 · `activity_uncollected` 소멸** ③ 재실행 → 로그 "signed-in → skip register"(SecureStore 세션 복원), subjects 8 유지. 임시 `console.log`는 검증 후 제거(커밋 미포함).
-  ⚠ 디버그 빌드 함정: RN 에뮬레이터 기본 dev 호스트가 `10.0.2.2:8081`이라 오프라인에선 번들 자체를 못 받는다("Unable to load script" — 앱 문제 아님). `debug_http_host=localhost:8081` 프리퍼런스(run-as) + `adb reverse tcp:8081 tcp:8090`으로 adb 소켓 경로를 쓰면 네트워크를 꺼도 번들이 온다.
+  ⚠ 디버그 빌드 함정: RN 에뮬레이터 기본 dev 호스트가 `10.0.2.2:8081`이라 오프라인에선 번들 자체를 못 받는다("Unable to load script" — 앱 문제 아님). `debug_http_host=localhost:8081` 프리퍼런스(run-as) + `adb -s <serial> reverse tcp:8081 tcp:8090`으로 adb 소켓 경로를 쓰면 네트워크를 꺼도 번들이 온다.
 
 ### 5.6 세션 토큰 만료·슬라이딩 갱신 — SDK 2026-09-01.2 (2026-09-01 저녁 재복사)
 
