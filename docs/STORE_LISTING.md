@@ -221,7 +221,7 @@ Capture your ideas. Keep them private. Build what matters.
 프로덕션 게시 후 ko-KR 등록정보가 en-US 그래픽을 상속 중인 것을 발견(§9) → **한국어 한 벌 제작**.
 등록정보 언어는 en-US·ko-KR 둘뿐(콘솔 실측)이라 다른 언어는 대상 없음. 디자인·구도는 영어판과 동일(같은 스크립트).
 
-- **앱 화면**: 공용 에뮬레이터에서 기기 로케일 ko-KR + 한국어 시드 데이터(`seed_emulator.py` ko 데이터)로 재촬영 →
+- **앱 화면**: 에뮬레이터(~~공용 2대~~ → 2026-09-08부터 프로젝트별 AVD — 정본 `common/EMULATOR_POOL.md`)에서 기기 로케일 ko-KR + 한국어 시드 데이터(`seed_emulator.py` ko 데이터)로 재촬영 →
   `tools/store/shots/shot_*_ko.png`. 캡션 폰트는 Malgun Gothic(`malgunbd/malgun.ttf` — Segoe UI엔 한글 없음).
 - **캡션(실제 사용본 — 위 §7 표는 초기 플랜)**:
 

@@ -1,12 +1,13 @@
 # 에뮬레이터 앱 DB에 스크린샷용 샘플 데이터 삽입 (dev 전용 — 배포 산출물과 무관)
-# 사용: python tools/seed_emulator.py [emulator-5554] [en|ko]  — ko는 한국어 스토어 스크린샷용(2026-09-02, STORE_LISTING §7.1)
+# 사용: python tools/seed_emulator.py [emulator-5572] [en|ko]  — ko는 한국어 스토어 스크린샷용(2026-09-02, STORE_LISTING §7.1)
+# 기본 serial = emulator-5572 (Idea Repository 배정 포트 — common/DEV_ALLOCATION.md §3. 2026-09-08 프로젝트별 AVD 정책)
 import os
 import subprocess
 import sys
 import time
 import uuid
 
-SERIAL = sys.argv[1] if len(sys.argv) > 1 else 'emulator-5554'
+SERIAL = sys.argv[1] if len(sys.argv) > 1 else 'emulator-5572'
 LANG = sys.argv[2] if len(sys.argv) > 2 else 'en'
 PKG = 'com.vivacegames.idearepository'
 ADB = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Android', 'Sdk', 'platform-tools', 'adb.exe')

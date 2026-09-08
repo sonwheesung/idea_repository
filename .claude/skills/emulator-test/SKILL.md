@@ -21,25 +21,31 @@ Claude가 안드로이드 에뮬레이터로 앱을 **실제 띄우고, 스크�
 
 ## 0. 사전조건 확인
 
+> 🔴 **에뮬레이터 정책 정본은 `C:\project\common\EMULATOR_POOL.md`** — 값이 아니라 문서를 따른다.
+> ~~공용 2대(common_1·common_2) 클레임~~ → **2026-09-08부터 프로젝트별 AVD + 외장 D: 저장**.
+> 이 프로젝트의 AVD = `idea_repository` · **포트 5572**(포트 정본: `common/DEV_ALLOCATION.md` §3).
+
 ```bash
 ADB="$LOCALAPPDATA/Android/Sdk/platform-tools/adb.exe"      # Windows. macOS/Linux: ~/Library/Android/sdk · ~/Android/Sdk
 EMU="$LOCALAPPDATA/Android/Sdk/emulator/emulator.exe"
-"$ADB" devices             # 이미 떠 있으면 부팅 스킵
-"$EMU" -list-avds          # AVD 이름 확인
+SER=emulator-5572          # 🔴 Idea Repository 배정 — 모든 adb 명령에 -s "$SER". 안 붙이면 붙어 있는 아무 기기(사용자 폰 포함)로 간다
+"$ADB" devices             # $SER 가 이미 떠 있으면 부팅 스킵. 다른 serial 은 남의 것 — 절대 건드리지 않는다
+"$EMU" -list-avds          # AVD 없으면 EMULATOR_POOL §1 절차로 생성(🔴 ANDROID_AVD_HOME='D:\emulators\idea_repository' 필수 — 빼먹으면 C:에 생긴다)
 ```
 
 ## 1. 부팅 + 빌드·설치
 
 ```bash
-"$EMU" -avd <AVD_NAME> -no-snapshot -no-boot-anim -gpu auto &
-"$ADB" wait-for-device
-until [ "$("$ADB" shell getprop sys.boot_completed | tr -d '\r')" = 1 ]; do sleep 5; done
+"$EMU" -avd idea_repository -port 5572 -no-snapshot -no-snapshot-save -no-boot-anim -gpu auto &
+"$ADB" -s "$SER" wait-for-device
+until [ "$("$ADB" -s "$SER" shell getprop sys.boot_completed | tr -d '\r')" = 1 ]; do sleep 5; done
 # Expo 앱 빌드+설치(첫회 수십 분). JDK·ANDROID_HOME 환경 맞춰서:
 JAVA_HOME="<jdk-path>" ANDROID_HOME="$LOCALAPPDATA/Android/Sdk" npx expo run:android
 # dev-client 런처면 Metro 서버 행 탭 / dev 메뉴 Continue.
 ```
 
-- 이미 설치돼 있으면 재빌드 말고 `"$ADB" shell monkey -p <package> 1`로 앱만 재실행.
+- ⚠ **외장 D: 는 콜드 부팅 ~259초(내장의 7.8배)** — 실패가 아니라 느린 것이다(EMULATOR_POOL §0). 조용히 기다린다.
+- 이미 설치돼 있으면 재빌드 말고 `"$ADB" -s "$SER" shell monkey -p com.vivacegames.idearepository 1`로 앱만 재실행.
 - ⚠ Expo 프로젝트면 `metro.config.js` blockList로 `.test/.spec` 파일을 번들에서 제외해야 require.context가 테스트 파일을 끌어와 깨지지 않는다.
 
 ## 2. 보고-판단-탭 루프 (핵심)
@@ -47,7 +53,7 @@ JAVA_HOME="<jdk-path>" ANDROID_HOME="$LOCALAPPDATA/Android/Sdk" npx expo run:and
 한 동작 = 한 확인. 화면 안 보고 연속 탭 금지.
 
 ```bash
-"$ADB" exec-out screencap -p > shot.png
+"$ADB" -s "$SER" exec-out screencap -p > shot.png
 ```
 → **Read(shot.png)** → 다음 동작 판단 → 탭 → 다시 screencap.
 
@@ -57,10 +63,10 @@ JAVA_HOME="<jdk-path>" ANDROID_HOME="$LOCALAPPDATA/Android/Sdk" npx expo run:and
 - **내가 본 좌표 × (안내 배율) = 기기 좌표.** `adb shell input tap` 은 **기기 좌표**를 받는다 → 항상 본 좌표에 그 배율을 곱해 탭한다(안 곱하면 빗나감).
 
 ```bash
-"$ADB" shell input tap <devX> <devY>            # 기기 좌표(= 본 좌표 × 배율)
-"$ADB" shell input text "hello"
-"$ADB" shell input swipe <x1> <y1> <x2> <y2> 300
-"$ADB" shell input keyevent 4                   # 뒤로
+"$ADB" -s "$SER" shell input tap <devX> <devY>            # 기기 좌표(= 본 좌표 × 배율)
+"$ADB" -s "$SER" shell input text "hello"
+"$ADB" -s "$SER" shell input swipe <x1> <y1> <x2> <y2> 300
+"$ADB" -s "$SER" shell input keyevent 4                   # 뒤로
 ```
 
 ### 빗나가면 — uiautomator bounds
@@ -68,8 +74,8 @@ JAVA_HOME="<jdk-path>" ANDROID_HOME="$LOCALAPPDATA/Android/Sdk" npx expo run:and
 RN 텍스트 노드는 안 잡혀도 **버튼 bounds는 잡힌다**.
 
 ```bash
-MSYS_NO_PATHCONV=1 "$ADB" shell uiautomator dump /sdcard/ui.xml   # Git Bash: 프리픽스 필수(/sdcard 경로 망가짐 방지)
-MSYS_NO_PATHCONV=1 "$ADB" shell cat /sdcard/ui.xml > ui.xml
+MSYS_NO_PATHCONV=1 "$ADB" -s "$SER" shell uiautomator dump /sdcard/ui.xml   # Git Bash: 프리픽스 필수(/sdcard 경로 망가짐 방지)
+MSYS_NO_PATHCONV=1 "$ADB" -s "$SER" shell cat /sdcard/ui.xml > ui.xml
 # bounds="[x1,y1][x2,y2]" 중심 = ((x1+x2)/2,(y1+y2)/2) 로 탭(이미 기기 좌표 — 배율 곱 X)
 ```
 
@@ -83,7 +89,10 @@ MSYS_NO_PATHCONV=1 "$ADB" shell cat /sdcard/ui.xml > ui.xml
 
 - **결과 기록**: 사이클·날짜·사전조건·PASS/오류·애매(질문대기). 핵심 스크린샷만 보관.
 - 오류 고쳤으면 프로젝트 엣지케이스 레지스트리에 등재 + 형제 사냥 + 영향 계층 테스트.
-- 에뮬은 PC 점유 → 끝나면 `"$ADB" emu kill`.
+- 종료 판단(EMULATOR_POOL §0 — ~~"점유하니 끝나면 끈다"~~ → 2026-09-08 기준이 부팅 비용으로 바뀜):
+  **곧 화면을 또 볼 작업이 남았으면 끄지 말고 켜 둔다**(외장 콜드 부팅 ~4분 — Metro만 재시작).
+  정말 끝났을 때만 `"$ADB" -s "$SER" emu avd name`으로 **내 AVD인지 확인 후** `"$ADB" -s "$SER" emu kill`.
+  🔴 `-s` 없는 `emu kill`은 붙어 있는 아무 기기를 끈다.
 
 ## 사이클 사전조건 — 필수 기입 7항목
 
