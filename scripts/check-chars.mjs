@@ -48,6 +48,8 @@ const scan = (src) => {
     ['줄 중간 CR', 'D:/emulators\reread\n', '13'],
     ['0x08(백스페이스)', 'x' + BS + 't\n', '8'],
     ['0x0b(VT)', 'a' + VT + 'b', '11'],
+    // NUL은 tsc --noEmit·lint가 아무 말도 하지 않는다(2026-09-09 Re:Read 소스 실사고, 공통서버 세션 재현)
+    ['0x00(NUL)', 'a\0b\n', '0'],
   ];
   for (const [name, input, want] of cases) {
     const got = scan(input).map((f) => f.c).join(',');
