@@ -76,6 +76,11 @@ powershell -ExecutionPolicy Bypass -File tools/build-aab.ps1 -VersionCode 11 -Ve
 → ③ `cd android; .\gradlew bundleRelease` (`ANDROID_HOME`=`%LOCALAPPDATA%\Android\Sdk`, `JAVA_HOME`=jdk-19 — 없으면 "SDK location not found")
 → ④ `android/app/build/outputs/bundle/release/app-release.aab` → 루트 `idearepository-vc{N}.aab`(gitignore `*.aab`)
 → ⑤ 업로드는 §3.5 CLI 경로(기본) 또는 사용자 수동 드롭(브라우저 도구 10MB 제한). 출시명 `{N} ({version})`, 노트는 STORE_LISTING §10.
+→ ⑥ **업로드 후 산출물 보관**(2026-09-09 신설 — 정본 `common/BUILD_ARTIFACTS.md`): AAB를 `D:\builds\idea_repository\`로 옮기고
+   `cd android && ./gradlew clean`으로 찌꺼기를 정리한다. ~~구 AAB는 삭제~~ → 🔴 **업로드한 버전은 지우지 않는다**(롤백·재제출·크래시 대조용 —
+   "최신 1개만"은 공간 부족 시절의 절충이었다). ⚠ 업로드 직전 D: 연결 확인(공용 문서 §2.1). vc11·vc12부터 D: 보관(2026-09-09 이관).
+   ⚠ clean이 `externalNativeBuildCleanRelease` CMake 재구성 실패로 죽으면(2026-09-09 실측) gradle을 거치지 말고
+   `android/app/build`·`android/app/.cxx`(·`android/build`·`android/.gradle`) **디렉터리를 정확히 지정해** 지운다 — `build*` 글롭 금지(build.gradle이 지워진다). CNG라 어차피 재생성 대상.
 
 > ⚠ **형제 프로젝트 빌드와 동시 실행 주의(2026-09-01 실측)**: gradle 데몬 레지스트리는 사용자·gradle 버전 단위로 **공용**이라, 다른 세션이 `gradlew --stop`이나 `taskkill //IM java.exe`를 부르면 우리 `--no-daemon`(single-use 데몬) 빌드도 "daemon has been stopped: stop command received"로 죽는다. 원인 불명의 `gradle 실패`가 나면 `-q`를 빼고 `cd android; ./gradlew bundleRelease --console=plain`으로 실제 메시지를 본 뒤 재시도. 우리 스크립트는 `--stop`을 부르지 않는다 — `taskkill //IM java.exe`는 어떤 상황에서도 금지(`common/DEV_ALLOCATION.md` §0.1, 2026-09-01 사고 기록).
 
