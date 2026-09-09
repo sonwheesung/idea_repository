@@ -70,7 +70,7 @@ description: Re-read the project's design docs (CLAUDE.md spine + docs/ system d
   common_server로 가는 것은 bootstrap 조회와 문의뿐(§10).
 - **정직한 프라이버시 문구** — "stored locally … not uploaded to our servers"(O),
   절대 보장·"아무 데이터도 안 나감" 표현(X) (CLAUDE §6).
-- **커밋 형식** — `YYMMDD :: [태그] 한국어 요약` + `Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>`.
+- **커밋 규약** — 정본 `C:\project\common\COMMIT_CONVENTION.md`. 값을 여기 베껴 적지 않는다(스킬은 컴팩트마다 재주입되어 낡은 값이 정본을 이긴다). 한국어 문장 규칙도 같은 방식: 정본 `C:\project\common\KOREAN_WRITING.md`.
 
 ## 모든 작업은 문서부터 — 그다음 개발 (착수 전 항상)
 
