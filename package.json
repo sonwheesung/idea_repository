@@ -27,6 +27,7 @@
     "es-hangul": "^2.4.0",
     "expo": "~54.0.35",
     "expo-application": "~7.0.8",
+    "expo-build-properties": "~1.0.10",
     "expo-constants": "~18.0.13",
     "expo-crypto": "~15.0.9",
     "expo-document-picker": "~14.0.8",

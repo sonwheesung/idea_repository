@@ -69,6 +69,19 @@ if ($gradle -notmatch 'idearepository-upload.jks') {
 if ($gradle -notmatch 'idearepository-upload.jks') { throw 'build.gradle release 서명 설정이 없음 — docs/BUILD.md §2 대로 복원' }
 if ($gradle -notmatch 'signingConfig signingConfigs\.release') { throw 'buildTypes.release가 signingConfigs.release를 쓰지 않음 — docs/BUILD.md §2' }  # 2026-09-01 첫 실행: split Count 오판(-lt 3)으로 정상 주입을 실패 처리했던 것 수정
 
+# R8 (docs/BUILD.md §2.5 · common/R8_OBFUSCATION.md, 2026-09-09 vc12부터)
+# ① 게이트: expo-build-properties가 minify를 켰는지 — 플러그인이 빠지면 Play 난독화 경고가 조용히 되살아난다
+$gprops = Get-Content 'android/gradle.properties' -Raw
+if ($gprops -notmatch 'android\.enableMinifyInReleaseBuilds=true') { throw 'gradle.properties에 enableMinifyInReleaseBuilds=true 없음 — app.json expo-build-properties 플러그인 확인 (docs/BUILD.md §2.5)' }
+if ($gprops -notmatch 'android\.enableShrinkResourcesInReleaseBuilds=true') { throw 'gradle.properties에 enableShrinkResourcesInReleaseBuilds=true 없음 — app.json expo-build-properties 플러그인 확인' }
+if ((Get-Content 'android/app/proguard-rules.pro' -Raw) -notmatch 'expo\.modules') { throw 'proguard-rules.pro에 expo.modules keep 없음 — app.json extraProguardRules 확인' }
+# ② optimize 전환: 플러그인이 못 하는 한 가지 — 기본 proguard-android.txt에는 -dontoptimize가 있다(My Word와 동일 구성)
+if ($gradle -match 'proguard-android\.txt') {
+  $gradle = $gradle.Replace('getDefaultProguardFile("proguard-android.txt")', 'getDefaultProguardFile("proguard-android-optimize.txt")')
+  [System.IO.File]::WriteAllText((Resolve-Path $gradlePath), $gradle, (New-Object System.Text.UTF8Encoding $false))
+  Write-Host '== R8: proguard-android.txt → proguard-android-optimize.txt 패치'
+}
+
 Write-Host '== gradlew bundleRelease'
 Push-Location android
 try { & .\gradlew bundleRelease --no-daemon -q; if ($LASTEXITCODE -ne 0) { throw 'gradle 실패' } }
@@ -77,6 +90,9 @@ finally { Pop-Location }
 $out = "idearepository-vc$vc.aab"
 Copy-Item android/app/build/outputs/bundle/release/app-release.aab $out -Force
 Write-Host "== $out ($([math]::Round((Get-Item $out).Length/1MB,1)) MB)"
+# R8 실동작 확인: mapping.txt가 있어야 난독화가 실제로 돌았다는 뜻(AAB에 자동 동봉 — 별도 업로드 없음)
+if (-not (Test-Path 'android/app/build/outputs/mapping/release/mapping.txt')) { throw 'mapping.txt 없음 — R8이 안 돌았다 (docs/BUILD.md §2.5)' }
+Write-Host ("== R8 mapping.txt {0:N1} MB" -f ((Get-Item 'android/app/build/outputs/mapping/release/mapping.txt').Length/1MB))
 
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $zip = [System.IO.Compression.ZipFile]::OpenRead((Resolve-Path $out))

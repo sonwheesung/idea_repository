@@ -46,6 +46,21 @@ buildTypes {
 }
 ```
 
+## 2.5 R8 (난독화·코드 축소) — vc12부터 (2026-09-09)
+
+> 정본·근거·함정: **`C:\project\common\R8_OBFUSCATION.md`** (Play "앱 최적화 기준점 미만 · 난독화 1%" 경고
+> 대응 — vc11 대상, 기한 2027-02, 2026-09-09 콘솔 실측. My Word가 같은 경고를 vc20으로 해소한 전례 승계).
+
+- **설정의 정본은 `app.json`의 `expo-build-properties` 플러그인이다** — CNG 프로젝트라 `android/` 직접 수정은
+  `-CleanNative`가 지운다(공용 문서 §2 갈림길 B). `enableMinifyInReleaseBuilds` · `enableShrinkResourcesInReleaseBuilds` ·
+  `extraProguardRules`(keepattributes · `expo.modules.**` · `com.facebook.jni.**` — My Word 검증 최소 세트, 🚫 `com.facebook.react.**` 통짜 keep 금지).
+- `proguard-android-optimize.txt` 전환은 플러그인이 못 해서 **`tools/build-aab.ps1`이 prebuild 직후 패치**한다
+  (서명 블록 주입과 같은 자리). 스크립트가 gradle.properties의 minify=true도 **게이트로 확인**한다 —
+  플러그인이 빠지면 경고가 조용히 되살아나므로 빌드를 중단시킨다.
+- 🔴 **릴리스 빌드 E2E를 통과하기 전에는 R8 빌드를 올리지 않는다**(공용 문서 §4·§5 — 파손은 조용한 기능
+  실종으로 나타나고 디버그 빌드는 R8을 안 탄다. 특히 `expo-updates` 생존은 OTA로 못 고치므로 필수 재측정).
+- `runtimeVersion`은 `1.0.0` 유지(모듈 추가·제거 아님). `mapping.txt`는 gradle이 AAB에 동봉 — 별도 업로드 없음.
+
 ## 3. 빌드 절차
 
 > 🔴 `.env`·`.env*.local`이 있으면 `tools/build-aab.ps1`이 **빌드를 거부**한다(common §5.5 — prebuild가 env를 읽어 번들에 문자열로 박고, 올린 뒤엔 못 고친다). 이 프로젝트는 env 파일을 쓰지 않는다(`EXPO_PUBLIC_SERVER_URL`만 코드 기본값). 2026-08-21 게이트 추가.

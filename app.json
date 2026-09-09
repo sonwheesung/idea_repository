@@ -1,8 +1,8 @@
-﻿{
+{
   "expo": {
     "name": "Idea Repository",
     "slug": "idearepository",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/6518e63b-54a0-432a-b9a5-56292cf4a523",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.vivacegames.idearepository",
-      "versionCode": 11,
+      "versionCode": 12,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -66,6 +66,16 @@
           "androidAppId": "ca-app-pub-2731473780180274~7371574153",
           "iosAppId": "ca-app-pub-3940256099942544~1458002511",
           "delayAppMeasurementInit": true
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "enableMinifyInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": true,
+            "extraProguardRules": "# R8 keep 최소 세트 — 정본 common/R8_OBFUSCATION.md §3 (My Word 검증). com.facebook.react.** 통짜 keep 금지\n-keepattributes *Annotation*, Signature, InnerClasses, EnclosingMethod\n-keep class expo.modules.** { *; }\n-keep interface expo.modules.** { *; }\n-keep class com.facebook.jni.** { *; }"
+          }
         }
       ]
     ],

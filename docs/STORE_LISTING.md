@@ -289,6 +289,20 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: ~~비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16).~~ → 2026-09-01 OTA 도입(vc11부터, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) — 네이티브 변경은 AAB, JS 수정은 OTA 가능(게시는 사용자 지시). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
+### vc12 · 1.0.11 (2026-09-09) — R8 난독화·코드 축소 (Play "앱 최적화 기준점 미만 · 난독화 1%" 경고 해소, 기한 2027-02)
+
+> 기능 변경 없음 — 최적화 단독 릴리스라 노트도 최적화만 적는다(`common/R8_OBFUSCATION.md` §4 노트 규칙).
+> 설정 정본 `app.json` expo-build-properties(BUILD §2.5) · runtimeVersion 1.0.0 유지.
+
+```
+<en-US>
+Performance and stability improvements. Smaller app size.
+</en-US>
+<ko-KR>
+성능 및 안정성 개선, 앱 용량 축소.
+</ko-KR>
+```
+
 ### vc11 · 1.0.10 (2026-09-01 → 2026-09-02 프로덕션 첫 출시) — ✅ **검토 전송 완료**("검토 중인 변경사항" 7개: 릴리스 · 국가 177 · 부제/설명 en+ko)
 
 > 첫 OTA 가능 빌드(expo-updates) + SDK `2026-09-02`(웜 스타트 하트비트·슬라이딩 갱신) + 오픈소스 고지 + 웰컴 문구. ~~트랙은 사용자 결정~~ → **프로덕션 첫 릴리스**(2026-09-02 사용자 승인 "전부 진행 — 단계적 출시"). ~~아래 changelog형 초안~~ → **폐기(2026-09-02 사용자 지적 "첫 출시인데 그렇게 작성 안 했으면")** — 프로덕션 첫 사용자는 이전 버전을 본 적 없으니 소개 한 줄로. vc10 알파 노트의 "effective 2026-09-08" 오기 정정(§7 #14)은 노트 대신 **처리방침 개정 이력·앱 내 공지가 정본으로 이미 수행**(알파 노트는 테스터만 봤다).
