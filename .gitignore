@@ -51,3 +51,7 @@ credentials.json
 google-services.json
 *.aab
 *.apk
+
+# 서비스 계정 키 방어선 (2026-09-09 공통서버 세션 발견 전파. 실물은 리포 밖 C:\project\secrets\ 에 있다)
+secrets/
+*service-account*.json
