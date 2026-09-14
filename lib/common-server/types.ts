@@ -25,6 +25,10 @@ export interface AnnouncementItem {
   body: string;
   pinned: boolean;
   startsAt: string; // ISO — 앱에서 "등록일"로 표시
+  // 영어 제목·본문(SDK 2026-09-14). 서버에서 영어 공지를 켠 앱만 온다. 끈 앱은 키 자체가 없다.
+  // 직접 고르지 말고 localizeAnnouncement() 를 쓴다(제목만 영어인 공지를 막는 규칙이 거기 있다).
+  titleEn?: string | null;
+  bodyEn?: string | null;
 }
 
 export interface Bootstrap {

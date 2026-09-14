@@ -64,19 +64,19 @@
 | 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~vc6 예정~~ → vc6 · 1.0.5 검토 전송(2026-08-21) |
 | 소프트 업데이트 안내(latest) · 검색 매치 힌트 | ✅ | Phase 11 — 2026-08-26 구현 → vc8 · 1.0.7. **운영값 latest `1.0.7` + 스토어 URL PATCH(2026-08-31, bootstrap 실측 — 팝업 운영 개시)**. 설계 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.4 · [`PROJECT_SYSTEM.md`](./PROJECT_SYSTEM.md) §9.1 |
 | OTA 업데이트(expo-updates · EAS Update) | ✅ 구조 · ⏳ vc11부터 | 2026-09-01 — `app.json` `runtimeVersion "1.0.0"` + `updates`(url = projectId · ON_LOAD · `expo-channel-name: production`) · `lib/app-version.ts`(네이티브 버전) · `npm run check:ota`. 게시는 사용자 지시 때만, 첫 게시 전 처리방침 rev.6 게시. [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) |
-| 공지·점검·강제업데이트(bootstrap) | ✅ | 2026-08-17 Phase 5 — `components/boot-gate.tsx`(실패 시 통과·차단 화면 출구) · `app/notice.tsx` + 설정 배지. ~~⏸ latest 소프트 안내 미구현~~ → ✅ Phase 11(vc8, 위 행) [`ARCHITECTURE.md`](./ARCHITECTURE.md) §6 |
+| 공지·점검·강제업데이트(bootstrap) | ✅ | 2026-08-17 Phase 5 — `components/boot-gate.tsx`(실패 시 통과·차단 화면 출구) · `app/notice.tsx` + 설정 배지. ~~⏸ latest 소프트 안내 미구현~~ → ✅ Phase 11(vc8, 위 행). **2026-09-14 공지 영어 본문**(`localizeAnnouncement`, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.8, 배포는 사용자 지시 대기) |
 | 문의하기 + 기기 subject + 내역/답변/상태 | ✅ | 2026-08-17 Phase 5 — `app/inquiries.tsx`·`app/inquiry.tsx`·`features/support/server.ts`(SecureStore UUID·세션). 프로덕션 E2E 실측. **2026-09-01**: 세션 확보를 부팅(`fetchOnce`)으로 앞당김 — 활성 사용자 집계(§5.5), 상태 `reviewing` 키 추가 |
 | 데이터 손실 안내 문구 | ✅ | 2026-08-17 — 홈 빈 화면(`data.notice.*`) + 설정 → 정보(About) 카드 |
 | 첫 실행 프라이버시 웰컴 시트 + About "Privacy at a glance" | ✅ | 2026-08-17 — `components/welcome-sheet.tsx`·`privacy-overview.tsx`, `features/onboarding/store.ts`(persist, 복원 후 표시) |
 | 정보(About) 화면 — 버전·태그라인·링크(처리방침·약관·문의·웹사이트)·판매자 정보 | ✅ | 2026-08-17 — `app/about.tsx` · 상수 `lib/links.ts` · 문안 [`STORE_LISTING.md`](./STORE_LISTING.md) |
-| 오픈소스 라이선스 고지 | ✅ | 2026-09-02 — About → `app/licenses.tsx`(패키지 43 — 세는 법: `npm run check:licenses`). 생성 `licenses:build` → `lib/oss-packages.ts` · 가드 `check:licenses`(변이 주입으로 이빨 확인) · 카피레프트 0(MIT 42·Apache-2.0 1). 폰트 없음(시스템 폰트). [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) §10. vc11부터 |
+| 오픈소스 라이선스 고지 | ✅ | 2026-09-02 — About → `app/licenses.tsx`(~~패키지 43~~ → **44**(2026-09-14. expo-build-properties가 9/9 R8 작업에서 추가됐는데 `licenses:build`가 빠져 고지 드리프트, 9/14 `check:licenses`가 잡음) — 세는 법: `npm run check:licenses`). 생성 `licenses:build` → `lib/oss-packages.ts` · 가드 `check:licenses`(변이 주입으로 이빨 확인) · 카피레프트 0(~~MIT 42~~ MIT 43·Apache-2.0 1). 폰트 없음(시스템 폰트). [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) §10. vc11부터 |
 
 ### 서버·외부 (Idea Repository 밖 선행 작업)
 
 | 영역 | 상태 | 비고 |
 |---|---|---|
 | common_server `apps`에 `idearepository` 등록 | ✅ | 2026-08-17 seed — 프로덕션 `bootstrap?app=idearepository` 200 실측 |
-| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → **2026-09-02 재복사**(웜 스타트 하트비트 + `exp` — 첫 호출부 증가: `boot-gate` AppState 리스너, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.7, vc11부터)(슬라이딩 갱신 §5.6 · bootstrap 세션 동봉 → 활성 하트비트 §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
+| common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → ~~2026-09-02~~ → **2026-09-14 재복사**(공지 영어 본문 `localizeAnnouncement`, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.8)(웜 스타트 하트비트 + `exp` §5.7 · 슬라이딩 갱신 §5.6 · bootstrap 세션 동봉 → 활성 하트비트 §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
 | 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
 | RevenueCat 프로젝트(익명 모드) | ⏸ | 웹훅·서버 연동 없음. Phase 7 — AdMob 정지 해제 후(2026-08-21) |

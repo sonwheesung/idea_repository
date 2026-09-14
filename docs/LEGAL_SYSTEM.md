@@ -23,7 +23,7 @@
 | 약관 실게시 `https://vivace-games.com/idearepository/terms` | ✅ 게시 | 2026-08-17 — HTTP 200 실측 |
 | 앱 내 노출(설정 → About: 처리방침·약관 링크·사업자 정보) | ✅ | 2026-08-17 `app/about.tsx` · `lib/links.ts`(URL·사업자 값 상수) · i18n `about.*`. 링크는 게시 전까지 404 |
 | Play 데이터 보안 양식 제출 | ✅ | 2026-08-17 — 미리보기 확인 후 저장. 광고 ID 선언 예(분석·광고·사기방지). ⏳ Phase 7에서 "금융 정보 › 구매 내역" 추가 |
-| **오픈소스 라이선스 고지**(About → `app/licenses.tsx` · 생성 `lib/oss-packages.ts` · 가드 `check:licenses`) | ✅ 2026-09-02 | §10 — 프로덕션 첫 출시 준비 중 고지 0건 발견 → 조각 이식. 패키지 43(MIT 42·Apache-2.0 1·카피레프트 0). vc11부터 |
+| **오픈소스 라이선스 고지**(About → `app/licenses.tsx` · 생성 `lib/oss-packages.ts` · 가드 `check:licenses`) | ✅ 2026-09-02 | §10 — 프로덕션 첫 출시 준비 중 고지 0건 발견 → 조각 이식. ~~패키지 43(MIT 42·Apache-2.0 1·카피레프트 0)~~ → **44(MIT 43·Apache-2.0 1·카피레프트 0)**(2026-09-14 재생성. expo-build-properties가 9/9 R8 작업에서 추가됐는데 `licenses:build`가 빠졌고, 9/14 배터리의 `check:licenses`가 잡았다. 그날 검증에 이 가드가 없었던 것이 사각이다). vc11부터 |
 | Apple 앱 개인정보 라벨 · ATT | ⏸ | iOS 출시 시 |
 | 변호사 검토 | ❌ | 사람 결정 |
 

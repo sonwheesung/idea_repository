@@ -10,7 +10,19 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const DIRS = ['app', 'components', 'features', 'lib', 'db', 'theme', 'locales', 'scripts', 'tools', 'docs', '.claude'];
+const DIRS = [
+  'app',
+  'components',
+  'features',
+  'lib',
+  'db',
+  'theme',
+  'locales',
+  'scripts',
+  'tools',
+  'docs',
+  '.claude',
+];
 const FILES = ['CLAUDE.md', 'package.json', 'app.json'];
 const TEXT = /\.(ts|tsx|mjs|js|json|md|py|sh|ps1|yml|yaml)$/;
 
@@ -52,7 +64,9 @@ const scan = (src) => {
     ['0x00(NUL)', 'a\0b\n', '0'],
   ];
   for (const [name, input, want] of cases) {
-    const got = scan(input).map((f) => f.c).join(',');
+    const got = scan(input)
+      .map((f) => f.c)
+      .join(',');
     if (got !== want) {
       console.error(`check:chars SELF-TEST FAIL — ${name}: 감지 "${got}" · 기대 "${want}"`);
       process.exit(1);

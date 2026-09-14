@@ -59,6 +59,7 @@ export const OSS_PACKAGES: readonly OssPackage[] = [
   },
   { name: 'expo', version: '54.0.36', license: 'MIT', copyright: '' },
   { name: 'expo-application', version: '7.0.8', license: 'MIT', copyright: '' },
+  { name: 'expo-build-properties', version: '1.0.10', license: 'MIT', copyright: '' },
   { name: 'expo-constants', version: '18.0.13', license: 'MIT', copyright: '' },
   { name: 'expo-crypto', version: '15.0.9', license: 'MIT', copyright: '' },
   { name: 'expo-document-picker', version: '14.0.8', license: 'MIT', copyright: '' },

@@ -6,12 +6,15 @@ import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Card } from '@/components/card';
 import { Screen } from '@/components/screen';
 import { useBootStore, useNoticeReadStore } from '@/features/support/store';
+import { localizeAnnouncement } from '@/lib/common-server';
 import { formatDate } from '@/lib/date';
 import { useTheme } from '@/theme/use-theme';
 
 // 공지 — bootstrap 응답의 announcements를 보여준다. 읽음 처리는 로컬 (features/support/store.ts)
+// 제목·본문은 localizeAnnouncement로 고른다(SDK 2026-09-14. 한국어 기기는 항상 한국어,
+// 그 외는 영어 제목·본문이 둘 다 있을 때만 영어. 규칙은 SDK에 있고 여기서 다시 짜지 않는다).
 export default function NoticeScreen() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const theme = useTheme();
   const boot = useBootStore((s) => s.boot);
   const markRead = useNoticeReadStore((s) => s.markRead);
@@ -35,22 +38,25 @@ export default function NoticeScreen() {
           keyExtractor={(a) => a.id}
           contentContainerStyle={styles.list}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
-          renderItem={({ item }) => (
-            <Card>
-              <View style={styles.cardHeader}>
-                {item.pinned ? (
-                  <View style={[styles.pin, { backgroundColor: theme.badge }]}>
-                    <Text style={[styles.pinText, { color: theme.primary }]}>{t('notice.pinned')}</Text>
-                  </View>
-                ) : null}
-                <Text style={[styles.cardTitle, { color: theme.text }]}>{item.title}</Text>
-              </View>
-              <Text style={[styles.cardBody, { color: theme.textMuted }]}>{item.body}</Text>
-              <Text style={[styles.cardDate, { color: theme.textMuted }]}>
-                {formatDate(Date.parse(item.startsAt))}
-              </Text>
-            </Card>
-          )}
+          renderItem={({ item }) => {
+            const { title, body } = localizeAnnouncement(item, i18n.language);
+            return (
+              <Card>
+                <View style={styles.cardHeader}>
+                  {item.pinned ? (
+                    <View style={[styles.pin, { backgroundColor: theme.badge }]}>
+                      <Text style={[styles.pinText, { color: theme.primary }]}>{t('notice.pinned')}</Text>
+                    </View>
+                  ) : null}
+                  <Text style={[styles.cardTitle, { color: theme.text }]}>{title}</Text>
+                </View>
+                <Text style={[styles.cardBody, { color: theme.textMuted }]}>{body}</Text>
+                <Text style={[styles.cardDate, { color: theme.textMuted }]}>
+                  {formatDate(Date.parse(item.startsAt))}
+                </Text>
+              </Card>
+            );
+          }}
         />
       )}
     </Screen>

@@ -107,7 +107,7 @@ common-server·volleyball은 **Pro 조직 소속이고 Pro는 프로젝트 개�
    확인: `curl "https://common-server.vercel.app/api/v1/bootstrap?app=idearepository&platform=android&appVersion=0.1.0"` **200**
    (404 = 미등록/비활성. "했다"가 아니라 출력을 남긴다)
 2. **SDK 복사(앱)**: `common_server/client/{index,types}.ts` → `lib/common-server/`. 복사본 상단에 `SDK_VERSION` 주석
-   (~~현재 `2026-08-14`~~ → ~~`2026-09-01`~~ → ~~`2026-09-01.2`~~ → **`2026-09-02`** 2026-09-02 재복사 — §5.5·§5.6·§5.7). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
+   (~~현재 `2026-08-14`~~ → ~~`2026-09-01`~~ → ~~`2026-09-01.2`~~ → ~~`2026-09-02`~~ → **`2026-09-14`** 2026-09-14 재복사 — §5.5·§5.6·§5.7·§5.8). **수정 금지, 갱신은 재복사.** 확인: `BASE_URL=... APP=idearepository node tools/_dv_sdk.ts`
 3. **부팅 게이트(앱)**: `fetchBootstrap()` 1회. **실패해도 앱을 막지 않는다** — 로컬 앱이 서버 때문에 못 열리면
    기둥 2 위반. 성공 시에만: 점검 화면 / min 미만 강제 업데이트 / latest 미만 소프트 안내 / 공지 배지.
    ⚠ **차단 화면에 반드시 출구를 둔다** — 스토어 URL이 비어 있으면 안내문이라도(my_word 실제 사고).
@@ -184,6 +184,16 @@ common_server `f418c0f`("웜 스타트 하트비트")이 `heartbeat()`를 추가
 - **개인정보**: 서버에 남는 것은 §5.5와 동일한 활성 일자 1행뿐(새 항목 없음). 다만 전송 시점이 "앱 실행 시 1회"에서 **"실행 시 + 앱으로 돌아올 때(최소 5분 간격)"**로 넓어져 처리방침 서술과 어긋난다 → **rev.6(미게시)에 문안 반영**(제2조 2항 수집 방법·EN §3.c, LEGAL_SYSTEM §7 #15 — 게시 전이라 앱 동작 ⇄ 방침 불일치 창 없음). 웰컴 시트 `welcome.point.whatLeaves`도 동반 수정. Play 데이터 보안 양식 변경 없음(기기 ID 기선언·항목 불변).
 - ⏳ **사용자에게 닿는 것은 vc11부터**(업로드 대기 중이라 vc11에 내장 — 별도 빌드 불요, 단 AAB 재빌드 필요). vc11 배포 후의 SDK 갱신은 JS 전용이면 OTA로 받는다(OTA_SYSTEM §5).
 
+### 5.8 공지 영어 본문(SDK 2026-09-14 · 2026-09-14 재복사·공지 화면 언어 선택)
+
+common_server가 공지에 영어 제목·본문(`titleEn`·`bodyEn`)을 붙였다(서버 `81b5c2f`, 2026-09-14 배포). 서버 스위치를 켠 앱에만 내려오고, `idearepository`는 2026-09-14에 켜졌다(공통서버 세션 통보 + 사용자 지시 "idea_repository 도 공지사항 영어 추가할 수 있게"). 둘 다 선택 값이라 `null`일 수 있고, 한국어 `title`·`body`는 지금처럼 항상 온다.
+
+- **앱이 한 일은 둘이다.** ① SDK `2026-09-14` 재복사(순수 추가분: `localizeAnnouncement()` + `AnnouncementItem` 선택 필드 2개, 기존 호출부 변경 없음) ② 공지를 그리는 곳에서 `title`·`body`를 직접 읽지 않고 `localizeAnnouncement(item, i18n.language)`로 고른다. 렌더 지점은 `app/notice.tsx` 한 곳이다(설정 배지는 id 수만 세고, pinned 홈 팝업은 미채택 §5.3).
+- **고르는 규칙은 SDK에 있다. 앱에서 다시 짜지 않는다.** 한국어 기기는 영어가 있어도 한국어, 그 외 기기는 영어 제목과 본문이 둘 다 있을 때만 영어, 언어를 모르면 한국어. 🚫 `titleEn`만 보고 영어로 바꾸는 자체 로직 금지(제목만 영어인 공지가 나간다).
+- **읽음 처리 키는 계속 공지 id다.** 언어별로 나누지 않는다.
+- 구 설치본(vc12 이하, SDK 2026-09-02)은 새 필드를 무시하고 계속 한국어를 그린다. 오류 없음.
+- ⏳ **사용자에게 닿는 배포는 사용자 지시 대기.** JS 전용 변경이라 OTA 대상이지만 발행은 사용자가 지시할 때만 한다(`OTA_SYSTEM` §5 · `common/OTA_RULES.md` §7). 다음 AAB에 실려도 된다.
+
 ### 5.3 반드시 지킬 것 (common 핸드오프 규약 승계)
 
 - bootstrap 게이트는 **서버 응답으로만** 판정 — 앱 로컬 신뢰 금지.
@@ -199,11 +209,11 @@ common_server `f418c0f`("웜 스타트 하트비트")이 `heartbeat()`를 추가
 | 항목 | 상태 |
 |---|---|
 | `apps`에 `idearepository` 등록 | ✅ 2026-08-17 — seed 실행, **프로덕션 `bootstrap?app=idearepository` → 200 실측** |
-| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → **2026-09-02 재복사**(§5.7 웜 스타트 하트비트·`exp` 클레임 · vc11부터)(슬라이딩 갱신 §5.6 · bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
+| SDK 복사 | ✅ 2026-08-17 — `lib/common-server/{index,types}.ts`, ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → ~~2026-09-02~~ → **2026-09-14 재복사**(§5.8 공지 영어 본문 `localizeAnnouncement`)(웜 스타트 하트비트·`exp` §5.7 · 슬라이딩 갱신 §5.6 · bootstrap 토큰 동봉 · `reviewing` · `fresh`). 수정 금지(prettierignore), 갱신은 재복사. `_dv_sdk` 22/22 |
 | 부팅 게이트 | ✅ 2026-08-17 — `components/boot-gate.tsx`. 실패 시 통과, 점검·강제업데이트 차단(출구 포함). ~~⏸ latest 소프트 안내 미구현~~ → ✅ 2026-08-26 `components/update-popup.tsx` + `useSoftUpdateStore`(설계 §5.4, vc8) |
 | 부팅 활성 하트비트 | ✅ 2026-09-01 — `useBootStore.fetchOnce()`에서 `ensureDeviceSession()` 병렬 호출(§5.5). 처리방침 rev.5/5차 · 웰컴 문구 · `inquiry.status.reviewing` 동반. vc10 |
 | 웜 스타트 하트비트 | ✅ 2026-09-02 — `boot-gate.tsx` `AppState` 리스너 → `commonServer.heartbeat()`(§5.7). 처리방침 rev.6 문안·웰컴 문구 동반. vc11부터 |
-| 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시 |
+| 공지 화면 + 읽음 배지 | ✅ 2026-08-17 — `app/notice.tsx`, 읽음은 로컬(AsyncStorage). 배지는 설정 행 점 하나. ⏸ pinned 홈 팝업(LinkMemo 방식)은 미채택 — 필요 시. **2026-09-14**: 제목·본문을 `localizeAnnouncement(item, i18n.language)`로 고른다(§5.8, 영어 기기는 영어 공지) |
 | 문의 화면 + 기기 subject + 내역/답변/상태 화면 | ✅ 2026-08-17 — 설정 → 문의하기 = 내역(`app/inquiries.tsx`) + 우상단 [문의 등록하기] → 폼(`app/inquiry.tsx`, 분류 Select). `features/support/server.ts`(SecureStore UUID·세션). **프로덕션 E2E**: 등록→토큰→문의 귀속→mine 200, 잘못된 deviceId 400 |
 | 디스코드 웹훅 env | ✅ 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` production 등록 + 재배포(common_server `964bcd9`). 문의 E2E 200 |
 
