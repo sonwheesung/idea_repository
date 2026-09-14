@@ -77,6 +77,7 @@ const COLS = {
     'status',
     'priority',
     'approach',
+    'card_color',
     'start_date',
     'target_end_date',
     'created_at',

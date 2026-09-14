@@ -11,6 +11,7 @@
 | v1 스키마(projects·categories·tags·project_tags·notes·resources) + 카테고리 시드 | ✅ 2026-08-17 |
 | v2 `projects.approach`(발상 방식) | ✅ 2026-08-18 — 에뮬 v1→v2 실측 |
 | v3 `ideation_words`(발상 단어 — 언어별 시드, 사용자 CRUD) | ✅ 2026-08-19 |
+| v4 `projects.card_color`(프로젝트별 카드 색상) | ✅ 2026-09-14 |
 
 ## 1. 규약 (LinkMemo 승계)
 
@@ -131,6 +132,17 @@ CREATE INDEX idx_ideation_words_lang ON ideation_words(lang, group_key);
 - 같은 마이그레이션에서 `db/ideation-pool.ts`의 **두 언어 내장 단어를 전부 시드**(언어당 15×12). 내장 단어도 일반 행 — 수정·삭제 허용. ~~"기본 단어 복원"이 해당 언어 행을 지우고 재시드한다~~ → 복원 기능 2026-08-20 제거(IDEATION_SYSTEM §3.5) — `seedIdeationWords`는 마이그레이션 시드 전용.
 - 그룹 순서·표시명은 DB에 없다 — 순서는 풀의 그룹 순서(코드), 표시명은 i18n `ideation.group.*`. 단어 순서는 `created_at, rowid`(시드 순서 보존).
 - 시드 데이터가 `db/`에 있는 이유: `db/` → `features/` import는 의존 방향 위반(CLAUDE.md §12). 배경 [`IDEATION_SYSTEM.md`](./IDEATION_SYSTEM.md) §3.5·§4.
+
+## 2.3 v4 — 프로젝트별 카드 색상 (2026-09-14)
+
+```sql
+ALTER TABLE projects ADD COLUMN card_color TEXT;   -- NULL = 기본(테마의 현재 동작)
+```
+
+- 값은 **색 키**(`'blue'` 등 — `features/projects/types.ts`의 `CARD_COLORS` 8종)이고 hex가 아니다. hex 정본은 `theme/palettes.ts`의 `CARD_COLOR_VALUES`다(색 리터럴은 테마 파일만 — CLAUDE §11·UI_GUIDE §6).
+- **CHECK를 걸지 않았다**(v2 approach와 다른 선택). 색 목록은 뒤에 늘 수 있는데 SQLite에서 CHECK 변경은 테이블 재작성 마이그레이션이다. 대신 코드가 검증한다: 읽을 때 `isCardColor`가 아니면 null(기본)로 취급하므로, 백업 가져오기로 낯선 키가 들어와도 렌더는 안전하고 값은 보존된다.
+- 인덱스 없음(필터·검색 대상 아님 — approach와 같은 취급, PROJECT_SYSTEM §3.1).
+- 백업: 가져오기 `COLS.projects`에 `card_color` 추가. formatVersion은 1 유지(컬럼 추가만으로는 안 올린다 — `format.ts` 규칙, 아래 §5).
 
 ## 3. 조회 패턴
 

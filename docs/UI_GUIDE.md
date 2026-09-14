@@ -107,6 +107,8 @@
 `Screen`(세이프에어리어·키보드) · `Card` · `Button` · `TextField` · `Select` · `DateField` · `TagInput` · `OptionSheet` · `FilterSheet` ·
 `QuestionCard` · `WordPicker` · `StepDots` · `ProjectCard` · `AdBanner` · `PrivacyOverview` · `WelcomeSheet` · `BootGate`.
 
+- `OptionSheet` 옵션과 `Select` 현재 값 행은 선택적 **색 점(`swatch`, 지름 14)**을 가질 수 있다(2026-09-14 카드 색상 — CLAUDE §14 W). 점 색만 예외적으로 옵션이 든 hex를 그대로 쓴다. 그 hex의 출처는 `theme/palettes.ts`여야 한다(§6 색 리터럴 금지는 유지).
+
 ## 6. 하지 말 것
 
 - 화면 파일 안에서 행/다이얼로그를 `Pressable`+`StyleSheet`로 새로 그리기 → `components/`에 올린다(README §4 "공통 UI는 components/에만").

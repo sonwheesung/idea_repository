@@ -5,6 +5,7 @@ import type { SQLiteDatabase } from 'expo-sqlite';
 import { getDb } from '@/db';
 import { cleanupOrphanTags, listProjectTags, replaceProjectTags } from '@/features/tags/api';
 import {
+  isCardColor,
   nullIfBlank,
   type Approach,
   type Priority,
@@ -28,6 +29,7 @@ export interface ProjectRow {
   status: Status;
   priority: Priority;
   approach: Approach;
+  card_color: string | null; // 코드 검증(isCardColor) — DB CHECK 없음 (DATABASE §2.3)
   start_date: string | null;
   target_end_date: string | null;
   created_at: number;
@@ -50,6 +52,7 @@ export function toProject(r: ProjectRow): Project {
     status: r.status,
     priority: r.priority,
     approach: r.approach,
+    cardColor: isCardColor(r.card_color) ? r.card_color : null, // 낯선 값(신버전 백업 등)은 기본색
     startDate: r.start_date,
     targetEndDate: r.target_end_date,
     createdAt: r.created_at,
@@ -130,7 +133,7 @@ export function updateProject(id: string, input: ProjectInput): Project {
     db.runSync(
       `UPDATE projects SET
         name = ?, summary = ?, description = ?, category_id = ?, problem = ?, goal = ?, core_idea = ?, target_user = ?,
-        progress = ?, status = ?, priority = ?, approach = ?, start_date = ?, target_end_date = ?, updated_at = ?
+        progress = ?, status = ?, priority = ?, approach = ?, card_color = ?, start_date = ?, target_end_date = ?, updated_at = ?
        WHERE id = ?`,
       [
         name,
@@ -145,6 +148,7 @@ export function updateProject(id: string, input: ProjectInput): Project {
         input.status ?? 'idea',
         input.priority ?? 'none',
         input.approach ?? 'none',
+        input.cardColor ?? null,
         input.startDate ?? null,
         input.targetEndDate ?? null,
         now,
@@ -169,8 +173,8 @@ export function createProject(input: ProjectInput): Project {
     db.runSync(
       `INSERT INTO projects
       (id, name, summary, description, category_id, problem, goal, core_idea, target_user,
-       progress, status, priority, approach, start_date, target_end_date, created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       progress, status, priority, approach, card_color, start_date, target_end_date, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         id,
         name,
@@ -185,6 +189,7 @@ export function createProject(input: ProjectInput): Project {
         input.status ?? 'idea',
         input.priority ?? 'none',
         input.approach ?? 'none',
+        input.cardColor ?? null,
         input.startDate ?? null,
         input.targetEndDate ?? null,
         now,

@@ -11,17 +11,21 @@ import { TagInput } from '@/components/tag-input';
 import { TextField } from '@/components/text-field';
 import { listCategories } from '@/features/categories/api';
 import {
+  CARD_COLORS,
   PRIORITIES,
   STATUSES,
+  type CardColor,
   type Priority,
   type ProjectInput,
   type Status,
   APPROACHES,
   type Approach,
 } from '@/features/projects/types';
+import { CARD_COLOR_VALUES } from '@/theme/palettes';
 import { useTheme } from '@/theme/use-theme';
 
 const NO_CATEGORY = '__none__';
+const DEFAULT_CARD_COLOR = '__default__';
 
 export interface ProjectFormValues {
   name: string;
@@ -37,6 +41,7 @@ export interface ProjectFormValues {
   status: Status;
   priority: Priority;
   approach: Approach;
+  cardColor: CardColor | null;
   startDate: string | null;
   targetEndDate: string | null;
 }
@@ -55,6 +60,7 @@ export const EMPTY_PROJECT_FORM: ProjectFormValues = {
   status: 'idea',
   priority: 'none',
   approach: 'none',
+  cardColor: null,
   startDate: null,
   targetEndDate: null,
 };
@@ -104,6 +110,11 @@ export function ProjectForm({
     value: a,
     label: t(`approach.${a}`),
   }));
+  // 기본 = 현재 색상(테마 동작 그대로) — 점 없이 라벨만 (§14 W)
+  const cardColorOptions: SelectOption<string>[] = [
+    { value: DEFAULT_CARD_COLOR, label: t('cardColor.default') },
+    ...CARD_COLORS.map((c) => ({ value: c, label: t(`cardColor.${c}`), swatch: CARD_COLOR_VALUES[c] })),
+  ];
 
   const set = <K extends keyof ProjectFormValues>(key: K, value: ProjectFormValues[K]) =>
     setV((prev) => ({ ...prev, [key]: value }));
@@ -163,6 +174,12 @@ export function ProjectForm({
             value={v.tags}
             onChange={(tags) => set('tags', tags)}
             placeholder={t('project.tagsPlaceholder')}
+          />
+          <Select
+            label={t('project.cardColor')}
+            value={v.cardColor ?? DEFAULT_CARD_COLOR}
+            options={cardColorOptions}
+            onChange={(c) => set('cardColor', c === DEFAULT_CARD_COLOR ? null : (c as CardColor))}
           />
 
           <SectionTitle label={t('project.sectionIdea')} />

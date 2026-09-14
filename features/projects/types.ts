@@ -1,3 +1,5 @@
+import { CARD_COLOR_VALUES, type CardColor } from '@/theme/palettes';
+
 // 도메인 enum — DB에는 코드값만, 표시명은 i18n(status.* / priority.*). docs/PROJECT_SYSTEM.md §3.3
 
 export const STATUSES = ['idea', 'planned', 'in_progress', 'on_hold', 'cancelled', 'completed'] as const;
@@ -15,6 +17,15 @@ export function isApproach(v: unknown): v is Approach {
   return typeof v === 'string' && (APPROACHES as readonly string[]).includes(v);
 }
 
+// 카드 색상 — 키·hex 정본은 theme/palettes.ts(색 리터럴은 테마 파일만). null = 테마 기본 동작.
+// DB에 CHECK가 없어 여기 검증이 방어선이다: 모르는 값은 읽을 때 null 취급(DATABASE §2.3).
+export { CARD_COLOR_KEYS as CARD_COLORS } from '@/theme/palettes';
+export type { CardColor };
+
+export function isCardColor(v: unknown): v is CardColor {
+  return typeof v === 'string' && v in CARD_COLOR_VALUES;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -29,6 +40,7 @@ export interface Project {
   status: Status;
   priority: Priority;
   approach: Approach;
+  cardColor: CardColor | null; // null = 테마 기본 동작 (v4, 2026-09-14)
   startDate: string | null; // 'YYYY-MM-DD'
   targetEndDate: string | null;
   createdAt: number;
@@ -61,6 +73,7 @@ export interface ProjectInput {
   status?: Status;
   priority?: Priority;
   approach?: Approach;
+  cardColor?: CardColor | null;
   startDate?: string | null;
   targetEndDate?: string | null;
   /** 태그 이름 배열('#' 없이) — 저장 시 tags/project_tags 교체 */

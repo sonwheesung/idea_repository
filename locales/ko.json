@@ -66,7 +66,8 @@
     "addField": "{{field}} 추가",
     "deleteDetail": "노트 {{notes}}개와 관련 자료 {{resources}}개도 함께 삭제됩니다.",
     "createFailed": "프로젝트를 저장하지 못했습니다.",
-    "approach": "발상 방식"
+    "approach": "발상 방식",
+    "cardColor": "카드 색상"
   },
   "status": {
     "idea": "아이디어",
@@ -251,6 +252,17 @@
     "whatif": "만약에…",
     "other": "기타",
     "none": "없음"
+  },
+  "cardColor": {
+    "default": "기본",
+    "blue": "파랑",
+    "orange": "주황",
+    "green": "초록",
+    "pink": "분홍",
+    "purple": "보라",
+    "red": "빨강",
+    "teal": "청록",
+    "gray": "회색"
   },
   "ideation": {
     "title": "발상 도구",

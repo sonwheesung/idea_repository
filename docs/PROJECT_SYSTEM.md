@@ -84,6 +84,7 @@ New Project
 | description | 여러 줄 텍스트 | 길이 제한 없음(SQLite TEXT) |
 | categoryId | 카테고리 1개 또는 없음 | §4 |
 | tags | 0..N | §5 |
+| cardColor | 색 키 8종 또는 없음(기본) | **카드 왼쪽 포인트 바 색**(2026-09-14 사용자 지시, CLAUDE §14 W). 기본 = 테마의 현재 동작 그대로(§8). 폼 Select(색 점 표시)·카드 표시만 — 필터·검색·상세 표시 없음(approach와 같은 취급) |
 
 ### 3.2 아이디어 정보
 
@@ -226,6 +227,8 @@ Idea Repository
 
 - 카드 = 이름 · 한 줄 요약(없으면 생략) · 상태 배지 · 진행률(숫자+바) · 우선순위 배지(None이면 생략) ·
   카테고리(없으면 생략) · 태그(최대 3개 + `+N`) · 마지막 수정일(로케일).
+- **카드 왼쪽 포인트 바(4px)**: 프로젝트에 `cardColor`가 있으면 **모든 테마에서** 그 색의 바(2026-09-14 §14 W).
+  없으면(기본) 현재 동작 그대로다. colorPoint 테마는 목록 인덱스 순환 색, 그 외 테마는 바 없음.
 - 빈 목록: 첫 실행 안내 — 데이터 손실 안내(CLAUDE.md §6) + "Add your first idea" 유도.
 - 검색 결과 0건 / 필터 결과 0건은 다른 문구(`search.empty` / `filter.empty`).
 - **하드웨어 뒤로가기(Android) = 종료 확인**(2026-08-19 사용자 지시 "뒤로가기 누르니 그냥 닫히던데 confirm 추가"): 메인이 포커스된 상태에서 뒤로가기 → Alert(`home.exitTitle`·`home.exitBody`, 취소 / 종료) → 종료는 `BackHandler.exitApp()`. 메인 위에 시트·모달이 떠 있으면 그 모달의 `onRequestClose`가 먼저 먹는다(RN Modal 기본). 다른 화면(스택 위)에서는 평소대로 pop.

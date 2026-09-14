@@ -7,6 +7,7 @@ import { POOLS } from '@/db/ideation-pool';
 // v1 — projects · categories · tags · project_tags · notes · resources + 기본 카테고리 7종 시드
 // v2 — projects.approach(발상 방식, 2026-08-18 — docs/IDEATION_SYSTEM.md §7)
 // v3 — ideation_words(발상 단어, 언어별 내장 시드 + 사용자 CRUD, 2026-08-19 — docs/DATABASE.md §2.2)
+// v4 — projects.card_color(프로젝트별 카드 색상, 2026-09-14 — docs/DATABASE.md §2.3. CHECK 없음: 검증은 코드)
 const V1_SCHEMA = `
 CREATE TABLE categories (
   id         TEXT PRIMARY KEY,
@@ -110,6 +111,11 @@ CREATE TABLE ideation_words (
 );
 CREATE INDEX idx_ideation_words_lang ON ideation_words(lang, group_key);`);
     seedIdeationWords(database, null);
+  },
+  (database) => {
+    // NULL = 기본(테마의 현재 동작). 색 키는 코드가 검증한다 — CHECK를 걸면 색 추가마다
+    // 테이블 재작성 마이그레이션이 필요해진다(docs/DATABASE.md §2.3)
+    database.execSync('ALTER TABLE projects ADD COLUMN card_color TEXT');
   },
 ];
 

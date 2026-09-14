@@ -36,6 +36,7 @@ export function Select<T extends string>({ label, value, options, onChange, plac
           styles.field,
           { backgroundColor: theme.card, borderColor: theme.border, opacity: pressed ? 0.85 : 1 },
         ]}>
+        {current?.swatch ? <View style={[styles.swatch, { backgroundColor: current.swatch }]} /> : null}
         <Text style={[styles.value, { color: current ? theme.text : theme.textMuted }]} numberOfLines={1}>
           {current?.label ?? placeholder ?? ''}
         </Text>
@@ -66,4 +67,5 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   value: { fontSize: 16, flex: 1, marginRight: 8 },
+  swatch: { width: 14, height: 14, borderRadius: 7, marginRight: 8 },
 });

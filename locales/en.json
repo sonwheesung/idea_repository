@@ -66,7 +66,8 @@
     "addField": "Add {{field}}",
     "deleteDetail": "{{notes}} note(s) and {{resources}} resource(s) will be deleted too.",
     "createFailed": "Could not save the project.",
-    "approach": "Approach"
+    "approach": "Approach",
+    "cardColor": "Card color"
   },
   "status": {
     "idea": "Idea",
@@ -251,6 +252,17 @@
     "whatif": "What if…",
     "other": "Other",
     "none": "None"
+  },
+  "cardColor": {
+    "default": "Default",
+    "blue": "Blue",
+    "orange": "Orange",
+    "green": "Green",
+    "pink": "Pink",
+    "purple": "Purple",
+    "red": "Red",
+    "teal": "Teal",
+    "gray": "Gray"
   },
   "ideation": {
     "title": "Idea Lab",

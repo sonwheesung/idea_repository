@@ -32,6 +32,7 @@ export default function EditProjectScreen() {
       status: p.status,
       priority: p.priority,
       approach: p.approach,
+      cardColor: p.cardColor,
       startDate: p.startDate,
       targetEndDate: p.targetEndDate,
     };

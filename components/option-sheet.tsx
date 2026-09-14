@@ -1,11 +1,13 @@
 import { Ionicons } from '@expo/vector-icons';
-import { FlatList, Modal, Pressable, StyleSheet, Text } from 'react-native';
+import { FlatList, Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { useTheme } from '@/theme/use-theme';
 
 export interface SheetOption<T extends string> {
   value: T;
   label: string;
+  /** 색 점(hex) — 카드 색상 옵션용. hex 출처는 theme/palettes.ts (UI_GUIDE §5.6) */
+  swatch?: string;
 }
 
 interface OptionSheetProps<T extends string> {
@@ -47,10 +49,13 @@ export function OptionSheet<T extends string>({
                     styles.option,
                     { backgroundColor: pressed ? theme.surface : 'transparent' },
                   ]}>
-                  <Text
-                    style={[styles.optionLabel, { color: theme.text, fontWeight: active ? '600' : '400' }]}>
-                    {item.label}
-                  </Text>
+                  <View style={styles.optionLeft}>
+                    {item.swatch ? <View style={[styles.swatch, { backgroundColor: item.swatch }]} /> : null}
+                    <Text
+                      style={[styles.optionLabel, { color: theme.text, fontWeight: active ? '600' : '400' }]}>
+                      {item.label}
+                    </Text>
+                  </View>
                   {active ? <Ionicons name="checkmark" size={20} color={theme.primary} /> : null}
                 </Pressable>
               );
@@ -74,4 +79,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   optionLabel: { fontSize: 16 },
+  optionLeft: { flexDirection: 'row', alignItems: 'center', gap: 10, flexShrink: 1 },
+  swatch: { width: 14, height: 14, borderRadius: 7 },
 });

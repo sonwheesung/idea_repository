@@ -295,3 +295,20 @@ export const THEMES: Record<ThemeId, ThemePalette> = {
     cardAccents: ['#2563EB', '#F59E0B', '#10B981', '#DB2777', '#8B5CF6', '#EF4444'],
   },
 };
+
+// 프로젝트별 카드 색상 (2026-09-14, CLAUDE §14 W) — 색 키가 DB에 저장되고 hex는 여기가 정본이다.
+// 전 테마 공통이지만 색 리터럴은 이 파일에만 둔다는 규칙 때문에 theme/에 있다(THEME_SYSTEM).
+// colorPoint의 cardAccents 6색과 같은 계열 + teal·gray. 키를 지우면 저장된 프로젝트가 기본색으로
+// 떨어지므로(코드 검증 — DATABASE §2.3) 추가만 한다.
+export const CARD_COLOR_KEYS = ['blue', 'orange', 'green', 'pink', 'purple', 'red', 'teal', 'gray'] as const;
+export type CardColor = (typeof CARD_COLOR_KEYS)[number];
+export const CARD_COLOR_VALUES: Record<CardColor, string> = {
+  blue: '#2563EB',
+  orange: '#F59E0B',
+  green: '#10B981',
+  pink: '#DB2777',
+  purple: '#8B5CF6',
+  red: '#EF4444',
+  teal: '#14B8A6',
+  gray: '#64748B',
+};

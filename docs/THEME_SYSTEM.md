@@ -56,6 +56,8 @@
 `background · surface · card · searchBar · primary · text · textMuted · icon · button · buttonText · border ·
 badge · badgeText · danger · progressTrack · progressFill` + `isDark`(상태바·헤더 파생) + `cardAccents?`(컬러 포인트 전용, 선택).
 
+- **`CARD_COLOR_VALUES`**(2026-09-14): 프로젝트별 카드 색상(CLAUDE §14 W)의 색 키 → hex 표. 테마와 무관하게 전 테마 공통이지만, 색 리터럴은 이 파일에만 둔다는 규칙 때문에 `theme/palettes.ts`가 정본이다. colorPoint의 `cardAccents` 6색과 같은 계열 + teal·gray.
+
 - **팔레트 객체 하나 추가 = 테마 하나 추가.** 컴포넌트는 색상 리터럴 금지, 토큰만 참조.
 - 정확한 hex는 `theme/palettes.ts`가 정본 — 시안 추출 근사값으로 시작, 실기기 대조로 조정.
 - 상태바·헤더는 `isDark`에서 파생(darkMinimal·simpleNavy는 라이트 콘텐츠).

@@ -6,6 +6,7 @@ import { Card } from '@/components/card';
 import { ProgressBar } from '@/components/progress-bar';
 import type { ProjectCard as ProjectCardData } from '@/features/projects/types';
 import { formatDate } from '@/lib/date';
+import { CARD_COLOR_VALUES } from '@/theme/palettes';
 import { useTheme } from '@/theme/use-theme';
 
 interface ProjectCardProps {
@@ -26,7 +27,12 @@ export function ProjectCard({ project, index = 0, onPress, onLongPress }: Projec
   const extraTags = project.tags.length - shownTags.length;
   const meta = [project.categoryName, ...shownTags.map((tag) => `#${tag}`)].filter(Boolean).join(' · ');
 
-  const accent = theme.cardAccents ? theme.cardAccents[index % theme.cardAccents.length] : null;
+  // 프로젝트가 고른 색이 우선(전 테마) · 없으면 기본 = 현재 동작(colorPoint 순환, 그 외 바 없음) — §14 W
+  const accent = project.cardColor
+    ? CARD_COLOR_VALUES[project.cardColor]
+    : theme.cardAccents
+      ? theme.cardAccents[index % theme.cardAccents.length]
+      : null;
 
   return (
     <Card onPress={onPress} onLongPress={onLongPress} style={accent ? styles.accentCard : undefined}>
