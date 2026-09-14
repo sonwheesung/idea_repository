@@ -19,8 +19,8 @@
 | 빌드 스크립트 `-CleanNative` + 서명 블록 자동 복원 + 매니페스트 채널 검사 | ✅ `tools/build-aab.ps1`(BUILD §3) |
 | 처리방침 EN rev.6 · KO 6차(Expo 수탁·국외 이전·수집 항목) + 웰컴 시트 문구 | ✅ 정본·page.tsx 개정 — **게시는 사용자 확인 후**(LEGAL_SYSTEM §7 #15). vc11 업로드 전 게시 필수 |
 | JS 측 적용 UI(강제 재시작) | ❌ **안 만든다**(§4) — 네이티브가 받아 두고 다음 콜드 스타트에 적용 |
-| EAS Update 채널·브랜치 `production` | ⏳ 첫 `eas update` 때 서버에 생성된다(미실행) |
-| **실제 동작** | ⏳ **vc11 · 1.0.10부터**. expo-updates는 네이티브 모듈이라 **OTA로 OTA를 켤 수 없다** — vc10 이하 사용자는 영원히 못 받는다(스토어 업데이트만) |
+| EAS Update 채널·브랜치 `production` | ~~⏳ 첫 `eas update` 때 서버에 생성된다(미실행)~~ → ✅ **2026-09-14 첫 게시로 생성**(channel → branch 매핑 `channel:list` 실조회 확인) |
+| **실제 동작** | ~~⏳~~ → ✅ **vc11 · 1.0.10부터**(첫 게시 2026-09-14, 기기 실측은 BUILD §5 ota 행). expo-updates는 네이티브 모듈이라 **OTA로 OTA를 켤 수 없다** — vc10 이하 사용자는 영원히 못 받는다(스토어 업데이트만) |
 
 ---
 
