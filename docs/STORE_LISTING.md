@@ -289,6 +289,19 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: ~~비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16).~~ → 2026-09-01 OTA 도입(vc11부터, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) — 네이티브 변경은 AAB, JS 수정은 OTA 가능(게시는 사용자 지시). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
+### vc13 · 1.0.12 (2026-09-14) — 프로젝트별 카드 색상 (내부 테스트 화면 확인용)
+
+> 새 기능 1건. 프로젝트마다 카드 왼쪽 포인트 바 색을 고를 수 있다(기본값은 기존 동작). 문구는 ChatGPT 검수 완료(현행 유지).
+
+```
+<en-US>
+You can now set a card color for each project. Pick from eight colors, or keep the default.
+</en-US>
+<ko-KR>
+이제 프로젝트마다 카드 색상을 지정할 수 있습니다. 여덟 가지 색 중에서 고르거나 기본값을 그대로 둘 수 있습니다.
+</ko-KR>
+```
+
 ### vc12 · 1.0.11 (2026-09-09) — R8 난독화·코드 축소 (Play "앱 최적화 기준점 미만 · 난독화 1%" 경고 해소, 기한 2027-02)
 
 > 기능 변경 없음 — 최적화 단독 릴리스라 노트도 최적화만 적는다(`common/R8_OBFUSCATION.md` §4 노트 규칙).

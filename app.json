@@ -1,8 +1,8 @@
-{
+﻿{
   "expo": {
     "name": "Idea Repository",
     "slug": "idearepository",
-    "version": "1.0.11",
+    "version": "1.0.12",
     "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/6518e63b-54a0-432a-b9a5-56292cf4a523",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.vivacegames.idearepository",
-      "versionCode": 12,
+      "versionCode": 13,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
@@ -74,7 +74,7 @@
           "android": {
             "enableMinifyInReleaseBuilds": true,
             "enableShrinkResourcesInReleaseBuilds": true,
-            "extraProguardRules": "# R8 keep 최소 세트 — 정본 common/R8_OBFUSCATION.md §3 (My Word 검증). com.facebook.react.** 통짜 keep 금지\n-keepattributes *Annotation*, Signature, InnerClasses, EnclosingMethod\n-keep class expo.modules.** { *; }\n-keep interface expo.modules.** { *; }\n-keep class com.facebook.jni.** { *; }"
+            "extraProguardRules": "# R8 keep 理쒖냼 ?명듃 ???뺣낯 common/R8_OBFUSCATION.md 짠3 (My Word 寃利?. com.facebook.react.** ?듭쭨 keep 湲덉?\n-keepattributes *Annotation*, Signature, InnerClasses, EnclosingMethod\n-keep class expo.modules.** { *; }\n-keep interface expo.modules.** { *; }\n-keep class com.facebook.jni.** { *; }"
           }
         }
       ]
