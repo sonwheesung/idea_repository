@@ -10,6 +10,13 @@
         "serviceAccountKeyPath": "../secrets/play-service-account.json",
         "releaseStatus": "draft"
       }
+    },
+    "internal": {
+      "android": {
+        "track": "internal",
+        "serviceAccountKeyPath": "../secrets/play-service-account.json",
+        "releaseStatus": "draft"
+      }
     }
   }
 }
