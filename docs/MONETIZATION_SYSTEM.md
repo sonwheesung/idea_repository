@@ -174,7 +174,7 @@ AdMob 정지 해제(§3.1, 2026-09-18)로 Phase 7에 착수했다. **코드는 L
 **⏳ 실구매 전 남은 외부 작업**(사람·콘솔 — 코드로 못 채움):
 
 1. ~~**RevenueCat 프로젝트/앱** 생성~~ → ✅ **2026-09-18 브라우저로 생성**: RC 프로젝트 "Idea Repository"(`c31935bf`, React Native) + Play Store 앱 config(`app1a6df7a99e`, package `com.vivacegames.idearepository`) + Android 공개 SDK 키 발급 완료(LinkMemo `228eec90`와 별개). ⏳ 남은 RC 작업: **서비스 계정 자격증명(JSON) 업로드는 사용자 몫**(RC↔Google 검증·developer notifications 연결 — 자격증명이라 세션이 안 함) · entitlement `remove_ads` 생성·상품 attach + offering `default` 패키지 추가는 아래 2가 된 뒤.
-2. **Play 상품 등록** — 비소모성 `remove_ads` 기본가 KRW 3,300(나머지 국가 Play 자동 환산). ⚠ **순서 함정 실측(2026-09-18)**: Play 일회성 상품 페이지가 "결제 권한을 APK에 추가해야 합니다"로 막혀 있었다 → **vc14(BILLING 권한) 빌드 완료**(BUILD §5), 트랙 업로드 후 메뉴가 열린다. 그 뒤 RC로 상품 import → entitlement attach → offering 추가.
+2. ~~**Play 상품 등록**~~ → ✅ **2026-09-18 생성·활성**: 제품 ID `remove_ads`(비소모성 일회성 "구입") · 구매 옵션 `remove-ads` · 이름/설명 en(Remove Ads)+ko(광고 제거) · 기본가 **KRW 3,300** → 173개국 자동 환산 · 상태 활성. ⚠ **순서 함정 실측**: 처음엔 "결제 권한을 APK에 추가해야 합니다"로 막혔고, **vc14(BILLING) 내부 테스트 게시**(BUILD §5) 후 메뉴가 열려 등록 성공. ⏳ 남은 것: RC로 상품 import → entitlement `remove_ads` attach → offering `default` 추가(서비스계정 JSON 업로드 후).
 3. **법무** — RevenueCat(미국)이 구매·영수증 데이터를 받는다 → 처리방침·Play 데이터 보안에 "구매 내역" 반영(사용자 확인 후 게시) · 약관 §3 "제공되는 버전에 한함" 확인(PLAN 남은 작업 로드맵).
 4. **AAB 빌드 + 샌드박스 검증** — 네이티브 모듈이라 새 빌드 필요. 실기기 샌드박스 구매·복원·환불 회수 E2E는 위 1·2 완료 후 테스트 ID로만.
 
