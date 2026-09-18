@@ -289,6 +289,19 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: ~~비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16).~~ → 2026-09-01 OTA 도입(vc11부터, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) — 네이티브 변경은 AAB, JS 수정은 OTA 가능(게시는 사용자 지시). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
+### vc14 · 1.0.13 (2026-09-18) — 결제 권한 활성화 (Remove Ads 인프라, 사용자 화면 변화 없음)
+
+> **출시명(릴리스 이름)**: `14 (1.0.13)`. 사용자 눈에 보이는 변화 없음 — `react-native-purchases`로 결제 권한(BILLING)만 병합한 인프라 빌드(BUILD §5·MONETIZATION §4.1). 목적은 Play 일회성 상품 메뉴를 여는 것. **내부 테스트 트랙 업로드용**(프로덕션 승격 전. Remove Ads 실기능은 RC 키 넣은 vc15부터). 앱 용량은 오히려 +2.6MB(모듈 추가)라 "용량 축소" 문구는 쓰지 않는다. 한국어 문구는 간단하지만 ChatGPT 검수 대상(KOREAN_WRITING) — 사장님 요청 시 검수.
+
+```
+<en-US>
+Stability improvements and behind-the-scenes updates.
+</en-US>
+<ko-KR>
+안정성 개선과 내부 업데이트를 적용했습니다.
+</ko-KR>
+```
+
 ### vc13 · 1.0.12 (2026-09-14) — 프로젝트별 카드 색상 (내부 테스트 화면 확인용)
 
 > 새 기능 1건. 프로젝트마다 카드 왼쪽 포인트 바 색을 고를 수 있다(기본값은 기존 동작). 문구는 ChatGPT 검수 완료(현행 유지).
