@@ -60,7 +60,7 @@
 | App Open 광고(콜드 스타트 · 쿨타임 3h) | ✅ | 2026-08-17 Phase 6 — 복귀 노출 없음, 로드 8초 타임아웃 |
 | UMP 동의 폼 | ✅ | 2026-08-17 Phase 6 — 콘솔 GDPR 메시지 게시 + AdsConsent 흐름 |
 | ⚠ **Expo Go 종료** | — | 2026-08-17 — 광고 SDK(네이티브) 설치. 이후 개발은 디버그 빌드(`npx expo run:android --device <AVD명> --no-bundler`; expo-dev-client 미포함이라 일반 RN 디버그 앱). **Metro 8087에 붙이려면** 앱의 RN 개발 메뉴 → Settings → Debug server host를 `<호스트>:8087`로(에뮬레이터는 `10.0.2.2:8087`, 폰은 Tailscale `100.91.69.45:8087`) — 기본은 8081이라 다른 프로젝트 Metro에 붙는다(2026-08-17 실증). 에뮬레이터는 `run-as`로 `debug_http_host` 프리퍼런스를 직접 써도 된다 |
-| Remove Ads 구매 + Restore | ⏸ | Phase 7 — RevenueCat 익명. AdMob 정지 해제 후(2026-08-21) |
+| Remove Ads 구매 + Restore | ✅ 코드 · ⏳ 외부 | **2026-09-18 Phase 7 착수**(AdMob 정지 해제) — `features/purchase/*` + 설정 두 행 · i18n `purchase.*`. ⏳ RC 프로젝트·키·Play 상품 후 실구매([`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §4.1) |
 | 로컬 백업(내보내기·가져오기) | ✅ | 2026-08-21 — 설정 → 백업. JSON 한 파일 · 공유 시트 · 병합/교체 한 트랜잭션. 에뮬 실측(병합·교체·거부) [`BACKUP_SYSTEM.md`](./BACKUP_SYSTEM.md). ~~vc6 예정~~ → vc6 · 1.0.5 검토 전송(2026-08-21) |
 | 소프트 업데이트 안내(latest) · 검색 매치 힌트 | ✅ | Phase 11 — 2026-08-26 구현 → vc8 · 1.0.7. **운영값 latest `1.0.7` + 스토어 URL PATCH(2026-08-31, bootstrap 실측 — 팝업 운영 개시)**. 설계 [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.4 · [`PROJECT_SYSTEM.md`](./PROJECT_SYSTEM.md) §9.1 |
 | OTA 업데이트(expo-updates · EAS Update) | ✅ 구조 · ✅ **첫 게시 2026-09-14** | 2026-09-01 — `app.json` `runtimeVersion "1.0.0"` + `updates`(url = projectId · ON_LOAD · `expo-channel-name: production`) · `lib/app-version.ts`(네이티브 버전) · `npm run check:ota`. 게시는 사용자 지시 때만. **2026-09-14 첫 `eas update`**(공지 영어 본문, 채널·브랜치 생성, 기기 콜드 2회 실측 — [`BUILD.md`](./BUILD.md) §5 ota 행). [`OTA_SYSTEM.md`](./OTA_SYSTEM.md) |
@@ -79,8 +79,8 @@
 | common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → ~~2026-09-02~~ → **2026-09-14 재복사**(공지 영어 본문 `localizeAnnouncement`, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.8)(웜 스타트 하트비트 + `exp` §5.7 · 슬라이딩 갱신 §5.6 · bootstrap 세션 동봉 → 활성 하트비트 §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
 | 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
-| RevenueCat 프로젝트(익명 모드) | ⏸ | 웹훅·서버 연동 없음. Phase 7 — AdMob 정지 해제 후(2026-08-21) |
-| 스토어 Remove Ads 상품 등록 | ⏸ | 비소모성 1상품. Phase 7 — AdMob 정지 해제 후(2026-08-21) |
+| RevenueCat 프로젝트(익명 모드) | ⏳ | 웹훅·서버 연동 없음. **idearepository RC 프로젝트·Android 공개 키 생성 필요**(2026-09-18 코드 착수 — 키는 `.env.local` `EXPO_PUBLIC_RC_ANDROID_KEY`. LinkMemo `228eec90`와 별개) |
+| 스토어 Remove Ads 상품 등록 | ⏳ | 비소모성 `remove_ads` ₩3,300. 결제 권한 AAB 트랙 업로드 후 메뉴 열림([`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §4.1) |
 | 처리방침·약관 게시 | ✅ | 2026-08-17 — `vivace-games.com/idearepository/{privacy,terms}` 200(배구 서버 정적 페이지, 사용자 확인 후 배포). 정본 `docs/legal/`, 절차 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) |
 | Play 콘솔 앱 · 비공개 테스트 | ✅ 검토 전송 | 2026-08-17 브라우저 대행 — Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`. 앱 콘텐츠 11/11 · 데이터 보안 · 스토어 설정 · 등록정보 EN/KO+그래픽 · AAB vc1(사용자 업로드) → **변경사항 16개 검토 전송**(2026-08-17) → vc1 검토 통과·테스터 제공(8/17) → vc2~vc6 순차 업로드(vc4부터 `eas submit` CLI — [`BUILD.md`](./BUILD.md) §3.5·§5). ~~vc7 테스터 제공 중(8/23 16:46) · vc8 · 1.0.7 검토 중(8/26)~~ → **vc10 · 1.0.9 테스터 제공 중(9/1 14:23 — 부팅 활성 하트비트)**, vc9 게시(8/31 11:37). 테스터 = 업체 인원(`common/CLOSED_TESTING.md`), ~~프로덕션 신청 가능 ≈ 2026-08-31~~ → ✅ **프로덕션 액세스 승인(2026-09-02 — 권한이지 출시 아님, 트랙 비활성·사용자 0. 콘솔 정본 `common/PLAY_CONSOLE_STATUS.md`)** |
 

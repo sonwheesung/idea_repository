@@ -117,6 +117,12 @@ export const OSS_PACKAGES: readonly OssPackage[] = [
     copyright: 'Copyright (c) 2021-present Invertase Limited <oss@invertase.io>',
   },
   {
+    name: 'react-native-purchases',
+    version: '10.10.0',
+    license: 'MIT',
+    copyright: 'Copyright (c) 2023 RevenueCat',
+  },
+  {
     name: 'react-native-reanimated',
     version: '4.1.7',
     license: 'MIT',

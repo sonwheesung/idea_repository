@@ -10,6 +10,7 @@ import { BootGate } from '@/components/boot-gate';
 import { WelcomeSheet } from '@/components/welcome-sheet';
 import { initAds } from '@/features/ads/ads';
 import { maybeShowAppOpenAd } from '@/features/ads/app-open';
+import { initPurchases } from '@/features/purchase/purchases';
 import { useTheme } from '@/theme/use-theme';
 
 // 단일 메인 화면 + 스택 — 하단 네비 없음 (CLAUDE.md §14 C). BootGate = 점검/강제업데이트(실패 시 통과, ARCHITECTURE §5.2)
@@ -17,9 +18,10 @@ export default function RootLayout() {
   const { t } = useTranslation();
   const theme = useTheme();
 
-  // 콜드 스타트 1회: 동의(UMP) → SDK init → App Open(3시간 쿨타임). 실패해도 앱을 막지 않는다 (MONETIZATION §2.2·§3)
+  // 콜드 스타트 1회: 구매 상태 반영 → 동의(UMP) → SDK init → App Open(3시간 쿨타임).
+  // 구매 확인을 광고보다 먼저 — 구매자에게 광고가 번쩍이지 않게(MONETIZATION §4·§4.1). 실패해도 앱을 막지 않는다.
   useEffect(() => {
-    void initAds().then(maybeShowAppOpenAd);
+    void initPurchases().then(initAds).then(maybeShowAppOpenAd);
   }, []);
 
   return (

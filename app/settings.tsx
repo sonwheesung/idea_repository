@@ -1,7 +1,7 @@
 import { useFocusEffect, useRouter } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 
 import { ListRow } from '@/components/list-row';
 import { OptionSheet, type SheetOption } from '@/components/option-sheet';
@@ -10,6 +10,13 @@ import { showPrivacyOptions } from '@/features/ads/ads';
 import { useAdsStore } from '@/features/ads/store';
 import { useBackupStore } from '@/features/backup/store';
 import { listCategories } from '@/features/categories/api';
+import {
+  getRemoveAdsPackage,
+  purchaseRemoveAds,
+  purchasesAvailable,
+  restorePurchases,
+} from '@/features/purchase/purchases';
+import { usePurchaseStore } from '@/features/purchase/store';
 import { useUnreadNoticeCount } from '@/features/support/store';
 import { APP_VERSION } from '@/lib/app-version';
 import { formatDate } from '@/lib/date';
@@ -42,6 +49,45 @@ export default function SettingsScreen() {
       setCategoryCount(listCategories().length);
     }, []),
   );
+
+  // 광고 제거(Remove Ads) — RevenueCat 익명(MONETIZATION §4). 게이트는 features/ads/store.ts 한 곳.
+  const removeAdsOwned = usePurchaseStore((s) => s.owned);
+  const [removeAdsPrice, setRemoveAdsPrice] = useState<string | null>(null);
+  const [purchaseBusy, setPurchaseBusy] = useState(false);
+
+  // 가격은 스토어 현지 통화 문자열 그대로 — UI에 특정 통화를 고정하지 않는다(§4)
+  useEffect(() => {
+    if (!purchasesAvailable()) return;
+    void getRemoveAdsPackage().then((pkg) => setRemoveAdsPrice(pkg?.product.priceString ?? null));
+  }, []);
+
+  const buyRemoveAds = async () => {
+    if (purchaseBusy) return;
+    setPurchaseBusy(true);
+    try {
+      const pkg = await getRemoveAdsPackage();
+      if (!pkg) {
+        Alert.alert(t('purchase.unavailable'));
+        return;
+      }
+      const outcome = await purchaseRemoveAds(pkg);
+      if (outcome === 'purchased') Alert.alert(t('purchase.done'));
+      else if (outcome === 'failed') Alert.alert(t('purchase.failed'));
+      // 'cancelled'(사용자가 닫음)는 조용히 지나간다
+    } finally {
+      setPurchaseBusy(false);
+    }
+  };
+
+  const runRestore = async () => {
+    if (purchaseBusy) return;
+    setPurchaseBusy(true);
+    try {
+      Alert.alert((await restorePurchases()) ? t('purchase.restored') : t('purchase.nothingToRestore'));
+    } finally {
+      setPurchaseBusy(false);
+    }
+  };
 
   // ~~시스템 언어 항목~~ → en·ko만(2026-08-27 사용자 지시 "시스템(자동) 제거 — 바로 매핑")
   const languageOptions: SheetOption<AppLanguage>[] = SUPPORTED_LANGUAGES.map((lang) => ({
@@ -97,7 +143,27 @@ export default function SettingsScreen() {
         onPress={() => router.push('/inquiries')}
       />
 
-      {/* 광고 제거(Remove Ads·복원) 행 — Phase 7 에서 이 자리에 추가 */}
+      {/* 광고 제거(Remove Ads·복원) — RevenueCat 키가 없으면(purchasesAvailable=false) 행 자체를 숨긴다.
+          구매 완료면 Remove Ads 행은 "구매함"으로 잠그고, 복원 행은 재설치·기기 변경 대비로 항상 둔다. */}
+      {purchasesAvailable() ? (
+        <>
+          <ListRow
+            icon="remove-circle-outline"
+            title={t('purchase.removeAds')}
+            description={
+              removeAdsOwned ? t('purchase.owned') : (removeAdsPrice ?? t('purchase.removeAdsHint'))
+            }
+            trailing={removeAdsOwned ? 'none' : 'chevron'}
+            onPress={removeAdsOwned ? () => {} : () => void buyRemoveAds()}
+          />
+          <ListRow
+            icon="refresh-outline"
+            title={t('purchase.restore')}
+            description={t('purchase.restoreHint')}
+            onPress={() => void runRestore()}
+          />
+        </>
+      ) : null}
 
       {/* UMP 개인정보 옵션 — EEA·영국·스위스(privacyOptionsRequirementStatus=REQUIRED)에서만 보인다.
           Google EU 사용자 동의 정책: 동의를 다시 바꿀 수단 제공. 처리방침 §5·제9조가 이 행을 가리킨다. */}

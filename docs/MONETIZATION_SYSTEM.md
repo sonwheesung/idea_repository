@@ -14,8 +14,8 @@
 | **UMP 개인정보 옵션 재진입**(설정 → Privacy options) | ✅ | 2026-08-17 법무 점검 — `privacyOptionsRequirementStatus === REQUIRED`(EEA·영국·스위스)일 때만 설정에 행 노출 → `AdsConsent.showPrivacyOptionsForm()`. Google EU 사용자 동의 정책(동의 재방문 수단) + 처리방침 §5·제9조 약속의 실체 |
 | 광고 게이트 `adsEnabled()` | ✅ | 2026-08-17 — `features/ads/store.ts` 단일 출처. Phase 7에서 removeAds 연결 |
 | AdMob 앱·광고단위 발급 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — §3.1 |
-| Remove Ads 구매(RevenueCat 익명) | ⏸ | Phase 7 — AdMob 계정 정지 해제 후(2026-08-21, §3.1) |
-| Restore Purchases | ⏸ | 〃 |
+| Remove Ads 구매(RevenueCat 익명) | ✅ 코드 · ⏳ 외부 | **2026-09-18 Phase 7 착수**(AdMob 정지 해제) — `features/purchase/{store,purchases}.ts` + 설정 두 행. ⏳ RC 프로젝트·키·Play 상품 등록 후 실구매(§4.1) |
+| Restore Purchases | ✅ 코드 | 2026-09-18 — 설정 → 구매 복원. `restorePurchases()`(스토어 계정 이력 기준) |
 
 ---
 
@@ -125,7 +125,7 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
 - 개발 빌드는 여전히 **Google 테스트 단위**를 쓴다(`__DEV__` 분기) — 실단위로 개발하면 무효 트래픽으로 계정 정지 위험.
 - 이 앱은 스토어 미출시라 "검토 필요 · 게재 제한" 상태가 정상. Play 출시 후 스토어 연결 → 승인까지 실노출 0.
 - ⚠ 광고 단위 발급 후 게재 시작까지 최대 1시간(콘솔 안내).
-- ⏸ **AdMob 계정 정지 중(2026-08-21 사용자 고지)** — 광고 코드·지면(배너·App Open·UMP·`adsEnabled()` 게이트)은 **그대로 유지**하고, 광고 관련 후속 작업(스토어 연결·게재 확인·Phase 7 Remove Ads)은 **정지 해제 후 진행**(사용자 결정 "영역만 해놓고 정지 풀리면 진행"). 정지 중 실동작: 배너 미수신 → `onAdFailedToLoad` → 자리 미점유 · App Open 로드 실패 → 즉시 메인 진입 — 둘 다 기존 규칙(§7 "로드 실패가 앱 사용을 막지 않는다")대로라 코드 변경 없음. Play 데이터 보안 선언(광고 SDK 포함)은 SDK가 여전히 초기화되므로 그대로 참. 해제 후 할 일: AdMob 콘솔 앱-스토어 연결 → 실게재 확인 → Phase 7.
+- ~~⏸ **AdMob 계정 정지 중(2026-08-21 사용자 고지)**~~ → ✅ **정지 해제(2026-09-18** — 사장님 확인 "광고 활성화 됐어" + 같은 계정 `pub-2731473780180274` 배구명가 실기기 게재 검증. Phase 7 Remove Ads 착수). 정지 기간에도 광고 코드·지면(배너·App Open·UMP·`adsEnabled()` 게이트)은 **그대로 유지**했고, 광고 관련 후속 작업(스토어 연결·게재 확인·Phase 7 Remove Ads)은 **정지 해제 후 진행**(사용자 결정 "영역만 해놓고 정지 풀리면 진행"). 정지 중 실동작: 배너 미수신 → `onAdFailedToLoad` → 자리 미점유 · App Open 로드 실패 → 즉시 메인 진입 — 둘 다 기존 규칙(§7 "로드 실패가 앱 사용을 막지 않는다")대로라 코드 변경 없음. Play 데이터 보안 선언(광고 SDK 포함)은 SDK가 여전히 초기화되므로 그대로 참. 해제 후 할 일: AdMob 콘솔 앱-스토어 연결 → 실게재 확인 → Phase 7.
 
 ---
 
@@ -156,6 +156,27 @@ on a task at hand (e.g. filling out a form, reading content) may lead to acciden
   비소모성이라 만료 시각은 없다.
 - **환불 시 회수**: RC entitlement가 비활성으로 돌아오면 캐시를 갱신한다(다음 온라인 확인 시점).
 - 한국 규제(청약철회 고지 등)는 `payment-security-compliance` 스킬로 착수 전 점검.
+
+### 4.1 구현 배선 (실제 값 — 2026-09-18 Phase 7 착수)
+
+AdMob 정지 해제(§3.1, 2026-09-18)로 Phase 7에 착수했다. **코드는 LinkMemo `features/purchase/*`를 그대로 승계**(RevenueCat 익명, `store-iap-setup` 스킬과 동일 패턴).
+
+| 것 | 값 |
+|---|---|
+| 패키지 | `react-native-purchases ^10.10.0`(LinkMemo ^10.8.1과 같은 10.x). **config plugin 불필요**(autolink) — `app.json` plugins 무변경. 네이티브 모듈이라 **다음 빌드부터 실동작**(vc13 이하엔 없음) |
+| entitlement | `remove_ads`(코드 상수 `ENTITLEMENT`) |
+| offering | `default`(current)의 첫 패키지 `availablePackages[0]` |
+| 공개 키 | env `EXPO_PUBLIC_RC_ANDROID_KEY`(`goog_…`, `.env.local` — 커밋 금지, `EXPO_PUBLIC_*`는 번들에 인라인). 🔴 시크릿 `sk_…`는 앱에 넣지 않는다(서버 없음). 키가 비면 `purchasesAvailable()=false` → 결제 UI 자체를 숨긴다 |
+| 로컬 캐시 | zustand persist 키 `idearepository.purchase`(`features/purchase/store.ts`) — 🔴 조회 실패에 지우지 않음 |
+| 코드 | `features/purchase/purchases.ts`(configure·refreshEntitlement·getRemoveAdsPackage·purchaseRemoveAds·restorePurchases·applyOwned) · 게이트는 `features/ads/store.ts` `setRemoveAds` 한 곳 · 부팅은 `app/_layout.tsx`에서 `initPurchases()`를 **initAds보다 먼저**(구매자에게 광고 번쩍임 방지) |
+| UI | 설정 → 광고 제거 / 구매 복원 두 `ListRow`(`purchasesAvailable()`일 때만 노출, 구매 완료면 "구매함"으로 잠금). i18n `purchase.*`(en·ko) |
+
+**⏳ 실구매 전 남은 외부 작업**(사람·콘솔 — 코드로 못 채움):
+
+1. **RevenueCat 프로젝트/앱** — idearepository용 RC 프로젝트 + Android 앱 생성 → Android 공개 SDK 키를 `.env.local` `EXPO_PUBLIC_RC_ANDROID_KEY`에 넣는다(현재 없음. LinkMemo 프로젝트 `228eec90`와 별개). entitlement `remove_ads`를 상품에 attach + offering `default`에 패키지 추가.
+2. **Play 상품 등록** — 비소모성 `remove_ads` 기본가 KRW 3,300(나머지 국가 Play 자동 환산). ⚠ **순서 함정**: Play 일회성 상품 메뉴는 **결제 권한 AAB를 트랙에 올린 뒤에야** 열린다 → 코드·빌드 먼저 · 상품 등록은 그다음 · RC 구성은 마지막.
+3. **법무** — RevenueCat(미국)이 구매·영수증 데이터를 받는다 → 처리방침·Play 데이터 보안에 "구매 내역" 반영(사용자 확인 후 게시) · 약관 §3 "제공되는 버전에 한함" 확인(PLAN 남은 작업 로드맵).
+4. **AAB 빌드 + 샌드박스 검증** — 네이티브 모듈이라 새 빌드 필요. 실기기 샌드박스 구매·복원·환불 회수 E2E는 위 1·2 완료 후 테스트 ID로만.
 
 ---
 

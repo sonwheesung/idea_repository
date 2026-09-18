@@ -294,7 +294,7 @@ Idea Repository가 필요한 것은 v1 기능(bootstrap + 문의)뿐이고, 이�
 | 보안 저장 | expo-secure-store — 기기 subject deviceId·세션 | ✅ 2026-08-17 Phase 5 (`features/support/server.ts`) |
 | 광고 | react-native-google-mobile-ads — ⚠ **16.0.0 고정** 승계(16.4.0은 Kotlin 2.3 충돌, 조각·LinkMemo 실증) | ✅ 2026-08-17 Phase 6 |
 | 개발 실행 | **dev build** (`npm run android`) — 광고 SDK가 네이티브 모듈이라 **Expo Go 불가**(2026-08-17부터) | ✅ |
-| 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ⏸ Phase 7 — AdMob 정지 해제 후 |
+| 결제 | react-native-purchases (**RevenueCat 익명 모드**) — 비소모성 1상품 | ✅ 코드(2026-09-18, `features/purchase/*`) · ⏳ RC 키·Play 상품(MONETIZATION §4.1) |
 | 브라우저 열기 | expo-linking (`Linking.openURL`) — 관련 자료 URL | ✅ 2026-08-17 Phase 2 |
 | 다국어 | i18next · react-i18next · expo-localization + `check:i18n` | ✅ en·ko ~~29키~~ 295키(2026-08-21) · 설정→언어 수동 변경 · es-hangul 조사 |
 | 날짜 | dayjs (+ locale · localizedFormat · customParseFormat) — 기기 지역 표기 | ✅ `lib/date.ts` (카드 수정일) |
@@ -397,7 +397,7 @@ idea_repository/
 
 현재 없음(2026-08-17). 새 항목이 생기면 여기에 적는다.
 
-⏸ 보류(미결정 아님): **AdMob 계정 정지 → 광고 후속·Phase 7 Remove Ads 대기**(2026-08-21, §16·MONETIZATION_SYSTEM §3.1).
+~~⏸ 보류(미결정 아님): **AdMob 계정 정지 → 광고 후속·Phase 7 Remove Ads 대기**(2026-08-21)~~ → ✅ **AdMob 정지 해제(2026-09-18) → Phase 7 Remove Ads 코드 착수**(§16·MONETIZATION_SYSTEM §3.1·§4.1. ⏳ RC 키·Play 상품·법무·AAB는 외부 작업).
 
 ---
 
@@ -437,7 +437,8 @@ idea_repository/
 - **2026-08-20**: 조합 헤더 단어 관리 = "단어 관리하기" 텍스트 버튼(아이콘 대체) · **AAB 업로드 CLI 경로 도입**(`eas submit` — BUILD.md §3.5, 정본 `common/PLAY_RELEASE_AUTOMATION.md`, 빌드는 계속 로컬 gradle) → **vc4 · 1.0.3 CLI 업로드 → 출시명·노트(en/ko) → 검토 전송 완료**("검토 중인 변경사항"). 서비스 계정 권한은 켰다 끔(API 403 복귀 확인).
 - **2026-08-20 (vc4 이후)**: ⚠ 이후 수정분은 **내일 한 번에 업데이트**(사용자 지시 "올리지 말고") — 단어 관리 화면 개편(추가 = 헤더 ＋ 아이콘, 하단 내 태그·카테고리 가져오기/기본 단어 복원 제거 — IDEATION_SYSTEM §3.5) 포함, 다음 AAB vc5.
 - **2026-08-21 vc5 · 1.0.4**: 전날 보류분 2건(단어 관리 헤더 ＋·하단 액션 제거 / 한국어 조사 es-hangul) — 로컬 gradle 빌드(SHA1 대조) → CLI 업로드(BUILD §3.5) → 출시명·노트(en/ko) → **검토 전송 완료**("검토 중인 변경사항") → 권한 회수(API 403). vc4는 검토 통과·테스터 제공 중(8/20 11:08).
-- ⏸ **AdMob 계정 정지(2026-08-21 사용자 고지)**: 광고 지면·코드는 그대로 두고(실패 시 자리 미점유·즉시 진입 — 기존 규칙), 광고 후속 작업·**Phase 7 Remove Ads는 정지 해제 후 진행**. MONETIZATION_SYSTEM §3.1.
+- ~~⏸ **AdMob 계정 정지(2026-08-21 사용자 고지)**~~ → ✅ **정지 해제(2026-09-18** — 사장님 확인 + 같은 계정 `pub-2731473780180274` 배구명가 실게재 검증): 정지 기간엔 광고 지면·코드를 그대로 두었고(실패 시 자리 미점유·즉시 진입 — 기존 규칙), 해제로 **Phase 7 Remove Ads 코드 착수**. MONETIZATION_SYSTEM §3.1·§4.1.
+- **2026-09-18 Phase 7 Remove Ads 코드 착수(§14 결제 · MONETIZATION §4.1)**: 사용자 지시 "link_memo·my_word 확인하고 똑같이 적용 — 광고제거"(AdMob 정지 해제 직후). **LinkMemo `features/purchase/*` 승계**(RevenueCat 익명, entitlement `remove_ads`, offering `default`) — `react-native-purchases ^10.10.0`(config plugin 불필요) · `features/purchase/{store,purchases}.ts`(persist 키 `idearepository.purchase`) · 게이트는 `features/ads/store.ts` `setRemoveAds` 한 곳(배너·App Open이 이미 그걸 봄) · 부팅 `initPurchases()`를 initAds보다 먼저 · 설정 → 광고 제거/구매 복원 두 행(`purchasesAvailable()` = env 키 있을 때만 노출) · i18n `purchase.*` en·ko(LinkMemo 출시 문구 승계, 325키) · 오픈소스 고지 45개 재생성. 정적 검증 전부 통과 + 번들 200. **⏳ 실구매 전 외부 작업**(사람·콘솔): idearepository RevenueCat 프로젝트·Android 공개 키(`.env.local` `EXPO_PUBLIC_RC_ANDROID_KEY`, 현재 없음) · Play 비소모성 `remove_ads` ₩3,300 등록(결제 권한 AAB 트랙 업로드 후 메뉴 열림) · 처리방침·데이터 보안에 "구매 내역"(RevenueCat 미국) 반영 + 약관 §3 확인 · 결제 권한 AAB 빌드·샌드박스 E2E. 같은 날 common 문서(BUSINESS_INFO·GLOBAL_DATA_COMPLIANCE·PRE_LAUNCH_CHECK)의 AdMob 정지 기록도 해제로 정정.
 - **2026-08-21 로컬 백업 완료**(§3 #23 · §14 P — 무료): 문서 선행([`docs/BACKUP_SYSTEM.md`](./docs/BACKUP_SYSTEM.md)) → expo-file-system/sharing/document-picker → `features/backup` → `/backup` 화면(설정 → 백업) → 약관 5차·처리방침 4차 정본 개정(2026-08-28 시행, **재게시는 사용자 확인 후**) → 에뮬 실측(내보내기 공유 시트·병합·교체·거부). → **vc6 · 1.0.5 빌드·CLI 업로드·출시명·노트·검토 전송 완료**("검토 중인 변경사항", 권한 회수). 법무 4차/5차도 같은 날 **게시 완료**(사용자 확인 후 vercel --prod, 라이브 200). vc5는 검토 통과·테스터 제공(8/21 12:04).
 - **2026-08-23 법무 4차/5차 시행 고지 ✅ 발행**: 앱 내 공지 = common_server 공지 1건(EN+KO 병기, 시행일+30일 자동 종료, id `df35b667…` — LEGAL_SYSTEM §4-4 발행 방법 확정·게시 기록에 문안 정본, bootstrap 실측 1건). 고지가 시행 5일 전(7일 규칙 2일 미달)이지만 **비공개 테스트 중 이용자는 사용자 본인뿐**(테스터 = 업체 인원, 설치·실행만 — `C:\project\common\CLOSED_TESTING.md`, 2026-08-23 작성)이라 시행일 유지 — LEGAL_SYSTEM §7 #13 해소. 앱 코드 변경 없음.
 - **2026-08-23 UI 규격 통일**(§14 Q): `docs/UI_GUIDE.md` 신설 → `ListRow`·`ListGroup`·`EditRow`·`Dialog`·`Badge`·`ProgressBar` 추출, 설정(아이콘+부제 전 행)·발상 도구·About·카테고리·단어·상세·카드 적용, 반경 3단계. 에뮬 육안 확인(사용자 직접 확인 "잘 수정된 거 같네"). → **vc7 · 1.0.6 빌드·CLI 업로드·출시명·노트·검토 전송 완료**(2026-08-23, "검토 중인 변경사항", 권한 회수). vc6는 검토 통과·테스터 제공(8/21 16:25). 구 AAB(vc6) 삭제.

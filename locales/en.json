@@ -423,5 +423,17 @@
   },
   "licenses": {
     "intro": "This app is built with the open-source packages below. Each is used under its license; copyright lines are shown as found in each package."
+  },
+  "purchase": {
+    "removeAds": "Remove Ads",
+    "removeAdsHint": "Remove banner and full-screen ads",
+    "owned": "Purchased",
+    "restore": "Restore Purchases",
+    "restoreHint": "Restore a previous purchase",
+    "done": "Ads removed. Thank you!",
+    "failed": "The purchase could not be completed.",
+    "restored": "Your purchase has been restored.",
+    "nothingToRestore": "No previous purchase was found.",
+    "unavailable": "This item is not available right now."
   }
 }
