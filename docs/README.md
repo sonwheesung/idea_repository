@@ -79,8 +79,8 @@
 | common_server SDK 복사(`lib/common-server/`) | ✅ | 2026-08-17 — ~~SDK_VERSION 2026-08-14~~ → ~~2026-09-01~~ → ~~2026-09-01.2~~ → ~~2026-09-02~~ → **2026-09-14 재복사**(공지 영어 본문 `localizeAnnouncement`, [`ARCHITECTURE.md`](./ARCHITECTURE.md) §5.8)(웜 스타트 하트비트 + `exp` §5.7 · 슬라이딩 갱신 §5.6 · bootstrap 세션 동봉 → 활성 하트비트 §5.5), `_dv_sdk` 22/22. 수정 금지·갱신은 재복사 |
 | 디스코드 문의 웹훅 env + 재배포 | ✅ | 2026-08-17 — `DISCORD_TICKET_WEBHOOK_URL_IDEAREPOSITORY` Vercel production 등록 + `vercel --prod` 재배포(common_server `964bcd9`), E2E 문의 200 |
 | AdMob 앱·광고단위 + GDPR 메시지 | ✅ | 2026-08-17 브라우저 대행 — ID는 [`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §3.1 |
-| RevenueCat 프로젝트(익명 모드) | ⏳ | 웹훅·서버 연동 없음. **idearepository RC 프로젝트·Android 공개 키 생성 필요**(2026-09-18 코드 착수 — 키는 `.env.local` `EXPO_PUBLIC_RC_ANDROID_KEY`. LinkMemo `228eec90`와 별개) |
-| 스토어 Remove Ads 상품 등록 | ⏳ | 비소모성 `remove_ads` ₩3,300. 결제 권한 AAB 트랙 업로드 후 메뉴 열림([`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §4.1) |
+| RevenueCat 프로젝트(익명 모드) | ✅ 생성 · ⏳ 자격증명 | **2026-09-18 브라우저로 생성** — 프로젝트 "Idea Repository"(`c31935bf`) + Play 앱 config(`app1a6df7a99e`) + Android 공개 키 발급. ⏳ 서비스 계정 JSON 업로드는 사용자 몫(검증 연결). 웹훅·서버 연동 없음 |
+| 스토어 Remove Ads 상품 등록 | ⏳ | 비소모성 `remove_ads` ₩3,300. **vc14(BILLING) 빌드 완료** → 트랙 업로드 후 메뉴 열림([`MONETIZATION_SYSTEM.md`](./MONETIZATION_SYSTEM.md) §4.1·BUILD §5) |
 | 처리방침·약관 게시 | ✅ | 2026-08-17 — `vivace-games.com/idearepository/{privacy,terms}` 200(배구 서버 정적 페이지, 사용자 확인 후 배포). 정본 `docs/legal/`, 절차 [`LEGAL_SYSTEM.md`](./LEGAL_SYSTEM.md) |
 | Play 콘솔 앱 · 비공개 테스트 | ✅ 검토 전송 | 2026-08-17 브라우저 대행 — Play 앱 `4975846571298570248` · Alpha 트랙 `4700611093824576153`. 앱 콘텐츠 11/11 · 데이터 보안 · 스토어 설정 · 등록정보 EN/KO+그래픽 · AAB vc1(사용자 업로드) → **변경사항 16개 검토 전송**(2026-08-17) → vc1 검토 통과·테스터 제공(8/17) → vc2~vc6 순차 업로드(vc4부터 `eas submit` CLI — [`BUILD.md`](./BUILD.md) §3.5·§5). ~~vc7 테스터 제공 중(8/23 16:46) · vc8 · 1.0.7 검토 중(8/26)~~ → **vc10 · 1.0.9 테스터 제공 중(9/1 14:23 — 부팅 활성 하트비트)**, vc9 게시(8/31 11:37). 테스터 = 업체 인원(`common/CLOSED_TESTING.md`), ~~프로덕션 신청 가능 ≈ 2026-08-31~~ → ✅ **프로덕션 액세스 승인(2026-09-02 — 권한이지 출시 아님, 트랙 비활성·사용자 0. 콘솔 정본 `common/PLAY_CONSOLE_STATUS.md`)** |
 

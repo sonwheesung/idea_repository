@@ -2,7 +2,7 @@
   "expo": {
     "name": "Idea Repository",
     "slug": "idearepository",
-    "version": "1.0.12",
+    "version": "1.0.13",
     "runtimeVersion": "1.0.0",
     "updates": {
       "url": "https://u.expo.dev/6518e63b-54a0-432a-b9a5-56292cf4a523",
@@ -22,7 +22,7 @@
     },
     "android": {
       "package": "com.vivacegames.idearepository",
-      "versionCode": 13,
+      "versionCode": 14,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

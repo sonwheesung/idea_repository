@@ -166,15 +166,15 @@ AdMob 정지 해제(§3.1, 2026-09-18)로 Phase 7에 착수했다. **코드는 L
 | 패키지 | `react-native-purchases ^10.10.0`(LinkMemo ^10.8.1과 같은 10.x). **config plugin 불필요**(autolink) — `app.json` plugins 무변경. 네이티브 모듈이라 **다음 빌드부터 실동작**(vc13 이하엔 없음) |
 | entitlement | `remove_ads`(코드 상수 `ENTITLEMENT`) |
 | offering | `default`(current)의 첫 패키지 `availablePackages[0]` |
-| 공개 키 | env `EXPO_PUBLIC_RC_ANDROID_KEY`(`goog_…`, `.env.local` — 커밋 금지, `EXPO_PUBLIC_*`는 번들에 인라인). 🔴 시크릿 `sk_…`는 앱에 넣지 않는다(서버 없음). 키가 비면 `purchasesAvailable()=false` → 결제 UI 자체를 숨긴다 |
+| 공개 키 | env `EXPO_PUBLIC_RC_ANDROID_KEY`(`goog_…` 공개값 — 번들에 박힘). 🔴 시크릿 `sk_…`는 앱에 넣지 않는다(서버 없음). 키가 비면 `purchasesAvailable()=false` → 결제 UI 자체를 숨긴다. ⚠ **이 프로젝트 `build-aab.ps1`은 `.env`/`.env.local`이 있으면 빌드를 거부**한다(common §5.5) → 키는 `.env` 파일이 아니라 **빌드 명령에 인라인**으로 준다: `NODE_ENV=production EXPO_PUBLIC_RC_ANDROID_KEY=goog_xxx powershell -File tools/build-aab.ps1 …`(BUILD §5 vc14 함정) |
 | 로컬 캐시 | zustand persist 키 `idearepository.purchase`(`features/purchase/store.ts`) — 🔴 조회 실패에 지우지 않음 |
 | 코드 | `features/purchase/purchases.ts`(configure·refreshEntitlement·getRemoveAdsPackage·purchaseRemoveAds·restorePurchases·applyOwned) · 게이트는 `features/ads/store.ts` `setRemoveAds` 한 곳 · 부팅은 `app/_layout.tsx`에서 `initPurchases()`를 **initAds보다 먼저**(구매자에게 광고 번쩍임 방지) |
 | UI | 설정 → 광고 제거 / 구매 복원 두 `ListRow`(`purchasesAvailable()`일 때만 노출, 구매 완료면 "구매함"으로 잠금). i18n `purchase.*`(en·ko) |
 
 **⏳ 실구매 전 남은 외부 작업**(사람·콘솔 — 코드로 못 채움):
 
-1. **RevenueCat 프로젝트/앱** — idearepository용 RC 프로젝트 + Android 앱 생성 → Android 공개 SDK 키를 `.env.local` `EXPO_PUBLIC_RC_ANDROID_KEY`에 넣는다(현재 없음. LinkMemo 프로젝트 `228eec90`와 별개). entitlement `remove_ads`를 상품에 attach + offering `default`에 패키지 추가.
-2. **Play 상품 등록** — 비소모성 `remove_ads` 기본가 KRW 3,300(나머지 국가 Play 자동 환산). ⚠ **순서 함정**: Play 일회성 상품 메뉴는 **결제 권한 AAB를 트랙에 올린 뒤에야** 열린다 → 코드·빌드 먼저 · 상품 등록은 그다음 · RC 구성은 마지막.
+1. ~~**RevenueCat 프로젝트/앱** 생성~~ → ✅ **2026-09-18 브라우저로 생성**: RC 프로젝트 "Idea Repository"(`c31935bf`, React Native) + Play Store 앱 config(`app1a6df7a99e`, package `com.vivacegames.idearepository`) + Android 공개 SDK 키 발급 완료(LinkMemo `228eec90`와 별개). ⏳ 남은 RC 작업: **서비스 계정 자격증명(JSON) 업로드는 사용자 몫**(RC↔Google 검증·developer notifications 연결 — 자격증명이라 세션이 안 함) · entitlement `remove_ads` 생성·상품 attach + offering `default` 패키지 추가는 아래 2가 된 뒤.
+2. **Play 상품 등록** — 비소모성 `remove_ads` 기본가 KRW 3,300(나머지 국가 Play 자동 환산). ⚠ **순서 함정 실측(2026-09-18)**: Play 일회성 상품 페이지가 "결제 권한을 APK에 추가해야 합니다"로 막혀 있었다 → **vc14(BILLING 권한) 빌드 완료**(BUILD §5), 트랙 업로드 후 메뉴가 열린다. 그 뒤 RC로 상품 import → entitlement attach → offering 추가.
 3. **법무** — RevenueCat(미국)이 구매·영수증 데이터를 받는다 → 처리방침·Play 데이터 보안에 "구매 내역" 반영(사용자 확인 후 게시) · 약관 §3 "제공되는 버전에 한함" 확인(PLAN 남은 작업 로드맵).
 4. **AAB 빌드 + 샌드박스 검증** — 네이티브 모듈이라 새 빌드 필요. 실기기 샌드박스 구매·복원·환불 회수 E2E는 위 1·2 완료 후 테스트 ID로만.
 
