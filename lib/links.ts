@@ -20,12 +20,12 @@ export const BUSINESS = {
   brand: 'Vivace Games Studio',
   /** 대표자 */
   representativeKo: '손휘성',
-  representativeEn: 'Son Hwi-seong',
+  representativeEn: 'SON WHEESUNG',
   /** 사업자등록번호 */
   registrationNo: '749-25-02260',
   /** 통신판매업 신고번호 */
-  ecommerceRegistrationNo: '제2026-울산중구-0170호',
+  ecommerceRegistrationNo: '제2026-경북경주-0475호',
   /** 사업장 주소 */
-  addressKo: '울산광역시 중구 성안 5길 22, 2층 204호(성안동), 44421',
-  addressEn: '204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea',
+  addressKo: '경상북도 경주시 원화로 345, 4층 401-9호(성동동), 38138',
+  addressEn: '401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea',
 } as const;

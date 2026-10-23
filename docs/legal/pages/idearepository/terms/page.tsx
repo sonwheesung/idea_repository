@@ -206,8 +206,8 @@ export default function IdeaRepositoryTerms() {
           <li>상호: <strong>휘성게임즈</strong> (브랜드 표기 Vivace Games Studio)</li>
           <li>대표자: 손휘성</li>
           <li>사업자등록번호: 749-25-02260</li>
-          <li>통신판매업 신고번호: 제2026-울산중구-0170호 (신고기관: 울산광역시 중구청)</li>
-          <li>사업장 소재지: 울산광역시 중구 성안5길 22, 2층 204호(성안동), 우 44421</li>
+          <li>통신판매업 신고번호: 제2026-경북경주-0475호 (신고기관: 경상북도 경주시청)</li>
+          <li>사업장 소재지: 경상북도 경주시 원화로 345, 4층 401-9호(성동동), 우 38138</li>
           <li>연락처: <strong>{SUPPORT_EMAIL}</strong> (또는 앱 내 &quot;문의하기&quot;)</li>
           <li>
             개인정보 처리:{' '}
@@ -336,9 +336,9 @@ export default function IdeaRepositoryTerms() {
           prohibited-parties list; Apple and its subsidiaries are third-party beneficiaries entitled to enforce these Terms.
         </p>
         <ul style={li}>
-          <li>Operator: Hwiseong Games (brand: Vivace Games Studio) — Representative: Son Hwi-seong</li>
-          <li>Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-울산중구-0170호</li>
-          <li>Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea</li>
+          <li>Operator: Hwiseong Games (brand: Vivace Games Studio) — Representative: SON WHEESUNG</li>
+          <li>Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-경북경주-0475호</li>
+          <li>Address: 401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea</li>
           <li>Email: {SUPPORT_EMAIL} (or in-app &quot;Contact us&quot;)</li>
         </ul>
       </section>

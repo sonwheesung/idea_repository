@@ -15,9 +15,9 @@ rights are. (한국어 안내는 별도 페이지 하단에 있습니다.)
 ## 1. Who we are
 
 - Operator (data controller): Hwiseong Games (brand: Vivace Games Studio)
-- Representative: Son Hwi-seong
+- Representative: SON WHEESUNG
 - Business registration no.: 749-25-02260 (Republic of Korea)
-- Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea
+- Address: 401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea
 - Contact / privacy officer: support@vivace-games.com
 
 ## 2. Data that stays on your device
@@ -212,5 +212,5 @@ nothing new stored; effective 2026-09-02).
 ## 9. Contact
 
 - Email: support@vivace-games.com
-- Privacy officer (개인정보 보호책임자): Son Hwi-seong, Representative — support@vivace-games.com
-- Postal: Hwiseong Games, 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea
+- Privacy officer (개인정보 보호책임자): SON WHEESUNG, Representative — support@vivace-games.com
+- Postal: Hwiseong Games, 401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea

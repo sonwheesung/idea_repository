@@ -130,9 +130,9 @@ against you.
 
 ## 12. Contact and seller information
 
-- Operator: Hwiseong Games (brand: Vivace Games Studio) — Representative: Son Hwi-seong
-- Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-울산중구-0170호
-- Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea
+- Operator: Hwiseong Games (brand: Vivace Games Studio) — Representative: SON WHEESUNG
+- Business registration no.: 749-25-02260 (Republic of Korea) · Mail-order business report no.: 제2026-경북경주-0475호
+- Address: 401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea
 - Email: support@vivace-games.com (or in-app "Contact us")
 
 Privacy: how we handle the small amount of data that leaves your device is described in the Privacy Policy

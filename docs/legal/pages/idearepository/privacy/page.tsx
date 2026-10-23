@@ -54,9 +54,9 @@ export default function IdeaRepositoryPrivacy() {
       <section style={card}>
         <h2 style={h2}>1. Who we are</h2>
         <p style={bullet}>• Operator (data controller): Hwiseong Games (brand: Vivace Games Studio)</p>
-        <p style={bullet}>• Representative: Son Hwi-seong</p>
+        <p style={bullet}>• Representative: SON WHEESUNG</p>
         <p style={bullet}>• Business registration no.: 749-25-02260 (Republic of Korea)</p>
-        <p style={bullet}>• Address: 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea</p>
+        <p style={bullet}>• Address: 401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea</p>
         <p style={bullet}>• Contact / privacy officer: {SUPPORT_EMAIL}</p>
       </section>
 
@@ -327,7 +327,7 @@ export default function IdeaRepositoryPrivacy() {
         <p style={muted}>
           We will post any changes to this policy at this URL with a new effective date; material changes will also be
           announced in the app&apos;s notice screen. Questions: {SUPPORT_EMAIL}. Privacy officer (개인정보 보호책임자):
-          Son Hwi-seong, Representative — {SUPPORT_EMAIL}.
+          SON WHEESUNG, Representative — {SUPPORT_EMAIL}.
         </p>
       </section>
 
@@ -565,7 +565,7 @@ export default function IdeaRepositoryPrivacy() {
         </p>
         <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games Studio) · 대표 손휘성</p>
         <p style={bullet}>• 사업자등록번호: 749-25-02260</p>
-        <p style={bullet}>• 주소: 울산광역시 중구 성안5길 22, 2층 204호(성안동), 우 44421</p>
+        <p style={bullet}>• 주소: 경상북도 경주시 원화로 345, 4층 401-9호(성동동), 우 38138</p>
         <p style={bullet}>• 문의: {SUPPORT_EMAIL}</p>
       </section>
     </main>

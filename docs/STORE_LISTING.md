@@ -170,10 +170,10 @@ Capture your ideas. Keep them private. Build what matters.
 | 이용약관 URL | https://vivace-games.com/idearepository/terms | ~~게시 예정~~ → ✅ 게시 2026-08-17 — 유료 상품(Remove Ads) 있으므로 준비 |
 | 계정 삭제 URL | 해당 없음 | 계정이 없다(CLAUDE.md §4) — 콘솔 "계정 생성 없음"으로 선언 |
 | 법적 상호 | 휘성게임즈 / Hwiseong Games | 앱 내 About "판매자 정보"에 표시 |
-| 대표자 | 손휘성 (Son Hwi-seong) | |
+| 대표자 | 손휘성 (SON WHEESUNG) | |
 | 사업자등록번호 | 749-25-02260 | 한국 개발자 추가 정보(Play 계정 세부정보)에도 입력 |
-| 통신판매업 신고번호 | 제2026-울산중구-0170호 (신고기관: 울산 중구청) | 유료 디지털 상품 판매자 표시 의무 |
-| 사업장 주소 | 울산광역시 중구 성안 5길 22, 2층 204호(성안동), 44421 / 204, 2F, 22 Seongan 5-gil, Jung-gu, Ulsan, 44421, Republic of Korea | |
+| 통신판매업 신고번호 | 제2026-경북경주-0475호 (신고기관: 경상북도 경주시청) | 유료 디지털 상품 판매자 표시 의무 |
+| 사업장 주소 | 경상북도 경주시 원화로 345, 4층 401-9호(성동동), 38138 / 401-9, 4F, 345 Wonhwa-ro, Gyeongju-si, Gyeongsangbuk-do, 38138, Republic of Korea | |
 | 패키지 · app_code | `com.vivacegames.idearepository` · `idearepository` | CLAUDE.md §14 L |
 | 출시 계정 | Vivace Games Studio(개인, `6329667596149711059`) | 비공개 테스트 12명×14일 |
 
