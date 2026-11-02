@@ -1,7 +1,7 @@
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, StyleSheet } from 'react-native';
+import { Alert, Linking, StyleSheet, Text } from 'react-native';
 
 import { ListRow } from '@/components/list-row';
 import { OptionSheet, type SheetOption } from '@/components/option-sheet';
@@ -22,6 +22,7 @@ import { APP_VERSION } from '@/lib/app-version';
 import { formatDate } from '@/lib/date';
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES, type AppLanguage } from '@/lib/i18n';
 import { useLanguageStore } from '@/lib/language';
+import { LINKS } from '@/lib/links';
 import { useThemeStore } from '@/theme/store';
 import { useTheme } from '@/theme/use-theme';
 
@@ -156,6 +157,19 @@ export default function SettingsScreen() {
             trailing={removeAdsOwned ? 'none' : 'chevron'}
             onPress={removeAdsOwned ? () => {} : () => void buyRemoveAds()}
           />
+          {/* 청약철회 제한 사전 고지 + 약관 링크 (전자상거래법 제17조 제2항, docs/LEGAL_SYSTEM.md) — 구매 전에만 */}
+          {removeAdsOwned ? null : (
+            <Text style={[styles.purchaseNotice, { color: theme.textMuted }]}>
+              {t('purchase.notice')}{' '}
+              <Text
+                accessibilityRole="link"
+                style={styles.purchaseNoticeLink}
+                onPress={() => void Linking.openURL(LINKS.terms).catch(() => {})}
+              >
+                {t('purchase.noticeTerms')}
+              </Text>
+            </Text>
+          )}
           <ListRow
             icon="refresh-outline"
             title={t('purchase.restore')}
@@ -197,4 +211,6 @@ export default function SettingsScreen() {
 
 const styles = StyleSheet.create({
   body: { padding: 16, gap: 12, paddingBottom: 24 },
+  purchaseNotice: { fontSize: 12, lineHeight: 17, paddingHorizontal: 4 },
+  purchaseNoticeLink: { textDecorationLine: 'underline' },
 });

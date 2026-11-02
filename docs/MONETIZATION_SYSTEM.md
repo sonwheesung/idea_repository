@@ -72,7 +72,7 @@ Remove Ads는 **기능 상품이 아니다** — 광고만 사라진다(기획�
 확정(2026-08-17 사용자 승인): **A. App Open 포맷, 콜드 스타트 1회, 쿨타임 3시간.** 포그라운드 복귀 노출 없음.
 
 ```
-Cold start → last shown ≥ 3h ago? → load & show App Open Ad : continue to Main
+Cold start → welcome sheet closed before? → last shown ≥ 3h ago? → load & show App Open Ad : continue to Main
 ```
 
 | 안 | 트리거 | 정책 | 장단 |
@@ -83,6 +83,7 @@ Cold start → last shown ≥ 3h ago? → load & show App Open Ad : continue to 
 - 어느 안이든 **AdMob 정책 근거**: *"Do not place interstitial ads on app load"*(Disallowed interstitial implementations —
   LinkMemo 2026-08-14 웹 확인). 앱 시작에 전면을 띄우려면 App Open만 가능하다.
 - 어느 안이든 **금지 순간**(§2.3)이 우선한다.
+- **첫 실행(웰컴 시트를 아직 안 닫음)에는 띄우지 않는다**(2026-11-02, CLAUDE §14 X). 광고가 시트를 덮으면 "Start" 탭이 광고 클릭이 된다.
 - App Open 로드 유효기간(4시간)과 쿨타임(3시간) 조합상 **쿨타임이 지난 실행에서만 로드**한다(미리 로드 후 만료 낭비 회피).
   로드 타임아웃 8초 — 시작을 붙잡지 않는다(LinkMemo 승계).
 

@@ -13,7 +13,7 @@
 |---|---|
 | `expo-updates ~29.0.20` · `expo-application ~7.0.8` 설치 | ✅ 2026-09-01 |
 | `app.json` `updates` 블록 | ✅ url(`u.expo.dev/6518e63b…` = `extra.eas.projectId`) · `checkAutomatically: ON_LOAD` · **`requestHeaders["expo-channel-name"]: production`** |
-| `runtimeVersion` | ✅ **고정 문자열 `"1.0.0"`** — fingerprint·appVersion 정책 🚫(§2) |
+| `runtimeVersion` | ✅ **고정 문자열 `"1.1.0"`**(~~`"1.0.0"`~~ → 2026-11-02 vc15, RevenueCat 네이티브 모듈 첫 프로덕션 탑재, CLAUDE §14 X) — fingerprint·appVersion 정책 🚫(§2) |
 | 버전 읽기 단일화 `lib/app-version.ts` | ✅ `Application.nativeApplicationVersion` — OTA 매니페스트가 덮어쓰는 `expoConfig.version`을 게이트·문의·About·백업에서 제거(§6) |
 | `npm run check:ota` | ✅ `scripts/check-ota.mjs` — 채널·URL·runtimeVersion 고정·`expoConfig.version` 직접 읽기 금지 검사 |
 | 빌드 스크립트 `-CleanNative` + 서명 블록 자동 복원 + 매니페스트 채널 검사 | ✅ `tools/build-aab.ps1`(BUILD §3) |
@@ -43,7 +43,7 @@ OTA는 **JS 번들과 에셋만** 바꾼다. 다음은 전부 **AAB 재빌드**�
 `android/`는 CNG 산출물·커밋 안 함)라 같은 함정에 그대로 들어간다. `appVersion` 정책도 쓰지 않는다 — JS만 고친 OTA를 내려면 `version`을
 올리지 않아야 하는데(§6) 그 정책은 `version`이 곧 런타임이라 뒤엉킨다.
 
-- 현재 값 **`"1.0.0"`** — 이건 **네이티브 세대 번호**이고 `version`(1.0.10)과 **무관하다.** 🚫 **둘을 맞추려고 고치지 마라** — 맞추는 순간 기존 빌드가 OTA에서 고아가 된다(`check:ota`가 같으면 실패시킨다).
+- 현재 값 **`"1.1.0"`**(vc15부터. vc11~vc14는 `"1.0.0"` — 이 기기들은 마지막 호환 OTA에 머문다) — 이건 **네이티브 세대 번호**이고 `version`(1.0.10)과 **무관하다.** 🚫 **둘을 맞추려고 고치지 마라** — 맞추는 순간 기존 빌드가 OTA에서 고아가 된다(`check:ota`가 같으면 실패시킨다).
 - **범프 규칙**: §1의 네이티브 변경이 AAB에 실릴 때 `"1.0.0"` → `"1.1.0"`처럼 올린다. 그 뒤로 OTA는 새 런타임 기기에만 간다. 옛 런타임 기기엔 마지막 호환 OTA가 남는다(고장 아님).
 
 ## 3. 🔴 로컬 gradle 빌드는 `eas.json`의 channel을 안 받는다
@@ -52,7 +52,7 @@ OTA는 **JS 번들과 에셋만** 바꾼다. 다음은 전부 **AAB 재빌드**�
 채널은 **`app.json`의 `updates.requestHeaders`**로만 들어간다:
 
 ```jsonc
-"runtimeVersion": "1.0.0",
+"runtimeVersion": "1.1.0",
 "updates": {
   "url": "https://u.expo.dev/6518e63b-54a0-432a-b9a5-56292cf4a523",   // = extra.eas.projectId (check:ota가 대조)
   "checkAutomatically": "ON_LOAD",

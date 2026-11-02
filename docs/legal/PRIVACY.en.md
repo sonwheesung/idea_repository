@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-09-02 (rev. 6 — in-app code updates delivered through Expo EAS Update from version 1.0.10, and the activity signal is also sent when you return to the app; effective 2026-09-02)
+Effective date: 2026-08-17 · Last updated: 2026-11-02 (rev. 7 — from version 1.0.14 the App checks with RevenueCat each time it starts whether Remove Ads was purchased; effective 2026-11-09)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -106,6 +106,8 @@ your card or payment details. Purchase receipts are validated by RevenueCat (US)
 identifier and purchase history so that "Restore Purchases" works after reinstalling or changing devices. We do not
 link purchases to any account (there are none).
 
+From version 1.0.14, the App also contacts RevenueCat each time it starts, even if you have not bought anything, to check whether Remove Ads was purchased. This sends an anonymous identifier created by RevenueCat's SDK; your ideas, notes and resources are never included.
+
 - Purpose: delivering and restoring the purchase.
 - Legal basis (GDPR): performance of a contract.
 - Retention: by the store and RevenueCat under their policies.
@@ -131,7 +133,7 @@ per-device information from it.
 |---|---|---|---|
 | Google (AdMob, Play Billing) | Advertising; payment processing | Advertising ID, approximate location, ad interactions, device/diagnostic info; purchase records | US and global |
 | Apple (App Store) | Payment processing (iOS) | Purchase records | US and global |
-| RevenueCat | Purchase receipt validation and restore | Anonymous purchase ID, purchase history | US |
+| RevenueCat | Purchase ownership check at app start, receipt validation and restore | Anonymous purchase ID, purchase history | US |
 | Vercel | Application server hosting (inquiries, start check) | Inquiry data in transit; transient request logs | US / global |
 | Supabase | Inquiry and statistics database hosting | Inquiry text, category, platform, app version, device UUID; active-day rows (device UUID + date) | Seoul, Republic of Korea |
 | Discord | Internal notification of new inquiries to the operator | Inquiry text summary | US |
@@ -207,7 +209,7 @@ not shared, not used for ads; effective 2026-09-01) · 2026-09-01 rev. 6 (§3.e,
 service at launch for updates to its own code — device OS, runtime version, platform, channel and a random update token
 go to Expo, Inc. (US); nothing of yours. Also §3.c, added 2026-09-02: from version 1.0.10 the activity signal is sent
 not only at launch but also when you return to the app, at most once every 5 minutes — same one-row-per-day record,
-nothing new stored; effective 2026-09-02).
+nothing new stored; effective 2026-09-02) · 2026-11-02 rev. 7 (§3.d, §4: from version 1.0.14 the App contacts RevenueCat at each start, including for people who have not purchased, sending an anonymous identifier to check Remove Ads ownership; effective 2026-11-09).
 
 ## 9. Contact
 

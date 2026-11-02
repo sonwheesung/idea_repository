@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AdEventType, AppOpenAd, TestIds } from 'react-native-google-mobile-ads';
 
 import { adsEnabled, useAdsStore } from '@/features/ads/store';
+import { useOnboardingStore } from '@/features/onboarding/store';
 
 // App Open 광고 — 콜드 스타트에만, 쿨타임 3시간 (docs/MONETIZATION_SYSTEM.md §2.2, CLAUDE.md §14 #2).
 // 포그라운드 복귀에는 절대 띄우지 않는다(호출부가 콜드 스타트 1회만 부른다).
@@ -18,8 +19,29 @@ export async function maybeShowAppOpenAd(): Promise<void> {
   await run().catch(settle);
 }
 
+// 첫 실행(웰컴 시트를 아직 안 닫음)에는 App Open을 띄우지 않는다. 광고가 시트를 덮으면 "Start"를 누르려던 탭이
+// 광고 클릭이 된다(AdMob 실수 클릭 정책, 2026-11-02 실측, CLAUDE §14 X). 복원을 못 기다리면 안전한 쪽(안 띄움)으로 간다.
+async function welcomePending(): Promise<boolean> {
+  if (!useOnboardingStore.getState().hydrated) {
+    await new Promise<void>((resolve) => {
+      const timer = setTimeout(done, 3000);
+      const unsubscribe = useOnboardingStore.subscribe((s) => {
+        if (s.hydrated) done();
+      });
+      function done() {
+        clearTimeout(timer);
+        unsubscribe();
+        resolve();
+      }
+    });
+  }
+  const { hydrated, welcomeSeen } = useOnboardingStore.getState();
+  return !hydrated || !welcomeSeen;
+}
+
 async function run(): Promise<void> {
   if (!adsEnabled()) return settle();
+  if (await welcomePending()) return settle();
 
   try {
     const last = Number((await AsyncStorage.getItem(LAST_SHOWN_KEY)) ?? 0);

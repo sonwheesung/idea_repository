@@ -200,7 +200,7 @@
     "point": {
       "noAccount": "No account, no sign-in. Nothing to register.",
       "noCloud": "No cloud sync. Your ideas never go to our servers.",
-      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob), a start-up and return-to-app check for notices, updates and activity (app version plus a random device ID used only to count active users — never for ads), a check for in-app code updates (Expo — device OS type and a random update token, no personal data), and any support inquiry you choose to send."
+      "whatLeaves": "What does leave your device: the ad SDK (Google AdMob), a start-up and return-to-app check for notices, updates and activity (app version plus a random device ID used only to count active users — never for ads), a check for in-app code updates (Expo — device OS type and a random update token, no personal data), a check for whether Remove Ads was purchased (RevenueCat: an anonymous ID and any purchase history), and any support inquiry you choose to send."
     },
     "readPolicy": "Read the privacy policy",
     "start": "Start"
@@ -434,6 +434,8 @@
     "failed": "The purchase could not be completed.",
     "restored": "Your purchase has been restored.",
     "nothingToRestore": "No previous purchase was found.",
-    "unavailable": "This item is not available right now."
+    "unavailable": "This item is not available right now.",
+    "notice": "Ads are removed as soon as your payment completes, so your right to withdraw may be limited. Refunds follow the store's policy.",
+    "noticeTerms": "View Terms"
   }
 }
