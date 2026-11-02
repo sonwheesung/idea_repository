@@ -1,6 +1,6 @@
 # Idea Repository — Privacy Policy
 
-Effective date: 2026-08-17 · Last updated: 2026-11-02 (rev. 7 — from version 1.0.14 the App checks with RevenueCat each time it starts whether Remove Ads was purchased; effective 2026-11-09)
+Effective date: 2026-08-17 · Last updated: 2026-11-02 (rev. 7 — from version 1.0.14 the App checks with RevenueCat each time it starts whether Remove Ads was purchased; effective 2026-11-02)
 
 > Publication target: `https://vivace-games.com/idearepository/privacy` (EN main + KO section).
 > This document is the source text; the published page (`docs/legal/pages/idearepository/privacy/page.tsx`) and the
@@ -209,7 +209,7 @@ not shared, not used for ads; effective 2026-09-01) · 2026-09-01 rev. 6 (§3.e,
 service at launch for updates to its own code — device OS, runtime version, platform, channel and a random update token
 go to Expo, Inc. (US); nothing of yours. Also §3.c, added 2026-09-02: from version 1.0.10 the activity signal is sent
 not only at launch but also when you return to the app, at most once every 5 minutes — same one-row-per-day record,
-nothing new stored; effective 2026-09-02) · 2026-11-02 rev. 7 (§3.d, §4: from version 1.0.14 the App contacts RevenueCat at each start, including for people who have not purchased, sending an anonymous identifier to check Remove Ads ownership; effective 2026-11-09).
+nothing new stored; effective 2026-09-02) · 2026-11-02 rev. 7 (§3.d, §4: from version 1.0.14 the App contacts RevenueCat at each start, including for people who have not purchased, sending an anonymous identifier to check Remove Ads ownership; effective 2026-11-02).
 
 ## 9. Contact
 

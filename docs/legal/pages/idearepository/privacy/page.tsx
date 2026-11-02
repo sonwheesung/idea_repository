@@ -43,7 +43,7 @@ export default function IdeaRepositoryPrivacy() {
   return (
     <main style={{ maxWidth: 760, margin: '0 auto', padding: 32 }}>
       <h1 style={{ fontSize: 26, fontWeight: 900 }}>Idea Repository — Privacy Policy</h1>
-      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-11-02 (rev. 7 — from version 1.0.14 the App checks with RevenueCat each time it starts whether Remove Ads was purchased; effective 2026-11-09)</p>
+      <p style={{ ...muted, fontSize: 13 }}>Effective date: 2026-08-17 · Last updated: 2026-11-02 (rev. 7 — from version 1.0.14 the App checks with RevenueCat each time it starts whether Remove Ads was purchased; effective 2026-11-02)</p>
       <p style={muted}>
         Idea Repository is a personal idea and project organizer. It is built around one principle:{' '}
         <b>your ideas are stored locally on your device and are not uploaded to our servers.</b> Idea Repository has
@@ -335,7 +335,7 @@ export default function IdeaRepositoryPrivacy() {
       <hr style={divider} />
 
       <h1 style={{ fontSize: 24, fontWeight: 900 }}>Idea Repository — 개인정보처리방침 (한국어)</h1>
-      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-11-02 (7차: 1.0.14 버전부터 앱을 실행할 때마다 RevenueCat에 광고 제거 구매 여부를 확인, 2026-11-09 시행)</p>
+      <p style={{ ...muted, fontSize: 13 }}>시행일: 2026-08-17 · 최종 수정: 2026-11-02 (7차: 1.0.14 버전부터 앱을 실행할 때마다 RevenueCat에 광고 제거 구매 여부를 확인, 2026-11-02 시행)</p>
       <p style={muted}>
         휘성게임즈(브랜드 표기 Vivace Games Studio, 이하 &quot;회사&quot;)는 「개인정보 보호법」 제30조에 따라 다음과 같이 개인정보
         처리방침을 수립·공개합니다. Idea Repository(이하 &quot;앱&quot;)는 회원가입·로그인·클라우드 동기화가 없는 개인용 로컬
@@ -562,7 +562,7 @@ export default function IdeaRepositoryPrivacy() {
         <h2 style={h2}>제13조 아동 · 제14조 변경 · 처리자 정보</h2>
         <p style={muted}>
           앱은 만 14세 미만 아동(국외 만 13세 미만 또는 해당국 법령상 더 높은 연령 — 일부 EEA 회원국 만 16세)을 대상으로 하지 않으며 아동의 개인정보를 알면서 수집하지 않습니다. 방침 변경 시 시행 7일 전
-          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행) · 2026-09-01 5차(제1·2·3·6·8조 — 기기 식별자를 최초 실행 시 생성·등록하고 부팅 조회에 실어 기기당 하루 1건의 활성 기록으로 활성 사용자 수 집계, 400일 보관, 광고 식별자와 별개·미제공·광고 미사용 — 2026-09-01 시행) · 2026-09-01 6차(제1·2·3·6·7조 — 1.0.10 버전부터 앱 실행 시 Expo, Inc.(미국)의 EAS Update 서버에 앱 코드 업데이트를 확인·다운로드. 기기 OS 종류·런타임 버전·플랫폼·채널·업데이트 수신 확인용 무작위 토큰 전송, 개인정보·이용자 콘텐츠 미포함. 2026-09-02 추가분(제2조 2항): 1.0.10 버전부터 활성 신호를 앱 실행 시뿐 아니라 앱으로 돌아올 때에도 전송(최소 5분 간격) — 저장 기록은 종전과 같은 기기당 하루 1건, 새 항목 없음 — 2026-09-02 시행) · 2026-11-02 7차(제2조 3항·제6·7조: 1.0.14 버전부터 구매하지 않은 이용자도 앱 실행 시 RevenueCat, Inc.(미국)에 익명 식별자를 보내 광고 제거 구매 여부를 확인. 이용자 콘텐츠는 포함되지 않음. 2026-11-09 시행).
+          (중대한 변경은 30일 전)부터 본 URL과 앱 내 공지사항에 게시합니다. 개정 이력: 2026-08-17 최초 제정 · 2026-08-21 4차(제2항 — 로컬 백업 파일 내보내기·가져오기, 회사 미수신 — 2026-08-28 시행) · 2026-09-01 5차(제1·2·3·6·8조 — 기기 식별자를 최초 실행 시 생성·등록하고 부팅 조회에 실어 기기당 하루 1건의 활성 기록으로 활성 사용자 수 집계, 400일 보관, 광고 식별자와 별개·미제공·광고 미사용 — 2026-09-01 시행) · 2026-09-01 6차(제1·2·3·6·7조 — 1.0.10 버전부터 앱 실행 시 Expo, Inc.(미국)의 EAS Update 서버에 앱 코드 업데이트를 확인·다운로드. 기기 OS 종류·런타임 버전·플랫폼·채널·업데이트 수신 확인용 무작위 토큰 전송, 개인정보·이용자 콘텐츠 미포함. 2026-09-02 추가분(제2조 2항): 1.0.10 버전부터 활성 신호를 앱 실행 시뿐 아니라 앱으로 돌아올 때에도 전송(최소 5분 간격) — 저장 기록은 종전과 같은 기기당 하루 1건, 새 항목 없음 — 2026-09-02 시행) · 2026-11-02 7차(제2조 3항·제6·7조: 1.0.14 버전부터 구매하지 않은 이용자도 앱 실행 시 RevenueCat, Inc.(미국)에 익명 식별자를 보내 광고 제거 구매 여부를 확인. 이용자 콘텐츠는 포함되지 않음. 2026-11-02 시행).
         </p>
         <p style={bullet}>• 상호: 휘성게임즈 (브랜드 표기 Vivace Games Studio) · 대표 손휘성</p>
         <p style={bullet}>• 사업자등록번호: 749-25-02260</p>
