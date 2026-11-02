@@ -7,14 +7,14 @@
     "closed": {
       "android": {
         "track": "alpha",
-        "serviceAccountKeyPath": "../secrets/play-service-account.json",
+        "serviceAccountKeyPath": "C:/project/secrets/play-service-account.json",
         "releaseStatus": "draft"
       }
     },
     "internal": {
       "android": {
         "track": "internal",
-        "serviceAccountKeyPath": "../secrets/play-service-account.json",
+        "serviceAccountKeyPath": "C:/project/secrets/play-service-account.json",
         "releaseStatus": "draft"
       }
     }

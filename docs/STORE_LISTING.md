@@ -289,6 +289,17 @@ Capture your ideas. Keep them private. Build what matters.
 
 > 규칙: ~~비공개 테스트 기간의 수정분은 **AAB 재업로드로만** 반영(OTA 절대 금지 — CLAUDE.md §16).~~ → 2026-09-01 OTA 도입(vc11부터, [`OTA_SYSTEM.md`](./OTA_SYSTEM.md)) — 네이티브 변경은 AAB, JS 수정은 OTA 가능(게시는 사용자 지시). versionCode는 업로드마다 +1, versionName은 사용자 보이는 변경이 있으면 patch +1.
 
+### vc15 · 1.0.14 (2026-11-02) — 광고 제거
+
+```text
+<en-US>
+You can now remove ads with a one-time purchase in Settings. If you reinstall the app or change devices, use Restore Purchases.
+</en-US>
+<ko-KR>
+이제 설정에서 한 번만 구매하면 광고를 없앨 수 있어요. 앱을 다시 설치하거나 기기를 바꾸면 구매 복원을 눌러 주세요.
+</ko-KR>
+```
+
 ### vc14 · 1.0.13 (2026-09-18) — 결제 권한 활성화 (Remove Ads 인프라, 사용자 화면 변화 없음)
 
 > **출시명(릴리스 이름)**: `14 (1.0.13)`. 사용자 눈에 보이는 변화 없음 — `react-native-purchases`로 결제 권한(BILLING)만 병합한 인프라 빌드(BUILD §5·MONETIZATION §4.1). 목적은 Play 일회성 상품 메뉴를 여는 것. **내부 테스트 트랙 업로드용**(프로덕션 승격 전. Remove Ads 실기능은 RC 키 넣은 vc15부터). 앱 용량은 오히려 +2.6MB(모듈 추가)라 "용량 축소" 문구는 쓰지 않는다. 한국어 문구는 간단하지만 ChatGPT 검수 대상(KOREAN_WRITING) — 사장님 요청 시 검수.
